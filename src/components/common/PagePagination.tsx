@@ -28,7 +28,7 @@ const PagePagination = ({ items, maxItem = 10, renderItem }: PagePaginationProps
 			<PaginationContent>
 				{activeIndex > 0 && (
 					<PaginationItem>
-						<PaginationPrevious href={items[activeIndex - 1].url} />
+						<PaginationPrevious  href={items[activeIndex - 1].url} />
 					</PaginationItem>
 				)}
 				{items

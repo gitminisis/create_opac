@@ -3,11 +3,13 @@ import { Input } from '@/components/ui/input'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
 import { Search, SearchIcon } from 'lucide-react'
+import useConstants from '@/hooks/useConstants'
 export interface SearchFormProps extends React.HTMLAttributes<HTMLFormElement> {
 	searchURL: string
 	inputName: string
 }
 const SearchForm = ({ className, searchURL, inputName, ...props }: SearchFormProps) => {
+	const message = useConstants().message
 	return (
 		<form
 			method="POST"
@@ -18,7 +20,7 @@ const SearchForm = ({ className, searchURL, inputName, ...props }: SearchFormPro
 				<Input
 					name={inputName}
 					className="w-full rounded-none pl-8 border-2 py-3 bg-transparent border-opac-green text-white"
-					placeholder="Enter your search"
+					placeholder={message.searchPlaceholder}
 					type="search"
 				/>
 				<SearchIcon className="absolute w-4 h-5 left-2 my-auto  mx-0 right-0 top-0 bottom-0 text-white" />
@@ -27,7 +29,7 @@ const SearchForm = ({ className, searchURL, inputName, ...props }: SearchFormPro
 				variant={'default'}
 				className="right-0 top-0 h-full bg-opac-green"
 				type="submit">
-				<span className="hidden md:block"> Search</span>
+				<span className="hidden md:block"> {message.searchButton}</span>
 				<span className="md:hidden block">
 					<Search className="w-4 h-4" />
 				</span>

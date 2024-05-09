@@ -11,12 +11,14 @@ import SummaryPageAction from './SummaryPageAction'
 import SummaryRecords from './SummaryRecord'
 import PageAction from '@/components/common/PageAction'
 import { SummarySample } from '@/samples'
+import useConstants from '@/hooks/useConstants'
 
 const Summary = () => {
 	const [mobileFilter, setMobileFilter] = useState(false)
 
+	const { message } = useConstants()
 	// const { common, pagination } = useJSONData({ defaultData: SummarySample })
-	const { common, pagination,backToSummary } = useJSONData({ selector: '#xml_record' })
+	const { common, pagination, backToSummary } = useJSONData({ selector: '#xml_record' })
 
 	if (!common || !pagination) return <></>
 	return (
@@ -24,9 +26,9 @@ const Summary = () => {
 			<div className="rounded-sm border border-primary bg-background shadow-md md:shadow-xl h-full flex-col flex w-full my-12">
 				<PageAction
 					breadcrumbs={[
-						{ label: 'Home', url: '/' },
+						{ label: message.home, url: '/' },
 						{
-							label: 'Summary',
+							label: message.summaryPage,
 							url: backToSummary,
 							active: true,
 						},
@@ -44,8 +46,8 @@ const Summary = () => {
 				<section>
 					<div className="mx-auto py-4 sm:py-12  container flex flex-col">
 						<PageHeader
-							heading={`${common.total_record} results for "${common.search_statement}"`}
-							subHeading={`Displaying ${common.first_record_seq}-${common.last_record_seq} of ${common.total_record}`}
+							heading={`${common.total_record} ${message.resultsFor.toLowerCase()} "${common.search_statement}"`}
+							subHeading={`${message.displaying} ${common.first_record_seq}-${common.last_record_seq} ${message.of} ${common.total_record}`}
 						/>
 						<div className="mt-8 block lg:hidden">
 							<Button

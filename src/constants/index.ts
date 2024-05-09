@@ -10,6 +10,7 @@ export const CONSTANTS = {
 		styles: en.styles,
 		faq: en.faq,
 		fields: en.fields,
+		message: en.message,
 	},
 	FR: {
 		config: fr.config,
@@ -18,5 +19,6 @@ export const CONSTANTS = {
 		styles: fr.styles,
 		faq: fr.faq,
 		fields: fr.fields,
+		message: en.message,
 	},
 }

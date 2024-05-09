@@ -1,0 +1,17 @@
+{
+    "searchPlaceholder": "Enter Your Search",
+    "searchButton": "Search",
+    "summaryPage": "Summary Page",
+    "detailPage": "Detail Page",
+    "resultsFor": "Result For",
+    "displaying": "Displaying",
+    "of": "of",
+    "next": "Next",
+    "previous": "Previous",
+    "recordPerPage": "Records Per Page",
+    "noOptionsAvailable": "No Options Available",
+    "sortBy": "Sort By",
+    "filterBy": "Filter By",
+    "bookmark": "Bookmark",
+    "home": "Home"
+}

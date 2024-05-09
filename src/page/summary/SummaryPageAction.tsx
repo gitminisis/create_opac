@@ -1,6 +1,7 @@
 import CheckboxWithLabel from '@/components/common/CheckboxWithLabel'
 import CollapseList from '@/components/common/CollapseList'
 import DropdownSelect from '@/components/common/DropdownSelect'
+import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { SummarySample } from '@/samples'
 import { Label } from '@radix-ui/react-dropdown-menu'
@@ -13,22 +14,23 @@ import { Label } from '@radix-ui/react-dropdown-menu'
  * - Bookmark
  */
 const SummaryPageAction = () => {
+	const { message } = useConstants()
 	const { filter } = useJSONData({ selector: '#xml_record' })
 	// const { filter } = useJSONData({ defaultData: SummarySample })
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex flex-col space-y-2">
-				<Label>Record per page</Label>
+				<Label>{message.recordPerPage}</Label>
 				<DropdownSelect title={'Select records number'} options={[]} />
 			</div>
 			<div className="flex flex-col space-y-2">
-				<Label>Sort by</Label>
-				<DropdownSelect title={'Sort by'} options={[]} />
+				<Label>{message.sortBy}</Label>
+				<DropdownSelect title={message.sortBy} options={[]} />
 			</div>
 
 			{filter && filter.length > 0 && (
 				<div className="flex flex-col space-y-2">
-					<Label>Filter by</Label>
+					<Label>{message.filterBy}</Label>
 					<div className="flex flex-col space-y-4">
 						{filter.map((item, index) => (
 							<CollapseList title={item._title} expand={index === 0} key={item._name}>
