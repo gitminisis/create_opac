@@ -17,13 +17,6 @@
 				"detail": true
 			},
 			{
-				"label": "Object Name",
-				"name": "OBJECT_NAME",
-				"summary": true,
-				"grid": true,
-				"detail": true
-			},
-			{
 				"label": "Collection Type",
 				"name": "collect_typ_lan1",
 				"summary": false,

@@ -24,6 +24,7 @@ const DetailRecord = (props: Props) => {
 		(data, item) => ({ label: item.label, value: data })
 	) as TableRow[]
 
+	
 	return (
 		<>
 			<RecordDetail heading={title} subHeading={recordData.collection}>
