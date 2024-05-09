@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import useJSONData from '@/hooks/useJSONData'
 import DetailRecord from './DetailRecord'
 import { DetailM3Sample } from '@/samples'
+import useConstants from '@/hooks/useConstants'
+import { home } from '@/constants'
 
 const images = [
 	{
@@ -33,20 +35,22 @@ const Detail = () => {
 	// const { backToSummary, records, getMedia } = useJSONData({ defaultData: DetailM3Sample })
 	const images = getMedia(records[0], 'im_access_link')?.map((e) => ({ src: e })) || []
 
+	const { message } = useConstants()
 	// TODO: create placeholder component when there is no data
 	if (!records || records.length === 0) return <></>
+
 	return (
 		<Layout>
 			<div className="rounded-[0.5rem] border bg-background shadow-md md:shadow-xl h-full flex-col flex w-full my-12">
 				<PageAction
 					breadcrumbs={[
-						{ label: 'Home', url: '/' },
+						{ label: message.home, url: '/' },
 						{
-							label: 'Summary',
+							label: message.summaryPage,
 							url: backToSummary,
 						},
 						{
-							label: 'Detail',
+							label: message.detailPage,
 							active: true,
 							url: '#',
 						},

@@ -13,5 +13,7 @@
     "sortBy": "Trier par",
     "filterBy": "Filtrer par",
     "bookmark": "Favoris",
-    "home": "Domicile"
+    "home": "Domicile",
+    "copy": "Copie",
+    "print": "Imprimer"
 }

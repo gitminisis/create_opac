@@ -13,5 +13,7 @@
     "sortBy": "Sort By",
     "filterBy": "Filter By",
     "bookmark": "Bookmark",
-    "home": "Home"
+    "home": "Home",
+    "copy": "Copy",
+    "print": "Print"
 }
