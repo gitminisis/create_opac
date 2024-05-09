@@ -3,7 +3,7 @@
 		"database": "COLLECTIONS_WEB",
 		"items": [
 			{
-				"label": "Titre",
+				"label": "Title",
 				"name": "LEGAL_TITLE",
 				"summary": true,
 				"grid": true,
