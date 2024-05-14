@@ -36,7 +36,7 @@ const DetailRecordAction = () => {
 
 				<div className="flex space-x-2">
 					<Button className="" variant="outline">
-						<Heart className="w-4 h-4 mr-2 hidden md:block" /> Save
+						<Heart className="w-4 h-4 mr-2 hidden md:block" /> {message.save}
 					</Button>
 					<Button
 						variant="outline"

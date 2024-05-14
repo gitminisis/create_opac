@@ -76,7 +76,7 @@ const Detail = () => {
 										)}
 									/>
 								) : (
-									<span>No Media Found</span>
+									<span>{message.noMediaFound}</span>
 								)}
 							</div>
 							<div className="grid gap-4 md:gap-10 items-start w-1/2">
