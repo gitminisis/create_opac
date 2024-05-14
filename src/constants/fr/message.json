@@ -1,7 +1,7 @@
 {
-    "searchPlaceholder": "Entrez votre recherche",
+    "searchPlaceholder": "Saisissez les termes de votre recherche",
     "searchButton": "Recherche",
-    "summaryPage": "Page sommaire",
+    "summaryPage": "Page des résultats",
     "detailPage": "Page de détails",
     "resultsFor": "Résultats Pour",
     "displaying": "Affichage ",
@@ -13,7 +13,16 @@
     "sortBy": "Trier par",
     "filterBy": "Filtrer par",
     "bookmark": "Favoris",
-    "home": "Domicile",
+    "home": "Accueil",
     "copy": "Copie",
-    "print": "Imprimer"
+    "print": "Imprimer",
+    "save": "Sauvé",
+    "noMediaFound": "Aucune Média Trouvé",
+    "selectRecordsNumber": "Sélectionnez Le Nombre d'enregistrements",
+    "grid": "Mosaique",
+    "list": "Liste",
+    "camera": "Caméra",
+    "books": "Livres",
+    "audio": " L’Audio",
+    "video": "La Vidéo"
 }

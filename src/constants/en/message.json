@@ -15,5 +15,14 @@
     "bookmark": "Bookmark",
     "home": "Home",
     "copy": "Copy",
-    "print": "Print"
+    "print": "Print",
+    "save": "Save",
+    "noMediaFound": "No Media Found",
+    "selectRecordsNumber": "Select Records Number",
+    "grid": "Grid",
+    "list": "List",
+    "camera": "Camera",
+    "books": "Books",
+    "audio": "Audio",
+    "video": "Video"
 }
