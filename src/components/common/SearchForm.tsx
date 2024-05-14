@@ -29,8 +29,8 @@ const SearchForm = ({ className, searchURL, inputName, ...props }: SearchFormPro
 				variant={'default'}
 				className="right-0 top-0 h-full bg-opac-green"
 				type="submit">
-				<span className="hidden md:block"> {message.searchButton}</span>
-				<span className="md:hidden block">
+				{/* <span className="hidden md:block"> {message.searchButton}</span> */}
+				<span className=" block">
 					<Search className="w-4 h-4" />
 				</span>
 			</Button>
