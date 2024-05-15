@@ -22,7 +22,6 @@ const ImageCarousel = ({ items, renderItems }: ImageCarouselProps) => {
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex w-full group cursor-pointer relative">
-				// eslint-disable-next-line jsx-a11y/alt-text
 				<img className="mx-auto w-full lg:max-w-[400px]" {...currentImage} />
 				<Scan
 					strokeWidth={'3px'}
