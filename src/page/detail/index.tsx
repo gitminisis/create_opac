@@ -35,6 +35,8 @@ const Detail = () => {
 	// const { backToSummary, records, getMedia } = useJSONData({ defaultData: DetailM3Sample })
 	const images = getMedia(records[0], 'im_access_link')?.map((e) => ({ src: e })) || []
 
+
+
 	const { message } = useConstants()
 	// TODO: create placeholder component when there is no data
 	if (!records || records.length === 0) return <></>

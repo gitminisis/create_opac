@@ -1,10 +1,9 @@
 import { GenericObject, deepSearchKey } from '@/lib/record'
-import { useEffect, useState } from 'react'
-import X2JS from 'x2js'
-import summary from '../samples/summary.json'
 import { FilterItem } from '@/types/filter'
 import { Pagination } from '@/types/pagination'
 import { Record } from '@/types/record'
+import { useState } from 'react'
+import X2JS from 'x2js'
 type Props = {
 	selector?: string
 	defaultData?: GenericObject
@@ -27,6 +26,16 @@ type COMMON_FIELDS_OBJECT = {
 	[key in COMMON_FIELDS_TYPE]?: string | number
 }
 
+const ARRAY_ACCESS_PATHS = [
+	'xml.xml_record',
+	'xml.div.xml.filter.item_group',
+	'xml.xml_record.media.im_access_link',
+	'xml.xml_record.media.ad_access_link',
+	'xml.xml_record.media.vd_access_link',
+	'xml.xml_record.media.tx_access_link',
+	'xml.xml_record.media.image_caption',
+]
+
 export const getRecordXML = (id: string) => {
 	return document.querySelector(id) || null
 }
@@ -37,7 +46,7 @@ export const getDataFromXML = (id: string) => {
 	if (xml) {
 		try {
 			const x2js = new X2JS({
-				arrayAccessFormPaths: ['xml.xml_record', 'xml.div.xml.filter.item_group'],
+				arrayAccessFormPaths: ARRAY_ACCESS_PATHS,
 			})
 			const xmlString = new XMLSerializer().serializeToString(xml)
 			const json = x2js.xml2js(xmlString) as GenericObject
