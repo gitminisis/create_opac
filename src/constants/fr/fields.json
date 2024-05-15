@@ -20,21 +20,21 @@
 				"label": "Type de collection",
 				"name": "collect_typ_lan1",
 				"summary": false,
-				"grid": true,
+				"grid": false,
 				"detail": true
 			},
 			{
 				"label": "Nom de l'objet",
 				"name": "obj_nme_alt_lan1",
 				"summary": false,
-				"grid": true,
+				"grid": false,
 				"detail": true
 			},
 			{
 				"label": "Description",
 				"name": "obj_description",
 				"summary": false,
-				"grid": true,
+				"grid": false,
 				"detail": true
 			},
 			{

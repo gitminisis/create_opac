@@ -20,21 +20,21 @@
 				"label": "Collection Type",
 				"name": "collection_type",
 				"summary": false,
-				"grid": true,
+				"grid": false,
 				"detail": true
 			},
 			{
 				"label": "Object Name",
 				"name": "object_name_eng",
 				"summary": false,
-				"grid": true,
+				"grid": false,
 				"detail": true
 			},
 			{
 				"label": "Description",
 				"name": "obj_description",
 				"summary": false,
-				"grid": true,
+				"grid": false,
 				"detail": true
 			},
 			{
