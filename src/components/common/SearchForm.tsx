@@ -23,7 +23,7 @@ const SearchForm = ({ className, searchURL, inputName, ...props }: SearchFormPro
 					placeholder={message.searchPlaceholder}
 					type="search"
 				/>
-				<SearchIcon className="absolute w-4 h-5 left-2 my-auto  mx-0 right-0 top-0 bottom-0 text-white" />
+				{/* <SearchIcon className="absolute w-4 h-5 left-2 my-auto  mx-0 right-0 top-0 bottom-0 text-white" /> */}
 			</div>
 			<Button
 				variant={'default'}

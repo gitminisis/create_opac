@@ -10,6 +10,7 @@ built to be generic and easy to modify.
 ## Feature
 
 -   ✅Search (Union, single)
+-   ✅Internationalization
 -   ✅Advanced search
 -   ✅Bookmark record
 -   ✅Permanent record URL
@@ -82,6 +83,7 @@ Once everything is installed, you have a couple of options to choose here
 
 ## Setup the backend
 
+
 ### IIS
 
 ### MWI
@@ -132,9 +134,101 @@ questions
 -   Otherwise, `/ui` is for headless UI component, consider this if your component checks out the
     following:
     -   Minimum styling and easy to customize
-    -   Have no dependencies on any other components (if it does, it can only import from some from
+    -   Have no **dependencies** on any other components (if it does, it can only import from some from
         `/ui` itself and only the neccessary ones)
 
+
+## Internationalization
+
+Under the `constants` folder, there are sub-folders for each supported language (i.e :`en`, `fr`, ...). These sub-folders must have the exact same files' name and content with the translation of the respective language.
+
+
+### Add a new language
+
+- Create a new sub-folder for the language under `/constants` folder. Please search for locale code before doing so
+- Add the new language to `constants/index.ts`. An example looks like below:
+```ts
+import en from './en'
+import fr from './fr'
+import theme from '@/themes/index.json'
+
+export const CONSTANTS = {
+	EN: {
+		config: en.config,
+		home: en.home,
+		theme: theme,
+		styles: en.styles,
+		faq: en.faq,
+		fields: en.fields,
+		message: en.message,
+	},
+	FR: {
+		config: fr.config,
+		home: fr.home,
+		theme: theme,
+		styles: fr.styles,
+		faq: fr.faq,
+		fields: fr.fields,
+		message: fr.message,
+	},
+}
+```
+
+- Define new language code in `src/types/lang.ts`
+```ts
+export type LanguageCode = 'EN' | 'FR'
+export interface Language {
+	id?: string
+	code: LanguageCode
+}
+export const ENGLISH_CODE = 'EN'
+export const FRENCH_CODE = 'FR'
+```
+- Add a new language item in `src/components/common/LanguageSelect.tsx`
+
+```ts
+export const LANGUAGE_ITEMS: ILANGUAGE[] = [
+	{
+		code: ENGLISH_CODE,
+		name: 'English',
+		icon: 'https://www.svgrepo.com/show/405643/flag-for-flag-united-kingdom.svg',
+	},
+	{
+		code: FRENCH_CODE,
+		name: 'Français',
+		icon: 'https://www.svgrepo.com/show/405485/flag-for-flag-france.svg',
+	},
+]
+```
+
+### message.json
+
+For every term that can be reused through out the site, they can be put in `/{lang}/message.json`. An example would be:
+```json
+{
+    "searchPlaceholder": "Enter Your Search",
+    "searchButton": "Search",
+    "summaryPage": "Summary Page",
+    "detailPage": "Detail Page",
+    "resultsFor": "Result For",
+    ...
+}
+```
+
+Once you have these defined, you can use them in your component by using the `useConstants` hook
+
+
+```ts
+const { message } = useConstants();
+```
+
+This message variable will have all the keys you have defined in your `message.json` that you can directly use, for example
+
+```ts
+<p>{message.summaryPage}</p>
+```
+
+*Note*: Please make sure you have all these properties defined in all your `message.json` file
 ## Routing
 
 Information on how routing is handled in the project, especially if React Router or any other

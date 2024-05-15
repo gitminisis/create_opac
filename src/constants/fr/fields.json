@@ -24,6 +24,20 @@
 				"detail": true
 			},
 			{
+				"label": "Nom de l'objet",
+				"name": "obj_nme_alt_lan1",
+				"summary": false,
+				"grid": true,
+				"detail": true
+			},
+			{
+				"label": "Description",
+				"name": "obj_description",
+				"summary": false,
+				"grid": true,
+				"detail": true
+			},
+			{
 				"label": "Author",
 				"name": "Author",
 				"summary": false,
@@ -33,55 +47,6 @@
 			{
 				"name": "l_publisher",
 				"label": "Publisher",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "SUB_CLASSIFY",
-				"label": "Sub-Classification",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "PRIMARY",
-				"label": "Primary",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "ASSOC_FULLNAME",
-				"label": "Associated Person",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "ORG_ASSOC",
-				"label": "Associated Organization",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "ASSOC_EVENT",
-				"label": "Associated Event",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "PLACE_ASSOC_NAME",
-				"label": "Associated Place",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "SITE_NAME",
-				"label": "Associated Place",
 				"summary": false,
 				"grid": false,
 				"detail": true

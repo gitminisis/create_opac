@@ -18,7 +18,21 @@
 			},
 			{
 				"label": "Collection Type",
-				"name": "collect_typ_lan1",
+				"name": "collection_type",
+				"summary": false,
+				"grid": true,
+				"detail": true
+			},
+			{
+				"label": "Object Name",
+				"name": "object_name_eng",
+				"summary": false,
+				"grid": true,
+				"detail": true
+			},
+			{
+				"label": "Description",
+				"name": "obj_description",
 				"summary": false,
 				"grid": true,
 				"detail": true
@@ -33,55 +47,6 @@
 			{
 				"name": "l_publisher",
 				"label": "Publisher",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "SUB_CLASSIFY",
-				"label": "Sub-Classification",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "PRIMARY",
-				"label": "Primary",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "ASSOC_FULLNAME",
-				"label": "Associated Person",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "ORG_ASSOC",
-				"label": "Associated Organization",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "ASSOC_EVENT",
-				"label": "Associated Event",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "PLACE_ASSOC_NAME",
-				"label": "Associated Place",
-				"summary": false,
-				"grid": false,
-				"detail": true
-			},
-			{
-				"name": "SITE_NAME",
-				"label": "Associated Place",
 				"summary": false,
 				"grid": false,
 				"detail": true
