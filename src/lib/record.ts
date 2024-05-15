@@ -5,7 +5,7 @@ import axios from 'axios'
 import copy from 'copy-to-clipboard'
 const DEFAULT_DETAIL_REPORT = 'WEB_UNION_DETAIL'
 const DEFAULT_SUM_REPORT = 'WEB_UNION_SUM'
-const WEB_DNS = 'http://opactemplate.minisisinc.com'
+const WEB_DNS = 'https://camsdev-sfopho.minisisinc.com/'
 
 export type RENDERED_COMPONENT = React.ReactNode | object | null
 
