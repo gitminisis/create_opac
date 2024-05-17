@@ -1,22 +1,15 @@
-import Hero from '@/components/common/Hero'
-import SearchForm from '@/components/common/SearchForm'
 import Layout from '@/components/layouts'
-import useConstants from '@/hooks/useConstants'
+import React from 'react'
 
 const NoRecord = () => {
-	const { heading, heroBanner, searchURL } = useConstants().home
 	return (
 		<Layout>
 			<div className="flex h-screen flex-col bg-white">
-				<Hero className="" title={heading} backgroundImage={heroBanner} description="">
-					<SearchForm
-						className="w-full mt-6 max-w-2xl"
-						searchURL={searchURL}
-						inputName={'KEYWORD_CLUSTER'}
-					/>
-
-					{/* <CommandDemo /> */}
-				</Hero>
+				<img
+					src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
+					alt=""
+					className="h-64 w-full object-cover"
+				/>
 
 				<div className="flex flex-1 items-center justify-center">
 					<div className="mx-auto max-w-xl px-4 py-8 text-center">
