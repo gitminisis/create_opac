@@ -77,7 +77,7 @@ const RecordView = ({ record }: { record: Record }) => {
 				description={gridFields}
 				thumbnail={thumbnail || 'https://placehold.co/250x250'}
 				footer={
-					<div className="flex h-4 items-center space-x-4 w-full justify-evenly ">
+					<div className="flex h-4 items-center space-x-4 w-full justify-center ">
 						<RecordAction record={record} />
 					</div>
 				}

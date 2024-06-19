@@ -7,8 +7,9 @@ import useConstants from '@/hooks/useConstants'
 export interface SearchFormProps extends React.HTMLAttributes<HTMLFormElement> {
 	searchURL: string
 	inputName: string
+	inputStyle?: string
 }
-const SearchForm = ({ className, searchURL, inputName, ...props }: SearchFormProps) => {
+const SearchForm = ({ className, searchURL, inputName, inputStyle, ...props }: SearchFormProps) => {
 	const message = useConstants().message
 	return (
 		<form
@@ -19,7 +20,10 @@ const SearchForm = ({ className, searchURL, inputName, ...props }: SearchFormPro
 			<div className="w-3/4 relative">
 				<Input
 					name={inputName}
-					className="w-full rounded-none pl-8 border-2 py-3 bg-transparent border-opac-green text-white"
+					className={cn(
+						'w-full rounded-none pl-4 border-2 py-3 bg-transparent border-opac-green text-white',
+						inputStyle
+					)}
 					placeholder={message.searchPlaceholder}
 					type="search"
 				/>

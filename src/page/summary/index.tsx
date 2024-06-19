@@ -41,7 +41,8 @@ const Summary = () => {
 						</Button> */}
 						{/* <Separator orientation="vertical" /> */}
 						<SearchForm
-							className="w-full mt-6 max-w-2xl"
+							className="w-full"
+							inputStyle="text-black"
 							searchURL={home.searchURL}
 							inputName={'KEYWORD_CLUSTER'}
 						/>
