@@ -16,16 +16,64 @@ import { Label } from '@radix-ui/react-dropdown-menu'
 const SummaryPageAction = () => {
 	const { message } = useConstants()
 	const { filter } = useJSONData({ selector: '#xml_record' })
-	// const { filter } = useJSONData({ defaultData: SummarySample })
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex flex-col space-y-2">
 				<Label>{message.recordPerPage}</Label>
-				<DropdownSelect title={message.selectRecordsNumber} options={[]} />
+				<DropdownSelect
+					className="text-left"
+					title={message.selectRecordsNumber}
+					options={[
+						{
+							label: 'Display 12 records',
+							value: 12,
+						},
+						{
+							label: 'Display 25 records',
+							value: 25,
+						},
+						{
+							label: 'Display 50 records',
+							value: 50,
+						},
+						{
+							label: 'Display 100 records',
+							value: 100,
+						},
+					]}
+				/>
 			</div>
 			<div className="flex flex-col space-y-2">
 				<Label>{message.sortBy}</Label>
-				<DropdownSelect title={message.sortBy} options={[]} />
+				<DropdownSelect
+					title={message.sortBy}
+					options={[
+						{
+							label: 'Default',
+							value: '',
+						},
+						{
+							label: 'Accession Number',
+							value: '',
+						},
+						{
+							label: 'Title Ascending',
+							value: '',
+						},
+						{
+							label: 'Title Descending',
+							value: '',
+						},
+						{
+							label: 'Date Ascending',
+							value: '',
+						},
+						{
+							label: 'Date Descending',
+							value: '',
+						},
+					]}
+				/>
 			</div>
 
 			{filter && filter.length > 0 && (
