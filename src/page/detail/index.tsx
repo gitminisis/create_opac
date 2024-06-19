@@ -11,7 +11,6 @@ import useJSONData from '@/hooks/useJSONData'
 import DetailRecord from './DetailRecord'
 import { DetailM3Sample } from '@/samples'
 import useConstants from '@/hooks/useConstants'
-import { home } from '@/constants'
 
 const images = [
 	{
@@ -35,9 +34,7 @@ const Detail = () => {
 	// const { backToSummary, records, getMedia } = useJSONData({ defaultData: DetailM3Sample })
 	const images = getMedia(records[0], 'im_access_link')?.map((e) => ({ src: e })) || []
 
-
-
-	const { message } = useConstants()
+	const { message, home } = useConstants()
 	// TODO: create placeholder component when there is no data
 	if (!records || records.length === 0) return <></>
 
@@ -61,6 +58,19 @@ const Detail = () => {
 						<SlidersHorizontal className="mr-2 h-4 w-4" />
 						Advanced Search
 					</Button> */}
+					<div className="flex w-full flex-row space-x-2 justify-end">
+						{/* <Button>
+							<SlidersHorizontal className="mr-2 h-4 w-4" />
+							Advanced Search
+						</Button> */}
+						{/* <Separator orientation="vertical" /> */}
+						<SearchForm
+							className="w-[450px] m-0"
+							inputStyle="text-black"
+							searchURL={home.searchURL}
+							inputName={'KEYWORD_CLUSTER'}
+						/>
+					</div>
 				</PageAction>
 				<section>
 					<div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
