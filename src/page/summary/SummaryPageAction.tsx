@@ -58,27 +58,27 @@ const SummaryPageAction = () => {
 					title={message.sortBy}
 					options={[
 						{
-							label: 'Default',
+							label: message.sortDefault,
 							value: 'test',
 						},
 						{
-							label: 'Accession Number',
+							label: message.sortAccessionNumberAscending,
 							value: 'test',
 						},
 						{
-							label: 'Title Ascending',
+							label: message.sortTitleAscending,
 							value: 'test',
 						},
 						{
-							label: 'Title Descending',
+							label: message.sortTitleDescending,
 							value: 'test',
 						},
 						{
-							label: 'Date Ascending',
+							label: message.sortDateAscending,
 							value: 'test',
 						},
 						{
-							label: 'Date Descending',
+							label: message.sortDateDescending,
 							value: 'test',
 						},
 					]}

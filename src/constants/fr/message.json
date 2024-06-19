@@ -26,5 +26,11 @@
     "books": "Livres",
     "audio": " L’Audio",
     "video": "La Vidéo",
-    "rsvpCancellationMessage": "We will send you email about your cancellation detail"
+    "rsvpCancellationMessage": "We will send you email about your cancellation detail",
+    "sortDefault": "Défaut",
+    "sortTitleAscending": "Trier Par A-Z Titre",
+    "sortTitleDescending": "Trier Par Z-A Titre",
+    "sortDateAscending": "Trier par le plus récent au plus ancien",
+    "sortDateDescending": "Trier du plus ancien au plus récent",
+    "sortAccessionNumberAscending": "Trier par numéro d'accession"
 }

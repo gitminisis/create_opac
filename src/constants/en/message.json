@@ -26,5 +26,11 @@
     "books": "Books",
     "audio": "Audio",
     "video": "Video",
-    "rsvpCancellationMessage": "We will send you email about your cancellation detail"
+    "rsvpCancellationMessage": "We will send you email about your cancellation detail",
+    "sortDefault": "Default",
+    "sortTitleAscending": "Sort A-Z Title",
+    "sortTitleDescending": "Sort Z-A Title",
+    "sortDateAscending": "Sort Newest to Oldest",
+    "sortDateDescending": "Sort Oldest to Newest",
+    "sortAccessionNumberAscending": "Sort by Accession Number"
 }

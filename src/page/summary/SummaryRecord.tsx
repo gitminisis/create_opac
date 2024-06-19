@@ -111,7 +111,7 @@ const RecordAction = ({ record }: { record: Record }) => {
 
 	return (
 		<>
-			<Button
+			{/* <Button
 				variant="ghost"
 				size="icon"
 				onClick={() => {
@@ -128,8 +128,8 @@ const RecordAction = ({ record }: { record: Record }) => {
 					fill={like ? 'hsl(var(--opac-blue))' : 'rgb(0,0,0,0)'}
 					stroke={like ? 'hsl(var(--opac-blue))' : 'hsl(var(--primary'}
 				/>
-			</Button>
-			<Separator orientation="vertical" />
+			</Button> */}
+			{/* <Separator orientation="vertical" /> */}
 			<Button
 				variant="ghost"
 				size="icon"
@@ -141,10 +141,10 @@ const RecordAction = ({ record }: { record: Record }) => {
 				}}>
 				<Copy className="h-4 w-4 text-primary" />
 			</Button>
-			<Separator orientation="vertical" />
-			<Button variant="ghost" size="icon">
+			{/* <Separator orientation="vertical" /> */}
+			{/* <Button variant="ghost" size="icon">
 				<Mail className="h-4 w-4 text-primary" />
-			</Button>
+			</Button> */}
 		</>
 	)
 }

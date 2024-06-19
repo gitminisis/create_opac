@@ -35,9 +35,9 @@ const DetailRecordAction = () => {
 				</Button>
 
 				<div className="flex space-x-2">
-					<Button className="" variant="outline">
+					{/* <Button className="" variant="outline">
 						<Heart className="w-4 h-4 mr-2 hidden md:block" /> {message.save}
-					</Button>
+					</Button> */}
 					<Button
 						variant="outline"
 						onClick={() => {
@@ -48,9 +48,9 @@ const DetailRecordAction = () => {
 						}}>
 						<Link className="w-4 h-4 mr-2 hidden md:block" /> {message.copy}
 					</Button>
-					<Button variant="outline">
+					{/* <Button variant="outline">
 						<Printer className="w-4 h-4 mr-2 hidden md:block" /> {message.print}
-					</Button>
+					</Button> */}
 				</div>
 
 				<Button
