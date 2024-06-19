@@ -50,27 +50,27 @@ const SummaryPageAction = () => {
 					options={[
 						{
 							label: 'Default',
-							value: '',
+							value: 'test',
 						},
 						{
 							label: 'Accession Number',
-							value: '',
+							value: 'test',
 						},
 						{
 							label: 'Title Ascending',
-							value: '',
+							value: 'test',
 						},
 						{
 							label: 'Title Descending',
-							value: '',
+							value: 'test',
 						},
 						{
 							label: 'Date Ascending',
-							value: '',
+							value: 'test',
 						},
 						{
 							label: 'Date Descending',
-							value: '',
+							value: 'test',
 						},
 					]}
 				/>
