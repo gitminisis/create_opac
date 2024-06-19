@@ -23,7 +23,7 @@ const DropdownSelect = ({ title, options, register, className }: DropdownSelectP
 	const { message } = useConstants()
 	return (
 		<div className={cn('flex flex-col space-y-2', className)}>
-			<Select {...register}>
+			<Select className="text-left" {...register}>
 				<SelectTrigger className="">
 					<SelectValue placeholder={title || 'Select'} />
 				</SelectTrigger>

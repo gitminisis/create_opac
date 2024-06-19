@@ -21,23 +21,23 @@ const SummaryPageAction = () => {
 			<div className="flex flex-col space-y-2">
 				<Label>{message.recordPerPage}</Label>
 				<DropdownSelect
-					className="text-left"
+					
 					title={message.selectRecordsNumber}
 					options={[
 						{
-							label: 'Display 12 records',
+							label: `${message.displaying} 12 ${message.record}s`,
 							value: 12,
 						},
 						{
-							label: 'Display 25 records',
+							label: `${message.displaying} 25 ${message.record}s`,
 							value: 25,
 						},
 						{
-							label: 'Display 50 records',
+							label: `${message.displaying} 50 ${message.record}s`,
 							value: 50,
 						},
 						{
-							label: 'Display 100 records',
+							label: `${message.displaying} 100 ${message.record}s`,
 							value: 100,
 						},
 					]}
