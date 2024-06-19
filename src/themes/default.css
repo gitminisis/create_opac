@@ -79,6 +79,7 @@
 	box-sizing: border-box;
 	position: relative;
 	min-width: 0;
+	font-family: 'Istok Web', sans-serif;
 }
 
 body {

@@ -17,8 +17,8 @@ const RecordDetail = ({
 }: RecordDetailProps) => {
 	return (
 		<div className={cn('grid gap-4', className)} {...props}>
-			<h2 className="font-bold text-3xl lg:text-4xl">{heading}</h2>
-			<h3 className="text-xl text-primary/80">{subHeading}</h3>
+			<h1 className="font-bold text-3xl lg:text-4xl">{heading}</h1>
+			<h2 className="text-xl text-primary/80">{subHeading}</h2>
 			{description && (
 				<div>
 					<p>{description}</p>

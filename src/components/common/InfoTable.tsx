@@ -10,7 +10,6 @@ export interface TInfoTable {
 	renderRow: (row: TableRow, index: number) => string | React.ReactNode
 }
 const InfoTable = ({ rowsData, renderRow = (row) => row.value }: TInfoTable) => {
-	console.log({ rowsData })
 	return (
 		<div className="flow-root">
 			<dl className="-my-3 divide-y divide-gray-100 text-sm">

@@ -12,11 +12,12 @@ import SummaryRecords from './SummaryRecord'
 import PageAction from '@/components/common/PageAction'
 import { SummarySample } from '@/samples'
 import useConstants from '@/hooks/useConstants'
+import SearchForm from '@/components/common/SearchForm'
 
 const Summary = () => {
 	const [mobileFilter, setMobileFilter] = useState(false)
 
-	const { message } = useConstants()
+	const { message, home } = useConstants()
 	// const { common, pagination } = useJSONData({ defaultData: SummarySample })
 	const { common, pagination, backToSummary } = useJSONData({ selector: '#xml_record' })
 
@@ -39,6 +40,11 @@ const Summary = () => {
 							Advanced Search
 						</Button> */}
 						{/* <Separator orientation="vertical" /> */}
+						<SearchForm
+							className="w-full mt-6 max-w-2xl"
+							searchURL={home.searchURL}
+							inputName={'KEYWORD_CLUSTER'}
+						/>
 						<ViewToggle />
 					</div>
 				</PageAction>
