@@ -24,5 +24,6 @@
     "camera": "Camera",
     "books": "Books",
     "audio": "Audio",
-    "video": "Video"
+    "video": "Video",
+    "rsvpCancellationMessage": "We will send you email about your cancellation detail"
 }

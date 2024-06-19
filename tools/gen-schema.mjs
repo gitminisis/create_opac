@@ -5,7 +5,7 @@ import { getFiles } from './index.mjs'
 // eslint-disable-next-line no-undef
 const base = process.cwd()
 
-const inputDir = resolve(base, 'src/constants')
+const inputDir = resolve(base, 'src/constants/en')
 const outDir = resolve(base, 'src/schema')
 
 function main() {
@@ -13,6 +13,7 @@ function main() {
 		console.log('Generating schemas .......')
 		console.time('gen-schema')
 		const files = getFiles(inputDir, 'json')
+
 		files.forEach((file) => {
 			const filePath = resolve(inputDir, file)
 			generateSchema(filePath, outDir)
@@ -34,6 +35,13 @@ main()
 function generateSchema(filePath = './', outDir = './schema') {
 	try {
 		const fileContent = fs.readFileSync(filePath, 'utf8')
+
+
+		// If file content is empty, exits
+		if (fileContent.trim() === '') {
+			return;
+		}
+
 		try {
 			const fileName = path.basename(filePath)
 
@@ -44,8 +52,9 @@ function generateSchema(filePath = './', outDir = './schema') {
 			const metadata = {
 				$schema: 'http://json-schema.org/draft-07/schema#',
 			}
-			const schemaContent = { ...metadata, ...root }
-			const schemaPath = `${outDir}/${fileName}`
+			const schemaContent = JSON.stringify({ ...metadata, ...root })
+			const schemaPath = resolve(`${outDir}/${fileName}`)
+
 			if (!fs.existsSync(outDir)) {
 				fs.mkdirSync(outDir)
 			}
@@ -53,7 +62,10 @@ function generateSchema(filePath = './', outDir = './schema') {
 			if (fs.existsSync(schemaPath)) {
 				fs.unlinkSync(schemaPath)
 			}
-			fs.writeFileSync(schemaPath, JSON.stringify(schemaContent))
+
+
+			fs.writeFileSync(schemaPath, schemaContent)
+
 		} catch (error) {
 			throw new Error("File can't be parsed into JSON Object")
 		}

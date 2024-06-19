@@ -2,7 +2,7 @@
  * EventCalendarFilter: Filter option list buttons at the EventCalendar
  */
 import React, { useState } from 'react'
-import { Cal_event, FILTER_TYPE_COLORS } from './EventCalendar'
+import { Cal_event, FILTER_TYPE_COLORS } from './Constants'
 import CheckboxWithLabel from '../CheckboxWithLabel'
 import { RefreshCw } from 'lucide-react'
 

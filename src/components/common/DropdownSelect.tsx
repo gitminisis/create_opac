@@ -5,6 +5,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
+import useConstants from '@/hooks/useConstants'
 
 type DropdownOption = {
 	label: string
@@ -13,12 +14,14 @@ type DropdownOption = {
 export interface DropdownSelectProps {
 	title?: string
 	options: DropdownOption[]
+	register?: any
 }
 
-const DropdownSelect = ({ title, options }: DropdownSelectProps) => {
+const DropdownSelect = ({ title, options, register }: DropdownSelectProps) => {
+	const { message } = useConstants()
 	return (
 		<div className="flex flex-col space-y-2">
-			<Select>
+			<Select {...register}>
 				<SelectTrigger className="">
 					<SelectValue placeholder={title || 'Select'} />
 				</SelectTrigger>
@@ -30,7 +33,7 @@ const DropdownSelect = ({ title, options }: DropdownSelectProps) => {
 							</SelectItem>
 						))
 					) : (
-						<SelectItem value="none">No options available</SelectItem>
+						<SelectItem value="none">{message.noOptionsAvailable}</SelectItem>
 					)}
 				</SelectContent>
 			</Select>

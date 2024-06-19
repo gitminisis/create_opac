@@ -4,139 +4,73 @@
  * EventCalendar: Main Calendar component
  * Draw the calendar using Date js object
  */
-import React, { useEffect, useState } from 'react'
-import X2JS from 'x2js'
-import response from '../../../samples/fetch_calendar.json'
-import EventCalendarFilter from './EventCalendarFilter'
-import EventCalendarEventList from './EventCalendarEventList'
-import axios from 'axios'
 import { Button } from '@/components/ui/button'
-
-export interface Cal_event {
-	'event-date': string
-	'event-start': string
-	'event-end'?: string
-	'event-name': string
-	'event-desc'?: string
-	'event-loc': string
-}
-
-export interface Day_obj {
-	day: number | null
-	month?: number
-	year?: number
-}
-
-const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-export const CALENDAR_START_MONTH = 1
-export const FILTER_TYPE = 'event-loc'
-export const EVENT_DATE = 'event-date'
-export const EVENT_NAME = 'event-name'
-export const EVENT_END_TIME = 'event-end'
-export const EVENT_START_TIME = 'event-start'
-export const EVENT_DESC = 'event-desc'
-export const EVENT_TAG_WORD_LENGTH = 18
-export const MON_REPORT_TYPES = [
-	'MONTHLY_CALENDAR',
-	'NEXT_MONTH_CALENDAR',
-	'NEXT_TWO_MONTH_CALENDAR',
-	'NEXT_THREE_MONTH_CALENDAR',
-	'NEXT_FOUR_MONTH_CALENDAR',
-	'NEXT_FIVE_MONTH_CALENDAR',
-]
-
-export const COLORS_MAP = {
-	RED: 'bg-red-500 border-red-500',
-	YELLOW: 'bg-yellow-500 border-yellow-500',
-	GREEN: 'bg-green-500 border-green-500',
-	ORANGE: 'bg-orange-500 border-orange-500',
-	PURPLE: 'bg-purple-500 border-purple-500',
-	GREY: 'bg-neutral-500 border-neutral-500',
-	PINK: 'bg-pink-500 border-pink-500',
-}
-
-export const ICON_SHAPE_MAP = {
-	SQUARE: 'rounded',
-	CIRCLE: 'rounded-full',
-}
-
-export const FILTER_TYPE_COLORS = [
-	{
-		type: 'Delhi',
-		color: COLORS_MAP['RED'],
-		icon: ICON_SHAPE_MAP['SQUARE'],
-	},
-	{
-		type: 'Port Dover',
-		color: COLORS_MAP['YELLOW'],
-		icon: ICON_SHAPE_MAP['SQUARE'],
-	},
-	{
-		type: 'Port Rowan',
-		color: COLORS_MAP['GREEN'],
-		icon: ICON_SHAPE_MAP['SQUARE'],
-	},
-	{
-		type: 'Simcoe',
-		color: COLORS_MAP['ORANGE'],
-		icon: ICON_SHAPE_MAP['SQUARE'],
-	},
-	{
-		type: 'Waterford',
-		color: COLORS_MAP['PURPLE'],
-		icon: ICON_SHAPE_MAP['SQUARE'],
-	},
-	{
-		type: 'Norview Lodge',
-		color: COLORS_MAP['PINK'],
-		icon: ICON_SHAPE_MAP['SQUARE'],
-	},
-]
+import { convertXMLToJson } from '@/lib/utils'
+import { calendarEvents } from '@/store'
+import axios from 'axios'
+import { useAtom } from 'jotai'
+import { useEffect, useState } from 'react'
+import {
+	CALENDAR_START_MONTH,
+	CALENDAR_WEEK_VIEW_DAYS,
+	DAYS_OF_WEEK,
+	Day_obj,
+	LIBRARY_LOCATION_REPORT,
+	LIBRARY_LOCATION_XML_TAG,
+	SUB_MWI_APPLICATION,
+} from './Constants'
+import EventCalendarEventList from './EventCalendarEventList'
+import EventCalendarFilter from './EventCalendarFilter'
+import { fetch_get } from './Service'
 
 const EventCalendar = () => {
-	const [currentDate, setCurrentDate] = useState(new Date());
-	const [currentEvent, setCurrentEvent] = useState<Cal_event[]>([]);
-	const [currentFilter, setCurrentFilter] = useState<string[]>([]);
-	const [isClickablePrev, setisClickablePrev] = useState<boolean>(false);
-	const [isClickableNext, setisClickableNext] = useState<boolean>(false);
+	const [monthType, setMonthType] = useState<boolean>(true)
+	const [weekType, setWeekType] = useState<boolean>(false)
+	const [currentDate, setCurrentDate] = useState(new Date())
+	const [currentFilter, setCurrentFilter] = useState<string[]>([])
+	const [isClickablePrev, setisClickablePrev] = useState<boolean>(false)
+	const [isClickableNext, setisClickableNext] = useState<boolean>(false)
+	const [contactInfo, setContactInfo] = useState([])
+	const [currentEvent, setCurrentEvent] = useAtom(calendarEvents)
+	// const [click, _] = useAtom(landingPageClick)
 
 	useEffect(() => {
 		getData(currentDate)
 		isMonthBtnClick()
-	}, [currentDate])
+	}, [currentDate, weekType])
+
+	useEffect(() => {
+		getLibraryLocation()
+	}, [])
+
+	const getLibraryLocation = async () => {
+		const response = await axios.get(
+			`/scripts/mwimain.dll/144/${SUB_MWI_APPLICATION}/${LIBRARY_LOCATION_REPORT}?commandsearch&exp=%2B%2B%40`, // ++@
+			{
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+			}
+		)
+		const jsonData: any = convertXMLToJson(response)
+		if (jsonData?.xml) {
+			setContactInfo(jsonData.xml[LIBRARY_LOCATION_XML_TAG])
+		}
+	}
 
 	const getData = async (currentDate: Date) => {
-		const currE = await fetch_get(currentDate)
+		const currE = await fetch_get(currentDate, weekType)
 		setCurrentEvent(currE)
 	}
 
-	const fetch_get = async (currentDate: Date) => {
-		const BASE_URL = 'http://norfolk_test.minisisinc.com'
-		const MONTH_REPORT = 'MONTHLY_CALENDAR_TEST02'
-		const DATE_FIELD = 'EV_START_DATE'
-		const DATE_WILDCARD = `${currentDate.getFullYear()}-0${currentDate.getMonth() + 1}-*`
+	const showMonthView = () => {
+		setMonthType(true)
+		setWeekType(false)
+	}
 
-		try {
-			const response = await axios.get(
-				`${BASE_URL}/scripts/mwimain.dll/144/M2L_TAG/${MONTH_REPORT}?commandsearch&exp=${DATE_FIELD} ${DATE_WILDCARD}`,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-				}
-			)
-			const x2js = new X2JS()
-			const jsonData: any = x2js.xml2js(response.data)
-			const event = jsonData?.div?.xml?.event
-
-			if (!event) return []
-			if (Array.isArray(event)) {
-				return event
-			}
-			return [event]
-		} catch (error) {
-			throw error
-		}
+	const showWeekView = () => {
+		setWeekType(true)
+		setMonthType(false)
 	}
 
 	const isMonthBtnClick = () => {
@@ -193,6 +127,41 @@ const EventCalendar = () => {
 		return calendarArray
 	}
 
+	const generateWeek = () => {
+		const weekArray = []
+		let firstDayOfWeek = new Date(currentDate)
+		firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay())
+
+		for (let i = 0; i < CALENDAR_WEEK_VIEW_DAYS; i++) {
+			const day = new Date(firstDayOfWeek)
+			day.setDate(day.getDate() + i)
+			weekArray.push({
+				day: day.getDate(),
+				month: day.getMonth() + 1,
+				year: day.getFullYear(),
+			})
+		}
+		return weekArray
+	}
+
+	const nextWeek = () => {
+		const newDate = new Date(
+			currentDate.getFullYear(),
+			currentDate.getMonth(),
+			currentDate.getDate() + 7
+		)
+		setCurrentDate(newDate)
+	}
+
+	const prevWeek = () => {
+		const newDate = new Date(
+			currentDate.getFullYear(),
+			currentDate.getMonth(),
+			currentDate.getDate() - 7
+		)
+		setCurrentDate(newDate)
+	}
+
 	const prevMonth = () => {
 		const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
 		setCurrentDate(newDate)
@@ -203,31 +172,84 @@ const EventCalendar = () => {
 		setCurrentDate(newDate)
 	}
 
+	const showWeek = () => {
+		let firstDayOfWeek = new Date(currentDate)
+		firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay())
+		let nextDay = new Date(
+			firstDayOfWeek.getFullYear(),
+			firstDayOfWeek.getMonth(),
+			firstDayOfWeek.getDate() + 6
+		)
+
+		return `${firstDayOfWeek.toLocaleString('default', { month: 'short' })} ${firstDayOfWeek.getDate()} -  
+		${firstDayOfWeek.getMonth() !== nextDay.getMonth() ? nextDay.toLocaleString('default', { month: 'long' }) : ''} ${nextDay.getDate()}, ${currentDate.getFullYear()}`
+	}
+
 	return (
 		<div
 			className={'w-full mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-0'}>
-			<div className={'flex justify-center items-center bg-primary h-[100px] rounded'}>
+			<div
+				className={
+					'relative flex justify-center items-center bg-primary h-[100px] rounded '
+				}>
 				<Button
-					onClick={prevMonth}
-					className={'text-4xl text-primary-foreground mx-5'}
+					onClick={weekType ? prevWeek : prevMonth}
+					className={'text-4xl text-primary-foreground sm:mx-5'}
 					disabled={isClickablePrev}>
 					<div className="mt-2">&lt;</div>
 				</Button>
-				<div className="text-3xl text-primary-foreground">
-					{currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+				<div className="max-w-[330px] text-center text-3xl text-primary-foreground">
+					{monthType &&
+						currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+					{weekType && showWeek()}
 				</div>
 				<Button
-					onClick={nextMonth}
-					className={'text-4xl text-primary-foreground mx-5'}
+					onClick={weekType ? nextWeek : nextMonth}
+					className={'text-4xl text-primary-foreground sm:mx-5'}
 					disabled={isClickableNext}>
 					<div className="mt-2">&gt;</div>
+				</Button>
+				<div
+					className={
+						'hidden sm:absolute sm:right-5 w-[160px] sm:flex justify-evenly items-center'
+					}>
+					<Button
+						className={
+							'w-[67px] bg-black text-primary-foreground rounded hover:bg-black'
+						}
+						onClick={showMonthView}>
+						Month
+					</Button>
+					<Button
+						className={
+							'w-[67px] bg-black text-primary-foreground rounded hover:bg-black'
+						}
+						onClick={showWeekView}>
+						Week
+					</Button>
+				</div>
+			</div>
+			{/* Mobile Week Month View */}
+			<div className={'sm:hidden mt-1 flex'}>
+				<Button
+					className={
+						'w-1/2 bg-primary text-primary-foreground rounded hover:bg-black mr-1'
+					}
+					onClick={showMonthView}>
+					Month
+				</Button>
+				<Button
+					className={
+						'w-1/2 bg-primary text-primary-foreground rounded hover:bg-black ml-1'
+					}
+					onClick={showWeekView}>
+					Week
 				</Button>
 			</div>
 			<EventCalendarFilter setCurrentFilter={setCurrentFilter} />
 			<div className={'w-full mt-1'}>
-				<div className={'flex'}></div>
 				<div className={'grid grid-cols-7 gap-1'}>
-					{daysOfWeek.map((item, key) => {
+					{DAYS_OF_WEEK.map((item, key) => {
 						return (
 							<div
 								key={key}
@@ -238,20 +260,42 @@ const EventCalendar = () => {
 							</div>
 						)
 					})}
-					{generateMonth().map((item: Day_obj, key: number) => {
-						return (
-							<div
-								key={key}
-								className="rounded-lg border border-black cursor-pointer max-w-40 h-28 w-full">
-								<div className={'bg-slate-200'}>{item?.day}</div>
-								<EventCalendarEventList
-									dayObj={item}
-									currentFilter={currentFilter}
-									currentEvent={currentEvent}
-								/>
-							</div>
-						)
-					})}
+					{monthType &&
+						generateMonth().map((item: Day_obj, key: number) => {
+							return (
+								<div
+									key={key}
+									className="rounded-lg border border-black cursor-pointer max-w-40 h-28 w-full">
+									<div className={'bg-slate-200'}>{item?.day}</div>
+									<EventCalendarEventList
+										dayObj={item}
+										currentFilter={currentFilter}
+										currentEvent={currentEvent}
+										monthType={monthType}
+										weekType={weekType}
+										contactInfo={contactInfo}
+									/>
+								</div>
+							)
+						})}
+					{weekType &&
+						generateWeek().map((item: Day_obj, key: number) => {
+							return (
+								<div
+									key={key}
+									className="rounded-lg border border-black cursor-pointer max-w-40 h-96 w-full">
+									<div className={'bg-slate-200'}>{item?.day}</div>
+									<EventCalendarEventList
+										dayObj={item}
+										currentFilter={currentFilter}
+										currentEvent={currentEvent}
+										monthType={monthType}
+										weekType={weekType}
+										contactInfo={contactInfo}
+									/>
+								</div>
+							)
+						})}
 				</div>
 			</div>
 		</div>

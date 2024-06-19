@@ -45,8 +45,8 @@
 				"detail": true
 			},
 			{
-				"name": "l_publisher",
 				"label": "Publisher",
+				"name": "l_publisher",
 				"summary": false,
 				"grid": false,
 				"detail": true

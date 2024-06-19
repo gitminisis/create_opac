@@ -5,7 +5,7 @@
 This is the React repository for a OPAC Template. Although it's possible, please use this repository
 as a boilerplate/guideline rather than a final version of your application. This project is designed
 with the intention to be highly customizable and extensible and for that reason, everything was
-built to be generic and easy to modify.
+**built** to be generic and easy to modify.
 
 ## Feature
 
@@ -27,7 +27,7 @@ least version 21.x
 You will also need to have these following:
 
 -   [git](https://git-scm.com/downloads): Version control
--   [pnpm](https://pnpm.io/installation): Package manager
+-   [npm](https://nodejs.org/en/download/package-manager): Package manager
 -   [docsify](https://docsify.js.org/): Document generator
 
 To clone the repository, simply run the following from your command line. This one will clone the
@@ -54,32 +54,32 @@ cd create_opac
 ```
 
 ```shell
-pnpm setup
+npm run setup
 ```
 
 Once everything is installed, you have a couple of options to choose here
 
--   `pnpm run start`: To run project in development without needing to connect to the SMA side. This
+-   `npm run start`: To run project in development without needing to connect to the SMA side. This
     also supports HMR while making changes to the code base
 
--   `pnpm run dev`: Similarly to `start` but this one will create a `/dist` folder (development
+-   `npm run dev`: Similarly to `start` but this one will create a `/dist` folder (development
     mode) which will serve as bundled js files that will be used for the SMA reports and your OPAC.
     This also supports HMR.
 
--   `pnpm run build`: Build a production output folder for the project.
+-   `npm run build`: Build a production output folder for the project.
 
--   `pnpm run lint`: Run ESLint to check for any unused imports, potential errors, type mismatching,
+-   `npm run lint`: Run ESLint to check for any unused imports, potential errors, type mismatching,
     etc.
 
--   `pnpm run format`: Format the whole repo
+-   `npm run format`: Format the whole repo
 
--   `pnpm run theme`: To generate the `index.css` which is required when a new css theme file is
+-   `npm run theme`: To generate the `index.css` which is required when a new css theme file is
     added.
 
--   `pnpm run schema`: To generate JSON schema for every file in `/constants` folder which are
+-   `npm run schema`: To generate JSON schema for every file in `/constants` folder which are
     required for the CMS dashboard
 
--   `pnpm run doc`: To view the docs on a webpage
+-   `npm run doc`: To view the docs on a webpage
 
 ## Setup the backend
 

@@ -7,7 +7,7 @@ on:
 jobs:
     format-and-lint:
         runs-on: ubuntu-latest
-        name: pnpm lint and format
+        name: npm lint and format
 
         steps:
             - name: Checkout Repository

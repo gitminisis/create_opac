@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Cancellation Confirmation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      .header {
+        background-color: rgb(30, 73, 70);
+        color: white;
+        padding: 20px 0;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header img {
+        max-width: 150px;
+      }
+      .event-details {
+        margin-bottom: 20px;
+      }
+      .event-details h2 {
+        margin-bottom: 10px;
+      }
+      .event-details p {
+        margin: 5px 0;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px 0;
+        background-color: #333;
+        color: white;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+   <table class="header" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td class="header-content">
+        <img src="logo.png" alt="Company Logo">
+        <h1>Registration Canceled!</h1>
+      </td>
+    </tr>
+  </table>
+    <div class="container">
+      <div class="event-details">
+        <h2>Your registration has been cancelled for:</h2>
+        <p><strong>ID:</strong> ^TAG_FUNC_P_ID^</p>
+        <p><strong>Event:</strong> ^TAG_NAME^</p>
+        <p><strong>Date:</strong> ^TAG_FUNC_DATE^</p>
+        <p><strong>Time:</strong>^TAG_FUNC_START_T^ - ^TAG_FUNC_END_T^</p>
+        <p><strong>Location:</strong></p>
+        <p>^BRANCH_ADDRESS^</p>
+      </div>
+    </div>
+    <footer class="footer">2024 Minisis Inc. All rights reserved.</footer>
+  </body>
+</html>

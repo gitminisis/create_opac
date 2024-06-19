@@ -38,15 +38,15 @@
 				"detail": true
 			},
 			{
-				"label": "Author",
+				"label": "Auteur(e)",
 				"name": "Author",
 				"summary": false,
 				"grid": false,
 				"detail": true
 			},
 			{
+				"label": "Editeur/Editrice",
 				"name": "l_publisher",
-				"label": "Publisher",
 				"summary": false,
 				"grid": false,
 				"detail": true

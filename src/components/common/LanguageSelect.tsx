@@ -29,8 +29,6 @@ export function LanguageSelect() {
 			id: 'lang',
 			code,
 		})
-
-		console.log({ id })
 	}
 	return (
 		<Select

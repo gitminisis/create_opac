@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Successful</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f8fc;
+    }
+    .header {
+      background-color: rgb(30, 73, 70);
+      color: white;
+      padding: 20px 0;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+    .header-content {
+      text-align: center;
+    }
+    .header img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    .container {
+      width: 400px;
+      padding: 25px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+    }
+    .info {
+      margin-bottom: 20px;
+    }
+    .info div {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .info p {
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background-color: #f5f5f5;
+      font-size: 16px;
+      margin: 0;
+      word-wrap: break-word;
+    }
+    .button-container {
+      text-align: center;
+    }
+    .button-container button {
+      width: 100%;
+      height: 50px;
+      background-color: rgb(30, 73, 70);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    .button-container button:hover {
+      background-color: rgba(255, 0, 0, 0.555);
+    }
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #333;
+      color: white;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <table class="header" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td class="header-content">
+        <img src="logo.png" alt="Company Logo">
+        <h1>Confirm your Registration!</h1>
+      </td>
+    </tr>
+  </table>
+  <div class="container">
+   <div class="info">
+      <div for="event-name">Event Name:</div>
+      <p id="event-name">^TAG_NAME^</p>
+    </div>
+     <div class="info">
+      <div for="event-name">Event Date:</div>
+      <p id="event-name">^TAG_FUNC_DATE^</p>
+    </div>
+    <div class="info">
+      <div for="attendee-name">Name:</div>
+      <p id="attendee-name">^TAG_FUNC_P_LAST^, ^TAG_FUNC_P_FIRST^</p>
+    </div>
+    <div class="info">
+      <div for="registration-date">Date Registered:</div>
+      ^TAG_FUNC_P_T^
+    </div>
+    <div class="info">
+      <div for="attendee-details">Attendee:</div>
+      <div id="attendee-details" style="border: 2px dotted #ccc; padding: 10px; text-align: center;">
+        ^TAG_FUNC_P_ATTND^ Spot Reserved
+      </div>
+    </div>
+    <div class="button-container">
+      <a href="^RSVP_CONFIRM_LANDING_PAGE_URL^?user=^encoded^" style="text-decoration: none;">
+        <button>Confirm the event</button>
+      </a>
+    </div>
+  </div>
+  <footer class="footer">
+    2024 Minisis Inc. All rights reserved.
+  </footer>
+</body>
+</html>

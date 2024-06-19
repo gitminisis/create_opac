@@ -1,10 +1,11 @@
 import { db } from '@/db/client'
+import { FRENCH_CODE } from '@/types/lang'
 import { useLiveQuery } from 'dexie-react-hooks'
 
 export const useLanguage = () => {
 	const languageArray = useLiveQuery(() => db.language.toArray())
 
 	const languageCode =
-		(languageArray && Array.isArray(languageArray) && languageArray[0]?.code) || 'EN'
+		(languageArray && Array.isArray(languageArray) && languageArray[0]?.code) || FRENCH_CODE
 	return languageCode
 }

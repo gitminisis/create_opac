@@ -25,12 +25,13 @@ const DialogOverlay = React.forwardRef<
 		{...props}
 	/>
 ))
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 const DialogContent = React.forwardRef<
 	React.ElementRef<typeof DialogPrimitive.Content>,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content | any>
->(({ className, children, hideClose, closeBtn, ...props }, ref) => (
+>(({ className, children, hideClose, ...props }, ref) => (
 	<DialogPortal>
 		<DialogOverlay />
 		<DialogPrimitive.Content
@@ -46,13 +47,13 @@ const DialogContent = React.forwardRef<
 					'absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground',
 					hideClose
 				)}>
-				<X className={"h-4 w-4"} />
+				<X className={'h-4 w-4'} />
 				<span className="sr-only">Close</span>
 			</DialogPrimitive.Close>
 		</DialogPrimitive.Content>
 	</DialogPortal>
 ))
-DialogContent.displayName = DialogPrimitive.Content.displayName;
+DialogContent.displayName = DialogPrimitive.Content.displayName
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
@@ -60,7 +61,7 @@ const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
 		{...props}
 	/>
 )
-DialogHeader.displayName = 'DialogHeader';
+DialogHeader.displayName = 'DialogHeader'
 
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
