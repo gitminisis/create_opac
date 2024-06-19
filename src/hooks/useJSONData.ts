@@ -9,7 +9,7 @@ type Props = {
 	defaultData?: GenericObject
 }
 
-const COMMON_FIELDS = [
+export const COMMON_FIELDS = [
 	'session',
 	'bookmark_count',
 	'query_statement',
@@ -23,9 +23,9 @@ const COMMON_FIELDS = [
 	'pagesize_100',
 ] as const
 
-type COMMON_FIELDS_TYPE = (typeof COMMON_FIELDS)[number]
+export type COMMON_FIELDS_TYPE = (typeof COMMON_FIELDS)[number]
 
-type COMMON_FIELDS_OBJECT = {
+export type COMMON_FIELDS_OBJECT = {
 	[key in COMMON_FIELDS_TYPE]?: string | number
 }
 

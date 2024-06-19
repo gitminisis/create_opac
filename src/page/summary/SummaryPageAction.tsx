@@ -2,7 +2,7 @@ import CheckboxWithLabel from '@/components/common/CheckboxWithLabel'
 import CollapseList from '@/components/common/CollapseList'
 import DropdownSelect from '@/components/common/DropdownSelect'
 import useConstants from '@/hooks/useConstants'
-import useJSONData from '@/hooks/useJSONData'
+import useJSONData, { COMMON_FIELDS_TYPE } from '@/hooks/useJSONData'
 import { SummarySample } from '@/samples'
 import { Label } from '@radix-ui/react-dropdown-menu'
 
@@ -16,7 +16,6 @@ import { Label } from '@radix-ui/react-dropdown-menu'
 const SummaryPageAction = () => {
 	const { message } = useConstants()
 	const { filter, common } = useJSONData({ selector: '#xml_record' })
-	console.log(common.pagesize_25)
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex flex-col space-y-2">
@@ -24,7 +23,12 @@ const SummaryPageAction = () => {
 				<DropdownSelect
 					register={{
 						onValueChange: (value) => {
-							console.log('record', value)
+							const pageURL = common[
+								`pagesize_${value}` as COMMON_FIELDS_TYPE
+							] as string
+							if (pageURL) {
+								window.location.href = pageURL
+							}
 						},
 					}}
 					title={message.selectRecordsNumber}
