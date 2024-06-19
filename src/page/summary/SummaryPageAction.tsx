@@ -15,13 +15,18 @@ import { Label } from '@radix-ui/react-dropdown-menu'
  */
 const SummaryPageAction = () => {
 	const { message } = useConstants()
-	const { filter } = useJSONData({ selector: '#xml_record' })
+	const { filter, common } = useJSONData({ selector: '#xml_record' })
+	console.log(common.pagesize_25)
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex flex-col space-y-2">
 				<Label>{message.recordPerPage}</Label>
 				<DropdownSelect
-					
+					register={{
+						onValueChange: (value) => {
+							console.log('record', value)
+						},
+					}}
 					title={message.selectRecordsNumber}
 					options={[
 						{

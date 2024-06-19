@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/select'
 import useConstants from '@/hooks/useConstants'
 import { cn } from '@/lib/utils'
+import { SelectProps } from '@radix-ui/react-select'
 
 type DropdownOption = {
 	label: string
@@ -15,17 +16,18 @@ type DropdownOption = {
 export interface DropdownSelectProps {
 	title?: string
 	options: DropdownOption[]
-	register?: any
+	register?: SelectProps
 	className?: string
+	onOptionChange?: (value: string | number) => void
 }
 
 const DropdownSelect = ({ title, options, register, className }: DropdownSelectProps) => {
 	const { message } = useConstants()
 	return (
 		<div className={cn('flex flex-col space-y-2', className)}>
-			<Select className="text-left" {...register}>
-				<SelectTrigger className="">
-					<SelectValue placeholder={title || 'Select'} />
+			<Select {...register}>
+				<SelectTrigger className="text-left">
+					<SelectValue className="text-left" placeholder={title || 'Select'} />
 				</SelectTrigger>
 				<SelectContent>
 					{options?.length > 0 ? (

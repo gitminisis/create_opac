@@ -18,6 +18,9 @@ const COMMON_FIELDS = [
 	'last_record_seq',
 	'bookmark_url',
 	'total_record',
+	'pagesize_25',
+	'pagesize_50',
+	'pagesize_100',
 ] as const
 
 type COMMON_FIELDS_TYPE = (typeof COMMON_FIELDS)[number]
