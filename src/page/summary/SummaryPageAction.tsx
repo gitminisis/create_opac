@@ -3,7 +3,6 @@ import CollapseList from '@/components/common/CollapseList'
 import DropdownSelect from '@/components/common/DropdownSelect'
 import useConstants from '@/hooks/useConstants'
 import useJSONData, { COMMON_FIELDS_TYPE } from '@/hooks/useJSONData'
-import { SummarySample } from '@/samples'
 import { Label } from '@radix-ui/react-dropdown-menu'
 
 /**
@@ -34,19 +33,19 @@ const SummaryPageAction = () => {
 					title={message.selectRecordsNumber}
 					options={[
 						{
-							label: `${message.displaying} 12 ${message.record}s`,
+							label: `${message.displaying} 12 ${message.record}`,
 							value: 12,
 						},
 						{
-							label: `${message.displaying} 25 ${message.record}s`,
+							label: `${message.displaying} 25 ${message.record}`,
 							value: 25,
 						},
 						{
-							label: `${message.displaying} 50 ${message.record}s`,
+							label: `${message.displaying} 50 ${message.record}`,
 							value: 50,
 						},
 						{
-							label: `${message.displaying} 100 ${message.record}s`,
+							label: `${message.displaying} 100 ${message.record}`,
 							value: 100,
 						},
 					]}

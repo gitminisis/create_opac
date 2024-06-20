@@ -25,7 +25,6 @@ import useConstants from '@/hooks/useConstants'
 
 const SummaryRecords = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	// const { records } = useJSONData({ defaultData: SummarySample })
 
 	return (
 		<>
@@ -61,7 +60,7 @@ const RecordView = ({ record }: { record: Record }) => {
 		() => true,
 		(data, item) => (
 			<DataWithLabel
-				className="flex-col items-start justify-start my-1"
+				className="flex-col items-start justify-start my-1 space-x-0"
 				key={item.name}
 				label={item.label || ''}
 				items={data}

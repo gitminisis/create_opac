@@ -18,6 +18,7 @@ export const COMMON_FIELDS = [
 	'last_record_seq',
 	'bookmark_url',
 	'total_record',
+	'pagesize_12',
 	'pagesize_25',
 	'pagesize_50',
 	'pagesize_100',
