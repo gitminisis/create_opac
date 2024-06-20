@@ -24,14 +24,21 @@ const DetailRecord = (props: Props) => {
 		(data, item) => ({ label: item.label, value: data })
 	) as TableRow[]
 
-	
 	return (
 		<>
 			<RecordDetail heading={title} subHeading={recordData.collection}>
 				<div className="flex flex-col space-y-12">
 					<InfoTable
 						rowsData={detailFields || []}
-						renderRow={(row) => <div>{row.value}</div>}
+						renderRow={({ value }) => {
+							if (typeof value === 'string') {
+								return <div>{value}</div>
+							}
+							if (Array.isArray(value)) {
+								return <div>{value.toString()}</div>
+							}
+							return value
+						}}
 					/>
 
 					<DetailRecordAction />
