@@ -3,7 +3,6 @@ import { Button } from '../../components/ui/button'
 import { ArrowLeftIcon, ArrowRightIcon, Heart, Link, Printer } from 'lucide-react'
 import { copyRecordURL, deepSearchKey } from '@/lib/record'
 import { useToast } from '../../components/ui/use-toast'
-import { DetailM3Sample } from '@/samples'
 import useConstants from '@/hooks/useConstants'
 
 const DetailRecordAction = () => {
@@ -43,7 +42,7 @@ const DetailRecordAction = () => {
 						onClick={() => {
 							copyRecordURL(database, sisn)
 							toast({
-								title: 'Record URL is copied',
+								title: message.recordIsCopied,
 							})
 						}}>
 						<Link className="w-4 h-4 mr-2 hidden md:block" /> {message.copy}

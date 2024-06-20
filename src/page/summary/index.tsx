@@ -21,7 +21,7 @@ const Summary = () => {
 	// const { common, pagination } = useJSONData({ defaultData: SummarySample })
 	const { common, pagination, backToSummary } = useJSONData({ selector: '#xml_record' })
 
-	if (!common || !pagination) return <></>
+	if (!common) return <></>
 	return (
 		<Layout>
 			<div className="rounded-sm border border-primary bg-background shadow-md md:shadow-xl h-full flex-col flex w-full my-12">

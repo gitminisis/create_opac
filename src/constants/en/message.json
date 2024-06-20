@@ -32,5 +32,6 @@
     "sortTitleDescending": "Sort Z-A Title",
     "sortDateAscending": "Sort Newest to Oldest",
     "sortDateDescending": "Sort Oldest to Newest",
-    "sortAccessionNumberAscending": "Sort by Accession Number"
+    "sortAccessionNumberAscending": "Sort by Accession Number",
+    "recordIsCopied": "Record URL is copied"
 }

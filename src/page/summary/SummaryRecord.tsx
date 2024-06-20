@@ -108,6 +108,8 @@ const RecordAction = ({ record }: { record: Record }) => {
 	const sisn = deepSearchKey(record, 'sisn')[0] as string
 	const database = record.database_name
 
+	const { message } = useConstants()
+
 	return (
 		<>
 			{/* <Button
@@ -135,7 +137,7 @@ const RecordAction = ({ record }: { record: Record }) => {
 				onClick={() => {
 					copyRecordURL(database, sisn)
 					toast({
-						title: 'Record URL is copied',
+						title: message.recordIsCopied,
 					})
 				}}>
 				<Copy className="h-4 w-4 text-primary" />

@@ -32,5 +32,6 @@
     "sortTitleDescending": "Trier Par Z-A Titre",
     "sortDateAscending": "Trier par le plus récent au plus ancien",
     "sortDateDescending": "Trier du plus ancien au plus récent",
-    "sortAccessionNumberAscending": "Trier par numéro d'accession"
+    "sortAccessionNumberAscending": "Trier par numéro d'accession",
+    "recordIsCopied": "L'URL est copiée"
 }
