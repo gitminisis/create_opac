@@ -8,7 +8,41 @@ type Props = {
 	selector?: string
 	defaultData?: GenericObject
 }
+export const SORT_DATABASE = {
+	default: {
+		UNION_VIEW: 'WEB_UNION_SUM',
+		COLLECTIONS_WEB: 'WEB_UNION_SUM_COL',
+		DESCRIPTION_WEB: 'WEB_UNION_SUM_DESC',
+	},
+	id_asc: {
+		UNION_VIEW: 'WEB_UNION_SUM',
+		COLLECTIONS_WEB: 'WEB_UNION_SUM_COL_AID',
+		DESCRIPTION_WEB: 'WEB_UNION_SUM_COL_AID',
+	},
+	date_asc: {
+		UNION_VIEW: 'WEB_UNION_SUM_ADATE',
+		COLLECTIONS_WEB: 'WEB_UNION_SUM_COL_ADATE',
+		DESCRIPTION_WEB: 'WEB_UNION_SUM_DESC_ADATE',
+	},
+	date_dsc: {
+		UNION_VIEW: 'WEB_UNION_SUM_DDATE',
+		COLLECTIONS_WEB: 'WEB_UNION_SUM_COL_DDATE',
+		DESCRIPTION_WEB: 'WEB_UNION_SUM_DESC_DDATE',
+	},
+	title_asc: {
+		UNION_VIEW: 'WEB_UNION_SUM_ATITLE',
+		COLLECTIONS_WEB: 'WEB_UNION_SUM_COL_ATITLE',
+		DESCRIPTION_WEB: 'WEB_UNION_SUM_DESC_ATITLE',
+	},
+	title_dsc: {
+		UNION_VIEW: 'WEB_UNION_SUM_DTITLE',
+		COLLECTIONS_WEB: 'WEB_UNION_SUM_COL_DTITLE',
+		DESCRIPTION_WEB: 'WEB_UNION_SUM_DESC_DTITLE',
+	},
+}
 
+export type SORT_TYPE = keyof typeof SORT_DATABASE
+export type APPLICATION_TYPE = keyof typeof SORT_DATABASE.default
 export const COMMON_FIELDS = [
 	'session',
 	'bookmark_count',
@@ -22,6 +56,7 @@ export const COMMON_FIELDS = [
 	'pagesize_25',
 	'pagesize_50',
 	'pagesize_100',
+	'sort',
 ] as const
 
 export type COMMON_FIELDS_TYPE = (typeof COMMON_FIELDS)[number]
@@ -144,6 +179,12 @@ const useJSONData = ({ selector, defaultData }: Props) => {
 		return record.media[type]
 	}
 
+	const getSortURL = (application: APPLICATION_TYPE, sort: SORT_TYPE) => {
+		const { bookmark_url } = getCommonFields()
+		const url = `${bookmark_url}/${SORT_DATABASE[sort][application]}?RECLIST&DATABASE=${application}`
+		return url
+	}
+
 	const common = getCommonFields()
 	const pagination = getPaginations()
 	const filter = getFilter()
@@ -162,6 +203,7 @@ const useJSONData = ({ selector, defaultData }: Props) => {
 		nextRecord,
 		previousRecord,
 		getMedia,
+		getSortURL,
 	}
 }
 

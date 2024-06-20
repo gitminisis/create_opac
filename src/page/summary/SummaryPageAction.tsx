@@ -2,7 +2,7 @@ import CheckboxWithLabel from '@/components/common/CheckboxWithLabel'
 import CollapseList from '@/components/common/CollapseList'
 import DropdownSelect from '@/components/common/DropdownSelect'
 import useConstants from '@/hooks/useConstants'
-import useJSONData, { COMMON_FIELDS_TYPE } from '@/hooks/useJSONData'
+import useJSONData, { COMMON_FIELDS_TYPE, SORT_TYPE } from '@/hooks/useJSONData'
 import { Label } from '@radix-ui/react-dropdown-menu'
 
 /**
@@ -14,7 +14,34 @@ import { Label } from '@radix-ui/react-dropdown-menu'
  */
 const SummaryPageAction = () => {
 	const { message } = useConstants()
-	const { filter, common } = useJSONData({ selector: '#xml_record' })
+	const { filter, common, getSortURL } = useJSONData({ selector: '#xml_record' })
+
+	const SORT_OPTIONS: { label: string; value: SORT_TYPE }[] = [
+		{
+			label: message.sortDefault,
+			value: 'default',
+		},
+		{
+			label: message.sortAccessionNumberAscending,
+			value: 'id_asc',
+		},
+		{
+			label: message.sortTitleAscending,
+			value: 'title_asc',
+		},
+		{
+			label: message.sortTitleDescending,
+			value: 'title_dsc',
+		},
+		{
+			label: message.sortDateAscending,
+			value: 'date_asc',
+		},
+		{
+			label: message.sortDateDescending,
+			value: 'date_dsc',
+		},
+	]
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex flex-col space-y-2">
@@ -55,32 +82,13 @@ const SummaryPageAction = () => {
 				<Label>{message.sortBy}</Label>
 				<DropdownSelect
 					title={message.sortBy}
-					options={[
-						{
-							label: message.sortDefault,
-							value: 'test',
+					register={{
+						onValueChange: (value: SORT_TYPE) => {
+							const url = getSortURL('UNION_VIEW', value)
+							window.location.href = url
 						},
-						{
-							label: message.sortAccessionNumberAscending,
-							value: 'test',
-						},
-						{
-							label: message.sortTitleAscending,
-							value: 'test',
-						},
-						{
-							label: message.sortTitleDescending,
-							value: 'test',
-						},
-						{
-							label: message.sortDateAscending,
-							value: 'test',
-						},
-						{
-							label: message.sortDateDescending,
-							value: 'test',
-						},
-					]}
+					}}
+					options={SORT_OPTIONS}
 				/>
 			</div>
 
