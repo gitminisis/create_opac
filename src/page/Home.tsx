@@ -35,7 +35,7 @@ const Home = () => {
 					// auto
 					itemsPerSlide={{ lg: 4 }}
 					items={categoriesItems}
-					renderItem={(item: { title: any; url: any; thumbnail: any }, index: any) => (
+					renderItem={(item, index: any) => (
 						<Card
 							className="max-w-md mx-auto shadow-xl border-none cursor-pointer"
 							key={index}>

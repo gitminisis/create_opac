@@ -19,6 +19,7 @@ const SearchForm = ({ className, searchURL, inputName, inputStyle, ...props }: S
 			{...props}>
 			<div className="w-3/4 relative">
 				<Input
+					required
 					name={inputName}
 					className={cn(
 						'w-full rounded-none pl-4 border-2 py-3 bg-transparent border-opac-green text-white',
