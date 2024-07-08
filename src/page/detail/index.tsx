@@ -90,7 +90,7 @@ const Detail = () => {
 									<span>{message.noMediaFound}</span>
 								)}
 							</div>
-							<div className="grid gap-4 md:gap-10 items-start w-1/2">
+							<div className="w-full lg:w-1/2 grid gap-4 md:gap-10 items-start ">
 								<DetailRecord />
 							</div>
 						</div>
