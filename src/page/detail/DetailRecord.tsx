@@ -35,7 +35,7 @@ const DetailRecord = (props: Props) => {
 								return <div>{value}</div>
 							}
 							if (Array.isArray(value)) {
-								return value.map((e, i) => <div key={i}>{value.toString()}</div>)
+								return value.map((e, i) => <div key={i}>{e.toString()}</div>)
 							}
 							return value
 						}}
