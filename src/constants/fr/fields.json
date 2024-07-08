@@ -19,6 +19,20 @@
 			{
 				"label": "Type de collection",
 				"name": "collect_typ_lan1",
+				"summary": true,
+				"grid": false,
+				"detail": true
+			},
+			{
+				"label": "Date de début de production",
+				"name": "EARLY",
+				"summary": false,
+				"grid": false,
+				"detail": true
+			},
+			{
+				"label": "Date de fin de production",
+				"name": "LATE",
 				"summary": false,
 				"grid": false,
 				"detail": true
@@ -26,8 +40,8 @@
 			{
 				"label": "Nom de l'objet",
 				"name": "obj_nme_alt_lan1",
-				"summary": false,
-				"grid": false,
+				"summary": true,
+				"grid": true,
 				"detail": true
 			},
 			{
