@@ -16,6 +16,10 @@ const SearchForm = ({ className, inputName, inputStyle, ...props }: SearchFormPr
 	const { session } = common
 
 	const getSearchURL = () => {
+		const domSessionId = document.querySelector('#session-id')?.textContent
+		if (document && domSessionId) {
+			return url.replace('/SCRIPTS/MWIMAIN.DLL', `${domSessionId}`)
+		}
 		if (session && session !== '') {
 			return url.replace('/SCRIPTS/MWIMAIN.DLL', `${session}`)
 		}
