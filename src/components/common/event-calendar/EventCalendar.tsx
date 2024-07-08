@@ -4,35 +4,26 @@
  * EventCalendar: Main Calendar component
  * Draw the calendar using Date js object
  */
-import { Button } from '@/components/ui/button'
-import { convertXMLToJson } from '@/lib/utils'
-import { calendarEvents } from '@/store'
-import axios from 'axios'
-import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
-import {
-	CALENDAR_START_MONTH,
-	CALENDAR_WEEK_VIEW_DAYS,
-	DAYS_OF_WEEK,
-	Day_obj,
-	LIBRARY_LOCATION_REPORT,
-	LIBRARY_LOCATION_XML_TAG,
-	SUB_MWI_APPLICATION,
-} from './Constants'
-import EventCalendarEventList from './EventCalendarEventList'
+import React, { useEffect, useState } from 'react'
 import EventCalendarFilter from './EventCalendarFilter'
-import { fetch_get } from './Service'
+import EventCalendarEventList from './EventCalendarEventList'
+import { Button } from '@/components/ui/button'
+import { fetch_get, getLibraryLocation } from './Service'
+import { calendarCurrDate, calendarEvents, calendarMonthType, calendarWeekType } from '@/store'
+import { useAtom } from 'jotai'
+import { CALENDAR_START_MONTH, CALENDAR_WEEK_VIEW_DAYS, Day_obj } from './Constants'
+import useConstants from '@/hooks/useConstants'
 
 const EventCalendar = () => {
-	const [monthType, setMonthType] = useState<boolean>(true)
-	const [weekType, setWeekType] = useState<boolean>(false)
-	const [currentDate, setCurrentDate] = useState(new Date())
+	const message = useConstants().message
 	const [currentFilter, setCurrentFilter] = useState<string[]>([])
 	const [isClickablePrev, setisClickablePrev] = useState<boolean>(false)
 	const [isClickableNext, setisClickableNext] = useState<boolean>(false)
 	const [contactInfo, setContactInfo] = useState([])
 	const [currentEvent, setCurrentEvent] = useAtom(calendarEvents)
-	// const [click, _] = useAtom(landingPageClick)
+	const [weekType, setWeekType] = useAtom(calendarWeekType)
+	const [monthType, setMonthType] = useAtom(calendarMonthType)
+	const [currentDate, setCurrentDate] = useAtom(calendarCurrDate)
 
 	useEffect(() => {
 		getData(currentDate)
@@ -40,37 +31,22 @@ const EventCalendar = () => {
 	}, [currentDate, weekType])
 
 	useEffect(() => {
-		getLibraryLocation()
+		getLibraryLocation().then((res) => setContactInfo(res))
 	}, [])
-
-	const getLibraryLocation = async () => {
-		const response = await axios.get(
-			`/scripts/mwimain.dll/144/${SUB_MWI_APPLICATION}/${LIBRARY_LOCATION_REPORT}?commandsearch&exp=%2B%2B%40`, // ++@
-			{
-				headers: {
-					'Content-Type': 'text/xml',
-				},
-			}
-		)
-		const jsonData: any = convertXMLToJson(response)
-		if (jsonData?.xml) {
-			setContactInfo(jsonData.xml[LIBRARY_LOCATION_XML_TAG])
-		}
-	}
 
 	const getData = async (currentDate: Date) => {
 		const currE = await fetch_get(currentDate, weekType)
 		setCurrentEvent(currE)
 	}
 
-	const showMonthView = () => {
-		setMonthType(true)
-		setWeekType(false)
+	const convertToWeek = () => {
+		setMonthType(false)
+		setWeekType(true)
 	}
 
-	const showWeekView = () => {
-		setWeekType(true)
-		setMonthType(false)
+	const convertToMonth = () => {
+		setMonthType(true)
+		setWeekType(false)
 	}
 
 	const isMonthBtnClick = () => {
@@ -181,8 +157,8 @@ const EventCalendar = () => {
 			firstDayOfWeek.getDate() + 6
 		)
 
-		return `${firstDayOfWeek.toLocaleString('default', { month: 'short' })} ${firstDayOfWeek.getDate()} -  
-		${firstDayOfWeek.getMonth() !== nextDay.getMonth() ? nextDay.toLocaleString('default', { month: 'long' }) : ''} ${nextDay.getDate()}, ${currentDate.getFullYear()}`
+		return `${firstDayOfWeek.toLocaleString(message.dateType, { month: 'short' })} ${firstDayOfWeek.getDate()} -  
+		${firstDayOfWeek.getMonth() !== nextDay.getMonth() ? nextDay.toLocaleString(message.dateType, { month: 'long' }) : ''} ${nextDay.getDate()}, ${currentDate.getFullYear()}`
 	}
 
 	return (
@@ -200,7 +176,10 @@ const EventCalendar = () => {
 				</Button>
 				<div className="max-w-[330px] text-center text-3xl text-primary-foreground">
 					{monthType &&
-						currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+						currentDate.toLocaleString(message.dateType, {
+							month: 'long',
+							year: 'numeric',
+						})}
 					{weekType && showWeek()}
 				</div>
 				<Button
@@ -217,15 +196,15 @@ const EventCalendar = () => {
 						className={
 							'w-[67px] bg-black text-primary-foreground rounded hover:bg-black'
 						}
-						onClick={showMonthView}>
-						Month
+						onClick={convertToMonth}>
+						{message.month}
 					</Button>
 					<Button
 						className={
 							'w-[67px] bg-black text-primary-foreground rounded hover:bg-black'
 						}
-						onClick={showWeekView}>
-						Week
+						onClick={convertToWeek}>
+						{message.week}
 					</Button>
 				</div>
 			</div>
@@ -235,21 +214,21 @@ const EventCalendar = () => {
 					className={
 						'w-1/2 bg-primary text-primary-foreground rounded hover:bg-black mr-1'
 					}
-					onClick={showMonthView}>
-					Month
+					onClick={convertToMonth}>
+					{message.month}
 				</Button>
 				<Button
 					className={
 						'w-1/2 bg-primary text-primary-foreground rounded hover:bg-black ml-1'
 					}
-					onClick={showWeekView}>
-					Week
+					onClick={convertToWeek}>
+					{message.week}
 				</Button>
 			</div>
 			<EventCalendarFilter setCurrentFilter={setCurrentFilter} />
 			<div className={'w-full mt-1'}>
 				<div className={'grid grid-cols-7 gap-1'}>
-					{DAYS_OF_WEEK.map((item, key) => {
+					{message.daysOfWeek.map((item, key) => {
 						return (
 							<div
 								key={key}
@@ -271,7 +250,6 @@ const EventCalendar = () => {
 										dayObj={item}
 										currentFilter={currentFilter}
 										currentEvent={currentEvent}
-										monthType={monthType}
 										weekType={weekType}
 										contactInfo={contactInfo}
 									/>
@@ -289,7 +267,6 @@ const EventCalendar = () => {
 										dayObj={item}
 										currentFilter={currentFilter}
 										currentEvent={currentEvent}
-										monthType={monthType}
 										weekType={weekType}
 										contactInfo={contactInfo}
 									/>

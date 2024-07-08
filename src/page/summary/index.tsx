@@ -17,7 +17,7 @@ import SearchForm from '@/components/common/SearchForm'
 const Summary = () => {
 	const [mobileFilter, setMobileFilter] = useState(false)
 
-	const { message, home } = useConstants()
+	const { message } = useConstants()
 	// const { common, pagination } = useJSONData({ defaultData: SummarySample })
 	const { common, pagination, backToSummary } = useJSONData({ selector: '#xml_record' })
 
@@ -43,7 +43,6 @@ const Summary = () => {
 						<SearchForm
 							className="w-[450px] m-0"
 							inputStyle="text-black"
-							searchURL={home.searchURL}
 							inputName={'KEYWORD_CLUSTER'}
 						/>
 						<ViewToggle />
@@ -60,13 +59,13 @@ const Summary = () => {
 							<Button
 								className="flex cursor-pointer items-center gap-2 border-b "
 								onClick={() => setMobileFilter(true)}>
-								<span className="font-medium"> Filters & Sorting </span>
+								<span className="font-medium"> {message.filtersAndSorting} </span>
 								<ChevronRight className="h-4 w-4" />
 							</Button>
 							<Sheet open={mobileFilter} onOpenChange={setMobileFilter}>
 								<SheetContent>
 									<SheetHeader>
-										<SheetTitle>Filters & Sorting</SheetTitle>
+										<SheetTitle>{message.filtersAndSorting}</SheetTitle>
 									</SheetHeader>
 									<div className="mt-6">
 										<SummaryPageAction />

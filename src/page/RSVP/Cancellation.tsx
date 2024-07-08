@@ -22,14 +22,10 @@ import {
 import Spinner from '@/components/common/event-calendar/Spinner'
 import Layout from '@/components/layouts'
 import { Button } from '@/components/ui/button'
-import { convertXMLToJson, decodeObj, isDatePast } from '@/lib/utils'
-import { landingPageClick } from '@/store'
-import axios from 'axios'
-import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
-import { RegInvalid, RegOutDate } from './Confirmation'
-import { useLanguage } from '@/hooks/useLanguage'
 import useConstants from '@/hooks/useConstants'
+import { convertXMLToJson, decodeObj, isDatePast } from '@/lib/utils'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 const STATUS_TYPE = {
 	Invalid: 'Invalid',
@@ -60,6 +56,7 @@ type PatronInfo = {
 
 const RSVPCancelLandingPage = () => {
 	const [loading, setLoading] = useState(true)
+	const message: any = useConstants().message
 	const [patronInfo, setPatronInfo] = useState<PatronInfo>({
 		TAG_FUNC_P_ATTND: '',
 		TAG_FUNC_P_FIRST: '',
@@ -80,7 +77,6 @@ const RSVPCancelLandingPage = () => {
 		TAG_FUNC_P_PAID: '',
 	})
 	const [status, setStatus] = useState('')
-	const [__, setClick] = useAtom(landingPageClick)
 
 	useEffect(() => {
 		checkParms()
@@ -210,9 +206,6 @@ const RSVPCancelLandingPage = () => {
 				}
 			)
 			.then(async (res) => {
-				// const currE = await fetch_get(new Date())
-				// setCurrentEvent(currE)
-				setClick((prev) => !prev)
 				setLoading(false)
 				return { HOME_SESSID, ID: patronInfo[TAG_FUNC_P_ID] }
 			})
@@ -254,15 +247,26 @@ const RSVPCancelLandingPage = () => {
 	const showRegStatus = () => {
 		switch (status) {
 			case STATUS_TYPE.Invalid:
-				return <RegNotInTheList />
+				return (
+					<div
+						dangerouslySetInnerHTML={{
+							__html: message.cancelLandingNotIntheList,
+						}}></div>
+				)
 			case STATUS_TYPE.Success:
-				return <RegSuccess />
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.cancelLandingSuccess }}></div>
+				)
 			case STATUS_TYPE.OutDate:
-				return <RegOutDate />
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.confirmLandingOutDate }}></div>
+				)
 			case STATUS_TYPE.Cancel:
-				return <RegCancelTmp patronInfo={patronInfo} onClick={onClick} />
+				return <CancelTmp patronInfo={patronInfo} onClick={onClick} />
 			default:
-				return <RegInvalid />
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.confirmLandingInvalid }}></div>
+				)
 		}
 	}
 
@@ -293,44 +297,12 @@ const RSVPCancelLandingPage = () => {
 	)
 }
 
-const RegNotInTheList = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-				Your are not in the List!
-			</h1>
-			<p className="mt-4 text-gray-500">You already canceled the event</p>
-			<a
-				href="#"
-				className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring">
-				Go to website
-			</a>
-		</div>
-	)
-}
-
-/**
- * 
- * Example for using multi-langual translation
- */
-const RegSuccess = () => {
-	const { rsvpCancellationMessage } = useConstants().message
-	return (
-		<div className="text-center">
-			<h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-				Your registration is successfully canceled.
-			</h1>
-
-			<p className="mt-4 text-gray-500">{rsvpCancellationMessage} </p>
-		</div>
-	)
-}
-
-const RegCancelTmp = ({ patronInfo, onClick }: any) => {
+const CancelTmp = ({ patronInfo, onClick }: any) => {
+	const message: any = useConstants().message
 	return (
 		<div className="text-center">
 			<h1 className="text-l font-bold tracking-tight text-gray-900 sm:text-4xl">
-				This will cancel your registration for :
+				{message.pleaseCancel} :
 			</h1>
 			<h2 className="text-l font-bold tracking-tight text-gray-900 sm:text-4xl">
 				{patronInfo?.TAG_NAME}
@@ -342,8 +314,9 @@ const RegCancelTmp = ({ patronInfo, onClick }: any) => {
 					<div>
 						{patronInfo?.TAG_FUNC_START_T} - {patronInfo?.TAG_FUNC_END_T}
 					</div>
+					<div>{patronInfo?.BRANCH_ADDRESS}</div>
 					<div>
-						{patronInfo?.BRANCH_ADDRESS}, Room: {patronInfo?.TAG_FUNC_ROOM}
+						{message.room}: {patronInfo?.TAG_FUNC_ROOM}
 					</div>
 				</div>
 				<div className="sm:w-1/2 max-w-[500px] text-left border-2 border-solid rounded-lg p-5 mx-2">
@@ -351,16 +324,17 @@ const RegCancelTmp = ({ patronInfo, onClick }: any) => {
 						{patronInfo?.TAG_FUNC_P_LAST}, {patronInfo?.TAG_FUNC_P_FIRST}
 					</div>
 					<div>{patronInfo?.TAG_FUNC_P_EMAIL}</div>
-					<div>Registered: {patronInfo?.TAG_FUNC_P_T}</div>
+					<div>{message.registered}:</div>
+					<div>{patronInfo?.TAG_FUNC_P_T}</div>
 					<div className="border-2 border-dashed p-2">
-						{patronInfo?.TAG_FUNC_P_ATTND} spot reserved
+						{patronInfo?.TAG_FUNC_P_ATTND} {message.spotReserved}
 					</div>
 				</div>
 			</div>
 			<Button
 				onClick={onClick}
 				className="flex items-center justify-center w-[300px] h-[50px] mt-6 inline-block rounded bg-red-600 text-lg font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring">
-				<div>Unregister</div>
+				<div>{message.unregistered}</div>
 			</Button>
 		</div>
 	)

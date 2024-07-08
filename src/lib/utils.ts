@@ -89,11 +89,11 @@ export const isDatePast = (dateString: string) => {
  * Cookie
  */
 
-function deleteCookie(cname: string) {
+export function deleteCookie(cname: string) {
 	document.cookie = cname + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 }
 
-function deleteAllCookies() {
+export function deleteAllCookies() {
 	var cookies = document.cookie.split(';')
 	var cookie = ''
 	for (var i = 0; i < cookies.length; i++) {
@@ -101,23 +101,13 @@ function deleteAllCookies() {
 	}
 }
 
-function getCookie(cname: string) {
-	var name = cname + '='
-	var decodedCookie = decodeURIComponent(document.cookie)
-	var ca = decodedCookie.split(';')
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i]
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1)
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length)
-		}
-	}
-	return ''
+export function getHOMESESSID() {
+	let match = document.cookie.match(/HOME_SESSID=(http:\/\/[^;]+)/) ?? ''
+	let HOME_SESSID = match[0]?.split('=')[1]
+	return HOME_SESSID
 }
 
-function setCookie(name: string, value: string, days: number) {
+export function setCookie(name: string, value: string, days: number) {
 	var expires = ''
 	if (days) {
 		var date = new Date()

@@ -34,7 +34,7 @@ const Detail = () => {
 	// const { backToSummary, records, getMedia } = useJSONData({ defaultData: DetailM3Sample })
 	const images = getMedia(records[0], 'im_access_link')?.map((e) => ({ src: e })) || []
 
-	const { message, home } = useConstants()
+	const { message } = useConstants()
 	// TODO: create placeholder component when there is no data
 	if (!records || records.length === 0) return <></>
 
@@ -67,7 +67,6 @@ const Detail = () => {
 						<SearchForm
 							className="w-[450px] m-0"
 							inputStyle="text-black"
-							searchURL={home.searchURL}
 							inputName={'KEYWORD_CLUSTER'}
 						/>
 					</div>

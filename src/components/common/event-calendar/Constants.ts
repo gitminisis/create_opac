@@ -15,8 +15,9 @@ export interface Cal_event {
 	[TAG_FUNC_LANG]: string
 	[PATRON]: patron[]
 	[TAG_FUNC_ACCESS]: string
+	[TAG_FUNC_CANCEL]: string
+	[TAG_FUNC_CAN_RES]: string
 }
-
 export interface patron {
 	[PATRON]: string
 	[TAG_FUNC_P_ID]: string
@@ -26,28 +27,27 @@ export interface patron {
 	[TAG_FUNC_P_PAID]: string
 	[TAG_FUNC_P_ATTND]: string
 }
-
 export interface Day_obj {
 	day: number | null
 	month?: number
 	year?: number
 }
-
-export const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+//MINISIS REPORT
 export const MONTH_REPORT = 'MONTHLY_CALENDAR_NEW_T4'
+export const LIBRARY_LOCATION_REPORT = 'LIBRARY_LOCATION_REPORT'
+//MWI
+export const MAIN_MWI_APPLICATION = 'WEB_CALENDAR'
+export const SUB_MWI_APPLICATION = 'WEB_LIBRARY_LOC'
 export const RSVP_CONFIRM_LANDING_PAGE_URL = 'http://donf.minisisinc.com/rsvp_confirm.html'
 export const RSVP_CANCEL_LANDING_PAGE_URL = 'http://donf.minisisinc.com/rsvp_cancel.html'
-export const MAIN_MWI_APPLICATION = 'M2L_TAG_TO_BIBLIO'
-export const SUB_MWI_APPLICATION = 'LIBRARY_LOCATION'
 export const CALENDAR_START_MONTH = 1
 export const CALENDAR_WEEK_VIEW_DAYS = 7
-export const TAG_NAME = 'TAG_NAME'
 export const SISN = 'SISN'
 export const VERIFICATION_EMAIL_T = 'Please confirm your event:'
 export const REG_CONFIMRATION_EMAIL_T = 'Your confirmed for: '
 export const CANCEL_CONFIRMATION_EMAIL_T = 'Your registration has been cancelled for: '
 //Library Location group
-export const LIBRARY_LOCATION_REPORT = 'LIBRARY_LOCATION_REPORT'
+export const TAG_NAME = 'TAG_NAME'
 export const LIBRARY_LOCATION_XML_TAG = 'LOCATION'
 export const BRANCH_NAME = 'BRANCH_NAME'
 export const BRANCH_ADDRESS = 'BRANCH_ADDRESS'
@@ -68,6 +68,8 @@ export const TAG_FUNC_RSVP = 'TAG_FUNC_RSVP'
 export const TAG_FUNC_CAP = 'TAG_FUNC_CAP'
 export const TAG_FUNC_ROOM = 'TAG_FUNC_ROOM'
 export const TAG_FUNC_LANG = 'TAG_FUNC_LANG'
+export const TAG_FUNC_CANCEL = 'TAG_FUNC_CANCEL'
+export const TAG_FUNC_CAN_RES = 'TAG_FUNC_CAN_RES'
 //Patron group by event
 export const FUNC_LOC_P_GRP = 'FUNC_LOC_P_GRP'
 export const PATRON = 'PATRON'
@@ -80,6 +82,8 @@ export const TAG_FUNC_P_ATTND = 'TAG_FUNC_P_ATTND'
 export const TAG_FUNC_ACCESS = 'TAG_FUNC_ACCESS'
 export const EVENT_RSVP_YES = 'X'
 //Others
+export const EVENT_CANCEL_NOTI_MODAL_BG = 'bg-red-800'
+export const TAG_FUNC_P_CONFIRM_EXP_HOURS = 24
 export const TAG_FUNC_P_ATTND_DEFAULT = 1
 export const TAG_FUNC_P_ATTND_MAX = 4
 export const TAG_FUNC_DTE_LIST = 'list'

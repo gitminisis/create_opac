@@ -32,23 +32,28 @@ import {
 	SISN,
 	ContactInfo,
 	TAG_FUNC_ACCESS,
+	TAG_FUNC_CANCEL,
+	TAG_FUNC_CAN_RES,
 } from './Constants'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { Accessibility, SquareUserRound, X } from 'lucide-react'
 import EventRSVPForm from './EventRSVPForm'
 import useConstants from '@/hooks/useConstants'
+import { useAtom } from 'jotai'
+import { calendarWeekType } from '@/store'
+import EventRSVPCancel from './EventCancel'
 
 const EventButton = ({
 	elm,
 	id,
-	weekType,
 	contactInfo,
 }: {
 	elm: Cal_event
 	id: number
-	weekType: boolean
 	contactInfo: ContactInfo[]
 }) => {
+	const [weekType, _] = useAtom(calendarWeekType)
+	const message = useConstants().message
 	const { logo } = useConstants().config
 	const getColor = (event_type: string) => {
 		let result = FILTER_TYPE_COLORS?.filter((item) => {
@@ -78,18 +83,21 @@ const EventButton = ({
 									<div>{elm[TAG_FUNC_START_T]?.toUpperCase()}-</div>
 									<div>{elm[TAG_FUNC_END_T]?.toUpperCase()}</div>
 								</div>
-								{elm[TAG_FUNC_RSVP] && <SquareUserRound />}
+								<div className={'hidden sm:block w-[18px]'}>
+									{elm[TAG_FUNC_RSVP] && <SquareUserRound />}
+								</div>
 							</div>
 						)}
 					</div>
 				</Button>
 			</DialogTrigger>
-			<DialogContent hideClose={'invisible'} className={'max-w-lg md:max-w-3xl'}>
+			<DialogContent hideClose={'invisible'} className={'max-w-lg md:max-w-3xl '}>
 				<DialogHeader>
 					<DialogTitle
 						className={
-							' bg-primary text-primary-foreground h-10 flex items-center justify-between rounded p-2'
+							' bg-primary text-primary-foreground h-10 flex items-center justify-between rounded p-2 '
 						}>
+						
 						<div className="h-8">
 							<img className="h-full" src={logo} alt="logo" />
 						</div>
@@ -106,7 +114,8 @@ const EventButton = ({
 						</DialogPrimitive.Close>
 					</DialogTitle>
 				</DialogHeader>
-				<div className={'w-full min-h-[400px]  sm:flex font-bold'}>
+				<div className={'w-full min-h-[400px]  sm:flex font-bold relative'}>
+				{elm[TAG_FUNC_CANCEL] && <EventRSVPCancel reason={elm[TAG_FUNC_CAN_RES]} />}
 					<div className={'w-full sm:w-8/12 '}>
 						<div className={'overflow-hidden text-lg'}>{elm[TAG_NAME]}</div>
 						<div className={'sm:flex'}>
@@ -119,7 +128,7 @@ const EventButton = ({
 								<span>{elm[TAG_FUNC_END_T]?.toUpperCase()}</span>
 							</div>
 							<div className="ml-[10px] text-md text-gray-600 font-bold">
-								&#x2022;Room: {elm[TAG_FUNC_ROOM]}
+								&#x2022;{message.room}: {elm[TAG_FUNC_ROOM]}
 							</div>
 							{elm[TAG_FUNC_ACCESS] && (
 								<div className="ml-[10px] text-md text-gray-600 font-bold flex">
@@ -130,13 +139,13 @@ const EventButton = ({
 						</div>
 						<div className={'sm:flex'}>
 							<div className="sm:ml-0 ml-[10px] text-md text-gray-600 font-bold">
-								&#x2022;Suitable for: {elm[TAG_FUNC_LOC_AUD]}
+								&#x2022;{message.suitableFor}: {elm[TAG_FUNC_LOC_AUD]}
 							</div>
 							<div className="ml-[10px] text-md text-gray-600 font-bold">
-								&#x2022;Seats: {elm[TAG_FUNC_CAP]}
+								&#x2022;{message.seats}: {elm[TAG_FUNC_CAP]}
 							</div>
 							<div className="ml-[10px] text-md text-gray-600 font-bold">
-								&#x2022;Language: {elm[TAG_FUNC_LANG]}
+								&#x2022;{message.language}: {elm[TAG_FUNC_LANG]}
 							</div>
 						</div>
 						<DialogDescription
@@ -147,13 +156,15 @@ const EventButton = ({
 						</DialogDescription>
 					</div>
 					<div className={'w-full sm:w-4/12'}>
-						<EventRSVPForm
-							sisnNumber={elm[SISN]}
-							capacity={elm[TAG_FUNC_CAP]}
-							patrons={convertToArr(elm[PATRON])}
-							event={elm}
-							contactInfo={contactInfo}
-						/>
+						{elm[TAG_FUNC_RSVP] && (
+							<EventRSVPForm
+								sisnNumber={elm[SISN]}
+								capacity={elm[TAG_FUNC_CAP]}
+								patrons={convertToArr(elm[PATRON])}
+								event={elm}
+								contactInfo={contactInfo}
+							/>
+						)}
 					</div>
 				</div>
 				<DialogFooter>
@@ -161,7 +172,7 @@ const EventButton = ({
 						className={
 							'bg-primary text-primary-foreground h-10 w-20 flex items-center justify-around rounded'
 						}>
-						Close
+						{message.close}
 					</DialogPrimitive.Close>
 				</DialogFooter>
 			</DialogContent>

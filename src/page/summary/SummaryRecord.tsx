@@ -1,27 +1,27 @@
 import DataWithLabel from '@/components/common/DataWithLabel'
 import DetailInfoCard from '@/components/common/DetailInfoCard'
 import InfoCard from '@/components/common/InfoCard'
+import Link from '@/components/common/Link'
 import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'
+import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
+import { bookmarkSelect, validateBookmarkSelectResponse } from '@/lib/bookmark'
 import {
-	getFieldDataByLabel,
-	deepSearchKey,
-	truncateString,
 	copyRecordURL,
+	deepSearchKey,
+	getFieldDataByLabel,
 	getFieldsFromRecord,
+	truncateString,
 } from '@/lib/record'
 import { cn } from '@/lib/utils'
 import { viewAtom } from '@/store'
-import { Separator } from '@/components/ui/separator'
+import { Record } from '@/types/record'
 import { ToastAction } from '@radix-ui/react-toast'
 import { useAtom } from 'jotai'
-import { Heart, Copy, Mail } from 'lucide-react'
+import { Copy, Heart } from 'lucide-react'
 import { useState } from 'react'
-import Link from '@/components/common/Link'
-import { Record } from '@/types/record'
-import { SummarySample } from '@/samples'
-import useConstants from '@/hooks/useConstants'
 
 const SummaryRecords = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
@@ -37,7 +37,7 @@ const SummaryRecords = () => {
 
 const RecordView = ({ record }: { record: Record }) => {
 	const [view] = useAtom(viewAtom)
-	const fields = useConstants().fields
+	const { fields } = useConstants()
 	const database = record.database_name
 	const recordLink = record.record_link
 	const title = getFieldDataByLabel(record, fields, database, 'Title') || 'Untitled'
@@ -103,43 +103,64 @@ const RecordView = ({ record }: { record: Record }) => {
 }
 
 const RecordAction = ({ record }: { record: Record }) => {
-	const [like, setLike] = useState(false)
+	const { database_name, is_bookmarked } = record
+	const [like, setLike] = useState(Boolean(JSON.parse(is_bookmarked)))
+	const { common } = useJSONData({ selector: '#xml_record' })
+	const { bookmark_url, bookmark_count } = common
 	const { toast } = useToast()
 	const sisn = deepSearchKey(record, 'sisn')[0] as string
-	const database = record.database_name
-
 	const { message } = useConstants()
+
+	const handleBookmark = () => {
+		if (like) {
+			toast({
+				title: 'This record has already been marked',
+				action: (
+					<ToastAction altText={message.viewBookmark}>{message.viewBookmark}</ToastAction>
+				),
+			})
+			return
+		}
+		bookmarkSelect(`${bookmark_url}`, record).then((res) => {
+			const isValidated = validateBookmarkSelectResponse(
+				res,
+				typeof bookmark_count === 'number'
+					? bookmark_count
+					: Number.parseInt(bookmark_count || '0')
+			)
+			if (isValidated) {
+				setLike(true)
+				toast({
+					title: message.successfullBookmark,
+					action: (
+						<ToastAction altText={message.viewBookmark}>
+							{message.viewBookmark}
+						</ToastAction>
+					),
+				})
+				return
+			}
+		})
+	}
+
+	const handleCopy = () => {
+		copyRecordURL(database_name, sisn)
+		toast({
+			title: message.recordIsCopied,
+		})
+	}
 
 	return (
 		<>
-			{/* <Button
-				variant="ghost"
-				size="icon"
-				onClick={() => {
-					setLike(true)
-					toast({
-						title: like
-							? 'This record has already been marked'
-							: 'Record has been bookmarked',
-						action: <ToastAction altText="View bookmark">View bookmark</ToastAction>,
-					})
-				}}>
+			<Button variant="ghost" size="icon" onClick={handleBookmark}>
 				<Heart
 					className={cn('h-4 w-4 text-primary')}
 					fill={like ? 'hsl(var(--opac-blue))' : 'rgb(0,0,0,0)'}
 					stroke={like ? 'hsl(var(--opac-blue))' : 'hsl(var(--primary'}
 				/>
-			</Button> */}
-			{/* <Separator orientation="vertical" /> */}
-			<Button
-				variant="ghost"
-				size="icon"
-				onClick={() => {
-					copyRecordURL(database, sisn)
-					toast({
-						title: message.recordIsCopied,
-					})
-				}}>
+			</Button>
+			<Separator orientation="vertical" />
+			<Button variant="ghost" size="icon" onClick={handleCopy}>
 				<Copy className="h-4 w-4 text-primary" />
 			</Button>
 			{/* <Separator orientation="vertical" /> */}

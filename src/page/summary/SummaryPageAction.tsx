@@ -4,6 +4,9 @@ import DropdownSelect from '@/components/common/DropdownSelect'
 import useConstants from '@/hooks/useConstants'
 import useJSONData, { COMMON_FIELDS_TYPE, SORT_TYPE } from '@/hooks/useJSONData'
 import { Label } from '@radix-ui/react-dropdown-menu'
+import ViewBookmarks from '../bookmark/ViewBookmarks'
+import BookmarkAll from '../bookmark/BookmarkAll'
+import PrintPage from '../bookmark/PrintPage'
 
 /**
  * This component contains:
@@ -91,14 +94,22 @@ const SummaryPageAction = () => {
 					options={SORT_OPTIONS}
 				/>
 			</div>
-
+			<div className="flex items-center">
+				<Label>{message.bookmark}</Label>
+				<div className="flex-grow border-t border-gray-600 ml-[4px]"></div>
+			</div>
+			{/* <div className="flex flex-col space-y-2">
+				<ViewBookmarks />
+				<BookmarkAll/>
+				<PrintPage/>	
+			</div> */}
 			{filter && filter.length > 0 && (
 				<div className="flex flex-col space-y-2">
 					<Label>{message.filterBy}</Label>
 					<div className="flex flex-col space-y-4">
 						{filter.map((item, index) => (
 							<CollapseList title={item._title} expand={index === 0} key={item._name}>
-								<div className="space-y-3  border-t p-4">
+								<div className="space-y-3 border-t p-4">
 									{item.item_group.map((option) => (
 										<CheckboxWithLabel
 											callback={() => {

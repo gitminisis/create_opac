@@ -21,11 +21,7 @@ const Home = () => {
 	return (
 		<Layout>
 			<Hero className="" title={heading} backgroundImage={heroBanner} description="">
-				<SearchForm
-					className="w-full mt-6 max-w-2xl"
-					searchURL={searchURL}
-					inputName={'KEYWORD_CLUSTER'}
-				/>
+				<SearchForm className="w-full mt-6 max-w-2xl" inputName={'KEYWORD_CLUSTER'} />
 
 				{/* <CommandDemo /> */}
 			</Hero>

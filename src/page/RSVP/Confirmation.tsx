@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Layout from '@/components/layouts'
+import '@/components/common/event-calendar/CalendarStyle.css'
 import React, { useEffect, useState } from 'react'
 import {
 	FUNC_LOC_P_GRP,
@@ -16,6 +17,7 @@ import {
 	TAG_FUNC_END_T,
 	TAG_FUNC_LOC_GRP,
 	TAG_FUNC_P_ATTND,
+	TAG_FUNC_P_CONFIRM_EXP_HOURS,
 	TAG_FUNC_P_EMAIL,
 	TAG_FUNC_P_FIRST,
 	TAG_FUNC_P_ID,
@@ -32,8 +34,7 @@ import { convertToArr, convertXMLToJson, decodeObj, encodeObj, isDatePast } from
 import Spinner from '@/components/common/event-calendar/Spinner'
 import { v4 as uuidv4 } from 'uuid'
 import { calNumOfPatron } from '@/components/common/event-calendar/EC-Util'
-import { useAtom } from 'jotai'
-import { landingPageClick } from '@/store'
+import useConstants from '@/hooks/useConstants'
 
 type PatronInfo = {
 	TAG_FUNC_P_ATTND: string
@@ -62,9 +63,11 @@ const STATUS_TYPE = {
 	OutDate: 'OutDate',
 	InList: 'InList', // Already registered
 	Full: 'Full', // Fully registered
+	Expired: 'Expired',
 }
 
 const RSVPCancelLandingPage = () => {
+	const message: any = useConstants().message
 	const [loading, setLoading] = useState(false)
 	const [patronInfo, setPatronInfo] = useState<PatronInfo>({
 		TAG_FUNC_P_ATTND: '',
@@ -86,7 +89,6 @@ const RSVPCancelLandingPage = () => {
 		TAG_FUNC_P_PAID: '',
 	})
 	const [status, setStatus] = useState('')
-	const [__, setClick] = useAtom(landingPageClick)
 
 	useEffect(() => {
 		checkParms()
@@ -99,6 +101,12 @@ const RSVPCancelLandingPage = () => {
 			obj = decodeObj(value)
 		})
 		let jsonObj = JSON.parse(obj)
+
+		// check the expired or not, user should confirm within TAG_FUNC_P_CONFIRM_EXP_HOURS
+		if (isExpired(jsonObj.TAG_FUNC_P_T)) {
+			setStatus(STATUS_TYPE.Expired)
+			return
+		}
 		// check the date is available
 		if (isDatePast(jsonObj.TAG_FUNC_DATE)) {
 			setStatus(STATUS_TYPE.OutDate)
@@ -113,6 +121,14 @@ const RSVPCancelLandingPage = () => {
 			}
 			return
 		})
+	}
+
+	const isExpired = (registered_time: string) => {
+		const givenTime = new Date(registered_time)
+		const currentTime = new Date()
+		const milliseconds = TAG_FUNC_P_CONFIRM_EXP_HOURS * 60 * 60 * 1000
+		const timeDifference = currentTime.getTime() - givenTime.getTime()
+		return timeDifference > milliseconds
 	}
 
 	// check the email is already registered or not
@@ -241,7 +257,6 @@ const RSVPCancelLandingPage = () => {
 	}
 
 	const sendRegConfirmEmail = async (obj: { HOME_SESSID: string | boolean; ID: string }) => {
-		console.log('obj', obj)
 		const encoded = encodeObj(
 			JSON.stringify({
 				...patronInfo,
@@ -266,9 +281,6 @@ const RSVPCancelLandingPage = () => {
 				}
 			)
 			.then(async (res) => {
-				// const currE = await fetch_get(new Date())
-				// setCurrentEvent(currE)
-				setClick((prev) => !prev)
 				setStatus(STATUS_TYPE.Success)
 				setLoading(false)
 				return obj
@@ -312,35 +324,53 @@ const RSVPCancelLandingPage = () => {
 			})
 	}
 
+	// Various view for different status
 	const showRegStatus = () => {
 		switch (status) {
 			case STATUS_TYPE.Invalid:
-				return <RegInvalid />
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.confirmLandingInvalid }}></div>
+				)
 			case STATUS_TYPE.Success:
-				return <RegSuccess />
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.confirmLandingSuccess }}></div>
+				)
 			case STATUS_TYPE.OutDate:
-				return <RegOutDate />
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.confirmLandingOutDate }}></div>
+				)
 			case STATUS_TYPE.InList:
-				return <RegInList />
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.confirmLandingInList }}></div>
+				)
 			case STATUS_TYPE.Full:
-				return <RegFullEvent />
+				return (
+					<div
+						dangerouslySetInnerHTML={{ __html: message.confirmLandingFullEvent }}></div>
+				)
+			case STATUS_TYPE.Expired:
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.confirmLandingExpired }}></div>
+				)
 			case STATUS_TYPE.Confirm:
-				return <RegConfirmTmp patronInfo={patronInfo} onClick={onClick} />
+				return <ConfirmTmp patronInfo={patronInfo} onClick={onClick} />
 			default:
-				return <RegInvalid />
+				return (
+					<div dangerouslySetInnerHTML={{ __html: message.confirmLandingInvalid }}></div>
+				)
 		}
 	}
 
 	return (
 		<Layout>
-			<div className="flex flex-col bg-white h-[800px]">
+			<div className="flex h-screen flex-col bg-white">
 				<img
 					src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
 					alt=""
 					className="h-64 w-full object-cover"
 				/>
 				{loading ? (
-					<div className={'h-[500px]'}>
+					<div className="flex h-full items-center justify-center">
 						<Spinner
 							height={'h-full'}
 							spinHeight={'h-20'}
@@ -349,133 +379,51 @@ const RSVPCancelLandingPage = () => {
 						/>
 					</div>
 				) : (
-					<div className={'h-full min-h-[550px] flex items-center justify-center'}>
-						{showRegStatus()}
-					</div>
+					<div className="flex h-full items-center justify-center">{showRegStatus()}</div>
 				)}
 			</div>
 		</Layout>
 	)
 }
 
-const RegInList = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-				You are already in the list!
-			</h1>
-			<p className="mt-4 text-gray-500">Please check your registartion confirm email</p>
-			<a
-				href="#"
-				className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring">
-				Go to website
-			</a>
-		</div>
-	)
-}
-
-const RegFullEvent = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-				This event is already fully registered.
-			</h1>
-			<p className="mt-4 text-gray-500">
-				Please check our website for updates on future events.
-			</p>
-			<a
-				href="#"
-				className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring">
-				Go to website
-			</a>
-		</div>
-	)
-}
-
-export const RegOutDate = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-				The event date has already passed.
-			</h1>
-			<p className="mt-4 text-gray-500">Please check our website for future events.</p>
-			<a
-				href="#"
-				className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring">
-				Go to website
-			</a>
-		</div>
-	)
-}
-
-export const RegInvalid = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-				We can't find that page.
-			</h1>
-			<p className="mt-4 text-gray-500">
-				Try searching again, or return home to start from the beginning.
-			</p>
-			<a
-				href="#"
-				className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring">
-				Go to website
-			</a>
-		</div>
-	)
-}
-
-const RegSuccess = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-				Your registration is successfully done.
-			</h1>
-
-			<p className="mt-4 text-gray-500">
-				We will send you an email with the details, and you can also cancel through the
-				email.
-			</p>
-		</div>
-	)
-}
-
-const RegConfirmTmp = ({ patronInfo, onClick }: any) => {
+const ConfirmTmp = ({ patronInfo, onClick }: any) => {
+	const message: any = useConstants().message
 	return (
 		<div className="text-center">
 			<h1 className="text-l font-bold tracking-tight text-gray-900 sm:text-4xl">
-				Please confirm your registration
+				{message.pleaseConfirm}
 			</h1>
 			<h2 className="text-l font-bold tracking-tight text-gray-900 sm:text-4xl">
 				'{patronInfo?.TAG_NAME}'
 			</h2>
 			<div className="mt-4 text-gray-500 sm:flex justify-evenly text-lg w-full">
-				<div className="sm:w-1/2 max-w-[500px] text-left border-2 border-solid rounded-lg p-5 mx-2">
+				<div className="sm:w-1/2 text-left border-2 border-solid rounded-lg p-5 mx-2">
 					<div>{patronInfo?.TAG_NAME}</div>
 					<div>{patronInfo?.TAG_FUNC_DATE}</div>
 					<div>
 						{patronInfo?.TAG_FUNC_START_T} - {patronInfo?.TAG_FUNC_END_T}
 					</div>
+					<div>{patronInfo?.BRANCH_ADDRESS}</div>
 					<div>
-						{patronInfo?.BRANCH_ADDRESS}, Room: {patronInfo?.TAG_FUNC_ROOM}
+						{message.room}: {patronInfo?.TAG_FUNC_ROOM}
 					</div>
 				</div>
-				<div className="sm:w-1/2 max-w-[500px] text-left border-2 border-solid rounded-lg p-5 mx-2">
+				<div className="sm:w-1/2 text-left border-2 border-solid rounded-lg p-5 mx-2">
 					<div>
 						{patronInfo?.TAG_FUNC_P_LAST}, {patronInfo?.TAG_FUNC_P_FIRST}
 					</div>
 					<div>{patronInfo?.TAG_FUNC_P_EMAIL}</div>
-					<div>Registered: {patronInfo?.TAG_FUNC_P_T}</div>
+					<div>{message.registered}:</div>
+					<div>{patronInfo?.TAG_FUNC_P_T}</div>
 					<div className="border-2 border-dashed p-2">
-						{patronInfo?.TAG_FUNC_P_ATTND} spot reserved
+						{patronInfo?.TAG_FUNC_P_ATTND} {message.spotReserved}
 					</div>
 				</div>
 			</div>
 			<Button
 				onClick={onClick}
 				className="flex items-center justify-center w-[300px] h-[50px] mt-6 inline-block rounded bg-green-600 text-lg font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring">
-				<div>Confirm</div>
+				<div>{message.confirm}</div>
 			</Button>
 		</div>
 	)

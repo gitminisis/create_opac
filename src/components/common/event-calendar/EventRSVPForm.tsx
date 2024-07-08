@@ -13,29 +13,19 @@ import {
 	VERIFICATION_EMAIL_T,
 	Cal_event,
 	ContactInfo,
-	FUNC_LOC_P_GRP,
 	MAIN_MWI_APPLICATION,
 	MWI_RESFUL_RES,
 	MWI_XML_DATA_INDEX,
-	NON_LOGIN_USER_TYPE,
-	PATRON,
-	RSVP_CANCEL_LANDING_PAGE_URL,
 	SISN,
-	SUCCESS_RES_CODE,
 	TAG_FUNC_DATE,
-	TAG_FUNC_DESC,
-	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
 	TAG_FUNC_LOC,
-	TAG_FUNC_LOC_GRP,
 	TAG_FUNC_P_ATTND,
 	TAG_FUNC_P_ATTND_DEFAULT,
 	TAG_FUNC_P_ATTND_MAX,
 	TAG_FUNC_P_EMAIL,
 	TAG_FUNC_P_FIRST,
-	TAG_FUNC_P_ID,
 	TAG_FUNC_P_LAST,
-	TAG_FUNC_P_PAID,
 	TAG_FUNC_ROOM,
 	TAG_FUNC_START_T,
 	TAG_NAME,
@@ -53,6 +43,10 @@ import {
 } from '@/lib/utils'
 import Spinner from './Spinner'
 import { calNumOfPatron } from './EC-Util'
+import useConstants from '@/hooks/useConstants'
+import { useAtom } from 'jotai'
+import { calendarCurrDate, calendarEvents, calendarWeekType } from '@/store'
+import { fetch_get } from './Service'
 
 type Inputs = {
 	[TAG_FUNC_P_FIRST]: string
@@ -123,6 +117,9 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 		formState: { errors },
 	} = useForm<Inputs>()
 	const [loading, setLoading] = useState(false)
+	const [currentDate, _] = useAtom(calendarCurrDate)
+	const [weekType, __] = useAtom(calendarWeekType)
+	const [___, setCurrentEvent] = useAtom(calendarEvents)
 
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
 		let urlForSessionID = `/scripts/mwimain.dll?logon&application=${MAIN_MWI_APPLICATION}`
@@ -142,7 +139,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 			)
 			.then(() => {
 				return getOCCNumber().then((res) => {
-					sendEmail(res, data, event);
+					sendEmail(res, data, event)
 				})
 			})
 			.catch((error) => {
@@ -204,7 +201,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 		let info: any = contactInfo?.filter((item) => {
 			return convertLowerTrim(item[BRANCH_NAME]) === convertLowerTrim(event[TAG_FUNC_LOC])
 		})
-		if (info) {
+		if (info.length > 0) {
 			let contact = info[0]
 			return contact[type]
 		}
@@ -249,9 +246,11 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 					},
 				}
 			)
-			.then(() => {
+			.then(async () => {
 				setStatus(STATUS_TYPE.SHOW_SUCCESS)
 				setLoading(false)
+				const currE = await fetch_get(currentDate, weekType)
+				setCurrentEvent(currE)
 			})
 	}
 
@@ -315,36 +314,37 @@ const ShowForm = ({
 	errors: any
 	onReset: any
 }) => {
+	const message = useConstants().message
 	return (
 		<div className={'h-5/6 w-full p-1'}>
 			{loading && <Spinner height={'h-[388px]'} spinHeight={'h-10'} spinWidth={'w-10'} />}
 			<div className={'bg-primary p-1 text-white'}>
-				Did you <span className={'text-gray-400'}>Log In?</span>
+				<span className={'text-gray-400'}>{message.logIn}?</span>
 			</div>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className={'h-full w-full flex flex-col justify-start items-center'}>
 				<EventInput
-					label={'First Name'}
+					label={message.firstName}
 					keyname={TAG_FUNC_P_FIRST}
 					register={register}
 					required={true}
 				/>
 				<EventInput
-					label={'Last Name'}
+					label={message.lastName}
 					keyname={TAG_FUNC_P_LAST}
 					register={register}
 					required={true}
 				/>
 				<EventEmailInput
-					label={'Email'}
+					label={message.email}
 					keyname={TAG_FUNC_P_EMAIL}
 					register={register}
 					required={true}
 					errors={errors}
 				/>
 				<div className={'flex w-full flex-col my-1'}>
-					<Label>Attendee</Label>
+					<Label>{message.attendee}</Label>
 					<select
 						defaultValue={TAG_FUNC_P_ATTND_DEFAULT}
 						{...register(TAG_FUNC_P_ATTND)}
@@ -361,10 +361,10 @@ const ShowForm = ({
 					</select>
 				</div>
 				<Button className={'w-full'} type="submit">
-					Register
+					{message.register}
 				</Button>
 				<div onClick={onReset} className="text-center border-b-4">
-					Go Back
+					{message.goBack}
 				</div>
 			</form>
 		</div>
@@ -382,41 +382,49 @@ const ShowButton = ({
 	getContactInfo: Function
 	setStatus: React.Dispatch<React.SetStateAction<string>>
 }) => {
+	const message = useConstants().message
 	return (
 		<div className={'w-full p-2 border-2 rounded'}>
 			<div
 				className={
 					'w-full h-3/6 flex flex-col items-center justify-evenly space-evenly border-b-4'
 				}>
-				<div className={'flex'}>
-					<SquareUserRound /> Registration Required
+				<div className={'flex justify-center items-center'}>
+					<SquareUserRound /> {message.registrationRequired}
 				</div>
 				<Button
 					disabled={capacity - calNumOfPatron(patrons) <= 0 ? true : false}
 					className={'w-full '}
-					onClick={() => setStatus(STATUS_TYPE.SHOW_FORM)}>{`Register`}</Button>
-				<div className={'flex items-center justify-center'}>
+					onClick={() => setStatus(STATUS_TYPE.SHOW_FORM)}>
+					{message.register}
+				</Button>
+				<div className={'flex justify-center items-center'}>
 					{capacity - calNumOfPatron(patrons) <= 0 ? (
-						<div className={'flex text-red-600 items-center'}>
-							No Seats are remaining
+						<div className={'flex text-red-600 justify-center items-center'}>
+							{message.noSeatsRemaining}
 						</div>
 					) : (
-						<div className={'flex text-lime-800 items-center'}>
-							<BadgeCheck /> {`${capacity - calNumOfPatron(patrons)} seats remaining`}
+						<div className={'flex text-lime-800 justify-center items-center'}>
+							<BadgeCheck />{' '}
+							{`${capacity - calNumOfPatron(patrons)} ${message.seatsRemaining}`}
 						</div>
 					)}
 				</div>
 			</div>
 			{getContactInfo(BRANCH_ADDRESS) ? (
 				<div className={'h-3/6 flex flex-col items-center justify-center '}>
-					<div>Contact Info</div>
-					<div>Address: {getContactInfo(BRANCH_ADDRESS)}</div>
-					<div>Phone: {getContactInfo(BRANCH_PHONE)}</div>
+					<div>{message.contactInfo}</div>
+					<div>
+						{message.address}: {getContactInfo(BRANCH_ADDRESS)}
+					</div>
+					<div>
+						{message.phone}: {getContactInfo(BRANCH_PHONE)}
+					</div>
 				</div>
 			) : (
 				<div className={'h-3/6 flex flex-col items-center justify-center '}>
-					<div>Private property </div>
-					<div>Contact info is not provided</div>
+					<div>{message.privateProperty}</div>
+					<div className={'text-center'}>{message.contactInfoNotProvided}</div>
 				</div>
 			)}
 		</div>
@@ -430,22 +438,27 @@ const ShowRSVPSuccess = ({
 	onReset: any
 	getContactInfo: Function
 }) => {
+	const message = useConstants().message
 	return (
 		<div className={'w-full p-2 border-2 rounded'}>
 			<div className={'text-center w-full h-3/6 flex flex-col items-center justify-evenly'}>
 				<SquareUserRound />
-				<div>Your registarion is not complete!</div>
-				<div>Please check your email to complete the registration</div>
+				<div>{message.checkEmail}</div>
+				<div>{message.registrationIncomplete}</div>
 			</div>
 			<div
 				onClick={onReset}
 				className="text-center bg-primary text-primary-foreground rounded">
-				Go Back
+				{message.goBack}
 			</div>
 			<div className={'h-3/6 flex flex-col items-center justify-center '}>
-				<div>Contact Info</div>
-				<div>Address: {getContactInfo(BRANCH_ADDRESS)}</div>
-				<div>Phone: {getContactInfo(BRANCH_PHONE)}</div>
+				<div>{message.contactInfo}</div>
+				<div>
+					{message.address}: {getContactInfo(BRANCH_ADDRESS)}
+				</div>
+				<div>
+					{message.phone}: {getContactInfo(BRANCH_PHONE)}
+				</div>
 			</div>
 		</div>
 	)

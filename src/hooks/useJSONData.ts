@@ -4,7 +4,7 @@ import { Pagination } from '@/types/pagination'
 import { Record } from '@/types/record'
 import { useState } from 'react'
 import X2JS from 'x2js'
-type Props = {
+export type useJSONDataProps = {
 	selector?: string
 	defaultData?: GenericObject
 }
@@ -75,13 +75,13 @@ const ARRAY_ACCESS_PATHS = [
 	'xml.xml_record.media.image_caption',
 ]
 
-export const getRecordXML = (id: string) => {
-	return document.querySelector(id) || null
+export const getRecordXML = (id: string, doc = document) => {
+	return doc.querySelector(id) || null
 }
 
-export const getDataFromXML = (id: string) => {
+export const getDataFromXML = (id: string, doc = document) => {
 	if (!id) return null
-	const xml = getRecordXML(id)
+	const xml = getRecordXML(id, doc)
 	if (xml) {
 		try {
 			const x2js = new X2JS({
@@ -97,7 +97,7 @@ export const getDataFromXML = (id: string) => {
 	return null
 }
 
-const useJSONData = ({ selector, defaultData }: Props) => {
+const useJSONData = ({ selector, defaultData }: useJSONDataProps) => {
 	const [data] = useState<GenericObject | null>(
 		defaultData && !selector ? defaultData : selector ? getDataFromXML(selector) : null
 	)

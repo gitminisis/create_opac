@@ -7,8 +7,8 @@ import './styles/index.css'
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<Provider>
-				<App />
-				<Toaster />
+			<App />
+			<Toaster />
 		</Provider>
 	</React.StrictMode>
 )

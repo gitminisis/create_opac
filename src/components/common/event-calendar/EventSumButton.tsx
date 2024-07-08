@@ -31,23 +31,26 @@ import {
 	PATRON,
 	SISN,
 	ContactInfo,
+	TAG_FUNC_CANCEL,
+	TAG_FUNC_CAN_RES,
 } from './Constants'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 import EventRSVPForm from './EventRSVPForm'
 import { CalendarCheck } from 'lucide-react'
 import EventButton from './EventButton'
-import { fetch_get } from './Service'
 import useConstants from '@/hooks/useConstants'
+import { useAtom } from 'jotai'
+import { calendarMonthType, calendarWeekType } from '@/store'
+import EventRSVPCancel from './EventCancel'
 
 export interface eventSumType {
 	filteredEvents: Cal_event[]
-	weekType: boolean
-	monthType: boolean
 	contactInfo: ContactInfo[]
 }
 
-const EventSumButton = ({ filteredEvents, weekType, monthType, contactInfo }: eventSumType) => {
+const EventSumButton = ({ filteredEvents, contactInfo }: eventSumType) => {
+	const [monthType, __] = useAtom(calendarMonthType)
 	const { logo } = useConstants().config
 	const getColor = (event_type: string) => {
 		let result = FILTER_TYPE_COLORS?.filter((item) => {
@@ -55,6 +58,7 @@ const EventSumButton = ({ filteredEvents, weekType, monthType, contactInfo }: ev
 		})
 		return `${result[0]?.color} ${result[0]?.icon}`
 	}
+	const message = useConstants().message
 
 	const groupedByLocation = (filteredEvents: Cal_event[]) => {
 		let locationArr: any = {}
@@ -67,7 +71,6 @@ const EventSumButton = ({ filteredEvents, weekType, monthType, contactInfo }: ev
 			}
 			locationArr[location].push(classInfo)
 		})
-
 		result = Object.keys(locationArr).map((loc) => {
 			return { [TAG_FUNC_LOC]: loc, [TAG_FUNC_DTE_LIST]: locationArr[loc] }
 		})
@@ -127,12 +130,15 @@ const EventSumButton = ({ filteredEvents, weekType, monthType, contactInfo }: ev
 										<div
 											key={key}
 											className={
-												'w-full text-l sm:flex font-bold p-2 border-2 rounded '
+												'w-full text-l sm:flex font-bold p-2 border-2 rounded relative'
 											}>
+											{elm[TAG_FUNC_CANCEL] && (
+												<EventRSVPCancel reason={elm[TAG_FUNC_CAN_RES]} />
+											)}
 											<div
 												className={`w-full ${elm[TAG_FUNC_RSVP] && 'sm:w-8/12'}`}>
 												<div className={'overflow-hidden text-lg'}>
-													{elm[TAG_NAME]}
+													{elm[TAG_NAME]} {elm[TAG_FUNC_CANCEL]}
 												</div>
 												<div className={'sm:flex'}>
 													<div className="ml-[10px] sm:ml-0 text-md text-gray-600 font-bold">
@@ -149,19 +155,20 @@ const EventSumButton = ({ filteredEvents, weekType, monthType, contactInfo }: ev
 														</span>
 													</div>
 													<div className="ml-[10px] text-md text-gray-600 font-bold">
-														&#x2022;Room: {elm[TAG_FUNC_ROOM]}
+														&#x2022;{message.room}: {elm[TAG_FUNC_ROOM]}
 													</div>
 												</div>
 												<div className={'sm:flex'}>
 													<div className="sm:ml-0 ml-[10px] text-md text-gray-600 font-bold">
-														&#x2022;Suitable for:{' '}
+														&#x2022;{message.suitableFor}:{' '}
 														{elm[TAG_FUNC_LOC_AUD]}
 													</div>
 													<div className="ml-[10px] text-md text-gray-600 font-bold">
-														&#x2022;Seats: {elm[TAG_FUNC_CAP]}
+														&#x2022;{message.seats}: {elm[TAG_FUNC_CAP]}
 													</div>
 													<div className="ml-[10px] text-md text-gray-600 font-bold">
-														&#x2022;Language: {elm[TAG_FUNC_LANG]}
+														&#x2022;{message.language}:{' '}
+														{elm[TAG_FUNC_LANG]}
 													</div>
 												</div>
 												<DialogDescription
@@ -189,7 +196,7 @@ const EventSumButton = ({ filteredEvents, weekType, monthType, contactInfo }: ev
 											className={
 												'bg-primary text-primary-foreground h-10 w-20 flex items-center justify-around rounded'
 											}>
-											Close
+											{message.close}
 										</DialogPrimitive.Close>
 									</DialogFooter>
 								</>
@@ -200,13 +207,7 @@ const EventSumButton = ({ filteredEvents, weekType, monthType, contactInfo }: ev
 			) : (
 				<div className={'max-h-[95%] mb-[2px] w-full overflow-y-auto'}>
 					{filteredEvents.map((item: any, idx: number) => (
-						<EventButton
-							elm={item}
-							key={idx}
-							id={idx}
-							weekType={weekType}
-							contactInfo={contactInfo}
-						/>
+						<EventButton elm={item} key={idx} id={idx} contactInfo={contactInfo} />
 					))}
 				</div>
 			)}
