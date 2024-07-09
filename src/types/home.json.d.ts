@@ -18,7 +18,6 @@ export type CategoriesItems = {
   url?: Url;
   [k: string]: unknown;
 }[];
-export type EventCalendar = string;
 
 export interface HomeJson {
   heading?: Heading;
@@ -26,6 +25,5 @@ export interface HomeJson {
   searchURL?: SearchURL;
   browseByCategoryTitle?: BrowseByCategoryTitle;
   categoriesItems?: CategoriesItems;
-  eventCalendar?: EventCalendar;
   [k: string]: unknown;
 }
