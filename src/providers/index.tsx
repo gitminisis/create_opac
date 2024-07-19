@@ -11,9 +11,7 @@ const Provider = ({ children }: Props) => {
 	return (
 		<ErrorBoundary>
 			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-				<TooltipProvider>
-					{children}
-				</TooltipProvider>
+				<TooltipProvider>{children}</TooltipProvider>
 			</ThemeProvider>
 		</ErrorBoundary>
 	)

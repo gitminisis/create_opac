@@ -1,22 +1,20 @@
-import Layout from '@/components/layouts'
+import PageAction from '@/components/common/PageAction'
 import PageHeader from '@/components/common/PageHeader'
-import ViewToggle from '@/components/common/ViewToggle'
 import PagePagination from '@/components/common/PagePagination'
+import SearchForm from '@/components/common/SearchForm'
+import ViewToggle from '@/components/common/ViewToggle'
+import Layout from '@/components/layouts'
 import { Button } from '@/components/ui/button'
-import { ChevronRight } from 'lucide-react'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
-import { useEffect, useState } from 'react'
+import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
+import { ChevronRight } from 'lucide-react'
+import { useState } from 'react'
 import SummaryPageAction from './SummaryPageAction'
 import SummaryRecords from './SummaryRecord'
-import PageAction from '@/components/common/PageAction'
-import { SummarySample } from '@/samples'
-import useConstants from '@/hooks/useConstants'
-import SearchForm from '@/components/common/SearchForm'
 
 const Summary = () => {
 	const [mobileFilter, setMobileFilter] = useState(false)
-
 	const { message } = useConstants()
 	// const { common, pagination } = useJSONData({ defaultData: SummarySample })
 	const { common, pagination, backToSummary } = useJSONData({ selector: '#xml_record' })

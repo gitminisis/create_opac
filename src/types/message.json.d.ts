@@ -8,6 +8,7 @@
 export type SearchPlaceholder = string;
 export type SearchButton = string;
 export type SummaryPage = string;
+export type BookmarkPage = string;
 export type DetailPage = string;
 export type ResultsFor = string;
 export type Displaying = string;
@@ -80,19 +81,19 @@ export type PleaseConfirm = string;
 export type PleaseCancel = string;
 export type FiltersAndSorting = string;
 export type SuccessfullBookmark = string;
-export type ConfirmLandingExpired = string;
-export type ConfirmLandingInList = string;
-export type ConfirmLandingFullEvent = string;
-export type ConfirmLandingOutDate = string;
-export type ConfirmLandingInvalid = string;
-export type ConfirmLandingSuccess = string;
-export type CancelLandingNotIntheList = string;
-export type CancelLandingSuccess = string;
+export type AllRecordsBookmarked = string;
+export type RecordAlreadyMarked = string;
+export type BookmarkHasBeenRemoved = string;
+export type RemoveALL = string;
+export type NoBookmark = string;
+export type NoItemsInBookmark = string;
+export type GoBackHome = string;
 
 export interface MessageJson {
   searchPlaceholder?: SearchPlaceholder;
   searchButton?: SearchButton;
   summaryPage?: SummaryPage;
+  bookmarkPage?: BookmarkPage;
   detailPage?: DetailPage;
   resultsFor?: ResultsFor;
   displaying?: Displaying;
@@ -165,13 +166,12 @@ export interface MessageJson {
   pleaseCancel?: PleaseCancel;
   filtersAndSorting?: FiltersAndSorting;
   successfullBookmark?: SuccessfullBookmark;
-  confirmLandingExpired?: ConfirmLandingExpired;
-  confirmLandingInList?: ConfirmLandingInList;
-  confirmLandingFullEvent?: ConfirmLandingFullEvent;
-  confirmLandingOutDate?: ConfirmLandingOutDate;
-  confirmLandingInvalid?: ConfirmLandingInvalid;
-  confirmLandingSuccess?: ConfirmLandingSuccess;
-  cancelLandingNotIntheList?: CancelLandingNotIntheList;
-  cancelLandingSuccess?: CancelLandingSuccess;
+  allRecordsBookmarked?: AllRecordsBookmarked;
+  recordAlreadyMarked?: RecordAlreadyMarked;
+  bookmarkHasBeenRemoved?: BookmarkHasBeenRemoved;
+  removeALL?: RemoveALL;
+  noBookmark?: NoBookmark;
+  noItemsInBookmark?: NoItemsInBookmark;
+  goBackHome?: GoBackHome;
   [k: string]: unknown;
 }

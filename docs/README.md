@@ -62,9 +62,9 @@ Once everything is installed, you have a couple of options to choose here
 -   `npm run start`: To run project in development without needing to connect to the SMA side. This
     also supports HMR while making changes to the code base
 
--   `npm run dev`: Similarly to `start` but this one will create a `/dist` folder (development
-    mode) which will serve as bundled js files that will be used for the SMA reports and your OPAC.
-    This also supports HMR.
+-   `npm run dev`: Similarly to `start` but this one will create a `/dist` folder (development mode)
+    which will serve as bundled js files that will be used for the SMA reports and your OPAC. This
+    also supports HMR.
 
 -   `npm run build`: Build a production output folder for the project.
 
@@ -82,7 +82,6 @@ Once everything is installed, you have a couple of options to choose here
 -   `npm run doc`: To view the docs on a webpage
 
 ## Setup the backend
-
 
 ### IIS
 
@@ -134,19 +133,21 @@ questions
 -   Otherwise, `/ui` is for headless UI component, consider this if your component checks out the
     following:
     -   Minimum styling and easy to customize
-    -   Have no **dependencies** on any other components (if it does, it can only import from some from
-        `/ui` itself and only the neccessary ones)
-
+    -   Have no **dependencies** on any other components (if it does, it can only import from some
+        from `/ui` itself and only the neccessary ones)
 
 ## Internationalization
 
-Under the `constants` folder, there are sub-folders for each supported language (i.e :`en`, `fr`, ...). These sub-folders must have the exact same files' name and content with the translation of the respective language.
-
+Under the `constants` folder, there are sub-folders for each supported language (i.e :`en`, `fr`,
+...). These sub-folders must have the exact same files' name and content with the translation of the
+respective language.
 
 ### Add a new language
 
-- Create a new sub-folder for the language under `/constants` folder. Please search for locale code before doing so
-- Add the new language to `constants/index.ts`. An example looks like below:
+-   Create a new sub-folder for the language under `/constants` folder. Please search for locale
+    code before doing so
+-   Add the new language to `constants/index.ts`. An example looks like below:
+
 ```ts
 import en from './en'
 import fr from './fr'
@@ -174,7 +175,8 @@ export const CONSTANTS = {
 }
 ```
 
-- Define new language code in `src/types/lang.ts`
+-   Define new language code in `src/types/lang.ts`
+
 ```ts
 export type LanguageCode = 'EN' | 'FR'
 export interface Language {
@@ -184,7 +186,8 @@ export interface Language {
 export const ENGLISH_CODE = 'EN'
 export const FRENCH_CODE = 'FR'
 ```
-- Add a new language item in `src/components/common/LanguageSelect.tsx`
+
+-   Add a new language item in `src/components/common/LanguageSelect.tsx`
 
 ```ts
 export const LANGUAGE_ITEMS: ILANGUAGE[] = [
@@ -203,7 +206,9 @@ export const LANGUAGE_ITEMS: ILANGUAGE[] = [
 
 ### message.json
 
-For every term that can be reused through out the site, they can be put in `/{lang}/message.json`. An example would be:
+For every term that can be reused through out the site, they can be put in `/{lang}/message.json`.
+An example would be:
+
 ```json
 {
     "searchPlaceholder": "Enter Your Search",
@@ -217,18 +222,19 @@ For every term that can be reused through out the site, they can be put in `/{la
 
 Once you have these defined, you can use them in your component by using the `useConstants` hook
 
-
 ```ts
-const { message } = useConstants();
+const { message } = useConstants()
 ```
 
-This message variable will have all the keys you have defined in your `message.json` that you can directly use, for example
+This message variable will have all the keys you have defined in your `message.json` that you can
+directly use, for example
 
 ```ts
 <p>{message.summaryPage}</p>
 ```
 
-*Note*: Please make sure you have all these properties defined in all your `message.json` file
+_Note_: Please make sure you have all these properties defined in all your `message.json` file
+
 ## Routing
 
 Information on how routing is handled in the project, especially if React Router or any other

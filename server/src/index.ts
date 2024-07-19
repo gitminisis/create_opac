@@ -4,7 +4,7 @@ import fastifyEnv from '@fastify/env'
 import fs from 'node:fs'
 
 const fastify = Fastify()
-const DEFAULT_PORT =8080
+const DEFAULT_PORT = 8080
 
 const schema = {
 	type: 'object',
@@ -79,14 +79,16 @@ fastify.post('/', async (request: POST_FILE_REQUEST, reply) => {
 
 const start = async () => {
 	try {
-		console.log("Starting Server ==============")
+		console.log('Starting Server ==============')
 		await fastify.register(fastifyEnv, options)
 		await fastify.after()
 		await fastify.ready()
 		await fastify.listen({
-			port:DEFAULT_PORT
+			port: DEFAULT_PORT,
 		})
-		console.log(`Server ready on port ${DEFAULT_PORT}: http://localhost:${DEFAULT_PORT} ==============`)
+		console.log(
+			`Server ready on port ${DEFAULT_PORT}: http://localhost:${DEFAULT_PORT} ==============`
+		)
 	} catch (err) {
 		console.error(err)
 		process.exit(1)

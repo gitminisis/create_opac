@@ -1,16 +1,10 @@
-import Layout from '@/components/layouts'
-import PageAction from '@/components/common/PageAction'
-import RecordDetail from '@/components/common/RecordDetail'
-import SearchForm from '@/components/common/SearchForm'
 import ImageCarousel from '@/components/common/ImageCarousel'
-import InfoTable from '@/components/common/InfoTable'
-import RecordAction from '@/page/detail/DetailRecordAction'
-import { SlidersHorizontal } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import PageAction from '@/components/common/PageAction'
+import SearchForm from '@/components/common/SearchForm'
+import Layout from '@/components/layouts'
+import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import DetailRecord from './DetailRecord'
-import { DetailM3Sample } from '@/samples'
-import useConstants from '@/hooks/useConstants'
 
 const images = [
 	{
@@ -37,7 +31,6 @@ const Detail = () => {
 	const { message } = useConstants()
 	// TODO: create placeholder component when there is no data
 	if (!records || records.length === 0) return <></>
-
 	return (
 		<Layout>
 			<div className="rounded-[0.5rem] border bg-background shadow-md md:shadow-xl h-full flex-col flex w-full my-12">
@@ -45,7 +38,7 @@ const Detail = () => {
 					breadcrumbs={[
 						{ label: message.home, url: '/' },
 						{
-							label: message.summaryPage,
+							label: `${records[0].database_name === 'SELECTION_LIST' ? message.bookmarkPage : message.summaryPage}`,
 							url: backToSummary,
 						},
 						{

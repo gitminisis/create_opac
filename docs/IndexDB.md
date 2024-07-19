@@ -2,7 +2,7 @@
 
 ## Add a new model to the database
 
-- Define a new model under `@/types/` directory.
+-   Define a new model under `@/types/` directory.
 
 Example: `lang.ts`
 
@@ -16,8 +16,8 @@ export const ENGLISH_CODE = 'EN'
 export const FRENCH_CODE = 'FR'
 ```
 
-- Add new model to the local db class
-  
+-   Add new model to the local db class
+
 ```ts
 export class ClientLocalDB extends Dexie {
 	language!: Table<Language>

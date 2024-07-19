@@ -26,7 +26,6 @@ const InputWrapper = ({ children, id, label, className }: InputWrapperProps) => 
 	)
 }
 const AdminFormInput = ({ type, title, items, properties, value }: SchemaType) => {
-	
 	if (type === 'string') {
 		try {
 			const stringValue = JSON.stringify(value).replace(/"/g, '')

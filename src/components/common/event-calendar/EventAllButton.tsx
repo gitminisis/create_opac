@@ -136,9 +136,7 @@ const EventAllButton = ({
 								className={'border-2 border-lime-950 relative'}>
 								{item[TAG_FUNC_CANCEL] && (
 									<div
-										className={
-											`absolute z-40 ${EVENT_CANCEL_NOTI_MODAL_BG} rounded mx-auto left-0 right-0 w-[250px] h-[100px] top-1/4 text-white flex justify-center items-center`
-										}>
+										className={`absolute z-40 ${EVENT_CANCEL_NOTI_MODAL_BG} rounded mx-auto left-0 right-0 w-[250px] h-[100px] top-1/4 text-white flex justify-center items-center`}>
 										<div className={'flex justify-center items-center text-xl'}>
 											<BookX /> {message.eventCancel}
 										</div>

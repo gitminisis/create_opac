@@ -36,10 +36,9 @@ function generateSchema(filePath = './', outDir = './schema') {
 	try {
 		const fileContent = fs.readFileSync(filePath, 'utf8')
 
-
 		// If file content is empty, exits
 		if (fileContent.trim() === '') {
-			return;
+			return
 		}
 
 		try {
@@ -63,9 +62,7 @@ function generateSchema(filePath = './', outDir = './schema') {
 				fs.unlinkSync(schemaPath)
 			}
 
-
 			fs.writeFileSync(schemaPath, schemaContent)
-
 		} catch (error) {
 			throw new Error("File can't be parsed into JSON Object")
 		}

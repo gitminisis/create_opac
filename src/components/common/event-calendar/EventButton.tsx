@@ -97,7 +97,6 @@ const EventButton = ({
 						className={
 							' bg-primary text-primary-foreground h-10 flex items-center justify-between rounded p-2 '
 						}>
-						
 						<div className="h-8">
 							<img className="h-full" src={logo} alt="logo" />
 						</div>
@@ -115,7 +114,7 @@ const EventButton = ({
 					</DialogTitle>
 				</DialogHeader>
 				<div className={'w-full min-h-[400px]  sm:flex font-bold relative'}>
-				{elm[TAG_FUNC_CANCEL] && <EventRSVPCancel reason={elm[TAG_FUNC_CAN_RES]} />}
+					{elm[TAG_FUNC_CANCEL] && <EventRSVPCancel reason={elm[TAG_FUNC_CAN_RES]} />}
 					<div className={'w-full sm:w-8/12 '}>
 						<div className={'overflow-hidden text-lg'}>{elm[TAG_NAME]}</div>
 						<div className={'sm:flex'}>

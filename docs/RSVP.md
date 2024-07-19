@@ -6,26 +6,25 @@ This is the Event Calendar for showing events and make the user register the eve
 
 ## Feature
 
-* ✅Dynamic view (Monthly, Weekly)
-* ✅Event filtering (By location)
-* ✅RSVP Events
-* ✅Email confirmation
-* ✅Email cancellation
-* ✅RSVP history log
+-   ✅Dynamic view (Monthly, Weekly)
+-   ✅Event filtering (By location)
+-   ✅RSVP Events
+-   ✅Email confirmation
+-   ✅Email cancellation
+-   ✅RSVP history log
 
 ## RSVP process
 
-* ✅ Non user received unique unit number called ID
-* ✅ User can't register exact date of event
-ex) Chinese cooking class start 9:00 AM 21st May. User can't register the event at 21st May
+-   ✅ Non user received unique unit number called ID
+-   ✅ User can't register exact date of event ex) Chinese cooking class start 9:00 AM 21st May.
+    User can't register the event at 21st May
 
--To Register: Non login user
-Do register => get confirmation email => go to
-confirm landing page => click confirm => store record and log data =>
-registration is done
+-To Register: Non login user Do register => get confirmation email => go to confirm landing page =>
+click confirm => store record and log data => registration is done
 
--To Cancel: Non login user
-After confirm user, get the registration confirm email => go to cancel landing page =>click cancel => delete the record and adding cancel log data => user get cancel confirm email
+-To Cancel: Non login user After confirm user, get the registration confirm email => go to cancel
+landing page =>click cancel => delete the record and adding cancel log data => user get cancel
+confirm email
 
 ## Component Structure
 
@@ -53,12 +52,9 @@ After confirm user, get the registration confirm email => go to cancel landing p
 
 \*Developed based on Norfolk library website
 
-Username: norfolk\_m2l\_mgr
-Main: M2L\_TAG
-For contact info: LIBRARY\_LOCATION
-For RSVP log: TAG\_RSVP\_PATRON\_LOG
+Username: norfolk_m2l_mgr Main: M2L_TAG For contact info: LIBRARY_LOCATION For RSVP log:
+TAG_RSVP_PATRON_LOG
 
 ## MINISIS Report Structure
 
-Username: norfolk\_m2l\_mgr
-Main: MONTHLY\_CALENDAR\_NEW\_T4
+Username: norfolk_m2l_mgr Main: MONTHLY_CALENDAR_NEW_T4

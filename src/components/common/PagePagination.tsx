@@ -28,13 +28,13 @@ const PagePagination = ({ items, maxItem = 10, renderItem }: PagePaginationProps
 			<PaginationContent>
 				{activeIndex > 0 && (
 					<PaginationItem>
-						<PaginationPrevious  href={items[activeIndex - 1].url} />
+						<PaginationPrevious href={items[activeIndex - 1].url} />
 					</PaginationItem>
 				)}
 				{items
 					.filter((e, i) => i < maxItem)
 					.map((item, index) => (
-						<PaginationItem>
+						<PaginationItem key={index}>
 							<PaginationLink isActive={item.active} href={item.url}>
 								{renderItem(item, index)}
 							</PaginationLink>
