@@ -43,7 +43,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 		// Display toast only if record has already been bookmarked
 		if (like) {
 			toast({
-				title: `${message.allRecordsBookmarked}`,
+				title: `${message.recordAlreadyMarked}`,
 				action: (
 					<ToastAction altText={message.viewBookmark}>{message.viewBookmark}</ToastAction>
 				),

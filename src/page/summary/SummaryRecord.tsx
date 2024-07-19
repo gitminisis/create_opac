@@ -4,11 +4,10 @@ import InfoCard from '@/components/common/InfoCard'
 import Link from '@/components/common/Link'
 import { Separator } from '@/components/ui/separator'
 import useConstants from '@/hooks/useConstants'
+import useDisplayMode from '@/hooks/useDisplayMode'
 import useJSONData from '@/hooks/useJSONData'
 import { getFieldDataByLabel, getFieldsFromRecord, truncateString } from '@/lib/record'
-import { viewAtom } from '@/store'
 import { Record } from '@/types/record'
-import { useAtom } from 'jotai'
 import { RecordAction } from './RecordAction'
 
 const SummaryRecords = () => {
@@ -24,7 +23,7 @@ const SummaryRecords = () => {
 }
 
 const RecordView = ({ record }: { record: Record }) => {
-	const [view] = useAtom(viewAtom)
+	const { displayMode } = useDisplayMode()
 	const { fields } = useConstants()
 	const database = record.database_name || record.link_dbname || 'COLLECTIONS_WEB' // use link_dbname for SELECTION_LIST
 	const recordLink = record.record_link
@@ -56,7 +55,7 @@ const RecordView = ({ record }: { record: Record }) => {
 		)
 	) as React.ReactNode
 
-	if (view === 'grid') {
+	if (displayMode === 'grid') {
 		return (
 			<InfoCard
 				className="border-primary"

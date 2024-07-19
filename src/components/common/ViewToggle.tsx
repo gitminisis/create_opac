@@ -5,11 +5,6 @@ import { useAtom } from 'jotai'
 import useDisplayMode from '@/hooks/useDisplayMode'
 
 const ViewToggle = () => {
-	// const [view, setView] = useAtom(viewAtom)
-	// const toggleView = () => {
-	// 	setView(view === 'grid' ? 'list' : 'grid')
-	// }
-
 	const { displayMode, toggleDisplayMode } = useDisplayMode()
 
 	return (
