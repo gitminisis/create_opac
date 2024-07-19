@@ -1,22 +1,11 @@
-import { useState, useEffect } from 'react'
+import { DisplayModeContext, DisplayModeContextType } from '@/providers/DisplayModeProvider'
+import { useContext } from 'react'
 
-const useDisplayMode = () => {
-	// Initial display mode is fetched from localStorage or defaults to 'list'
-	const [displayMode, setDisplayMode] = useState(() => {
-		return localStorage.getItem('displayMode') || 'list'
-	})
-
-	// Save the display mode to localStorage whenever it changes
-	useEffect(() => {
-		localStorage.setItem('displayMode', displayMode)
-	}, [displayMode])
-
-	// Toggle between 'grid' and 'list' modes
-	const toggleDisplayMode = () => {
-		setDisplayMode((prevMode) => (prevMode === 'list' ? 'grid' : 'list'))
+// Custom hook to use the DisplayModeContext
+export const useDisplayMode = (): DisplayModeContextType => {
+	const context = useContext(DisplayModeContext)
+	if (!context) {
+		throw new Error('useDisplayMode must be used within a DisplayModeProvider')
 	}
-
-	return { displayMode, toggleDisplayMode }
+	return context
 }
-
-export default useDisplayMode

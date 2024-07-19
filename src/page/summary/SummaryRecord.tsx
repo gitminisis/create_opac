@@ -4,11 +4,11 @@ import InfoCard from '@/components/common/InfoCard'
 import Link from '@/components/common/Link'
 import { Separator } from '@/components/ui/separator'
 import useConstants from '@/hooks/useConstants'
-import useDisplayMode from '@/hooks/useDisplayMode'
 import useJSONData from '@/hooks/useJSONData'
 import { getFieldDataByLabel, getFieldsFromRecord, truncateString } from '@/lib/record'
 import { Record } from '@/types/record'
 import { RecordAction } from './RecordAction'
+import { useDisplayMode } from '@/hooks/useDisplayMode'
 
 const SummaryRecords = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })

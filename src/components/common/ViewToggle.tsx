@@ -2,7 +2,7 @@ import { viewAtom } from '../../store'
 import { LayoutGrid, List } from 'lucide-react'
 import { Button } from '../ui/button'
 import { useAtom } from 'jotai'
-import useDisplayMode from '@/hooks/useDisplayMode'
+import { useDisplayMode } from '@/hooks/useDisplayMode'
 
 const ViewToggle = () => {
 	const { displayMode, toggleDisplayMode } = useDisplayMode()
