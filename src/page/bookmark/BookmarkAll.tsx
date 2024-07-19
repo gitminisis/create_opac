@@ -41,11 +41,11 @@ const BookmarkAll = () => {
 							</ToastAction>
 						),
 					})
-					window.location?.reload()
+					window.location.reload()
 					return
 				}
 				// in case response is not successful
-				window.location?.reload()
+				window.location.reload()
 			})
 		} else {
 			toast({

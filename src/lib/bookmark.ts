@@ -53,6 +53,6 @@ export const removeAllBookmarks = async (records: Record[]) => {
 		url: `?DELETEORDER&COOKIE=BOOKMARK`,
 		data: dataString.join('&'),
 	}).then((res) => {
-		window.location?.reload()
+		window.location.reload()
 	})
 }
