@@ -41,6 +41,7 @@ const BookmarkAll = () => {
 							</ToastAction>
 						),
 					})
+					window.location?.reload()
 					return
 				}
 				// in case response is not successful
