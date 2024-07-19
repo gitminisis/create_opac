@@ -56,7 +56,15 @@
 	"seats": "Places",
 	"language": "Langue",
 	"dateType": "fr-FR",
-	"daysOfWeek": ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+	"daysOfWeek": [
+		"Di",
+		"Lu",
+		"Ma",
+		"Me",
+		"Je",
+		"Ve",
+		"Sa"
+	],
 	"close": "Fermer",
 	"privateProperty": "Propriété privée",
 	"contactInfoNotProvided": "Les informations de contact ne sont pas fournies",
@@ -81,5 +89,6 @@
 	"removeALL": "Supprimer tout",
 	"noBookmark": "Aucun favori",
 	"noItemsInBookmark": "Aucun élément enregistré dans vos favoris",
-	"goBackHome": "Retour à l'accueil"
+	"goBackHome": "Retour à l'accueil",
+	"noResultFound": "Aucun résultat trouvé"
 }

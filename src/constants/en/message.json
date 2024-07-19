@@ -81,5 +81,6 @@
 	"removeALL": "Remove All",
 	"noBookmark": "No bookmarks",
 	"noItemsInBookmark": "Sorry, there are no items saved in your bookmark!",
-	"goBackHome": "Go Back Home"
+	"goBackHome": "Go Back Home",
+	"noResultFound":"No results found"
 }

@@ -4,14 +4,18 @@ import Layout from '@/components/layouts'
 import useConstants from '@/hooks/useConstants'
 
 const NoRecord = () => {
-	const { home } = useConstants()
+	const { home, message } = useConstants()
 	const { heading, heroBanner } = home
 	return (
 		<Layout>
-			<Hero className="" title={heading} backgroundImage={heroBanner} description="">
+			<Hero
+				className=""
+				title={message.noResultFound}
+				backgroundImage={heroBanner}
+				description="">
 				<SearchForm className="w-full mt-6 max-w-2xl" inputName={'KEYWORD_CLUSTER'} />
 			</Hero>
-			<div className="flex h-screen flex-col bg-white">
+			{/* <div className="flex h-screen flex-col bg-white">
 				<div className="flex flex-1 items-center justify-center">
 					<div className="mx-auto max-w-xl px-4 py-8 text-center">
 						<h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -29,7 +33,7 @@ const NoRecord = () => {
 						</a>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</Layout>
 	)
 }
