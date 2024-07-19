@@ -19,7 +19,7 @@ const ViewBookmarks = () => {
 
 	const getBookmarkSumURL = () => {
 		let url = deepSearchKey(jsonData, 'bookmark_url')[0]
-		return `${url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bk-record.html`
+		return `${url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`
 	}
 
 	return (

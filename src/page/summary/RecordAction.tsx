@@ -34,7 +34,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 			})
 
 			// reload page on summary bookmark only
-			if (record.link_dbname) {
+			if (record.record.link_dbname) {
 				window.location.reload()
 			}
 			return

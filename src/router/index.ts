@@ -10,6 +10,8 @@ import RSVP_CONFIRM from '@/page/RSVP/Confirmation'
 import Login from '@/page/login'
 import Bookmark from '@/page/bookmark'
 import NoBookmarkRecord from '@/page/NoBookmarkRecord'
+import NoSession from '@/page/NoSession'
+import GenericErrorPage from '@/page/GenericErrorPage'
 
 export type TRoute = Record<string, () => React.ReactNode>
 
@@ -20,7 +22,9 @@ export const ROUTES: TRoute = {
 	faq: FAQ,
 	admin: Admin,
 	'no-record': NoRecord,
-	'no-bk-record': NoBookmarkRecord,
+	'no-bookmark': NoBookmarkRecord,
+	'no-session': NoSession,
+	error: GenericErrorPage,
 	rsvp_cancel: RSVP_CANCEL,
 	rsvp_confirm: RSVP_CONFIRM,
 	login: Login,

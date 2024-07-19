@@ -3,7 +3,7 @@ import SearchForm from '@/components/common/SearchForm'
 import Layout from '@/components/layouts'
 import useConstants from '@/hooks/useConstants'
 
-const NoRecord = () => {
+const NoSession = () => {
 	const { home, message } = useConstants()
 	const { heroBanner } = home
 	return (
@@ -19,4 +19,4 @@ const NoRecord = () => {
 	)
 }
 
-export default NoRecord
+export default NoSession

@@ -3,14 +3,14 @@ import SearchForm from '@/components/common/SearchForm'
 import Layout from '@/components/layouts'
 import useConstants from '@/hooks/useConstants'
 
-const NoRecord = () => {
+const GenericErrorPage = () => {
 	const { home, message } = useConstants()
 	const { heroBanner } = home
 	return (
 		<Layout>
 			<Hero
 				className=""
-				title={message.noResultFound}
+				title={message.genericError}
 				backgroundImage={heroBanner}
 				description="">
 				<SearchForm className="w-full mt-6 max-w-2xl" inputName={'KEYWORD_CLUSTER'} />
@@ -19,4 +19,4 @@ const NoRecord = () => {
 	)
 }
 
-export default NoRecord
+export default GenericErrorPage

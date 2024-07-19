@@ -90,5 +90,7 @@
 	"noBookmark": "Aucun favori",
 	"noItemsInBookmark": "Aucun élément enregistré dans vos favoris",
 	"goBackHome": "Retour à l'accueil",
-	"noResultFound": "Aucun résultat trouvé"
+	"noResultFound": "Aucun résultat trouvé",
+	"noSession": "Session expired, please restart your search",
+	"genericError": "Something went wrong, please restart your search"
 }

@@ -56,7 +56,15 @@
 	"seats": "Seats",
 	"language": "Language",
 	"dateType": "default",
-	"daysOfWeek": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+	"daysOfWeek": [
+		"Sun",
+		"Mon",
+		"Tue",
+		"Wed",
+		"Thu",
+		"Fri",
+		"Sat"
+	],
 	"close": "Close",
 	"privateProperty": "Private property",
 	"contactInfoNotProvided": "Contact info is not provided",
@@ -82,5 +90,7 @@
 	"noBookmark": "No bookmarks",
 	"noItemsInBookmark": "Sorry, there are no items saved in your bookmark!",
 	"goBackHome": "Go Back Home",
-	"noResultFound":"No results found"
+	"noResultFound": "No results found",
+	"noSession": "Session expired, please restart your search",
+	"genericError": "Something went wrong, please restart your search"
 }
