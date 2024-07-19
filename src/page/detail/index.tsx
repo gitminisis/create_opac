@@ -73,14 +73,21 @@ const Detail = () => {
 										items={images}
 										renderItems={(image) => (
 											<img
-												alt="test"
+												alt={image.caption}
 												src={image.src}
 												className="h-36 mx-auto cursor-pointer object-cover border-4 hover:border-primary"
 											/>
 										)}
 									/>
 								) : (
-									<span>{message.noMediaFound}</span>
+									<>
+										<img
+											alt={message.noMediaFound}
+											src={'https://placehold.co/250x250'}
+											className="h-36 mx-auto cursor-pointer object-cover border-4 hover:border-primary"
+										/>
+										<span>{message.noMediaFound}</span>
+									</>
 								)}
 							</div>
 							<div className="w-full lg:w-1/2 grid gap-4 md:gap-10 items-start ">
