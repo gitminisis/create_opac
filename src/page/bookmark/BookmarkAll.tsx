@@ -49,7 +49,7 @@ const BookmarkAll = () => {
 			})
 		} else {
 			toast({
-				title: message.recordAlreadyMarked,
+				title: message.allRecordsBookmarked,
 				action: <ToastAction altText="View bookmark">{message.viewBookmark}</ToastAction>,
 			})
 		}
