@@ -92,5 +92,6 @@
 	"goBackHome": "Go Back Home",
 	"noResultFound": "No results found",
 	"noSession": "Session expired, please restart your search",
-	"genericError": "Something went wrong, please restart your search"
+	"genericError": "Something went wrong, please restart your search",
+		"bookmarkedItems":"bookmarked items"
 }

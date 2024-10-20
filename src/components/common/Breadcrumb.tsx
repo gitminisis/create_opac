@@ -16,7 +16,7 @@ export interface BreadcrumbProps extends React.HTMLAttributes<HTMLDivElement> {
 const Breadcrumb = ({ items, className, ...props }: BreadcrumbProps) => {
 	return (
 		<nav aria-label="Breadcrumb" className={cn('w-max', className)} {...props}>
-			<ol className="flex w-full items-center flex-wrap gap-2 text-sm text-gray-500 dark:text-gray-400">
+			<ol className="flex w-max items-center flex-wrap gap-2 text-sm text-gray-500 dark:text-gray-400">
 				{items.map((e, i) => (
 					<React.Fragment key={i}>
 						{i !== 0 && (
