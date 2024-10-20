@@ -6,14 +6,12 @@ import { getFieldDataByLabel, getFieldsFromRecord } from '@/lib/record'
 import DetailRecordAction from '@/page/detail/DetailRecordAction'
 import { DBFields } from '../../types/record'
 
-type Props = {}
-
-const DetailRecord = (props: Props) => {
+const DetailRecord = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
 	const fields = useConstants().fields
 	// const { records } = useJSONData({ defaultData: DetailM3Sample })
 	const record = records[0]
-	const database = record.database_name
+	const database = record.database_name || record.link_dbname || ''
 	const recordData: DBFields<'COLLECTIONS'> = record.record
 	const title =
 		getFieldDataByLabel(record, fields, database, 'Title') || record.record.title || 'Untitled'

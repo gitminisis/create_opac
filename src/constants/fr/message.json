@@ -34,7 +34,7 @@
 	"sortDateAscending": "Trier du plus récent au plus ancien",
 	"sortDateDescending": "Trier du plus ancien au plus récent",
 	"sortAccessionNumberAscending": "Trier par numéro d'accession",
-	"recordIsCopied": "L'URL est copiée",
+	"recordIsCopied": "L'adresse Web a été copiée",
 	"printPage": "Imprimer cette page",
 	"bookmarkAll": "Ajouter tous les enregistrements aux favoris",
 	"viewBookmark": "Afficher le signet",
@@ -82,7 +82,7 @@
 	"pleaseConfirm": "Veuillez confirmer votre inscription",
 	"pleaseCancel": "Cela annulera votre inscription à",
 	"filtersAndSorting": "Filtrer et trier",
-	"successfullBookmark": "La fiche a été mis en signet",
+	"successfullBookmark": "La fiche a été mise en signet",
 	"allRecordsBookmarked": "Tous les enregistrements ont été marqués d'un signet",
 	"recordAlreadyMarked": "Cet enregistrement a déjà été marqué",
 	"bookmarkHasBeenRemoved": "Le signet a été supprimé",
@@ -93,5 +93,5 @@
 	"noResultFound": "Aucun résultat trouvé",
 	"noSession": "Session expired, please restart your search",
 	"genericError": "Something went wrong, please restart your search",
-	"bookmarkedItems":"signets"
+	"bookmarkedItems": "signets"
 }
