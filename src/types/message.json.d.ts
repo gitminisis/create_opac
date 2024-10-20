@@ -88,6 +88,9 @@ export type RemoveALL = string;
 export type NoBookmark = string;
 export type NoItemsInBookmark = string;
 export type GoBackHome = string;
+export type NoResultFound = string;
+export type NoSession = string;
+export type GenericError = string;
 
 export interface MessageJson {
   searchPlaceholder?: SearchPlaceholder;
@@ -173,5 +176,8 @@ export interface MessageJson {
   noBookmark?: NoBookmark;
   noItemsInBookmark?: NoItemsInBookmark;
   goBackHome?: GoBackHome;
+  noResultFound?: NoResultFound;
+  noSession?: NoSession;
+  genericError?: GenericError;
   [k: string]: unknown;
 }

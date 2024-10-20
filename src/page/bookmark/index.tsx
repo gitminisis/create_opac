@@ -39,7 +39,7 @@ const Bookmark = () => {
 				<section>
 					<div className="mx-auto py-4 sm:py-12 container flex flex-col">
 						<div className={'w-full flex justify-between'}>
-							<PageHeader heading={`${common.total_record} bookmarked item(s)`} />
+							<PageHeader heading={`${common.total_record} ${message.bookmarkedItems}`} />
 							<Button onClick={() => removeAllBookmarks(records)}>
 								{message.removeALL}
 							</Button>

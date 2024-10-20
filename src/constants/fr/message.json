@@ -3,7 +3,7 @@
 	"searchButton": "Recherche",
 	"summaryPage": "Page des résultats",
 	"detailPage": "Page des détails",
-	"bookmarkPage": "Marquer cette page",
+	"bookmarkPage": "Signets",
 	"resultsFor": "Résultats Pour",
 	"displaying": "Affichage ",
 	"of": "sur",
@@ -92,5 +92,6 @@
 	"goBackHome": "Retour à l'accueil",
 	"noResultFound": "Aucun résultat trouvé",
 	"noSession": "Session expired, please restart your search",
-	"genericError": "Something went wrong, please restart your search"
+	"genericError": "Something went wrong, please restart your search",
+	"bookmarkedItems":"signets"
 }
