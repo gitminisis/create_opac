@@ -1,17 +1,12 @@
 {
-    "heading": "Ford Heritage Vault",
-    "heroBanner": "https://fordheritagevault.com/assets/images/banner.jpg",
+    "heading": "Société franco-ontarienne du patrimoine et de l'histoire d'Orléans",
+    "heroBanner": "https://www.sfopho.com/wp-content/uploads/2019/11/banner_ancien_orleansJPG.jpg",
     "searchURL": "/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&SHOWSINGLE=Y",
     "browseByCategoryTitle": "Browse by Category",
     "categoriesItems": [
         {
             "thumbnail": "https://images.unsplash.com/reserve/LJIZlzHgQ7WPSh5KVTCB_Typewriter.jpg?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGlicmFyeSUyMGl0ZW1zfGVufDB8fDB8fHww",
             "title": "Digital images",
-            "url": "/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&exp=KEYWORD_CLUSTER \"digital image\""
-        },
-        {
-            "thumbnail": "https://fordheritagevaultmedia.com/api/links/c29a9048c4864d89915b29f4f39330e4/uuid/81dfc90f911946c19796405e0e188029/thumbnail",
-            "title": "Textual",
             "url": "/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&exp=KEYWORD_CLUSTER \"digital image\""
         },
         {
