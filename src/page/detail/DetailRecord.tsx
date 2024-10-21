@@ -11,8 +11,10 @@ const DetailRecord = () => {
 	const fields = useConstants().fields
 	// const { records } = useJSONData({ defaultData: DetailM3Sample })
 	const record = records[0]
-	const database = record.database_name || record.link_dbname || ''
-	debugger
+	const database =
+		record.database_name === undefined || record.database_name === 'SELECTION_LIST'
+			? record.link_dbname || ''
+			: record.database_name
 	const recordData: DBFields<'COLLECTIONS'> = record.record
 	const title =
 		getFieldDataByLabel(record, fields, database, 'Title') || record.record.title || 'Untitled'
