@@ -39,6 +39,10 @@ const SummaryPageAction = () => {
 			label: message.sortDateAscending,
 			value: 'date_asc',
 		},
+		{
+			label: message.sortDateDescending,
+			value: 'date_dsc',
+		},
 	]
 	return (
 		<div className="flex flex-col space-y-4">
