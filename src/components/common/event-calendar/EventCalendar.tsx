@@ -162,8 +162,7 @@ const EventCalendar = () => {
 	}
 
 	return (
-		<div
-			className={'w-full mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-0'}>
+		<div className={'w-full mx-auto container px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-0'}>
 			<div
 				className={
 					'relative flex justify-center items-center bg-primary h-[100px] rounded '

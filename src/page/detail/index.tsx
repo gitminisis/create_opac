@@ -65,7 +65,7 @@ const Detail = () => {
 					</div>
 				</PageAction>
 				<section>
-					<div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+					<div className="mx-auto container px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
 						<div className="flex flex-col lg:flex-row space-y-12 lg:space-y-0 lg:space-x-8 items-start max-w-6xl p-4 mx-auto ">
 							<div className="max-w-[700px]  mx-auto">
 								{images && images.length > 0 ? (
