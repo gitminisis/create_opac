@@ -13,7 +13,7 @@ const DetailRecord = () => {
 	const record = records[0]
 	const database =
 		record.database_name === undefined || record.database_name === 'SELECTION_LIST'
-			? record.link_dbname || ''
+			? record.record.link_dbname || ''
 			: record.database_name
 	const recordData: DBFields<'COLLECTIONS'> = record.record
 	const title =
