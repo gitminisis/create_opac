@@ -93,5 +93,7 @@
 	"noResultFound": "No results found",
 	"noSession": "Session expired, please restart your search",
 	"genericError": "Something went wrong, please restart your search",
-		"bookmarkedItems":"bookmarked items"
+	"bookmarkedItems": "bookmarked items",
+	"sfophoPhotograph": "photograph",
+	"sfophoPainting": "painting"
 }
