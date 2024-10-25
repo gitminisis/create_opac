@@ -36,8 +36,8 @@
 	"sortAccessionNumberAscending": "Trier par numéro d'accession",
 	"recordIsCopied": "L'adresse Web a été copiée",
 	"printPage": "Imprimer cette page",
-	"bookmarkAll": "Ajouter tous les enregistrements aux favoris",
-	"viewBookmark": "Afficher le signet",
+	"bookmarkAll": "Mettre tout en signet",
+	"viewBookmark": "Afficher le signets",
 	"week": "Semaine",
 	"month": "Mois",
 	"all": "Tous les",
@@ -87,11 +87,13 @@
 	"recordAlreadyMarked": "Cet enregistrement a déjà été marqué",
 	"bookmarkHasBeenRemoved": "Le signet a été supprimé",
 	"removeALL": "Supprimer tout",
-	"noBookmark": "Aucun favori",
+	"noBookmark": "Aucun signet",
 	"noItemsInBookmark": "Aucun élément enregistré dans vos favoris",
 	"goBackHome": "Retour à l'accueil",
 	"noResultFound": "Aucun résultat trouvé",
 	"noSession": "Session expired, please restart your search",
 	"genericError": "Something went wrong, please restart your search",
-	"bookmarkedItems": "signets"
+	"bookmarkedItems": "signets",
+	"sfophoPhotograph": "photographies",
+	"sfophoPainting": "peintures"
 }

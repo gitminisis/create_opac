@@ -19,6 +19,17 @@ const Summary = () => {
 	// const { common, pagination } = useJSONData({ defaultData: SummarySample })
 	const { common, pagination, backToSummary } = useJSONData({ selector: '#xml_record' })
 
+	const customizedSearchTerm = () => {
+		if (common.search_statement === 'photograph') {
+			return message.sfophoPhotograph
+		}
+		if (common.search_statement === 'painting') {
+			return message.sfophoPainting
+		}
+
+		return common.search_statement
+	}
+
 	if (!common) return <></>
 	return (
 		<Layout>
@@ -50,7 +61,7 @@ const Summary = () => {
 				<section>
 					<div className="mx-auto py-4 sm:py-12  container flex flex-col">
 						<PageHeader
-							heading={`${common.total_record} ${message.resultsFor.toLowerCase()} "${common.search_statement}"`}
+							heading={`${common.total_record} ${message.resultsFor.toLowerCase()} "${customizedSearchTerm()}"`}
 							subHeading={`${message.displaying} ${common.first_record_seq}-${common.last_record_seq} ${message.of} ${common.total_record}`}
 						/>
 						<div className="mt-8 block lg:hidden">
