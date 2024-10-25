@@ -91,6 +91,7 @@ export type GoBackHome = string;
 export type NoResultFound = string;
 export type NoSession = string;
 export type GenericError = string;
+export type BookmarkedItems = string;
 
 export interface MessageJson {
   searchPlaceholder?: SearchPlaceholder;
@@ -179,5 +180,6 @@ export interface MessageJson {
   noResultFound?: NoResultFound;
   noSession?: NoSession;
   genericError?: GenericError;
+  bookmarkedItems?: BookmarkedItems;
   [k: string]: unknown;
 }
