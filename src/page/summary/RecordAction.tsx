@@ -20,6 +20,8 @@ export const RecordAction = ({ record }: { record: Record }) => {
 	const { bookmark_url, bookmark_count } = common
 	const { toast } = useToast()
 	const sisn = deepSearchKey(record, 'sisn')[0] as string
+	const refd = deepSearchKey(record, 'refd')[0] as string
+
 	const { message } = useConstants()
 	const [count, setCount] = useAtom(bookmarkCount)
 	const handleBookmark = () => {
@@ -76,7 +78,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 	}
 
 	const handleCopy = () => {
-		copyRecordURL(database_name, sisn)
+		copyRecordURL(database_name, refd)
 		toast({
 			title: message.recordIsCopied,
 		})

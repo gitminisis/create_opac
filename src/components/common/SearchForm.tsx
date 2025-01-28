@@ -18,12 +18,12 @@ const SearchForm = ({ className, inputName, inputStyle, ...props }: SearchFormPr
 	const getSearchURL = () => {
 		const domSessionId = document.querySelector('#session-id')?.textContent
 		if (document && domSessionId) {
-			return url.replace('/SCRIPTS/MWIMAIN.DLL', `${domSessionId}`)
+			return url.replace('/SCRIPTS/MWIMAIN.DLL', `${domSessionId}`).replace('cams-sfopho','opac-sfopho')
 		}
 		if (session && session !== '') {
-			return url.replace('/SCRIPTS/MWIMAIN.DLL', `${session}`)
+			return url.replace('/SCRIPTS/MWIMAIN.DLL', `${session}`).replace('cams-sfopho','opac-sfopho')
 		}
-		return url
+		return url.replace('cams-sfopho','opac-sfopho')
 	}
 	return (
 		<form

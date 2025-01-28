@@ -5,7 +5,7 @@ import axios from 'axios'
 import copy from 'copy-to-clipboard'
 const DEFAULT_DETAIL_REPORT = 'WEB_UNION_DETAIL'
 const DEFAULT_SUM_REPORT = 'WEB_UNION_SUM'
-const WEB_DNS = 'https://camsdev-sfopho.minisisinc.com/'
+const WEB_DNS = 'https://opac-sfopho.minisisinc.com'
 
 export type RENDERED_COMPONENT = React.ReactNode | object | null
 
@@ -86,16 +86,16 @@ export const bookmarkRecord = async (sessionId: string, database: string, sisn: 
 
 export const getRecordPermalink = (
 	database: string,
-	sisn: string,
+	REFD: string,
 	report = DEFAULT_DETAIL_REPORT,
 	lang = 144
 ) => {
-	return `${WEB_DNS}/scripts/mwimain.dll/${lang}/${database}/${report}?sessionsearch&exp=SISN+${sisn}`
+	return `${WEB_DNS}/scripts/mwimain.dll/${lang}/${"UNION_VIEW"}/${report}?sessionsearch&exp=accession_number+${REFD}`
 }
 
-export const copyRecordURL = (database: string, sisn: string, report = DEFAULT_DETAIL_REPORT) => {
+export const copyRecordURL = (database: string, REFD: string, report = DEFAULT_DETAIL_REPORT) => {
 	try {
-		const url = getRecordPermalink(database, sisn, report)
+		const url = getRecordPermalink(database, REFD, report)
 		copy(url)
 	} catch (error) {
 		console.error(error)

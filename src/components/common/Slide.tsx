@@ -39,7 +39,7 @@ const Slide = <T,>({
 					: undefined
 			}
 			className={cn('w-full', className)}>
-			<CarouselContent className="ml-0 md:-ml-4">
+			<CarouselContent className="ml-0 md:-ml-4 flex justify-center">
 				{items.map((item, index) => (
 					<CarouselItem
 						className={cn(

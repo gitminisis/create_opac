@@ -19,6 +19,7 @@ const DetailRecordAction = () => {
 	}
 
 	const sisn = deepSearchKey(record, 'sisn')[0] as string
+	const refd = deepSearchKey(record, 'accession_number')[0] as string
 	const database = record.database_name
 	return (
 		<div className="flex flex-col space-y-4">
@@ -38,7 +39,7 @@ const DetailRecordAction = () => {
 					<Button
 						variant="outline"
 						onClick={() => {
-							copyRecordURL(database, sisn)
+							copyRecordURL(database, refd)
 							toast({
 								title: message.recordIsCopied,
 							})
