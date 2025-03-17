@@ -11,8 +11,6 @@ const ClientLoginError = () => {
 	const { config } = useConstants()
 	const [accountNumber, setAccountNumber] = useState('')
 	const [password, setPassword] = useState('')
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState(null)
 	const { message } = useConstants()
 
 	const ErrorMessage = () => {
@@ -52,13 +50,14 @@ const ClientLoginError = () => {
 							</div>
 							<LanguageSelect />
 						</div>
-
 						{ErrorMessage()}
 						<form
 							method="post"
 							action={
-								getHomeSessionID() +
-								'/scripts/mwimain.dll?patronlogin&application=UNION_VIEW&language=144&file=[OPAC]home.html'
+								password && accountNumber
+									? getHomeSessionID() +
+										'/scripts/mwimain.dll?patronlogin&application=UNION_VIEW&language=144&file=[OPAC]home.html'
+									: '/scripts/mwimain.dll?get&file=[OPAC]login.html'
 							}
 							className="mt-2 grid grid-cols-6 gap-6">
 							<div className="col-span-6">
@@ -96,8 +95,7 @@ const ClientLoginError = () => {
 								<Button
 									className="bg-opac-darkblue"
 									type="submit"
-									variant="default"
-									disabled={loading}>
+									variant="default">
 									{message.logIn}
 								</Button>
 							</div>

@@ -489,7 +489,7 @@ const Register = () => {
 			{status === 200 ? (
 				<div className="min-h-[35vh] flex flex-col items-center justify-center p-8 text-center">
 					<div className={'m-5'}>
-						<CircleCheck className="w-16 h-16" />
+						<CircleCheck className="w-16 h-16 text-green-500" />
 					</div>
 					<h1 className="landing-page-title">{message.verificationSent}</h1>
 					<div className="landing-page-title">'{userData.C_EMAIL}'</div>

@@ -13,6 +13,7 @@ type ResetFormData = {
 }
 
 const EMAIL_CONFIRM_CODE = '267'
+const CLIENT_LOGIN_ERROR = 'client-login-error'
 
 const ResetPin = () => {
 	const {
@@ -42,8 +43,10 @@ const ResetPin = () => {
 			.then((res) => {
 				const parser = new DOMParser()
 				const doc = parser.parseFromString(res.data, 'text/html')
-				const inputElement = doc.getElementById('MWI-error') as HTMLInputElement
-				const value = inputElement?.value
+				const element =
+					(doc.getElementById('MWI-error') as HTMLInputElement) ||
+					(doc.getElementById('root') as HTMLInputElement)
+				const value = element?.value ?? element?.getAttribute('data-id')
 				setStatus(value)
 				setLoading(false)
 			})
@@ -69,7 +72,7 @@ const ResetPin = () => {
 			{status === EMAIL_CONFIRM_CODE ? (
 				<div className="min-h-[35vh] flex flex-col items-center justify-center p-8 text-center">
 					<div className={'m-5'}>
-						<CircleCheck className="w-16 h-16" />
+						<CircleCheck className="w-16 h-16 text-green-500" />
 					</div>
 					<h1 className="landing-page-title">{message.verificationSent}</h1>
 					<div className={'text-xl m-4'}>{message.checkEmailInstructions}</div>
@@ -100,7 +103,7 @@ const ResetPin = () => {
 									})}
 									className={`p-2 w-full mt-1 border ${errors.C_CLIENT_NUMBER ? 'border-red-500' : 'border-gray-300'}`}
 								/>
-								{status === '200' && (
+								{(status === '200' || status === CLIENT_LOGIN_ERROR) && (
 									<p className="text-red-500">{message.unknownPatronName}</p>
 								)}
 							</div>

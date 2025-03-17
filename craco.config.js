@@ -11,6 +11,7 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 }, {})
 
 const overrideWebpackConfig = ({ webpackConfig }) => {
+	webpackConfig.cache = true
 	webpackConfig.output.path = path.resolve('dist')
 	webpackConfig.output.filename = 'main.js'
 	webpackConfig.output.clean = true
@@ -25,6 +26,7 @@ module.exports = {
 		devMiddleware: {
 			writeToDisk: true,
 		},
+
 	},
 
 	webpack: {

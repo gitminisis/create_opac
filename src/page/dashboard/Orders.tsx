@@ -1,55 +1,50 @@
-import { useState } from 'react'
-import PatronLayout from '@/components/layouts/patron'
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
-import useJSONData from '@/hooks/useJSONData'
+import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
-import { CaretSortIcon } from '@radix-ui/react-icons'
+import useJSONData from '@/hooks/useJSONData'
+import {
+	encodeURIStringToMinisisSpecialCharacter,
+	getCookieValue,
+	getHomeSessionID,
+} from '@/lib/utils'
 import { Checkbox } from '@radix-ui/react-checkbox'
+import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
-import { getCookieValue, getHomeSessionID } from '@/lib/utils'
-import clientProfileJSON from '@/constants/en/client-profile.json'
 import axios from 'axios'
-import { encodeURIStringToMinisisSpecialCharacter } from '@/lib/utils'
-
 
 const Orders = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const [activeButton, setActiveButton] = useState(null)
-	const profileList = clientProfileJSON.database
-	const m2l_patron_id = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-	let reqData = records;
-	console.log(reqData)
-	const handleClick = (id: any) => {
-		setActiveButton(id) // Set the clicked button as active
-	}
-	
+
 	const cancelRequest = (reqNumber: string) => {
-		var cancelReq_url = getCookieValue("HOME_SESSID") + "?MANIPXMLRECORD&KEY=REQ_ORDER_NUM&VALUE=" + reqNumber + "&DATABASE=REQUEST_INFO";
-		var xmlForm = '<?xml version="1.0" encoding="UTF-8"?>\n<RECORD>\n';
+		var cancelReq_url =
+			getCookieValue('HOME_SESSID') +
+			'?MANIPXMLRECORD&KEY=REQ_ORDER_NUM&VALUE=' +
+			reqNumber +
+			'&DATABASE=REQUEST_INFO'
+		var xmlForm = '<?xml version="1.0" encoding="UTF-8"?>\n<RECORD>\n'
 		xmlForm = xmlForm.concat('<REC_STATUS>Deleted</REC_STATUS>\n')
 		axios({
 			method: 'post',
 			url: cancelReq_url,
 			headers: {
-			  'Content-Type': 'text/xml',
+				'Content-Type': 'text/xml',
 			},
 			data: xmlForm,
 			timeout: 300000, // 5-minute timeout
-		  })
+		})
 			.then((response) => {
-			  const parser = new DOMParser();
-			  const xmlDoc = parser.parseFromString(response.data, 'text/xml');
-			  const errorValue = xmlDoc.querySelector('error')?.textContent;
-		
-			  if (errorValue && parseInt(errorValue, 10) === 0) {
-				// Reload the page if the status was successfully changed
-				window.location.reload();
-			  }
+				const parser = new DOMParser()
+				const xmlDoc = parser.parseFromString(response.data, 'text/xml')
+				const errorValue = xmlDoc.querySelector('error')?.textContent
+
+				if (errorValue && parseInt(errorValue, 10) === 0) {
+					// Reload the page if the status was successfully changed
+					window.location.reload()
+				}
 			})
 			.catch((error) => {
-			  console.error('Error:', error);
-			});
-		
+				console.error('Error:', error)
+			})
 	}
 
 	const columns: ColumnDef<ProfileData>[] = [
@@ -128,7 +123,25 @@ const Orders = () => {
 					</Button>
 				)
 			},
-			cell: ({ row }) => <div className="underline"><a href={getHomeSessionID() + "/" + row.getValue('req_db_name') + "/" + (row.getValue('req_db_name') == "DESCRIPTION_WEB" ? "REFD": "ACCESSION_NUMBER") + "/" + encodeURIStringToMinisisSpecialCharacter(row.getValue('req_item_id')) + "?JUMP"}>{row.getValue('req_item_id')}</a></div>,
+			cell: ({ row }) => (
+				<div className="underline">
+					<a
+						href={
+							getHomeSessionID() +
+							'/' +
+							row.getValue('req_db_name') +
+							'/' +
+							(row.getValue('req_db_name') == 'DESCRIPTION_WEB'
+								? 'REFD'
+								: 'ACCESSION_NUMBER') +
+							'/' +
+							encodeURIStringToMinisisSpecialCharacter(row.getValue('req_item_id')) +
+							'?JUMP'
+						}>
+						{row.getValue('req_item_id')}
+					</a>
+				</div>
+			),
 		},
 		{
 			accessorKey: 'req_title',
@@ -170,56 +183,46 @@ const Orders = () => {
 					</Button>
 				)
 			},
-			cell: ({ row }) => <div className="">
-				{(row.getValue('rec_status') === "Deleted") ? <Button disabled>Cancelled</Button> : (row.getValue('req_status') === "Retrieve" || row.getValue('req_status') === "Prepared" || row.getValue('req_status') === "Requested" || row.getValue('req_status') === "Conservation") ? <Button onClick={() => cancelRequest(row.getValue('req_order_num'))}>Cancel</Button> : <Button disabled>No Action</Button>}
-				</div>,
+			cell: ({ row }) => (
+				<div className="">
+					{row.getValue('rec_status') === 'Deleted' ? (
+						<Button disabled>Cancelled</Button>
+					) : row.getValue('req_status') === 'Retrieve' ||
+					  row.getValue('req_status') === 'Prepared' ||
+					  row.getValue('req_status') === 'Requested' ||
+					  row.getValue('req_status') === 'Conservation' ? (
+						<Button onClick={() => cancelRequest(row.getValue('req_order_num'))}>
+							Cancel
+						</Button>
+					) : (
+						<Button disabled>No Action</Button>
+					)}
+				</div>
+			),
 		},
 		{
 			accessorKey: 'rec_status',
 			header: ({ column }) => {
-				return (
-					<></>
-				)
+				return <></>
 			},
 			cell: ({ row }) => <></>,
 		},
 		{
 			accessorKey: 'req_db_name',
 			header: ({ column }) => {
-				return (
-					<></>
-				)
+				return <></>
 			},
 			cell: ({ row }) => <></>,
 		},
 	]
 	return (
-		<PatronLayout>
-			<div className="container flex flex-col gap-8 p-6">
-				<div className="flex flex-wrap gap-2 sm:gap-4">
-					{profileList.map((button) => (
-						<a
-							key={button.id}
-							href={
-								getCookieValue('HOME_SESSID') +
-								button.url +
-								(button.db != 'SHOWORDERLIST' ? m2l_patron_id : '')
-							}
-							onClick={() => handleClick(button.id)}
-							className={`px-3 py-2 text-sm shadow sm:px-4 sm:py-2 sm:text-base text-accent-foreground bg-white text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}>
-							{button.label}
-						</a>
-					))}
-				</div>
-				<h1 className="text-2xl font-bold">Orders</h1>
-
-				<ProfileTable
-					data={records}
-					columns={columns}
-					filterType={'req_title'}
-					filterTypeShow=""
-				/>
-			</div>
+		<PatronLayout heading="Orders">
+			<ProfileTable
+				data={records}
+				columns={columns}
+				filterType={'req_title'}
+				filterTypeShow=""
+			/>
 		</PatronLayout>
 	)
 }

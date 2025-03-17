@@ -3,16 +3,20 @@
 		"database": "COLLECTIONS_WEB",
 		"items": [
 			{
-				"label": "Title",
+				"label": "Titre",
 				"name": "LEGAL_TITLE"
 			},
 			{
-				"label": "Accession Number",
+				"label": "Numéro d'accession",
 				"name": "ACCESSION_NUMBER"
 			},
 			{
 				"label": "Description",
 				"name": "obj_description"
+			},
+			{
+				"label": "Date la plus ancienne",
+				"name": "EARLY"
 			}
 		]
 	},
@@ -24,38 +28,33 @@
 				"name": "TITLE"
 			},
 			{
-				"label": "ID",
+				"label": "Code de référence",
 				"name": "REFD"
 			},
 			{
-				"label": "Date",
+				"label": "Création",
 				"name": "date_cr_inc"
 			},
 			{
-				"label": "DESC TYPE",
-				"name": "DESC_TYPE"
+				"label": "GMD",
+				"name": "FORM"
 			}
 		]
 	},
 	{
 		"database": "BIBLIO_WEB",
 		"items": [
-			{
-				"label": "Title",
-				"name": "ALL_TITLE_WORD"
-			},
-			{
-				"label": "Subject",
-				"name": "SUBJECT_WORD"
-			},
-			{
-				"label": "Author",
-				"name": "AUTHOR_WORD"
-			},
-			{
-				"label": "Description",
-				"name": "520_A"
-			}
+			{ "label": "Titre", "name": "TITLE" },
+			{ "label": "Numéro d'accession", "name": "ACCESSION_NUMBER" },
+			{ "label": "ISBN", "name": "ISBN" },
+			{ "label": "Titre", "name": "ALL_TITLE_WORD" },
+			{ "label": "Notes", "name": "NOTES_CONCAT" },
+			{ "label": "Auteur", "name": "PAUTHOR" },
+			{ "label": "Lieu de publication", "name": "260_B" },
+			{ "label": "Date de publication", "name": "LIB_PUB_WHOL" },
+			{ "label": "Type de matériel", "name": "I_COLLECT_CODE" },
+			{ "label": "Emplacement de la succursale", "name": "HOLDING_CENTRE" },
+			{ "label": "Statut", "name": "ITEM_STATUS" } 
 		]
 	}
 ]

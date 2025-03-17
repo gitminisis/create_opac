@@ -1,93 +1,94 @@
-import DataWithLabel from '@/components/common/DataWithLabel'
-import DetailInfoCard from '@/components/common/DetailInfoCard'
-import InfoCard from '@/components/common/InfoCard'
-import Link from '@/components/common/Link'
-import { Separator } from '@/components/ui/separator'
 import useConstants from '@/hooks/useConstants'
-import useJSONData from '@/hooks/useJSONData'
-import { getFieldDataByLabel, getFieldsFromRecord, truncateString } from '@/lib/record'
-import { Record } from '@/types/record'
-import { RecordAction } from './RecordAction'
 import { useDisplayMode } from '@/hooks/useDisplayMode'
+import useJSONData from '@/hooks/useJSONData'
+import { getFieldDataByLabel } from '@/lib/record'
+import { Record } from '@/types/record'
+import GridView from './GridView'
+import ListView from './ListView'
 
 const SummaryRecords = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
+
 	return (
 		<>
-			{records.map((e, i) => {
-				if (e.record_link) {
-					return <RecordView record={e} key={i} />
-				}
-			})}
+			{records.map((record, index) => (
+				<RecordView record={record} key={index} />
+			))}
 		</>
 	)
 }
 
-const RecordView = ({ record }: { record: Record }) => {
+interface RecordViewProps {
+	record: Record
+}
+
+const RecordView = ({ record }: RecordViewProps) => {
+	const { common } = useJSONData({ selector: '#xml_record' })
 	const { displayMode } = useDisplayMode()
 	const { fields } = useConstants()
-	const database = record.database_name || record.link_dbname || 'COLLECTIONS_WEB' // use link_dbname for SELECTION_LIST
-	const recordLink = record.record_link
+
+	// Extract and process record data
+	const database = record.database_name || record.link_dbname || ''
+	const recordLink = record.record_link.toString()
 	const title =
 		getFieldDataByLabel(record, fields, database, 'Title') || record.record.title || 'Untitled'
+
+	// Process thumbnail URL
+	const thumbnailUrl = getThumbnailUrl(record)
+
+	// Search highlights
+	const searchTerms = common?.search_statement?.toString()?.split(' ') ?? []
+
+	// Render appropriate view based on display mode
+	return displayMode === 'grid' ? (
+		<GridView
+			title={title}
+			recordLink={recordLink}
+			searchTerms={searchTerms}
+			record={record}
+			fields={fields}
+			database={database}
+			thumbnailUrl={thumbnailUrl}
+		/>
+	) : (
+		<ListView
+			title={title}
+			recordLink={recordLink}
+			searchTerms={searchTerms}
+			record={record}
+			fields={fields}
+			database={database}
+			thumbnailUrl={thumbnailUrl}
+		/>
+	)
+}
+
+export interface ViewProps {
+	title: string
+	recordLink: string
+	searchTerms: string[]
+	record: Record
+	fields: any
+	database: string
+	thumbnailUrl: string
+}
+
+
+
+
+// Helper function to extract thumbnail URL
+function getThumbnailUrl(record: Record): string {
 	const thumbnail =
 		record.media &&
 		Array.isArray(record.media.im_access_link) &&
 		record.media.im_access_link.length > 0 &&
 		record.media.im_access_link[0]
-	const gridFields = getFieldsFromRecord(
-		record,
-		fields,
-		(item) => item.grid === true,
-		(data, item) => <DataWithLabel key={item.name} label={item.label || ''} items={data} />
-	) as React.ReactNode
 
-	const listFields = getFieldsFromRecord(
-		record,
-		fields,
-		(item) => item.summary === true,
-		(data, item) => (
-			<DataWithLabel
-				className="flex-col items-start justify-start my-1 space-x-0"
-				key={item.name}
-				label={item.label || ''}
-				items={data}
-			/>
-		)
-	) as React.ReactNode
-
-	if (displayMode === 'grid') {
-		return (
-			<InfoCard
-				className="border-primary"
-				title={<Link href={recordLink}>{truncateString(title)}</Link>}
-				description={gridFields}
-				thumbnail={thumbnail || 'https://placehold.co/250x250'}
-				footer={
-					<div className="flex h-4 items-center space-x-4 w-full justify-center ">
-						<RecordAction record={record} />
-					</div>
-				}
-			/>
-		)
+	if (!thumbnail) {
+		return 'https://placehold.co/250x250'
 	}
 
-	return (
-		<DetailInfoCard
-			title={<Link href={recordLink}>{title}</Link>}
-			className="col-span-4 border-primary"
-			thumbnail={thumbnail || 'https://placehold.co/250x250'}
-			footer={
-				<div>
-					<Separator />
-					<div className="flex h-12 items-center space-x-4 w-full justify-evenly ">
-						<RecordAction record={record} />
-					</div>
-				</div>
-			}>
-			<div className="mt-4">{listFields}</div>
-		</DetailInfoCard>
-	)
+	return thumbnail.includes('[MEDIA]') ? thumbnail.replace('[MEDIA]', '/media/') : thumbnail
 }
 
 export default SummaryRecords

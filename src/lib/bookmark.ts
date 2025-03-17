@@ -12,12 +12,14 @@ export const bookmarkSelect = async (session: string, recd: Record) => {
 	})
 }
 
-export const removeBookmarkFromKey = (recd: Record) => {
-	const { record, input } = recd
+export const removeBookmarkFromKey = (session: string, recd: Record) => {
+	const { database_name, book_input } = recd
+	const { input }: any = book_input
+
 	return axios({
 		method: 'post',
-		url: `?DELETEORDER&COOKIE=BOOKMARK`,
-		data: `${input?._name}=${record.sisn}`,
+		url: `${session}?DELETEORDER&COOKIE=BOOKMARK`,
+		data: `${input._name}=${input._value}-${database_name}`,
 	})
 }
 
@@ -44,15 +46,17 @@ export const validateBookmarkResponse = (
 	}
 }
 
-export const removeAllBookmarks = async (records: Record[]) => {
-	let dataString = records.map(({ input, record }) => {
-		return `${input?._name}=${record.sisn}`
+export const removeAllBookmarks = async (session: string,records: Record[]) => {
+	let dataString = records.map(({ database_name, book_input } ) => {
+		const { input }: any = book_input
+		return `${input._name}=${input._value}-${database_name}`
 	})
 	return await axios({
 		method: 'post',
-		url: `?DELETEORDER&COOKIE=BOOKMARK`,
+		url: `${session}?DELETEORDER&COOKIE=BOOKMARK`,
 		data: dataString.join('&'),
 	}).then((res) => {
 		window.location.reload()
 	})
 }
+

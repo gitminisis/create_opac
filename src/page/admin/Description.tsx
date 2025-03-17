@@ -10,6 +10,7 @@ import { useAdminForm } from '@/hooks/useAdminForm'
 import fields from '@/schema/home.json'
 import { SchemaType } from '@/types/schema'
 import { FormEvent } from 'react'
+import { isSupportedImageExtension } from '@/lib/tdr'
 
 const AdminDescription = () => {
 	return (
@@ -43,6 +44,15 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 				field={'Site banner'}
 				value={fieldsValue.heroBanner}
 				onChange={(e) => handleChange(['heroBanner'], e)}
+				onTDRAssetsSelect={(files) => {
+					if (files.length > 0) {
+						const file = files[0]
+						handleChange(
+							['heroBanner'],
+							isSupportedImageExtension(file.Extension) ? file.Access : file.Thumbnail
+						)
+					}
+				}}
 			/>
 
 			<div className="mt-2">
@@ -134,9 +144,20 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 											e
 										)
 									}
+									onTDRAssetsSelect={(files) => {
+										if (files.length > 0) {
+											const file = files[0]
+											handleChange(
+												['featuredCollection', `${index}`, 'thumbnail'],
+												isSupportedImageExtension(file.Extension)
+													? file.Access
+													: file.Thumbnail
+											)
+										}
+									}}
 								/>
 							</SectionWrapper>
-						))}
+						))}{' '}
 					</div>
 				)}
 			</div>
@@ -220,6 +241,17 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 											e
 										)
 									}
+									onTDRAssetsSelect={(files) => {
+										if (files.length > 0) {
+											const file = files[0]
+											handleChange(
+												['categoriesItems', `${index}`, 'thumbnail'],
+												isSupportedImageExtension(file.Extension)
+													? file.Access
+													: file.Thumbnail
+											)
+										}
+									}}
 								/>
 							</SectionWrapper>
 						))}

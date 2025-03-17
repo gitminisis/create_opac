@@ -1,7 +1,4 @@
-import { Button } from '@/components/ui/button'
-import Layout from '@/components/layouts'
 import '@/components/common/event-calendar/CalendarStyle.css'
-import React, { useEffect, useState } from 'react'
 import {
 	FUNC_LOC_P_GRP,
 	MAIN_MWI_APPLICATION,
@@ -11,11 +8,11 @@ import {
 	RSVP_CANCEL_LANDING_PAGE_URL,
 	RSVP_LOG_P_STATUS,
 	SISN,
-	TAG_DB,
+	MAIN_EVENT_CAL_DB,
 	TAG_FUNC_DATE,
-	TAG_FUNC_LOC_DEC,
 	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
+	TAG_FUNC_LOC_DEC,
 	TAG_FUNC_LOC_GRP,
 	TAG_FUNC_P_ATTND,
 	TAG_FUNC_P_CONFIRM_EXP_HOURS,
@@ -28,10 +25,14 @@ import {
 	TAG_FUNC_START_T,
 	TAG_NAME,
 	TAG_P_STATUS,
-	TAG_RSVP_PATRON_LOG,
+	MAIN_EVENT_CAL_LOG_DB,
 	EVENT_EMAIL_LOGO,
+	RSVP_MAP,
 } from '@/components/common/event-calendar/Constants'
-import axios from 'axios'
+import { calNumOfPatron } from '@/components/common/event-calendar/EC-Util'
+import Spinner from '@/components/common/event-calendar/Spinner'
+import Layout from '@/components/layouts'
+import useConstants from '@/hooks/useConstants'
 import {
 	convertToArr,
 	convertXMLToJson,
@@ -40,11 +41,10 @@ import {
 	getHomeSessionID,
 	isDatePast,
 } from '@/lib/utils'
-import Spinner from '@/components/common/event-calendar/Spinner'
-import { v4 as uuidv4 } from 'uuid'
-import { calNumOfPatron } from '@/components/common/event-calendar/EC-Util'
-import useConstants from '@/hooks/useConstants'
 import { PatronInfo, STATUS_TYPE, initialPatronInfo } from '@/types/patroninfo'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { ConfirmTmp } from './ActionComponent'
 import LandingPageMessage from './LandingPageMessage'
 
@@ -111,6 +111,7 @@ const RSVPConfirm = () => {
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 				}
 			)
 			.then((res) => {
@@ -156,7 +157,7 @@ const RSVPConfirm = () => {
 		getLogon()
 			.then((res) => storeRecord(res, patronInfo))
 			.then((res) => sendRegConfirmEmail(res))
-			.then((res) => storeAtLog(res))
+		// .then((res) => storeAtLog(res))
 	}
 
 	const getLogon = async () => {
@@ -169,6 +170,7 @@ const RSVPConfirm = () => {
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 				}
 			)
 			.then(() => {
@@ -203,12 +205,13 @@ const RSVPConfirm = () => {
 
 		return await axios
 			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${TAG_DB}&READ=N&KEY=${SISN}&VALUE=${PatronInfo?.SISN}`,
+				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${PatronInfo?.SISN}`,
 				xmlFormAdd,
 				{
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 					timeout: 5000,
 				}
 			)
@@ -232,7 +235,7 @@ const RSVPConfirm = () => {
 		)
 		return await axios
 			.post(
-				`${obj.HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${patronInfo.TAG_FUNC_O ? '[OPAC_EMAIL_TMP]RSVPRegOnlineComfrimTmp.txt' : '[OPAC_EMAIL_TMP]RSVPRegConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${REG_CONFIMRATION_EMAIL_T}:${patronInfo[TAG_NAME]}`,
+				`${obj.HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${patronInfo.TAG_FUNC_O === RSVP_MAP.YES? '[OPAC_EMAIL_TMP]RSVPRegOnlineComfrimTmp.txt' : '[OPAC_EMAIL_TMP]RSVPRegConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${REG_CONFIMRATION_EMAIL_T}:${patronInfo[TAG_NAME]}`,
 				{
 					...patronInfo,
 					EVENT_EMAIL_LOGO: logo,
@@ -274,12 +277,13 @@ const RSVPConfirm = () => {
 
 		return await axios
 			.post(
-				`${obj.HOME_SESSID}?manipxmlrecord&database=${TAG_RSVP_PATRON_LOG}&READ=N`,
+				`${obj.HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_LOG_DB}&READ=N`,
 				xmlFormAdd,
 				{
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 				}
 			)
 			.then((res) => {

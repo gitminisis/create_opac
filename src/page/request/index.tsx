@@ -106,7 +106,13 @@ const Request = () => {
 									<Input
 										type="hidden"
 										name="REQ_ITEM_TITLE"
-										value={typeof reqData.req_item_title === "object" ? reqData.req_item_title.__text.replace(/\s+/g, ' ').trim() : reqData.req_item_title}
+										value={
+											typeof reqData.req_item_title === 'object'
+												? reqData.req_item_title.__text
+														.replace(/\s+/g, ' ')
+														.trim()
+												: reqData.req_item_title
+										}
 									/>
 									<Input
 										type="hidden"
@@ -163,8 +169,14 @@ const Request = () => {
 									''
 								)}
 								<p className="text-lg font-bold mt-2">{reqData.req_item_title}</p>
-								<p className="text-sm text-gray-600">Reference Number: {reqData.req_item_id}</p>
-								{ reqData.req_acc_number ? (<p className="text-sm text-gray-600">Accession Number: </p>) : ""}
+								<p className="text-sm text-gray-600">
+									Reference Number: {reqData.req_item_id}
+								</p>
+								{reqData.req_acc_number ? (
+									<p className="text-sm text-gray-600">Accession Number: </p>
+								) : (
+									''
+								)}
 							</div>
 						</div>
 					</div>

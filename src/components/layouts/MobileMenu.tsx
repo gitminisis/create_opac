@@ -10,7 +10,11 @@ import LoginBtn from '../common/LoginBtn'
 
 const MobileMenu = () => {
 	const [mobileMenu, setMobileMenu] = useState<boolean>(false)
-	const { navigations, siteName, auth } = useConstants().config
+	const { config, home, archives, museum, library } = useConstants()
+
+	const { siteName, auth } = config
+
+	const navigations = [home, archives, museum, library]
 	return (
 		<div className="block md:hidden">
 			<Button size="icon" onClick={() => setMobileMenu(true)}>
@@ -25,12 +29,12 @@ const MobileMenu = () => {
 						<ul className="flex flex-col items-center  text-md">
 							{navigations.map((nav) => (
 								<li
-									key={nav.title}
+									key={nav.displayTitle}
 									className="flex items-center text-left h-12 w-full px-2  hover:text-white hover:bg-primary/60 ">
 									<Link
 										className="transition no-underline text-md text-primary"
-										href={nav.url}>
-										{nav.title}
+										href={nav.linkURL}>
+										{nav.displayTitle}
 									</Link>
 								</li>
 							))}

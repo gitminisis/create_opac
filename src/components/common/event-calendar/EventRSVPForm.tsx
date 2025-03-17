@@ -10,6 +10,7 @@ import {
 	getCurrentDate,
 	getSessionID,
 	isLogin,
+	setCookie,
 } from '@/lib/utils'
 import { calendarCurrDate, calendarEvents, calendarWeekType } from '@/store'
 import { Label } from '@radix-ui/react-label'
@@ -41,7 +42,7 @@ import {
 	RSVP_CANCEL_LANDING_PAGE_URL,
 	RSVP_CONFIRM_LANDING_PAGE_URL,
 	SISN,
-	TAG_DB,
+	MAIN_EVENT_CAL_DB,
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
@@ -66,10 +67,12 @@ import {
 	TAG_FUNC_START_T,
 	TAG_NAME,
 	VERIFICATION_EMAIL_T,
+	RSVP_MAP,
 } from './Constants'
 import { calNumOfPatron } from './EC-Util'
 import { fetch_get, getContactInfo } from './Service'
 import Spinner from './Spinner'
+import x2js from 'x2js'
 
 type Inputs = {
 	[TAG_FUNC_P_FIRST]: string
@@ -151,6 +154,7 @@ const ShowForm = ({
 	setValue,
 	isLoginValid,
 	isIDValid,
+	setLoading,
 }: {
 	loading: boolean
 	handleSubmit: Function
@@ -161,6 +165,7 @@ const ShowForm = ({
 	setValue: Function
 	isLoginValid: boolean
 	isIDValid: boolean
+	setLoading: any
 }) => {
 	const message = useConstants().message
 	const conf = useConstants().config
@@ -179,14 +184,16 @@ const ShowForm = ({
 	useEffect(() => {
 		// If user login in , fill the form automatically.
 		if (isLoginValid) {
+			// M2L_PATRON_ID
 			let name = getCookieValue('M2L_PATRON_NAME')?.split('%2C%20') ?? []
 			setValue(TAG_FUNC_P_FIRST, name[1])
 			setValue(TAG_FUNC_P_LAST, name[0])
-			setValue(TAG_FUNC_P_EMAIL, getCookieValue('Email') ?? '')
+			setValue(TAG_FUNC_P_EMAIL, getCookieValue('Email'))
 		}
 	}, [setValue])
 
 	const M2L_PATRON_NAME = getCookieValue('M2L_PATRON_NAME')
+
 	return (
 		<div className={'h-full w-full p-1 border-2 rounded text-lg'}>
 			{loading && <Spinner height={'h-full'} spinHeight={'h-10'} spinWidth={'w-10'} />}
@@ -243,7 +250,7 @@ const ShowForm = ({
 				</div>
 				{!isIDValid && <div className={'my-2'}>{message.emailAlreadyRegistered}</div>}
 				<div className={'my-2'}>
-					{!isLogin && (
+					{!isLoginValid && (
 						<ReCAPTCHA sitekey={conf.reCaptchaKey} onChange={handleCaptchaChange} />
 					)}
 				</div>
@@ -274,7 +281,9 @@ const ShowButton = ({
 	const message = useConstants().message
 
 	const handleDownload = async () => {
-		const fileUrl = event[FLOC_TX_ACCESS]
+		let fileUrl = event[FLOC_TX_ACCESS]?.toLowerCase().includes('[media]')
+			? event[FLOC_TX_ACCESS].replace(/\[media\]/i, '/media/')
+			: event[FLOC_TX_ACCESS]
 		if (fileUrl) {
 			try {
 				const response = await fetch(fileUrl)
@@ -286,6 +295,7 @@ const ShowButton = ({
 			}
 		}
 	}
+
 	function isDateInThePast(dateString: string) {
 		const inputDate = new Date(dateString)
 		const currentDate = new Date()
@@ -298,7 +308,7 @@ const ShowButton = ({
 
 	return (
 		<div className={'h-full w-full text-lg'}>
-			{event[TAG_FUNC_RSVP] && (
+			{event[TAG_FUNC_RSVP] !== RSVP_MAP.NO && (
 				<div
 					className={
 						'h-1/2 w-full flex flex-col items-center justify-evenly p-1 border-2 rounded'
@@ -335,7 +345,7 @@ const ShowButton = ({
 			)}
 			{getContactInfo(BD_ADDRESS, contactInfo, event) ? (
 				<div
-					className={`${event[TAG_FUNC_RSVP] ? 'h-1/2' : 'h-[54%]'} w-full flex flex-col items-start justify-evenly text-lg p-3 border-2 rounded`}>
+					className={`${event[TAG_FUNC_RSVP] !== RSVP_MAP.NO ? 'h-1/2' : 'h-[54%]'} w-full flex flex-col items-start justify-evenly text-lg p-3 border-2 rounded`}>
 					<div className={'w-full flex justify-center'}>{message.contactInfo}</div>
 					<div className={'w-full text-center'}>
 						<div className={'flex font-normal items-center text-base'}>
@@ -349,7 +359,7 @@ const ShowButton = ({
 					</div>
 					<div className={'w-full'}>
 						{/*@ts-ignore there is variable called TAG_FUNC_O*/}
-						{event[TAG_FUNC_O] ? (
+						{event[TAG_FUNC_O] === RSVP_MAP.YES ? (
 							<>
 								<div className={'flex font-normal items-center'}>
 									<MonitorPlay size={25} />
@@ -443,7 +453,7 @@ const ShowRSVPSuccess = ({
 			</div>
 			<div>
 				<div className={'w-full flex justify-center text-lg'}>{message.contactInfo}</div>
-				{event[TAG_FUNC_O] ? (
+				{event[TAG_FUNC_O] === RSVP_MAP.YES ? (
 					<>
 						<div className={'flex font-normal items-center'}>
 							<MonitorPlay size={25} />
@@ -500,8 +510,33 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 	useEffect(() => {
 		if (getCookieValue('M2L_PATRON_NAME')) {
 			setIsLogin(true)
+			!getCookieValue('Email') && getEmail()
 		}
 	}, [])
+
+	const getEmail = async () => {
+		setLoading(true)
+		let HOME_SESSID = getSessionID()
+		let ID = getCookieValue('M2L_PATRON_ID') ?? ''
+		return axios
+			.post(
+				`${HOME_SESSID}?manipxmlrecord&database=CLIENT&READ=Y&KEY=C_CLIENT_NUMBER&VALUE=${ID.replace(/\[.*?\]/g, '')}`,
+				{
+					headers: {
+						'Content-Type': 'text/xml',
+					},
+					withCredentials: true,
+					timeout: 5000,
+				}
+			)
+			.then((res) => {
+				const conToJson: any = convertXMLToJson(res.data)
+				const jsonObj = conToJson[MWI_RESFUL_RES].record
+				setCookie('Email', jsonObj['C_EMAIL'])
+				setLoading(false)
+				return jsonObj['C_EMAIL']
+			})
+	}
 
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
 		setLoading(true)
@@ -525,11 +560,12 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 
 		return await axios
 			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${TAG_DB}&READ=Y&KEY=${SISN}&VALUE=${sisnNumber}`,
+				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=Y&KEY=${SISN}&VALUE=${sisnNumber}`,
 				{
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 					timeout: 5000,
 				}
 			)
@@ -637,12 +673,13 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 
 		return await axios
 			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${TAG_DB}&READ=N&KEY=${SISN}&VALUE=${event?.SISN}`,
+				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${event?.SISN}`,
 				xmlFormAdd,
 				{
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 					timeout: 5000,
 				}
 			)
@@ -666,6 +703,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 				}
 			)
 			.then((res) => {
@@ -704,7 +742,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 
 		return await axios
 			.post(
-				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${event.TAG_FUNC_O ? '[OPAC_EMAIL_TMP]RSVPRegOnlineComfrimTmp.txt' : '[OPAC_EMAIL_TMP]RSVPRegConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${userData[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${REG_CONFIMRATION_EMAIL_T}:${event[TAG_NAME]}`,
+				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${event.TAG_FUNC_O === RSVP_MAP.YES? '[OPAC_EMAIL_TMP]RSVPRegOnlineComfrimTmp.txt' : '[OPAC_EMAIL_TMP]RSVPRegConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${userData[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${REG_CONFIMRATION_EMAIL_T}:${event[TAG_NAME]}`,
 				{
 					BD_ADDRESS: event[TAG_FUNC_LOC],
 					...userData,
@@ -751,6 +789,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 			case STATUS_TYPE.SHOW_FORM:
 				return (
 					<ShowForm
+						setLoading={setLoading}
 						loading={loading}
 						handleSubmit={handleSubmit}
 						register={register}

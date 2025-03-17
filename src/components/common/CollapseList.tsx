@@ -6,13 +6,15 @@ import React from 'react'
 export interface CollapseListProps extends React.HTMLAttributes<HTMLDivElement> {
 	title: string
 	expand?: boolean
+	disabled?: boolean
 }
 
-const CollapseList = ({ title, children, expand = false }: CollapseListProps) => {
+const CollapseList = ({ title, children, expand = false, disabled }: CollapseListProps) => {
 	const [isOpen, setIsOpen] = React.useState(expand)
 	return (
 		<div className="w-full space-y-2">
 			<Collapsible
+				disabled={disabled}
 				open={isOpen}
 				onOpenChange={setIsOpen}
 				className="overflow-hidden rounded-md border border-input  [&_summary::-webkit-details-marker]:hidden">

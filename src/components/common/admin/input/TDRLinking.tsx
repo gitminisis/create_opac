@@ -37,9 +37,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 
 			if (id && accessToken) {
 				deleteTDRBookmark(accessToken, id)
-					.then((res) => {
-						console.log('delete tdr bookmark', res)
-					})
+					.then((res) => {})
 					.catch((err) => console.error(err))
 			}
 		}

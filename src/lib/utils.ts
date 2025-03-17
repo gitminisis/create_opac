@@ -5,6 +5,19 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
+export const getImage = (image: string) => {
+	if(Array.isArray(image)){
+		return image[0]?.toLowerCase().includes('[media]')
+		? image[0].replace(/\[media\]/i, '/media/')
+		: image[0]
+	}else{
+		return image?.toLowerCase().includes('[media]')
+		? image.replace(/\[media\]/i, '/media/')
+		: image
+	}
+
+}
+
 /**
  * Ensure type-safe for config
  * @returns
@@ -48,7 +61,7 @@ export const truncateWords = (
  * @returns {string} The processed string with leading and trailing spaces removed and converted to lowercase.
  */
 export const convertLowerTrim = (type: string): string => {
-	return type?.replace(/\s+/g, '')?.toLowerCase()
+	return type?.replace(/\s/g, "")?.toLowerCase();
 }
 
 /**
@@ -60,7 +73,7 @@ export const convertToArr = (elm: Object | Array<any>) => {
 	if (Array.isArray(elm)) {
 		return elm
 	}
-	return [elm]
+	return elm ? [elm] : []
 }
 
 export const convertXMLToJson = (response: any) => {
@@ -182,13 +195,17 @@ export const getSearchURL = (url: string) => {
 }
 
 export const getPatronID = () => {
-	return getCookieValue("M2L_PATRON_ID")?.split(']')[1]
+	return getCookieValue('M2L_PATRON_ID')?.split(']')[1]
 }
 
 export const getLanguageID = () => {
-	return getCookieValue("$LANG")?.split(']')[1]
+	return getCookieValue('$LANG')?.split(']')[1]
 }
 
 export const encodeURIStringToMinisisSpecialCharacter = (originalString: string) => {
-	return encodeURIComponent(originalString).replace(/%/g, "~")
+	return encodeURIComponent(originalString).replace(/%/g, '~')
+}
+
+export const isDescriptionDatabase = (database: string) => {
+	return database.toLocaleUpperCase() === 'DESCRIPTION_WEB'
 }

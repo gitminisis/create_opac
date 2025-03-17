@@ -1,16 +1,11 @@
-import { useState } from 'react'
-import PatronLayout from '@/components/layouts/patron'
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
-import useJSONData from '@/hooks/useJSONData'
-import { convertToArr, convertXMLToJson, getCookieValue, getSessionID } from '@/lib/utils'
-import axios from 'axios'
 import {
 	CANCEL_CONFIRMATION_EMAIL_T,
 	FUNC_LOC_P_GRP,
+	MAIN_EVENT_CAL_DB,
 	MWI_RESFUL_RES,
 	MWI_XML_DATA_INDEX,
 	SISN,
-	TAG_DB,
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
@@ -20,11 +15,15 @@ import {
 	TAG_FUNC_START_T,
 	TAG_NAME,
 } from '@/components/common/event-calendar/Constants'
+import RadixAlertDialog from '@/components/common/RadixAlertDialog'
+import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
+import useConstants from '@/hooks/useConstants'
+import useJSONData from '@/hooks/useJSONData'
+import { convertToArr, convertXMLToJson, getHomeSessionID } from '@/lib/utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
-import useConstants from '@/hooks/useConstants'
-import RadixAlertDialog from '@/components/common/RadixAlertDialog'
+import axios from 'axios'
 
 interface TagFunction {
 	[key: string]: any
@@ -45,7 +44,7 @@ interface PatronInfo {
 const Calendar = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
 	const message = useConstants().message
-	let HOME_SESSID = getSessionID()
+	let HOME_SESSID = getHomeSessionID()
 	const { logo } = useConstants().config
 
 	const columns: ColumnDef<ProfileData>[] = [
@@ -135,11 +134,12 @@ const Calendar = () => {
 	const getOCCNumber = async (patronInfo: PatronInfo, sisnValue: number) => {
 		return await axios
 			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${TAG_DB}&READ=Y&KEY=${SISN}&VALUE=${sisnValue}`,
+				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=Y&KEY=${SISN}&VALUE=${sisnValue}`,
 				{
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 					timeout: 5000,
 				}
 			)
@@ -177,7 +177,6 @@ const Calendar = () => {
 	}
 
 	const removeRecord = async (eventInfo: any) => {
-		console.log('eventInfo', eventInfo)
 		let { tag_func_p_id, sisn } = eventInfo.patronInfo
 		let xmlFormDelete = `<?xml version="1.0" encoding="UTF-8"?>
     <RECORD>
@@ -191,12 +190,13 @@ const Calendar = () => {
 
 		return await axios
 			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${TAG_DB}&READ=N&KEY=${SISN}&VALUE=${sisn}`,
+				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${sisn}`,
 				xmlFormDelete,
 				{
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 					timeout: 5000,
 				}
 			)
@@ -229,8 +229,7 @@ const Calendar = () => {
 	}
 
 	return (
-		<PatronLayout>
-			<h1 className="text-2xl font-bold">{message.calendar}</h1>
+		<PatronLayout heading={message.calendar}>
 			<ProfileTable
 				data={records}
 				columns={columns}

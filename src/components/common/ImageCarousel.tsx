@@ -9,9 +9,19 @@ export type ImageProps = {
 	alt?: string
 	caption?: string
 }
+
+export type VideoProps = {
+	type: 'video'
+	width: number
+	height: number
+	sources: {
+		src: string
+		type: 'video/mp4'
+	}[]
+}
 export interface ImageCarouselProps {
-	items: ImageProps[]
-	renderItems: (item: ImageProps, index: number) => React.ReactNode
+	items: (ImageProps | VideoProps)[]
+	renderItems: (item: ImageProps | VideoProps, index: number) => React.ReactNode
 }
 
 const ImageCarousel = ({ items, renderItems }: ImageCarouselProps) => {
@@ -22,7 +32,15 @@ const ImageCarousel = ({ items, renderItems }: ImageCarouselProps) => {
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex w-full group cursor-pointer relative">
-				<img className="mx-auto w-full lg:max-w-[400px]" {...currentImage} />
+				{(currentImage as ImageProps).src ? (
+					<img className="mx-auto w-full lg:max-w-[400px]" {...currentImage} />
+				) : (
+					<video className="mx-auto w-full lg:max-w-[400px]" controls>
+						<source
+							src={(currentImage as VideoProps).sources[0].src}
+							type="video/mp4"></source>
+					</video>
+				)}
 				<Scan
 					strokeWidth={'3px'}
 					className="cursor-pointer absolute bg-gray-400 bg-opacity-30  w-8 h-8 text-white hover:text-primary bottom-2 right-2 transition-all ease-in duration-400 "

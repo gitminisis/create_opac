@@ -38,7 +38,7 @@ export function LanguageSelect() {
 			onValueChange={(e) => {
 				setLanguage(e as LanguageCode)
 			}}>
-			<SelectTrigger className="w-auto bg-transparent">
+			<SelectTrigger className="w-auto bg-primary">
 				<SelectValue
 					placeholder={
 						<img alt="language icon" className="w-6 h-6" src={language.icon} />
@@ -47,12 +47,12 @@ export function LanguageSelect() {
 			</SelectTrigger>
 			<SelectContent>
 				{LANGUAGE_ITEMS.map((item) => (
-					<SelectItem key={item.code} value={item.code}>
+					<SelectItem key={item.code} value={item.code} className="">
 						<div className="flex justify-center items-center">
 							<span className="flex flex-row text-center justify-center">
 								<img alt="language icon" className="w-6 h-6" src={item.icon} />
 							</span>
-							<span className="ml-2 text-black">{item.abbr}</span>
+							<span className="ml-2 ">{item.abbr}</span>
 						</div>
 					</SelectItem>
 				))}

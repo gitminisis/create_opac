@@ -1,12 +1,11 @@
 import {
 	CANCEL_CONFIRMATION_EMAIL_T,
-	EVENT_EMAIL_LOGO,
 	FUNC_LOC_P_GRP,
 	MAIN_MWI_APPLICATION,
 	MONTH_REPORT,
 	RSVP_LOG_P_STATUS,
 	SISN,
-	TAG_DB,
+	MAIN_EVENT_CAL_DB,
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
@@ -19,15 +18,15 @@ import {
 	TAG_FUNC_START_T,
 	TAG_NAME,
 	TAG_P_STATUS,
-	TAG_RSVP_PATRON_LOG,
+	MAIN_EVENT_CAL_LOG_DB,
 } from '@/components/common/event-calendar/Constants'
 import Spinner from '@/components/common/event-calendar/Spinner'
 import Layout from '@/components/layouts'
+import useConstants from '@/hooks/useConstants'
 import { convertXMLToJson, decodeObj, getHomeSessionID, isDatePast } from '@/lib/utils'
+import { PatronInfo, STATUS_TYPE, initialPatronInfo } from '@/types/patroninfo'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import useConstants from '@/hooks/useConstants'
-import { PatronInfo, STATUS_TYPE, initialPatronInfo } from '@/types/patroninfo'
 import { CancelTmp } from './ActionComponent'
 import LandingPageMessage from './LandingPageMessage'
 
@@ -77,6 +76,7 @@ const RSVPCancel = () => {
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 				}
 			)
 			.then((res) => {
@@ -96,33 +96,49 @@ const RSVPCancel = () => {
 				setStatus(STATUS_TYPE.Success)
 				return sendCancelConfirmEmail(res)
 			})
-			.then((res) => storeAtLog(res))
 	}
 
 	const getLogon = async () => {
-		let urlForSessionID = `/scripts/mwimain.dll?logon&application=${MAIN_MWI_APPLICATION}&file=[OPAC]rsvp-cancel.html`
-
-		return await axios
-			.post(
-				urlForSessionID,
-				{},
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
+		let urlForSessionID = `/scripts/mwimain.dll?logon&application=${MAIN_MWI_APPLICATION}&file=[OPAC]rsvp-cancel.html`;
+	
+		try {
+			await axios.post(urlForSessionID, {}, {
+				headers: { 'Content-Type': 'text/xml' },
+				withCredentials: true,
+			});
+	
+			return await waitForHomeSessionID(); 
+		} catch (error) {
+			return false;
+		}
+	};
+	
+	const waitForHomeSessionID = () => {
+		return new Promise((resolve, reject) => {
+			let attempts = 0;
+			const maxAttempts = 10; 
+			const interval = 100; 
+	
+			const checkSessionID = () => {
+				let HOME_SESSID = getHomeSessionID();
+				if (HOME_SESSID) {
+					resolve(HOME_SESSID);
+				} else if (attempts < maxAttempts) {
+					attempts++;
+					setTimeout(checkSessionID, interval);
+				} else {
+					reject(new Error('Failed to get HOME_SESSID'));
 				}
-			)
-			.then(() => {
-				let HOME_SESSID = getHomeSessionID()
-				return HOME_SESSID
-			})
-			.catch(() => {
-				return false
-			})
-	}
+			};
+	
+			checkSessionID();
+		});
+	};
+	
+	
 
 	const removeRecord = async (
-		HOME_SESSID: string | boolean,
+		HOME_SESSID: any,
 		PatronInfo: PatronInfo | undefined
 	) => {
 		let xmlFormDelete = `<?xml version="1.0" encoding="UTF-8"?>
@@ -137,12 +153,13 @@ const RSVPCancel = () => {
 
 		return await axios
 			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${TAG_DB}&READ=N&KEY=${SISN}&VALUE=${PatronInfo?.SISN}`,
+				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${PatronInfo?.SISN}`,
 				xmlFormDelete,
 				{
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 					timeout: 5000,
 				}
 			)
@@ -193,12 +210,13 @@ const RSVPCancel = () => {
 
 		return await axios
 			.post(
-				`${obj.HOME_SESSID}?manipxmlrecord&database=${TAG_RSVP_PATRON_LOG}&READ=N`,
+				`${obj.HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_LOG_DB}&READ=N`,
 				xmlFormAdd,
 				{
 					headers: {
 						'Content-Type': 'text/xml',
 					},
+					withCredentials: true,
 				}
 			)
 			.then((res) => {

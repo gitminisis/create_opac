@@ -17,6 +17,7 @@ import {
 	ContactInfoRSVP,
 	EVENT_DEFAULT_COLOR,
 	FilterType,
+	RSVP_MAP,
 	TAG_DB_TYPE,
 	TAG_FUNC_END_T,
 	TAG_FUNC_O,
@@ -74,7 +75,7 @@ const EventButton = ({
 									<div>{elm[TAG_FUNC_END_T]?.toUpperCase()}</div>
 								</div>
 								<div className={'hidden sm:block w-[18px]'}>
-									{elm[TAG_FUNC_O] ? <MonitorPlay /> : <SquareUserRound />}
+									{elm[TAG_FUNC_O] === RSVP_MAP.YES ? <MonitorPlay /> : <SquareUserRound />}
 								</div>
 							</div>
 						</div>
@@ -98,7 +99,9 @@ const EventButton = ({
 			</DialogTrigger>
 			<DialogContent
 				hideClose={'invisible'}
-				className={'max-h-[90vh] max-w-5xl overflow-y-auto p-1 gap-1 '}>
+				className={
+					'max-h-[90vh] max-w-5xl overflow-y-auto 2xl:overflow-y-hidden p-1 gap-1 '
+				}>
 				<DialogHeader>
 					<DialogTitle
 						className={

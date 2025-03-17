@@ -1,49 +1,51 @@
+import Archives from '@/page/Archives'
 import FAQ from '@/page/FAQ'
+import GenericErrorPage from '@/page/GenericErrorPage'
 import Home from '@/page/Home'
+import Library from '@/page/Library'
+import Museum from '@/page/Museum'
+import NoBookmarkRecord from '@/page/NoBookmarkRecord'
 import NoRecord from '@/page/NoRecord'
+import NoSession from '@/page/NoSession'
 import NotFoundPage from '@/page/NotFoundPage'
-import Admin from '@/page/admin'
-import Detail from '@/page/detail'
-import Summary from '@/page/summary'
 import RSVPCancel from '@/page/RSVP/Cancellation'
 import RSVPConfirm from '@/page/RSVP/Confirmation'
-import Login from '@/page/login'
-import BookmarkProfile from '@/page/dashboard/BookmarkProfile'
-import NoBookmarkRecord from '@/page/NoBookmarkRecord'
-import Museum from '@/page/Museum'
-import Archives from '@/page/Archives'
-import Library from '@/page/Library'
-import NoSession from '@/page/NoSession'
-import GenericErrorPage from '@/page/GenericErrorPage'
-import Fields from '@/page/admin/Fields'
-import AdminHome from '@/page/admin/Home'
-import AdminRSVP from '@/page/admin/RSVP'
-import AdminMessage from '@/page/admin/Message'
-import AdminStyles from '@/page/admin/Styles'
-import PatronProfile from '@/page/dashboard/PatronProfile'
-import PatronInfo from '@/page/dashboard/PatronInfo'
-import Orders from '@/page/dashboard/Orders'
-import Copyright from '@/page/dashboard/Copyright'
-import Reproductions from '@/page/dashboard/Reproductions'
-import Enquiry from '@/page/dashboard/Enquiry'
-import Bookmark from '@/page/bookmark'
-import Crowdsource from '@/page/dashboard/Crowdsource'
-import Calendar from '@/page/dashboard/Calendar'
-import Request from '@/page/request'
-import RequestConfirmed from '@/page/request/RequestConfirmed'
+import Admin from '@/page/admin'
+import AdminBiblio from '@/page/admin/Biblio'
 import AdminCollections from '@/page/admin/Collections'
 import AdminDescription from '@/page/admin/Description'
+import Fields from '@/page/admin/Fields'
+import AdminHome from '@/page/admin/Home'
+import AdminLogin from '@/page/admin/Login'
+import AdminMessage from '@/page/admin/Message'
+import AdminRSVP from '@/page/admin/RSVP'
 import AdminSettings from '@/page/admin/Settings'
+import AdminStyles from '@/page/admin/Styles'
+import Bookmark from '@/page/bookmark'
+import BookmarkProfile from '@/page/dashboard/BookmarkProfile'
+import Calendar from '@/page/dashboard/Calendar'
+import Copyright from '@/page/dashboard/Copyright'
+import Crowdsource from '@/page/dashboard/Crowdsource'
+import EasyLoad from '@/page/dashboard/Easyload'
+import Relogin from '@/page/dashboard/Easyload/Relogin'
+import Enquiry from '@/page/dashboard/Enquiry'
+import Orders from '@/page/dashboard/Orders'
+import PatronProfile from '@/page/dashboard/PatronProfile'
+import Reproductions from '@/page/dashboard/Reproductions'
+import Detail from '@/page/detail'
+import EnquiryConfirmed from '@/page/enquiry/EnquiryConfirmed'
+import EnquiryForm from '@/page/enquiry/EnquiryForm'
+import Login from '@/page/login'
+import ClientLoginError from '@/page/login/ClientLoginError'
+import ForgotPin from '@/page/login/ForgotPin'
 import Register from '@/page/login/Register'
 import ResetPin from '@/page/login/ResetPin'
-import ForgotPin from '@/page/login/ForgotPin'
-import AdminLogin from '@/page/admin/Login'
-import EnquiryForm from '@/page/enquiry/EnquiryForm'
-import EnquiryConfirmed from '@/page/enquiry/EnquiryConfirmed'
 import ReproductionConfirmed from '@/page/reproduction/ReproductionConfirmed'
-import ReproductionForm from '@/page/reproduction/ReproductionForm'
 import ReproductionDetail from '@/page/reproduction/ReproductionDetail'
-import ClientLoginError from '@/page/login/ClientLoginError'
+import ReproductionForm from '@/page/reproduction/ReproductionForm'
+import Request from '@/page/request'
+import RequestConfirmed from '@/page/request/RequestConfirmed'
+import Summary from '@/page/summary'
 import EnquiryReplyForm from '@/page/enquiry/EnquiryReplyForm'
 import CopyrightConfirmed from '@/page/copyright/CopyrightConfirmed'
 import CopyrightForm from '@/page/copyright/CopyrightForm'
@@ -55,7 +57,7 @@ const ADMIN_ROUTES: TRoute = {
 	'admin-login': AdminLogin,
 	'admin-fields': Fields,
 	'admin-home': AdminHome,
-	'admin-biblio': AdminHome,
+	'admin-biblio': AdminBiblio,
 	'admin-description': AdminDescription,
 	'admin-collections': AdminCollections,
 	'admin-rsvp': AdminRSVP,
@@ -76,7 +78,6 @@ export const ROUTES: TRoute = {
 	library: Library,
 	museum: Museum,
 	patronprofile: PatronProfile,
-	patroninfo: PatronInfo,
 	orders: Orders,
 	copyright: Copyright,
 	reproductions: Reproductions,
@@ -85,6 +86,8 @@ export const ROUTES: TRoute = {
 	crowdsource: Crowdsource,
 	calendar: Calendar,
 	request: Request,
+	easyload: EasyLoad,
+	'easyload-login': Relogin,
 	requestconfirmed: RequestConfirmed,
 	'forgot-pin': ForgotPin,
 	'reset-pin': ResetPin,

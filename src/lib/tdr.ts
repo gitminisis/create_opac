@@ -137,5 +137,5 @@ export const isSupportedImageExtension = (extension: string): boolean => {
 	const supportedImageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg']
 
 	// Check if the provided extension matches any of the supported image extensions
-	return supportedImageExtensions.includes(extension.toLowerCase())
+	return supportedImageExtensions.includes(extension?.toLowerCase())
 }

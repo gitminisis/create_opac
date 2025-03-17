@@ -56,9 +56,7 @@ export const AdminFormProvider: React.FC<AdminFormProviderProps> = ({
 					path: filepath,
 					content: JSON.stringify(data),
 				})
-				.then((res) => {
-					console.log(res)
-				})
+				.then((res) => {})
 				.finally(() => {
 					hideLoading()
 				})

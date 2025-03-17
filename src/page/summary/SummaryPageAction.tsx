@@ -8,7 +8,6 @@ import ViewBookmarks from '../bookmark/ViewBookmarks'
 import BookmarkAll from '../bookmark/BookmarkAll'
 import PrintPage from '../bookmark/PrintPage'
 import { convertToArr } from '@/lib/utils'
-import { SortDateDescending } from '../../types/message.json'
 
 /**
  * This component contains:
@@ -25,10 +24,6 @@ const SummaryPageAction = () => {
 		{
 			label: message.sortDefault,
 			value: 'default',
-		},
-		{
-			label: message.sortAccessionNumberAscending,
-			value: 'id_asc',
 		},
 		{
 			label: message.sortTitleAscending,
@@ -51,13 +46,13 @@ const SummaryPageAction = () => {
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex flex-col space-y-2">
-				<Label className="text-bold">{message.bookmark}</Label>
+				<Label className="font-bold">{message.bookmark}</Label>
 				<ViewBookmarks />
 				<BookmarkAll />
 				<PrintPage />
 			</div>
 			<div className="flex flex-col space-y-2">
-				<Label className="text-bold">{message.recordPerPage}</Label>
+				<Label className="font-bold">{message.recordPerPage}</Label>
 				<DropdownSelect
 					register={{
 						onValueChange: (value) => {
@@ -91,7 +86,7 @@ const SummaryPageAction = () => {
 				/>
 			</div>
 			<div className="flex flex-col space-y-2">
-				<Label className="text-bold">{message.sortBy}</Label>
+				<Label className="font-bold">{message.sortBy}</Label>
 				<DropdownSelect
 					title={message.sortBy}
 					register={{
@@ -105,11 +100,11 @@ const SummaryPageAction = () => {
 			</div>
 			{filterArr && filterArr.length > 0 && (
 				<div className="flex flex-col space-y-2">
-					<Label className="text-bold">{message.filterBy}</Label>
+					<Label className="font-bold">{message.filterBy}</Label>
 					<div className="flex flex-col space-y-4">
 						{filterArr.map((item, index) => (
 							<CollapseList title={item._title} expand={index === 0} key={item._name}>
-								<div className="space-y-3 border-t p-4">
+								<div className="space-y-3 border-t p-4 max-h-[500px] overflow-y-auto">
 									{item.item_group.map(
 										(option: {
 											item_link: string

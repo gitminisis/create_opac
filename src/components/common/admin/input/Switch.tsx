@@ -11,7 +11,7 @@ const Switch = ({ title, value, onChange, disabled = false }: SwitchProps) => {
 				onCheckedChange={(e) => onChange?.(Boolean(e))}
 				className="mt-0"
 				defaultChecked={Boolean(value)}
-				id={`switch-${title.toLowerCase()}`}
+				id={`switch-${title?.toLowerCase()}`}
 			/>
 		</InputWrapper>
 	)

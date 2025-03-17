@@ -1,5 +1,3 @@
-import { ReactNode } from "react"
-
 export type PatronInfo = {
 	TAG_FUNC_O_ID: string
 	TAG_FUNC_O_CODE: string
@@ -44,10 +42,10 @@ export const initialPatronInfo: PatronInfo = {
 	occ2: '',
 	TAG_FUNC_P_PAID: '',
 	TAG_FUNC_DESC: '',
-	TAG_FUNC_O_ID: "",
-	TAG_FUNC_O_CODE: "",
-	TAG_FUNC_O_PATH: "",
-	TAG_FUNC_O: ""
+	TAG_FUNC_O_ID: '',
+	TAG_FUNC_O_CODE: '',
+	TAG_FUNC_O_PATH: '',
+	TAG_FUNC_O: '',
 }
 
 export const STATUS_TYPE = {

@@ -545,31 +545,31 @@
 						{
 							"item_value": "1950-1959",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(DATE_CL~20~221950-1959~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(DATE_CL~20~221950-1959~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "1960-1969",
 							"item_frequency": "10",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(DATE_CL~20~221960-1969~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(DATE_CL~20~221960-1969~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "1970-1979",
 							"item_frequency": "8",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(DATE_CL~20~221970-1979~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(DATE_CL~20~221970-1979~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "1990-1999",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(DATE_CL~20~221990-1999~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(DATE_CL~20~221990-1999~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "2000-2009",
 							"item_frequency": "7",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(DATE_CL~20~222000-2009~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(DATE_CL~20~222000-2009~22)",
 							"item_selected": "N"
 						}
 					],
@@ -581,13 +581,13 @@
 						{
 							"item_value": "Graphic material",
 							"item_frequency": "32",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(FORM_CL~20~22Graphic~20material~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(FORM_CL~20~22Graphic~20material~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Textual record",
 							"item_frequency": "2",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(FORM_CL~20~22Textual~20record~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(FORM_CL~20~22Textual~20record~22)",
 							"item_selected": "N"
 						}
 					],
@@ -599,61 +599,61 @@
 						{
 							"item_value": "Annacis Island",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Annacis~20Island~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Annacis~20Island~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Cloverdale",
 							"item_frequency": "10",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Cloverdale~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Cloverdale~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Hazelmere",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Hazelmere~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Hazelmere~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Newton",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Newton~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Newton~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Panorama Ridge",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Panorama~20Ridge~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Panorama~20Ridge~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Peace Arch, The",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Peace~20Arch,~20The~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Peace~20Arch,~20The~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Surrey",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Surrey~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Surrey~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Vancouver",
 							"item_frequency": "1",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Vancouver~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Vancouver~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "Whalley",
 							"item_frequency": "2",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Whalley~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22Whalley~22)",
 							"item_selected": "N"
 						},
 						{
 							"item_value": "White Rock",
 							"item_frequency": "3",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22White~20Rock~22)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(PLACES_CL~20~22White~20Rock~22)",
 							"item_selected": "N"
 						}
 					],
@@ -665,7 +665,7 @@
 						{
 							"item_value": "Image",
 							"item_frequency": "34",
-							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CL~\n20~1Dtest~1D~20*~20(IMAGE_READY~20Yes)",
+							"item_link": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283?UNIONSEARCH&APPLICATION=UNION_VIEW&LANGUAGE=1\n44&DATABASE=UNION_VIEW&REPORT=WEB_UNION_SUM&KEEP=Y&EXP=KEYWORD_CLUSTER~\n20~1Dtest~1D~20*~20(IMAGE_READY~20Yes)",
 							"item_selected": "N"
 						}
 					],
@@ -678,7 +678,7 @@
 	"session": "https://surrey.minisisinc.com/scripts/mwimain.dll/138317283",
 	"bookmark_count": "0",
 	"search_statement": "test",
-	"query_statement": "KEYWORD_CL test",
+	"query_statement": "KEYWORD_CLUSTER test",
 	"pagesize_25": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/138317283/2/1?RECLIST&DATABA\nSE=UNION_VIEW&TM=1709187437.794&PAGESIZE=25",
 	"pagesize_50": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/138317283/2/1?RECLIST&DATABA\nSE=UNION_VIEW&TM=1709187437.794&PAGESIZE=50",
 	"pagesize_100": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/138317283/2/1?RECLIST&DATABA\nSE=UNION_VIEW&TM=1709187437.794&PAGESIZE=100",

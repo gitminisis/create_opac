@@ -18,6 +18,7 @@ import {
 	TAG_NAME,
 } from './Constants'
 import { getContactInfo } from './Service'
+import { convertToArr } from '@/lib/utils'
 
 export interface ImageCarouselProps {
 	items: any
@@ -29,6 +30,7 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 	const [current, setCurrent] = React.useState(0)
 	const currentMedia = items[current]
 	const message = useConstants().message
+
 	const renderPage = () => {
 		if (currentMedia[MEDIA_TYPE?.IMAGE]) {
 			return (
@@ -36,7 +38,7 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 					<img
 						className="w-full object-fill h-full"
 						alt={elm[TAG_NAME]}
-						src={`${currentMedia[MEDIA_TYPE.IMAGE]}`}
+						src={`${currentMedia[MEDIA_TYPE.IMAGE]?.toLowerCase().includes('[media]') ? currentMedia[MEDIA_TYPE.IMAGE].replace(/\[media\]/i, '/media/') : currentMedia[MEDIA_TYPE.IMAGE]}`}
 					/>
 					<div className="pt-3 px-12 h-full overflow-y-auto absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100  items-center justify-evenly transition-opacity duration-300 ">
 						<div className={'text-white overflow-hidden text-2xl'}>{elm[TAG_NAME]}</div>
@@ -61,7 +63,7 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 								&#x2022;{message.max}: {elm[TAG_FUNC_LOC_MAX]}
 							</div>
 						</div>
-						{getContactInfo(BD_DIS_ACC, contactInfo, elm)?.map(
+						{convertToArr(getContactInfo(BD_DIS_ACC, contactInfo, elm))?.map(
 							(
 								item: {
 									BD_DIS_ACC_TYPE: string
@@ -87,7 +89,14 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 		} else if (currentMedia[MEDIA_TYPE.VIDEO]) {
 			return (
 				<video className="w-full h-full" controls controlsList="nodownload">
-					<source src={currentMedia[MEDIA_TYPE.VIDEO]} type="video/mp4" />
+					<source
+						src={
+							currentMedia[MEDIA_TYPE.VIDEO]?.toLowerCase().includes('[media]')
+								? currentMedia[MEDIA_TYPE.VIDEO].replace(/\[media\]/i, '/media/')
+								: currentMedia[MEDIA_TYPE.VIDEO]
+						}
+						type="video/mp4"
+					/>
 					Your browser does not support the video tag.
 				</video>
 			)

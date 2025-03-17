@@ -9,7 +9,7 @@ import advancedSearch from './advanced-search.json'
 import archives from './archives.json'
 import museum from './museum.json'
 import library from './library.json'
-
+import clientProfile from './client-profile.json'
 const constants = {
 	config,
 	faq,
@@ -22,5 +22,6 @@ const constants = {
 	archives,
 	museum,
 	library,
+	clientProfile,
 }
 export default constants

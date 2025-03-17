@@ -35,8 +35,6 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const { showLoading, hideLoading } = useLoadingOverlay()
 
-	console.log({ isAuthenticated })
-
 	const signIn = useCallback(async (username: string, password: string) => {
 		showLoading()
 		const url = `/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]admin/login-success.html`

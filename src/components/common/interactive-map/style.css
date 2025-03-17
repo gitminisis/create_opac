@@ -1,0 +1,4 @@
+/* Custom css for leaflet pop up, tailwind is not working */
+.leaflet-container a.leaflet-popup-close-button {
+	font-size: 32px;
+}

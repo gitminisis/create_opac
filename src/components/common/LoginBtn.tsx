@@ -41,7 +41,7 @@ const LoginBtn = ({ className }: { className?: string }) => {
 								{message.dashboardHome}
 							</Link>
 						</DropdownMenuItem>
-						<DropdownMenuItem>{message.accountSettings}</DropdownMenuItem>
+						{/* <DropdownMenuItem>{message.accountSettings}</DropdownMenuItem> */}
 						<DropdownMenuSeparator />
 						<DropdownMenuItem>
 							<Link onClick={clearCookies}>{message.logout}</Link>

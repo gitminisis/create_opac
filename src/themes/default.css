@@ -1,3 +1,4 @@
+/* CSS Reset */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,8 +25,6 @@
 		break-inside: avoid;
 	}
 }
-
-/* CSS Reset */
 * {
 	box-sizing: border-box;
 	position: relative;

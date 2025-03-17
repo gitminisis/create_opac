@@ -1,11 +1,11 @@
 {
 	"heading": "Recherchez la bibliothèque",
 	"heroBanner": "https://www.sfopho.com/wp-content/uploads/2019/11/banner_ancien_orleansJPG.jpg",
-	"searchURL": "UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&DATABASE=BIBLIO_WEB",
+	"searchURL": "UNIONSEARCH&SHOWSINGLE=Y&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&DATABASE=BIBLIO_WEB",
 	"browseByCategoryTitle": "Browse by Category",
+	"calendarfilterOption": "",
 	"database_name": "BIBLIO_WEB",
-	"displayTitle": "Library",
-	"linkURL": "/library.html",
+	"displayTitle": "Bibliothèque",
 	"categoriesItems": [
 		{
 			"thumbnail": "https://images.unsplash.com/reserve/LJIZlzHgQ7WPSh5KVTCB_Typewriter.jpg?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGlicmFyeSUyMGl0ZW1zfGVufDB8fDB8fHww",
@@ -58,5 +58,38 @@
 				"icon": "rounded"
 			}
 		]
-	}
+	},
+	"featuredCollection": [
+		{
+			"title": "The Power of Communication",
+			"description": "Understand the impact of effective communication in our lives.",
+			"url": "/",
+			"thumbnail": "https://picsum.photos/630/330"
+		},
+		{
+			"title": "The Pursuit of Knowledge",
+			"description": "Join the quest for understanding and enlightenment.",
+			"url": "/",
+			"thumbnail": "https://picsum.photos/640/340"
+		},
+		{
+			"title": "The Joy of Creation",
+			"description": "Experience the thrill of bringing ideas to life.",
+			"url": "/",
+			"thumbnail": "https://picsum.photos/650/350"
+		},
+		{
+			"title": "The Spirit of Adventure",
+			"description": "Embark on exciting journeys and thrilling discoveries.",
+			"url": "/",
+			"thumbnail": "https://picsum.photos/660/360"
+		}
+	],
+	"enableCategoriesItems": true,
+	"enableFeaturedCollection": true,
+	"enableRSVP": true,
+	"enableRecentAddition": false,
+	"enableMap": true,
+	"enableTimeline":true,
+	"linkURL": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html"
 }

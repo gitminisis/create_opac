@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
-import AdvancedSearchInput from './AdvancedSearchInput'
-import { CircleHelp, CircleMinus, CirclePlus, CircleX, TextSearch } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
 import useConstants from '@/hooks/useConstants'
+import { CircleHelp, CircleMinus, CirclePlus, CircleX, TextSearch } from 'lucide-react'
+import { useRef, useState } from 'react'
+import AdvancedSearchInput from './AdvancedSearchInput'
 export type FieldObject = {
 	field: string
 	keyword: string
@@ -34,7 +34,7 @@ export const ADVANCED_SEARCH_BOOLEAN = {
 }
 
 const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => {
-	const { message, config, advancedSearch } = useConstants()
+	const { message, advancedSearch, home, archives, museum, library } = useConstants()
 	const [searchExp, setSearchExp] = useState<FieldObject[]>([
 		{
 			field: getDefaultField(search_database),
@@ -47,10 +47,13 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 	const formRef = useRef<HTMLFormElement>(null)
 	const inputRef = useRef<any>(null)
 
+	const navigations = [home, archives, museum, library]
+
 	const getDBTitle = (search_database: string) => {
-		let db = config.navigations.filter((item) => item.search_database === search_database)
+		let db = navigations.filter((item) => item.database_name === search_database)
+		if (search_database === 'UNION_VIEW') return 'All collections'
 		if (!search_database) return ''
-		return `${db[0].title}`
+		return `${db[0].displayTitle}`
 	}
 
 	function getDefaultField(search_database: string) {
@@ -150,9 +153,7 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 									}}
 								/>
 							) : (
-								<span
-									className="dynamic-delete-button"
-									style={{ width: '24px' }}></span>
+								<span className="dynamic-delete-button w-[24px]"></span>
 							)}
 						</div>
 					))}

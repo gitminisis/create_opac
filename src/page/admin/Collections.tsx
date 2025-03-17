@@ -10,6 +10,7 @@ import { useAdminForm } from '@/hooks/useAdminForm'
 import fields from '@/schema/museum.json'
 import { SchemaType } from '@/types/schema'
 import { FormEvent } from 'react'
+import { isSupportedImageExtension } from '@/lib/tdr'
 
 const AdminCollections = () => {
 	return (
@@ -27,7 +28,7 @@ const AdminCollections = () => {
 
 const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 	const fieldsValue = lang === 'en' ? enValues : frValues
-	const { handleChange, handleRemove, handleAdd } = useAdminForm()
+	const { handleChange, handleAdd, handleRemove } = useAdminForm()
 
 	return (
 		<div className="flex gap-4 flex-col">
@@ -43,6 +44,15 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 				field={'Site banner'}
 				value={fieldsValue.heroBanner}
 				onChange={(e) => handleChange(['heroBanner'], e)}
+				onTDRAssetsSelect={(files) => {
+					if (files.length > 0) {
+						const file = files[0]
+						handleChange(
+							['heroBanner'],
+							isSupportedImageExtension(file.Extension) ? file.Access : file.Thumbnail
+						)
+					}
+				}}
 			/>
 
 			<div className="mt-2">
@@ -134,9 +144,20 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 											e
 										)
 									}
+									onTDRAssetsSelect={(files) => {
+										if (files.length > 0) {
+											const file = files[0]
+											handleChange(
+												['featuredCollection', `${index}`, 'thumbnail'],
+												isSupportedImageExtension(file.Extension)
+													? file.Access
+													: file.Thumbnail
+											)
+										}
+									}}
 								/>
 							</SectionWrapper>
-						))}
+						))}{' '}
 					</div>
 				)}
 			</div>
@@ -220,6 +241,17 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 											e
 										)
 									}
+									onTDRAssetsSelect={(files) => {
+										if (files.length > 0) {
+											const file = files[0]
+											handleChange(
+												['categoriesItems', `${index}`, 'thumbnail'],
+												isSupportedImageExtension(file.Extension)
+													? file.Access
+													: file.Thumbnail
+											)
+										}
+									}}
 								/>
 							</SectionWrapper>
 						))}

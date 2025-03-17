@@ -7,6 +7,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+preprocessing
+
 node_modules
 dist/
 dist-ssr
@@ -34,9 +36,13 @@ dist-ssr
 
 pnpm-lock.yaml
 
-
 scripts/
 
 dist
 
-src/types/*
+build
+
+src/types/*.d.ts
+
+backend/logs.txt
+

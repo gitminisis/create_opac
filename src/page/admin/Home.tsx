@@ -1,6 +1,6 @@
 import AdminFormLayout from '@/components/common/admin/form/AdminFormLayout'
 import FormField from '@/components/common/admin/input/FormField'
-import { BCForm, FCForm } from '@/components/common/admin/input/types'
+import { BCForm, FCForm, TPForm } from '@/components/common/admin/input/types'
 import SectionActions, { NewElementForm } from '@/components/common/admin/layout/SectionActions'
 import SectionHeader from '@/components/common/admin/layout/SectionHeader'
 import SectionWrapper from '@/components/common/admin/layout/SectionWrapper'
@@ -144,6 +144,17 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 											e
 										)
 									}
+									onTDRAssetsSelect={(files) => {
+										if (files.length > 0) {
+											const file = files[0]
+											handleChange(
+												['featuredCollection', `${index}`, 'thumbnail'],
+												isSupportedImageExtension(file.Extension)
+													? file.Access
+													: file.Thumbnail
+											)
+										}
+									}}
 								/>
 							</SectionWrapper>
 						))}{' '}
@@ -229,6 +240,117 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 											['categoriesItems', `${index}`, 'thumbnail'],
 											e
 										)
+									}
+									onTDRAssetsSelect={(files) => {
+										if (files.length > 0) {
+											const file = files[0]
+											handleChange(
+												['categoriesItems', `${index}`, 'thumbnail'],
+												isSupportedImageExtension(file.Extension)
+													? file.Access
+													: file.Thumbnail
+											)
+										}
+									}}
+								/>
+							</SectionWrapper>
+						))}
+					</div>
+				)}
+			</div>
+
+			<div className="mt-2">
+				<SectionHeader heading="Top Picks" />
+				<SectionActions
+					handleAddNewItem={(event: FormEvent<NewElementForm<TPForm>>) => {
+						const { title, subTitle, description, expression, database } =
+							event.currentTarget.elements
+
+						handleAdd(['topPicks', `${fieldsValue.topPicks.length}`], {
+							title: title.value,
+							subTitle: subTitle.value,
+							description: description.value,
+							expression: expression.value,
+							database: database.value,
+						})
+					}}
+					newItemForm={
+						<>
+							<FormField name="title" type="text" field={'Title'} value={''} />
+							<FormField name="subTitle" type="text" field={'Subtitle'} value={''} />
+							<FormField
+								name="description"
+								type="text"
+								field={'Description'}
+								value={''}
+							/>
+							<FormField
+								name="expression"
+								type="text"
+								field={'Expression'}
+								value={''}
+							/>
+							<FormField name="database" type="text" field={'Database'} value={''} />
+						</>
+					}
+					enableFeatureValue={fieldsValue.enableTopPicks}
+					onEnableFeatureChange={(e) => {
+						handleChange(['enableTopPicks'], e)
+					}}
+				/>
+
+				{fieldsValue.enableTopPicks && (
+					<div className="flex flex-col gap-2">
+						{fieldsValue.topPicks.map((item, index) => (
+							<SectionWrapper
+								title={item.title}
+								defaultCollapseMode={index !== 0}
+								key={JSON.stringify(item)}
+								onRemove={() => {
+									handleRemove(['topPicks'], index)
+								}}>
+								<FormField
+									type="text"
+									field={'Title'}
+									value={item.title}
+									onChange={(e) =>
+										handleChange(['topPicks', `${index}`, 'title'], e)
+									}
+								/>
+
+								<FormField
+									type="text"
+									field={'Subtitle'}
+									value={item.subTitle}
+									onChange={(e) =>
+										handleChange(['topPicks', `${index}`, 'subTitle'], e)
+									}
+								/>
+
+								<FormField
+									type="text"
+									field={'Description'}
+									value={item.description}
+									onChange={(e) =>
+										handleChange(['topPicks', `${index}`, 'description'], e)
+									}
+								/>
+
+								<FormField
+									type="text"
+									field={'Expression'}
+									value={item.expression}
+									onChange={(e) =>
+										handleChange(['topPicks', `${index}`, 'expression'], e)
+									}
+								/>
+
+								<FormField
+									type="text"
+									field={'Database'}
+									value={item.database}
+									onChange={(e) =>
+										handleChange(['topPicks', `${index}`, 'database'], e)
 									}
 								/>
 							</SectionWrapper>

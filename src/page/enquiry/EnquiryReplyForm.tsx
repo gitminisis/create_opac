@@ -1,84 +1,84 @@
-import { Button } from '../../components/ui/button';
-import { convertXMLToJson, getPatronID, getLanguageID, getHomeSessionID } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
+import { Button } from '../../components/ui/button'
+import { convertXMLToJson, getPatronID, getLanguageID, getHomeSessionID, convertToArr } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
 import { Send, MoreVertical, UserRound, FileText, Download, Clock } from 'lucide-react'
 
-import { Textarea } from '@/components/ui/textarea';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import PatronLayout from '@/components/layouts/patron';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
-import Link from '@/components/common/Link';
-import useJSONData from '@/hooks/useJSONData';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import PatronLayout from '@/components/layouts/patron'
+import { ScrollArea } from '@radix-ui/react-scroll-area'
+import Link from '@/components/common/Link'
+import useJSONData from '@/hooks/useJSONData'
+import { Label } from '@/components/ui/label'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 
 const EnquiryForm = () => {
-  const { records } = useJSONData({ selector: '#xml_record' })
-  const xmlTreeData = records[0].record;
-  console.log(xmlTreeData)
-  const NEW_OCCURRENCE_COUNT = (xmlTreeData?.correspond_grp.correspond_grp_occurrence.length ? (xmlTreeData?.correspond_grp.correspond_grp_occurrence.length + 1) : 2)
-  const formActionSaveRecord = document.querySelector('#enq-save-record')?.textContent as string;
-  const skipNStopRecord = document.querySelector('#enq-skip-n-stop-record')?.textContent as string;
-  const dateToday = new Date().toISOString().split('T')[0];
+	const { records } = useJSONData({ selector: '#xml_record' })
+	const xmlTreeData = records[0].record
+	const NEW_OCCURRENCE_COUNT = xmlTreeData?.correspond_grp.correspond_grp_occurrence.length
+		? xmlTreeData?.correspond_grp.correspond_grp_occurrence.length + 1
+		: 2
+	const formActionSaveRecord = document.querySelector('#enq-save-record')?.textContent as string
+	const skipNStopRecord = document.querySelector('#enq-skip-n-stop-record')?.textContent as string
+	const dateToday = new Date().toISOString().split('T')[0]
 
-  const [message, setMessage] = useState('')
-  const [clientEnquiries, setClientEnquiries] = useState<any[]>([]);
+	const [message, setMessage] = useState('')
+	const [clientEnquiries, setClientEnquiries] = useState<any[]>([])
 
-  // WEB_CLIENT Information
-  const [clientFirstName, setClientFirstName] = useState('');
-  const [clientLastName, setClientLastName] = useState('');
-  const [clientEmail, setClientEmail] = useState('');
+	// WEB_CLIENT Information
+	const [clientFirstName, setClientFirstName] = useState('')
+	const [clientLastName, setClientLastName] = useState('')
+	const [clientEmail, setClientEmail] = useState('')
 
-  // WEB_ENQID_CLIENT_ALL Information
-  const [enqID, setEnqID] = useState('');
+	// WEB_ENQID_CLIENT_ALL Information
+	const [enqID, setEnqID] = useState('')
 
+	useEffect(() => {
+		const queryParams = new URLSearchParams(window.location.search)
+		const enqID = queryParams.get('EXP')?.split(' ')[1]
+		if (enqID) setEnqID(enqID)
 
+		const fetchData = async () => {
+			try {
+				const endpoint1 = `/scripts/mwimain.dll/${getLanguageID()}/CLIENT_VIEW/WEB_CLIENT/C_CLIENT_NUMBER%20${getPatronID()}?COMMANDSEARCH`
+				const endpoint2 = `/scripts/mwimain.dll/${getLanguageID()}/ENQUIRIES_VIEW/WEB_ENQID_CLIENT_ALL/ENQ_PATRON_ID%20${getPatronID()}?COMMANDSEARCH`
 
+				const [clientXML, clientEnqIdXML] = await Promise.all([
+					axios.get(endpoint1, { headers: { 'Content-Type': 'text/xml' } }),
+					axios.get(endpoint2, { headers: { 'Content-Type': 'text/xml' } }),
+				])
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const enqID = queryParams.get('EXP')?.split(' ')[1];
-    if (enqID) setEnqID(enqID);
-    
-    const fetchData = async () => {
-      try {
-        const endpoint1 = `/scripts/mwimain.dll/${getLanguageID()}/CLIENT_VIEW/WEB_CLIENT/C_CLIENT_NUMBER%20${getPatronID()}?COMMANDSEARCH`;
-        const endpoint2 = `/scripts/mwimain.dll/${getLanguageID()}/ENQUIRIES_VIEW/WEB_ENQID_CLIENT_ALL/ENQ_PATRON_ID%20${getPatronID()}?COMMANDSEARCH`;
+				const clientJSON = convertXMLToJson(clientXML.data)
+				const clientEnqIdJSON = convertXMLToJson(clientEnqIdXML.data)
+				// console.log(clientJSON);
+				// console.log(clientEnqIdJSON.xml);
 
-        const [clientXML, clientEnqIdXML] = await Promise.all([
-          axios.get(endpoint1, { headers: { 'Content-Type': 'text/xml' } }),
-          axios.get(endpoint2, { headers: { 'Content-Type': 'text/xml' } })
-        ]);
+				// Client Information
+				setClientLastName(clientJSON.client.name_last)
+				setClientFirstName(clientJSON.client.name_first)
+				setClientEmail(clientJSON.client.email)
 
-        const clientJSON = convertXMLToJson(clientXML.data);
-        const clientEnqIdJSON = convertXMLToJson(clientEnqIdXML.data);
-        // console.log(clientJSON);
-        // console.log(clientEnqIdJSON.xml);
+				// All This Client's Enquiry (Side Panel)
+				setClientEnquiries(convertToArr(clientEnqIdJSON.xml.client_enq_id))
+			} catch (err) {
+				console.error('Error fetching data:', err)
+			}
+		}
 
-        // Client Information
-        setClientLastName(clientJSON.client.name_last);
-        setClientFirstName(clientJSON.client.name_first);
-        setClientEmail(clientJSON.client.email);
+		fetchData()
+	}, [])
 
-        // All This Client's Enquiry (Side Panel)
-        setClientEnquiries(clientEnqIdJSON.xml.client_enq_id);
-
-        
-      } catch (err) {
-        console.error('Error fetching data:', err);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  function stripHtmlAndConvertBr(html : string) {
-    return html
-      .replace(/<br\s*\/?>/gi, '\n\n')
-      .replace(/<\/?[^br][^>]*>/gi, '');
-  }
-  const chatHeader = () => {
+	function stripHtmlAndConvertBr(html: string) {
+		return html.replace(/<br\s*\/?>/gi, '\n\n').replace(/<\/?[^br][^>]*>/gi, '')
+	}
+	const chatHeader = () => {
 		return (
 			<div className="flex items-center justify-between p-4 border-b">
 				<div className="flex items-center gap-3">
@@ -97,8 +97,8 @@ const EnquiryForm = () => {
 				</Button>
 			</div>
 		)
-  }
-  const attachmentMessage = () => {
+	}
+	const attachmentMessage = () => {
 		return (
 			<div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg w-fit">
 				<FileText className="h-5 w-5 text-gray-600" />
@@ -114,44 +114,44 @@ const EnquiryForm = () => {
 				</div>
 			</div>
 		)
-  }
-  const requestAutoReplyMessage = () =>{
-    return (
-		<div className="space-y-4">
-			<div className="flex items-start gap-3">
-				<div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-					<Clock className="h-6 w-6 text-blue-600" />
-				</div>
-				<div className="flex-1 space-y-2">
-          <h3 className="text-xl font-semibold">Auto-Reply</h3>
-					<div className="space-y-4 text-sm bg-blue-50 p-4 rounded-lg">
-						<p>Dear User,</p>
-						<p>Thank you for your inquiry!</p>
-						<p>
-							{' '}
-							We have received your email and a member of our staff will respond to
-							your inquiry within the next 24 hours.
-						</p>
-						<p>
-							If you need immediate assistance, please contact our support team at +1
-							(604) 123-4567.
-						</p>
-						<div className="space-y-1">
-							<p>Best regards,</p>
-							<p>Staff Team</p>
+	}
+	const requestAutoReplyMessage = () => {
+		return (
+			<div className="space-y-4">
+				<div className="flex items-start gap-3">
+					<div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+						<Clock className="h-6 w-6 text-blue-600" />
+					</div>
+					<div className="flex-1 space-y-2">
+						<h3 className="text-xl font-semibold">Auto-Reply</h3>
+						<div className="space-y-4 text-sm bg-blue-50 p-4 rounded-lg">
+							<p>Dear User,</p>
+							<p>Thank you for your inquiry!</p>
+							<p>
+								{' '}
+								We have received your email and a member of our staff will respond
+								to your inquiry within the next 24 hours.
+							</p>
+							<p>
+								If you need immediate assistance, please contact our support team at
+								+1 (604) 123-4567.
+							</p>
+							<div className="space-y-1">
+								<p>Best regards,</p>
+								<p>Staff Team</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	)
-  }
-  const handleGoBack = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    window.history.back();
-  };
+		)
+	}
+	const handleGoBack = (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault()
+		window.history.back()
+	}
 
-  return (
+	return (
 		<PatronLayout>
 			<div className="flex mb-5 bg-white">
 				{/* Sidebar */}
@@ -159,7 +159,7 @@ const EnquiryForm = () => {
 					<ScrollArea className="h-screen overflow-auto">
 						<div className="p-4 space-y-4">
 							{/* Regular Messages */}
-							{clientEnquiries.map((enquiry, i) => (
+							{clientEnquiries?.map((enquiry, i) => (
 								<Link
 									key={i}
 									className={
@@ -330,10 +330,14 @@ const EnquiryForm = () => {
 														</h3>
 														<div className="space-y-4 text-sm bg-blue-50 p-4 rounded-lg whitespace-pre-wrap">
 															{correspondGroup.reply_text
-																? stripHtmlAndConvertBr(correspondGroup.reply_text)
-																: stripHtmlAndConvertBr(xmlTreeData.correspond_grp
-																		.correspond_grp_occurrence
-																		.reply_text)}
+																? stripHtmlAndConvertBr(
+																		correspondGroup.reply_text
+																	)
+																: stripHtmlAndConvertBr(
+																		xmlTreeData.correspond_grp
+																			.correspond_grp_occurrence
+																			.reply_text
+																	)}
 														</div>
 													</div>
 												</div>
@@ -443,10 +447,10 @@ const EnquiryForm = () => {
 													Staff Reply
 												</h3>
 												<div className="space-y-4 text-sm bg-blue-50 p-4 rounded-lg whitespace-pre-wrap">
-													{
-														stripHtmlAndConvertBr(xmlTreeData.correspond_grp
-															.correspond_grp_occurrence.reply_text)
-													}
+													{stripHtmlAndConvertBr(
+														xmlTreeData.correspond_grp
+															.correspond_grp_occurrence.reply_text
+													)}
 												</div>
 											</div>
 										</div>
@@ -467,17 +471,15 @@ const EnquiryForm = () => {
 							<h3 className="text-xl font-semibold mb-3">Ask a new question</h3>
 							<div className="flex gap-2">
 								<div className="flex flex-col w-full gap-2">
-									
-                 
-                  <Input
+									<Input
 										value={dateToday}
 										placeholder="Message"
 										className="flex-1 min-h-[100px] max-h-[400px] resize-y px-3 py-2"
 										name={'CORRESPOND_DATE$' + NEW_OCCURRENCE_COUNT + '$1'}
-                    type="hidden"
+										type="hidden"
 									/>
-                  <Select
-										name={"CORRESPOND_SUBJ$" + NEW_OCCURRENCE_COUNT + "$1"}
+									<Select
+										name={'CORRESPOND_SUBJ$' + NEW_OCCURRENCE_COUNT + '$1'}
 										required
 										defaultValue="General Information">
 										<SelectTrigger className="w-full p-2 border rounded text-left">
@@ -559,7 +561,7 @@ const EnquiryForm = () => {
 				</div>
 			</div>
 		</PatronLayout>
-  )
-};
+	)
+}
 
-export default EnquiryForm;
+export default EnquiryForm

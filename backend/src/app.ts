@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import path, { resolve } from 'node:path'
 import { applyMiddleware } from './middleware'
+import { easyload } from './routes/easyload'
 import { rebuildOPAC, setFileContent } from './utils'
 // Create the Hono application
 const app = new Hono()
@@ -8,9 +9,9 @@ const app = new Hono()
 // Middleware
 applyMiddleware(app)
 
-// Route for checking server status
+// Route for checking server staPtus
 app.get('/', (c) => {
-	return c.text('Server is currently running')
+	return c.text('Server is currently running on port 3030')
 })
 
 // Route for updating files
@@ -23,7 +24,7 @@ app.post('/update', async (c) => {
 	try {
 		const { path, content } = body
 		setFileContent(resolve(base, path), content)
-		const process = rebuildOPAC()
+		rebuildOPAC()
 
 		return c.json({ status: 'success', message: 'Your file has been updated successfully' })
 	} catch (error) {
@@ -31,5 +32,6 @@ app.post('/update', async (c) => {
 		return c.json({ status: 'failed', message: 'Error updating file' })
 	}
 })
+app.route('/easyload', easyload)
 
 export { app }

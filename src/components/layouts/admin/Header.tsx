@@ -13,14 +13,14 @@ import { LogOut } from 'lucide-react'
 const Header = () => {
 	const navigationLists = [
 		{ url: './home.html', page: 'Union home' },
-		// { url: './biblio.html', page: 'Biblio' },
+		{ url: './biblio.html', page: 'Biblio' },
 		{ url: './collections.html', page: 'Collections' },
 		{ url: './description.html', page: 'Description' },
 		{ url: './fields.html', page: 'Report fields' },
 		// { url: './rsvp.html', page: 'RSVP' },
 		// { url: './message.html', page: 'Translation' },
 		{ url: './settings.html', page: 'Settings' },
-		// { url: './styles.html', page: 'Theme' },
+		{ url: './styles.html', page: 'Theme' },
 	]
 
 	const { isAuthenticated, signOut } = useAdminAuth()

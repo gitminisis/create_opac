@@ -1,11 +1,13 @@
 import Hero from '@/components/common/Hero'
-import SearchForm from '@/components/common/search-form/SearchForm'
+import HomeSearchForm from '@/components/common/search-form/HomeSearchForm'
 import Layout from '@/components/layouts'
 import useConstants from '@/hooks/useConstants'
+import { getSearchURL } from '@/lib/utils'
+import { UNION_SEARCH_CL } from './Home'
 
 const NoBookmarkRecord = () => {
 	const { home, message } = useConstants()
-	const { heading, heroBanner } = home
+	const { heroBanner, searchURL } = home
 	return (
 		<Layout>
 			<Hero
@@ -13,7 +15,13 @@ const NoBookmarkRecord = () => {
 				title={message.noBookmark}
 				backgroundImage={heroBanner}
 				description="">
-				<SearchForm className="w-full mt-6 max-w-2xl" inputName={'KEYWORD_CLUSTER'} />
+				<div className={'w-full mx-auto flex space-x-4 justify-center mt-6 max-w-2xl'}>
+					<HomeSearchForm
+						title={message.searchAllCollections}
+						inputName={UNION_SEARCH_CL}
+						action={getSearchURL(searchURL)}
+					/>
+				</div>
 			</Hero>
 		</Layout>
 	)

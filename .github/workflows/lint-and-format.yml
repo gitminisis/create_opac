@@ -7,11 +7,7 @@ on:
 jobs:
     format-and-lint:
         runs-on: ubuntu-latest
-        name: Lint, Format Code
-
-        strategy:
-            matrix:
-                node-version: [16.x, 18.x] # Run on multiple Node.js versions if needed
+        name: Lint & Format Code
 
         steps:
             - name: Checkout Repository
@@ -20,11 +16,11 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v3
               with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: 'npm' # Cache npm dependencies
+                  node-version: 22.x
+                  cache: 'npm'
 
             - name: Install Dependencies
-              run: npm ci # Faster than install and ensures a clean install
+              run: npm ci # Ensures a clean, reproducible install
 
             - name: Format Code
               run: npm run format

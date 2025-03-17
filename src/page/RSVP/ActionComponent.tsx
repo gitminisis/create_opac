@@ -1,4 +1,4 @@
-import Link from '@/components/common/Link'
+import { RSVP_MAP } from '@/components/common/event-calendar/Constants'
 import { Button } from '@/components/ui/button'
 import useConstants from '@/hooks/useConstants'
 import { PatronInfo } from '@/types/patroninfo'
@@ -27,7 +27,7 @@ const ActionComponent: React.FC<ActionProps> = ({ patronInfo, onClick }) => {
 					<div>
 						{patronInfo?.TAG_FUNC_START_T} - {patronInfo?.TAG_FUNC_END_T}
 					</div>
-					{patronInfo.TAG_FUNC_O ? (
+					{patronInfo.TAG_FUNC_O === RSVP_MAP.YES? (
 						<>
 							<div className={'flex'}>
 								<MonitorPlay />
@@ -56,12 +56,14 @@ const ActionComponent: React.FC<ActionProps> = ({ patronInfo, onClick }) => {
 					</div>
 				</div>
 			</div>
-			<Button
-				onClick={onClick}
-				className={`flex items-center justify-center w-[300px] h-[50px] mt-6 inline-block rounded 
+			<div className="w-full justify-center items-center">
+				<Button
+					onClick={onClick}
+					className={`w-[300px] h-[50px] mt-6  rounded 
 				bg-green-600 text-lg font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring`}>
-				<div>{message.confirm}</div>
-			</Button>
+					<div>{message.confirm}</div>
+				</Button>
+			</div>
 		</div>
 	)
 }
@@ -80,14 +82,16 @@ const CancelTmp = ({ patronInfo, onClick }: { patronInfo: PatronInfo; onClick: a
 			<h2 className="text-l font-bold tracking-tight text-gray-900 sm:text-4xl">
 				{patronInfo?.TAG_NAME}
 			</h2>
-			<Button
-				onClick={onClick}
-				className={`flex items-center justify-center w-[300px] h-[50px] mt-6 inline-block rounded bg-red-600
-				 text-lg font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring`}>
-				<div>{message.unregistered}</div>
-			</Button>
+			<div className="w-full justify-center items-center">
+				<Button
+					onClick={onClick}
+					className={`w-[300px] h-[50px] mt-6  rounded 
+				bg-red-600 text-lg font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring`}>
+					<div>{message.confirm}</div>
+				</Button>
+			</div>
 		</div>
 	)
 }
 
-export { ConfirmTmp, CancelTmp }
+export { CancelTmp, ConfirmTmp }

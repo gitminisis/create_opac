@@ -3,17 +3,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import useConstants from '@/hooks/useConstants'
 import { getHomeSessionID } from '@/lib/utils'
-import axios from 'axios'
 import { useState } from 'react'
 
 const Login = () => {
 	const { config } = useConstants()
 	const [accountNumber, setAccountNumber] = useState('')
 	const [password, setPassword] = useState('')
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState(null)
 	const { message } = useConstants()
-
 
 	return (
 		<section className="bg-white">
@@ -39,11 +35,15 @@ const Login = () => {
 							</div>
 							<LanguageSelect />
 						</div>
-
-						{/* Display error message if any */}
-						{error && <p className="mt-4 text-red-500">{error}</p>}
-
-						<form method="post" action={getHomeSessionID() + "/scripts/mwimain.dll?patronlogin&application=UNION_VIEW&language=144&file=[OPAC]home.html"} className="mt-8 grid grid-cols-6 gap-6">
+						<form
+							method="post"
+							action={
+								password && accountNumber
+									? getHomeSessionID() +
+										'/scripts/mwimain.dll?patronlogin&application=UNION_VIEW&language=144&file=[OPAC]home.html'
+									: '/scripts/mwimain.dll?get&file=[OPAC]login.html'
+							}
+							className="mt-8 grid grid-cols-6 gap-6">
 							<div className="col-span-6">
 								<label
 									htmlFor="user"
@@ -58,7 +58,6 @@ const Login = () => {
 									onChange={(e) => setAccountNumber(e.target.value)}
 								/>
 							</div>
-
 							<div className="col-span-6 sm:col-span-6">
 								<label
 									htmlFor="Password"
@@ -77,8 +76,7 @@ const Login = () => {
 								<Button
 									className="bg-opac-darkblue"
 									type="submit"
-									variant="default"
-									disabled={loading}>
+									variant="default">
 									{message.logIn}
 								</Button>
 							</div>

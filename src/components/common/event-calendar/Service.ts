@@ -91,7 +91,7 @@ export const getLocation = async () => {
 
 export const getContactInfo = (type: string, contactInfo: ContactInfoRSVP[], event: Cal_event) => {
 	let info: any = contactInfo?.filter((item: ContactInfoRSVP) => {
-		return item[CURATORS_CODE] === event[TAG_FUNC_LOC_ID]
+		return convertLowerTrim(item[CURATORS_CODE]) === convertLowerTrim(event[TAG_FUNC_LOC_ID])
 	})
 
 	if (info.length > 0) {

@@ -1,3 +1,4 @@
+import GenericErrorPage from '@/page/GenericErrorPage'
 import { useState, useEffect } from 'react'
 interface ErrorBoundaryProps {
 	children: React.ReactNode
@@ -20,12 +21,7 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
 	}, [])
 
 	if (hasError) {
-		return (
-			<div>
-				<h2>Something went wrong.</h2>
-				<p>Please refresh the page or try again later.</p>
-			</div>
-		)
+		return <GenericErrorPage />
 	}
 
 	return children

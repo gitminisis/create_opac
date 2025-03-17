@@ -53,7 +53,7 @@ confirm email
 \*Developed based on Norfolk library website
 
 Username: norfolk_m2l_mgr Main: M2L_TAG For contact info: LIBRARY_LOCATION For RSVP log:
-TAG_RSVP_PATRON_LOG
+MAIN_EVENT_CAL_LOG_DB
 
 ## MINISIS Report Structure
 

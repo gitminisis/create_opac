@@ -46,4 +46,12 @@ export type FCForm = HTMLFormControlsCollection & {
 	thumbnail: HTMLInputElement
 }
 
+export type TPForm = HTMLFormControlsCollection & {
+	title: HTMLInputElement
+	subTitle: HTMLInputElement
+	description: HTMLInputElement
+	expression: HTMLInputElement
+	database: HTMLInputElement
+}
+
 export type BCForm = Omit<FCForm, 'description'>

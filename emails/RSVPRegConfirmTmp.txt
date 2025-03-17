@@ -83,18 +83,14 @@
       <td align="center">
         <table cellpadding="0" cellspacing="0">
           <tr>
-            <td align="center" style="padding-right: 15px;">
-              <img src="^EVENT_EMAIL_LOGO^" alt="Company Logo" style="width: 80px; height: 80px;">
-            </td>
             <td align="center">
-              <h1 style="font-size: 22px; margin: 0; color: white;">Confirm your Registration!</h1>
+              <h1 style="padding:20px 0; font-size: 22px; margin: 0; color: white;">Confirm your Registration!</h1>
             </td>
           </tr>
         </table>
       </td>
     </tr>
   </table>
-
    <div class="container">
     <div class="info">
       <div for="event-name">Event Name:</div>
@@ -108,17 +104,15 @@
       <div for="room-number">Room Number</div>
       <p id="room-number">^TAG_FUNC_LOC_ROO^</p>
     </div>
-    <div style="display: flex;">
-      <div class="info" style="width: 48%;">
+      <div class="info" >
         <div for="event-date">Date:</div>
         <p id="event-date">^TAG_FUNC_DATE^</p>
       </div>
-      <div class="info" style="width: 48%; margin-left: 16px;">
+      <div class="info" >
         <div for="event-time">Time:</div>
         <p id="event-time">^TAG_FUNC_START_T^ - ^TAG_FUNC_END_T^</p>
       </div>
     </div>
-  </div>
   <div class="container">
     <div class="info">
       <div for="attendee-id">ID:</div>
@@ -129,15 +123,21 @@
       <p id="attendee-name">^TAG_FUNC_P_LAST^, ^TAG_FUNC_P_FIRST^</p>
     </div>
     <div class="info">
-      <div for="attendee-details">Attendee:</div>
+      <div for="attendee-details">Attendee(s):</div>
       <div id="attendee-details" style="border: 2px dotted #ccc; padding: 10px; text-align: center;">
-        ^TAG_FUNC_P_ATTND^ Spot Reserved
+        ^TAG_FUNC_P_ATTND^ Spot(s) Reserved
       </div>
     </div>
     <div class="button-container">
       <a href="^RSVP_CANCEL_LANDING_PAGE_URL^?user=^encoded^" style="text-decoration: none;">
         <button>Cancel the event</button>
       </a>
+    </div>
+    <div class="info">
+     <div for="attendee-details" style="margin-top:50px"> If the button is not working...</div>
+      <p id="attendee-details" style="border: 2px dotted #ccc; padding: 10px;">
+       ^RSVP_CANCEL_LANDING_PAGE_URL^?user=^encoded^
+      </p>
     </div>
   </div>
   <footer class="footer">

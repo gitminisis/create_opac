@@ -1,11 +1,11 @@
 {
 	"heading": "Recherchez le musée",
 	"heroBanner": "https://images.unsplash.com/photo-1579748048451-365c9c9bfbc1",
-	"searchURL": "UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&DATABASE=COLLECTIONS_WEB",
+	"searchURL": "UNIONSEARCH&SHOWSINGLE=Y&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&DATABASE=COLLECTIONS_WEB",
 	"browseByCategoryTitle": "Browse by Category",
+	"calendarfilterOption": "",
 	"database_name": "COLLECTIONS_WEB",
-	"displayTitle": "Museum",
-	"linkURL": "/museum.html",
+	"displayTitle": "Musée",
 	"categoriesItems": [
 		{
 			"thumbnail": "https://images.unsplash.com/photo-1452587925148-ce544e77e70d",
@@ -33,43 +33,43 @@
 			"title": "The Dawn of Innovation",
 			"description": "Explore the birth of groundbreaking ideas and inventions.",
 			"url": "/",
-			"thumbnail": "https://picsum.photos/400/300"
+			"thumbnail": "https://picsum.photos/600/300"
 		},
 		{
 			"title": "The Digital Revolution",
 			"description": "Dive into the transformative power of technology.",
 			"url": "/",
-			"thumbnail": "https://picsum.photos/420/320"
+			"thumbnail": "https://picsum.photos/620/320"
 		},
 		{
 			"title": "The Art of Design",
 			"description": "Discover the beauty of thoughtful and functional design.",
 			"url": "/",
-			"thumbnail": "https://picsum.photos/410/310"
+			"thumbnail": "https://picsum.photos/610/310"
 		},
 		{
 			"title": "The Power of Communication",
 			"description": "Understand the impact of effective communication in our lives.",
 			"url": "/",
-			"thumbnail": "https://picsum.photos/430/330"
+			"thumbnail": "https://picsum.photos/630/330"
 		},
 		{
 			"title": "The Pursuit of Knowledge",
 			"description": "Join the quest for understanding and enlightenment.",
 			"url": "/",
-			"thumbnail": "https://picsum.photos/440/340"
+			"thumbnail": "https://picsum.photos/640/340"
 		},
 		{
 			"title": "The Joy of Creation",
 			"description": "Experience the thrill of bringing ideas to life.",
 			"url": "/",
-			"thumbnail": "https://picsum.photos/450/350"
+			"thumbnail": "https://picsum.photos/650/350"
 		},
 		{
 			"title": "The Spirit of Adventure",
 			"description": "Embark on exciting journeys and thrilling discoveries.",
 			"url": "/",
-			"thumbnail": "https://picsum.photos/460/360"
+			"thumbnail": "https://picsum.photos/660/360"
 		}
 	],
 	"rsvp": {
@@ -80,5 +80,8 @@
 	"enableCategoriesItems": true,
 	"enableFeaturedCollection": true,
 	"enableRSVP": true,
-	"enableRecentAddition": true
+	"enableRecentAddition": false,
+	"enableMap": true,
+	"enableTimeline":true,
+	"linkURL": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]museum.html"
 }

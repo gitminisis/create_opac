@@ -1,9 +1,3 @@
-/**
- * Calendar with event filtering function
- *
- * EventCalendar: Main Calendar component
- * Draw the calendar using Date js object
- */
 import React, { useEffect, useState } from 'react'
 import EventCalendarFilter from './EventCalendarFilter'
 import EventCalendarEventList from './EventCalendarEventList'
@@ -67,11 +61,6 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 
 		if (currentDate.getFullYear() >= next_next_year) {
 			setisClickableNext(true)
-		} else if (
-			currentDate.getMonth() + 1 === CALENDAR_START_MONTH &&
-			currentDate.getFullYear() === currentYear
-		) {
-			setisClickablePrev(true)
 		} else {
 			setisClickablePrev(false)
 			setisClickableNext(false)

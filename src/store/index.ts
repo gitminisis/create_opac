@@ -12,3 +12,6 @@ export const calendarEvents = atom<Cal_event[]>([])
 export const calendarWeekType = atom<boolean>(true)
 export const calendarMonthType = atom<boolean>(false)
 export const calendarCurrDate = atom<Date>(new Date())
+
+// Easyload
+export const easyloadStore = atom<File[]>([])

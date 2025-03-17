@@ -30,7 +30,7 @@
 		},
 		{
 			"id": 5,
-			"label": "Enquiries",
+			"label": "Inquiries",
 			"db": "ENQUIRIES_VIEW",
 			"icon": "Lightbulb",
 			"url": "?SEARCH&AUX_SESSID=client&DATABASE=ENQUIRIES_VIEW&ERRMSG=[MESSAGES]no-record.html&EXP=ENQ_PATRON_ID%20"
@@ -45,9 +45,9 @@
 		{
 			"id": 8,
 			"label": "Easy Upload",
-			"db": "",
+			"db": "SHOWORDERLIST",
 			"icon": "Upload",
-			"url": ""
+			"url": "?GET&FILE=[OPAC]includes/easyload.html"
 		}
 	]
 }

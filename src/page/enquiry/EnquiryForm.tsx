@@ -3,7 +3,13 @@ import { CircleEllipsis } from 'lucide-react'
 import { convertXMLToJson, getPatronID, getLanguageID } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
@@ -68,8 +74,9 @@ const EnquiryForm = () => {
 						{/* Header */}
 						<div className="flex justify-between items-center border-b pb-4">
 							<h1 className="flex items-center text-xl font-bold">
-                                <CircleEllipsis className='mr-2'/>Submit an Inquiry
-                            </h1>
+								<CircleEllipsis className="mr-2" />
+								Submit an Inquiry
+							</h1>
 						</div>
 						<div className="py-4">
                             <form
@@ -261,8 +268,6 @@ const EnquiryForm = () => {
                                 
                             </form>
 						</div>
-
-						
 					</div>
 				</div>
 			</section>

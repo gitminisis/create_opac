@@ -94,9 +94,7 @@ const AdvancedSearchIndexDialog = ({
 					updateClusterList(res)
 				}
 			})
-			.catch(function (error) {
-				console.log(error)
-			})
+			.catch(function (error) {})
 	}
 
 	const updateClusterList = (res: any) => {
@@ -161,15 +159,15 @@ const AdvancedSearchIndexDialog = ({
 					}>
 					<Menu />
 				</Button>
-			</DialogTrigger>
-			<DialogContent hideClose={'hidden'}>
+			</DialogTrigger> 
+			<DialogContent hideClose={'hidden'} onInteractOutside={() => setOpen(false)} modal={true}>
 				<div className={'w-full flex justify-center items-center relative'}>
 					<DialogHeader className={'font-bold text-xl md:text-2xl'}>
 						{message.browseCluster} '{label}'
 					</DialogHeader>
 					<Button
 						className={
-							'absolute right-1 p-1 bg-primary font-bold mx-1 text-white rounded'
+							'absolute right-1 p-1 bg-primary font-bold mx-1 text-white rounded w-[40px]'
 						}
 						onClick={() => setOpen(false)}>
 						<X className={'h-6 w-6'} />

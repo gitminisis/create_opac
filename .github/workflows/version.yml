@@ -1,0 +1,49 @@
+name: Bump Version and Create PR
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run version bump
+        run: npm run version
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create and push version bump branch
+        run: |
+          git checkout -b version-bump
+          git add .
+          git commit -m "chore: bump version"
+          git push origin version-bump --force
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: version-bump
+          base: main
+          title: "chore: Bump version from dev"
+          body: "This PR contains the version bump changes from dev."
+          labels: "automated pr"
+          assignees: ${{ github.actor }}

@@ -16,6 +16,7 @@ export const CONSTANTS = {
 		archives: en.archives,
 		museum: en.museum,
 		library: en.library,
+		clientProfile: en.clientProfile,
 	},
 	FR: {
 		config: fr.config,
@@ -30,5 +31,6 @@ export const CONSTANTS = {
 		archives: fr.archives,
 		museum: fr.museum,
 		library: fr.library,
+		clientProfile: fr.clientProfile,
 	},
 }

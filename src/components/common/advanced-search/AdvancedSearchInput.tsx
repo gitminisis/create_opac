@@ -92,13 +92,14 @@ const AdvancedSearchInput = ({
 				</SelectContent>
 			</Select>
 			<Input
+				disabled={exp.field || userSelect ? false : true}
 				onKeyDown={handleKeyDown}
 				value={exp.keyword}
 				onChange={(e) => {
 					updateField('keyword', e.target.value, index)
 				}}
 				className={cn(
-					'placeholder:text-slate-400  w-full rounded-none pl-4 border-2 py-3 bg-transparent border-opac-secondary focus:outline-none ring-inset'
+					'placeholder:text-slate-400 w-full rounded-none pl-4 border-2 py-3 bg-transparent border-primary focus:outline-none ring-inset'
 				)}
 				type="search"
 			/>

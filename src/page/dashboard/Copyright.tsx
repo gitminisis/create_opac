@@ -1,23 +1,13 @@
-import { useState } from 'react'
-import PatronLayout from '@/components/layouts/patron'
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
-import useJSONData from '@/hooks/useJSONData'
+import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
-import { CaretSortIcon } from '@radix-ui/react-icons'
+import useJSONData from '@/hooks/useJSONData'
 import { Checkbox } from '@radix-ui/react-checkbox'
+import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
-import { getCookieValue } from '@/lib/utils'
-import clientProfileJSON from '@/constants/en/client-profile.json'
 
 const Copyright = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const [activeButton, setActiveButton] = useState(null)
-	const profileList = clientProfileJSON.database
-	const m2l_patron_id = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-	console.log(records)
-	const handleClick = (id: any) => {
-		setActiveButton(id) // Set the clicked button as active
-	}
 
 	const columns: ColumnDef<ProfileData>[] = [
 		{
@@ -91,32 +81,13 @@ const Copyright = () => {
 		},
 	]
 	return (
-		<PatronLayout>
-			<div className="container flex flex-col gap-8 p-6">
-				<div className="flex flex-wrap gap-2 sm:gap-4">
-					{profileList.map((button) => (
-						<a
-							key={button.id}
-							href={
-								getCookieValue('HOME_SESSID') +
-								button.url +
-								(button.db !== 'SHOWORDERLIST' ? m2l_patron_id : '')
-							}
-							onClick={() => handleClick(button.id)}
-							className={`px-3 py-2 text-sm shadow sm:px-4 sm:py-2 sm:text-base text-accent-foreground bg-white text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`}>
-							{button.label}
-						</a>
-					))}
-				</div>
-				<h1 className="text-2xl font-bold">Copyright Requests</h1>
-
-				<ProfileTable
-					data={records}
-					columns={columns}
-					filterType={'req_item_id'}
-					filterTypeShow=""
-				/>
-			</div>
+		<PatronLayout heading="Copyright">
+			<ProfileTable
+				data={records}
+				columns={columns}
+				filterType={'req_item_id'}
+				filterTypeShow=""
+			/>
 		</PatronLayout>
 	)
 }

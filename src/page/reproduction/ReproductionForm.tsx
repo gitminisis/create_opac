@@ -4,50 +4,58 @@ import { CircleEllipsis } from 'lucide-react'
 import { convertXMLToJson, getPatronID, getLanguageID } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Layout from '@/components/layouts'
 
 const ReproductionForm = () => {
-    const [data, setData] = useState([]);
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [title, setTitle] = useState("");
-    const [itemid, setItemID] = useState("");
+	const [data, setData] = useState([])
+	const [firstName, setFirstName] = useState('')
+	const [lastName, setLastName] = useState('')
+	const [fullName, setFullName] = useState('')
+	const [email, setEmail] = useState('')
+	const [title, setTitle] = useState('')
+	const [itemid, setItemID] = useState('')
 
-    useEffect(() => {
-        const queryParams = new URLSearchParams(window.location.search);
-        const title = queryParams.get("title")
-        const itemid = queryParams.get("itemid")
-        if (title) setTitle(title)
-        if (itemid) setItemID(itemid)
-        
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`/scripts/mwimain.dll/${getLanguageID()}/CLIENT_VIEW/WEB_CLIENT/C_CLIENT_NUMBER%20${getPatronID()}?COMMANDSEARCH`,
-                { headers: { 'Content-Type': 'text/xml'}})
-                let responseXMLToJson = convertXMLToJson(response.data)
-                console.log(responseXMLToJson)
-                setData(responseXMLToJson)
-                setLastName(responseXMLToJson.client.name_last)
-                setFirstName(responseXMLToJson.client.name_first)
-                setFullName(responseXMLToJson.client.name_full)
-                setEmail(responseXMLToJson.client.email)
-            } catch (err) {
-              console.error('Error fetching data:', err);
-            }
-          };
-    
-        fetchData();
-      }, []);
+	useEffect(() => {
+		const queryParams = new URLSearchParams(window.location.search)
+		const title = queryParams.get('title')
+		const itemid = queryParams.get('itemid')
+		if (title) setTitle(title)
+		if (itemid) setItemID(itemid)
 
-    const formActionSaveRecord = document.querySelector('#enq-save-record')?.textContent as string
-    const skipNStopRecord = document.querySelector('#enq-skip-n-stop-record')?.textContent as string
-    
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(
+					`/scripts/mwimain.dll/${getLanguageID()}/CLIENT_VIEW/WEB_CLIENT/C_CLIENT_NUMBER%20${getPatronID()}?COMMANDSEARCH`,
+					{ headers: { 'Content-Type': 'text/xml' } }
+				)
+				let responseXMLToJson = convertXMLToJson(response.data)
+				console.log(responseXMLToJson)
+				setData(responseXMLToJson)
+				setLastName(responseXMLToJson.client.name_last)
+				setFirstName(responseXMLToJson.client.name_first)
+				setFullName(responseXMLToJson.client.name_full)
+				setEmail(responseXMLToJson.client.email)
+			} catch (err) {
+				console.error('Error fetching data:', err)
+			}
+		}
+
+		fetchData()
+	}, [])
+
+	const formActionSaveRecord = document.querySelector('#enq-save-record')?.textContent as string
+	const skipNStopRecord = document.querySelector('#enq-skip-n-stop-record')?.textContent as string
+
 	const handleGoBack = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
 		window.history.back()
@@ -61,8 +69,9 @@ const ReproductionForm = () => {
 						{/* Header */}
 						<div className="flex justify-between items-center border-b pb-4">
 							<h1 className="flex items-center text-xl font-bold">
-                                <CircleEllipsis className='mr-2'/>Submit Reproduction
-                            </h1>
+								<CircleEllipsis className="mr-2" />
+								Submit Reproduction
+							</h1>
 						</div>
 						<div className="py-4">
                             <form
@@ -213,8 +222,6 @@ const ReproductionForm = () => {
                                 
                             </form>
 						</div>
-
-						
 					</div>
 				</div>
 			</section>

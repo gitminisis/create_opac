@@ -12,22 +12,30 @@ import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
 import SummaryPageAction from './SummaryPageAction'
 import SummaryRecords from './SummaryRecord'
+import { getSearchURL } from '@/lib/utils'
 
 const Summary = () => {
 	const [mobileFilter, setMobileFilter] = useState(false)
-	const { message, config, home } = useConstants()
-	const { common, pagination, backToSummary, data, records } = useJSONData({
+	const { message, home, archives, museum, library } = useConstants()
+	const { common, pagination, backToSummary, data } = useJSONData({
 		selector: '#xml_record',
 	})
+
+	const navigations = [home, archives, museum, library]
 
 	const getDBTitle = (search_database: string) => {
 		const currentUrl = window.location.href
 		const match = home.searchURL.match(/&DATABASE=[^&]+/) ?? ''
-		let db = config.navigations.filter((item) => item.search_database === search_database)
+		let db = navigations.filter((item) => item.database_name === search_database)
 		if (currentUrl.includes(match[0])) return ''
-		return `${message.in} ${db[0]?.title}`
+
+		if (db[0]?.displayTitle) return `${message.in} ${db[0].displayTitle}`
+
+		return ''
 	}
+
 	if (!common) return <></>
+
 	return (
 		<Layout>
 			<div className="rounded-sm border border-primary bg-background shadow-md md:shadow-xl h-full flex-col flex w-full my-12">
@@ -45,7 +53,7 @@ const Summary = () => {
 							className="w-[450px] m-0"
 							inputStyle="text-black"
 							inputName={'KEYWORD_CLUSTER'}
-							action={''}
+							action={getSearchURL(home.searchURL)}
 						/>
 						<ViewToggle />
 					</div>
@@ -53,7 +61,7 @@ const Summary = () => {
 				<section>
 					<div className="mx-auto py-4 sm:py-12  container flex flex-col">
 						<PageHeader
-							heading={`${common.total_record} ${message.resultsFor.toLowerCase()} "${common.search_statement}" ${getDBTitle(data?.xml.search_database)}`}
+							heading={`${common.total_record} ${message.resultsFor.toLowerCase()} "${common.search_statement}"`}
 							subHeading={`${message.displaying} ${common.first_record_seq}-${common.last_record_seq} ${message.of} ${common.total_record}`}
 						/>
 						<div className="mt-8 block lg:hidden">
@@ -84,12 +92,11 @@ const Summary = () => {
 							{pagination?.a && pagination.a.length > 0 && (
 								<div className="col-span-4 mt-4">
 									<PagePagination
-										items={pagination.a.map((item) => ({
-											url: item._href,
-											active: item.b !== undefined,
-										}))}
-										renderItem={(_, index) => (
-											<span key={index}>{index + 1}</span>
+										items={pagination.a.map(
+											(item: { _href: any; b: undefined }) => ({
+												url: item._href,
+												active: item.b !== undefined,
+											})
 										)}
 									/>
 								</div>

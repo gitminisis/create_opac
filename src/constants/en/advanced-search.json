@@ -13,6 +13,10 @@
 			{
 				"label": "Description",
 				"name": "obj_description"
+			},
+			{
+				"label": "Earliest Date",
+				"name": "EARLY"
 			}
 		]
 	},
@@ -24,38 +28,34 @@
 				"name": "TITLE"
 			},
 			{
-				"label": "ID",
+				"label": "Ref.code",
 				"name": "REFD"
 			},
 			{
-				"label": "Date",
+				"label": "Creation",
 				"name": "date_cr_inc"
 			},
 			{
-				"label": "DESC TYPE",
-				"name": "DESC_TYPE"
+				"label": "GMD",
+				"name": "FORM"
 			}
 		]
 	},
 	{
 		"database": "BIBLIO_WEB",
 		"items": [
-			{
-				"label": "All title",
-				"name": "ALL_TITLE_WORD"
-			},
-			{
-				"label": "Subject",
-				"name": "SUBJECT_WORD"
-			},
-			{
-				"label": "Author",
-				"name": "AUTHOR_WORD"
-			},
-			{
-				"label": "Description",
-				"name": "520_A"
-			}
+			{ "label": "Title", "name": "TITLE" },
+			{ "label": "Accession No.", "name": "ACCESSION_NUMBER" },
+			{ "label": "ISBN", "name": "ISBN" },
+			{ "label": "Title", "name": "ALL_TITLE_WORD" },
+			{ "label": "Notes", "name": "NOTES_CONCAT" },
+			{ "label": "Author", "name": "PAUTHOR" },
+			{ "label": "Publication Place", "name": "260_B" },
+			{ "label": "Publication Date", "name": "LIB_PUB_WHOL" },
+			{ "label": "Material Type", "name": "I_COLLECT_CODE" },
+			{ "label": "Branch Location", "name": "HOLDING_CENTRE" },
+			{ "label": "Status", "name": "ITEM_STATUS" },
+			{ "label": "Availability", "name": "L_AVAIL" }
 		]
 	}
 ]

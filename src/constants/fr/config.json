@@ -1,6 +1,6 @@
 {
-	"siteName": "MINISIS OPAC Template ",
-	"logo": "https://i.imgur.com/whpgDjK.jpeg",
+	"siteName": "Northeastern University Collections",
+	"logo": "https://upstatement.com/img/legacy/nu-brand/athletics-logo-circle-n-split.svg",
 	"auth": {
 		"login": true,
 		"url": "/scripts/mwimain.dll?get&file=[OPAC]login.html"
@@ -12,7 +12,7 @@
 			"title": "Accueil"
 		},
 		{
-			"url": "/archives.html",
+			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]archives.html",
 			"title": "Archives",
 			"search_database": "DESCRIPTION_WEB"
 		},

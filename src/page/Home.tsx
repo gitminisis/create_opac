@@ -1,16 +1,18 @@
-import EventCalendar from '@/components/common/event-calendar'
 import HoverCard from '@/components/common/HoverCard'
+import InterativeMap from '@/components/common/interactive-map'
 import Masonry from '@/components/common/Masonry'
 import HomeSearchForm from '@/components/common/search-form/HomeSearchForm'
-import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
+import Categories from '@/components/features/Categories'
+import FeaturedCollection from '@/components/features/FeaturedCollection'
 import useConstants from '@/hooks/useConstants'
-import { cn, getSearchURL, truncateWords } from '@/lib/utils'
+import { getSearchURL, truncateWords } from '@/lib/utils'
 import Hero from '../components/common/Hero'
 import Section from '../components/common/Section'
-import Slide from '../components/common/slide'
-import ThumbnailCard from '../components/common/ThumbnailCard'
+import RSVPCalendar from '../components/features/RSVPCalendar'
 import Layout from '../components/layouts'
-import { Card } from '../components/ui/card'
+import TopPick from '@/components/features/TopPick'
+import TimeLine from '@/components/common/interactive-timeline'
+import { HighlightText } from '@/components/common/HighlightText'
 
 export const UNION_SEARCH_CL = 'KEYWORD_CLUSTER'
 
@@ -42,9 +44,13 @@ const images = [
 	'https://images.unsplash.com/photo-1505144808419-1957a94ca61e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3070&q=80',
 ]
 
-type MainPageProps = {
+export type MainPageProps = {
 	previewMode?: boolean
 	previewData?: any
+}
+
+export type PageSectionProps = MainPageProps & {
+	page: 'home' | 'archives' | 'library' | 'museum'
 }
 const Home = ({ previewMode = false, previewData }: MainPageProps) => {
 	const sourceData = useConstants().home
@@ -52,85 +58,66 @@ const Home = ({ previewMode = false, previewData }: MainPageProps) => {
 	const {
 		heading,
 		heroBanner,
-		browseByCategoryTitle,
-		categoriesItems,
 		searchURL,
-		rsvp,
-		featuredCollection,
 		enableFeaturedCollection,
 		enableRSVP,
 		enableCategoriesItems,
 		enableRecentAddition,
-	} = data
+		enableMap,
+		enableTimeline,
+	}:any = data
 	const { message } = useConstants()
+	const mockData = Array.from({ length: 1000 }, (_, index) => ({
+		LEGAL_TITLE: `Event ${index + 1}`,
+		sisn: `SISN-${index + 1}`,
+		TIME_INDEX: (9000 + index).toString(),
+		DATE: `Year ${9000 + index - 10000}`,
+		ID: `ID-${index + 1}`,
+		DATABASE_TYPE: 'Historical',
+		IMAG_URL: 'https://via.placeholder.com/150',
+	}))
 	return (
 		<Layout>
 			<Hero className="" title={heading} backgroundImage={heroBanner} description="">
 				<div className={'w-full mx-auto flex space-x-4 justify-center mt-6 max-w-2xl'}>
-					<HomeSearchForm inputName={UNION_SEARCH_CL} action={getSearchURL(searchURL)} />
+					<HomeSearchForm
+						title={message.searchAllCollections}
+						inputName={UNION_SEARCH_CL}
+						action={getSearchURL(searchURL)}
+					/>
 				</div>
 			</Hero>
 
+		
+
+			<TopPick page={'home'} previewData={previewData} previewMode={previewMode} />
+
 			{enableFeaturedCollection && (
-				<Section heading={message.featuredCollections}>
-					<BentoGrid className="mx-auto">
-						{featuredCollection.map((item, i) => (
-							<BentoGridItem
-								onClick={() => {
-									window.location.href = `${getSearchURL(`UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&exp=${item.url}`)}`
-								}}
-								key={i}
-								title={item.title}
-								description={item.description}
-								header={
-									<img
-										src={item.thumbnail}
-										className="w-full object-cover max-h-[170px]"
-										alt={item.title}
-									/>
-								}
-								className={cn(
-									i === 3 || i === 6 ? 'md:col-span-2' : '',
-									'bg-primary'
-								)}
-							/>
-						))}
-					</BentoGrid>
-				</Section>
+				<FeaturedCollection
+					page={'home'}
+					previewData={previewData}
+					previewMode={previewMode}
+				/>
 			)}
-
 			{enableCategoriesItems && (
-				<Section heading={browseByCategoryTitle}>
-					<Slide
-						itemsPerSlide={{ lg: 4 }}
-						items={categoriesItems}
-						renderItem={(item, index: any) => (
-							<Card
-								className="max-w-md mx-auto shadow-xl border-none cursor-pointer"
-								key={index}>
-								<ThumbnailCard
-									title={item.title}
-									url={`${getSearchURL(`UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&exp=${item.url}`)}`}
-									thumbnail={item.thumbnail}
-								/>
-							</Card>
-						)}
-					/>
-				</Section>
-			)}
-			{enableRSVP && (
-				<Section heading={`${message.calendar}`}>
-					<EventCalendar
-						databaseType={rsvp.filterDatabase}
-						filterTypes={rsvp.filterTypes}
-						filterOption={rsvp.filterOption}
-					/>
-				</Section>
+				<Categories page={'home'} previewData={previewData} previewMode={previewMode} />
 			)}
 
+			{enableRSVP && (
+				<RSVPCalendar page={'home'} previewData={previewData} previewMode={previewMode} />
+			)}
+			{enableMap && (
+				<Section heading={`${message.map}`}>
+					<InterativeMap page={'home'} />
+				</Section>
+			)}
+			{enableTimeline && (
+				<Section heading={`${message.timeline}`}>
+					<TimeLine page={'home'} />
+				</Section>
+			)}
 			{enableRecentAddition && (
 				<Section heading="Recent additions">
-					{/* <ParallaxScroll images={images} />; */}
 					<Masonry
 						items={images}
 						renderItem={(item, index) => (

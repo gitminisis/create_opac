@@ -1,19 +1,19 @@
-import useConstants from '@/hooks/useConstants'
-import Hero from '../components/common/Hero'
-import SearchForm from '../components/common/search-form/SearchForm'
-import Layout from '../components/layouts'
-import { SetStateAction, useState } from 'react'
-import AdvancedSearchForm from '@/components/common/advanced-search/AdvancedSearchForm'
-import { cn, getSearchURL } from '@/lib/utils'
 import AdvanceSearchButton from '@/components/common/advanced-search/AdvancedSearchButton'
-import { UNION_SEARCH_CL } from './Home'
-import EventCalendar from '@/components/common/event-calendar'
+import AdvancedSearchForm from '@/components/common/advanced-search/AdvancedSearchForm'
+import InterativeMap from '@/components/common/interactive-map'
+import HomeSearchForm from '@/components/common/search-form/HomeSearchForm'
 import Section from '@/components/common/Section'
-import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
-import Slide from '@/components/common/slide'
-import ThumbnailCard from '@/components/common/ThumbnailCard'
-import { Card } from '@/components/ui/card'
-const Museum = () => {
+import Categories from '@/components/features/Categories'
+import FeaturedCollection from '@/components/features/FeaturedCollection'
+import RSVPCalendar from '@/components/features/RSVPCalendar'
+import useConstants from '@/hooks/useConstants'
+import { getSearchURL } from '@/lib/utils'
+import { useState } from 'react'
+import Hero from '../components/common/Hero'
+import Layout from '../components/layouts'
+import { MainPageProps, UNION_SEARCH_CL } from './Home'
+import TimeLine from '@/components/common/interactive-timeline'
+const Museum = ({ previewMode = false, previewData }: MainPageProps) => {
 	const [showAdvSearch, setShowAdvSearch] = useState(false)
 	const { message } = useConstants()
 	const {
@@ -21,20 +21,21 @@ const Museum = () => {
 		searchURL,
 		heading,
 		database_name,
-		rsvp,
 		enableCategoriesItems,
-		featuredCollection,
 		enableFeaturedCollection,
-		categoriesItems,
 		enableRSVP,
-		browseByCategoryTitle,
+		enableMap,
+		enableTimeline,
 	} = useConstants().museum
 	return (
 		<Layout>
 			<Hero className={''} title={heading} backgroundImage={heroBanner} description="">
 				<div className={'w-full mx-auto flex space-x-4 justify-center mt-6 max-w-2xl'}>
-					<SearchForm inputName={UNION_SEARCH_CL} action={getSearchURL(searchURL)} />
-					<AdvanceSearchButton setShowAdvSearch={setShowAdvSearch} />
+					<HomeSearchForm
+						inputName={UNION_SEARCH_CL}
+						action={getSearchURL(searchURL)}
+						append={<AdvanceSearchButton setShowAdvSearch={setShowAdvSearch} />}
+					/>
 				</div>
 			</Hero>
 			{showAdvSearch && (
@@ -42,60 +43,27 @@ const Museum = () => {
 			)}
 
 			{enableFeaturedCollection && (
-				<Section heading={message.featuredCollections}>
-					<BentoGrid className="mx-auto">
-						{featuredCollection.map((item, i) => (
-							<BentoGridItem
-								onClick={() => {
-									window.location.href = `${getSearchURL(`UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&exp=${item.url}`)}`
-								}}
-								key={i}
-								title={item.title}
-								description={item.description}
-								header={
-									<img
-										src={item.thumbnail}
-										className="w-full object-cover max-h-[170px]"
-										alt={item.title}
-									/>
-								}
-								className={cn(
-									i === 3 || i === 6 ? 'md:col-span-2' : '',
-									'bg-primary'
-								)}
-							/>
-						))}
-					</BentoGrid>
-				</Section>
+				<FeaturedCollection
+					page={'museum'}
+					previewData={previewData}
+					previewMode={previewMode}
+				/>
 			)}
 
 			{enableCategoriesItems && (
-				<Section heading={browseByCategoryTitle}>
-					<Slide
-						itemsPerSlide={{ lg: 4 }}
-						items={categoriesItems}
-						renderItem={(item, index: any) => (
-							<Card
-								className="max-w-md mx-auto shadow-xl border-none cursor-pointer"
-								key={index}>
-								<ThumbnailCard
-									title={item.title}
-									url={`${getSearchURL(`UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&exp=${item.url}`)}`}
-									thumbnail={item.thumbnail}
-								/>
-							</Card>
-						)}
-					/>
+				<Categories page={'museum'} previewData={previewData} previewMode={previewMode} />
+			)}
+			{enableRSVP && (
+				<RSVPCalendar page={'museum'} previewData={previewData} previewMode={previewMode} />
+			)}
+			{enableMap && (
+				<Section heading={`${message.map}`}>
+					<InterativeMap page={'museum'} />
 				</Section>
 			)}
-
-			{enableRSVP && (
-				<Section heading={`${message.calendar}`}>
-					<EventCalendar
-						databaseType={rsvp.filterDatabase}
-						filterTypes={rsvp.filterTypes}
-						filterOption={rsvp.filterOption}
-					/>
+			{enableTimeline && (
+				<Section heading={`${message.timeline}`}>
+					<TimeLine page={'museum'} />
 				</Section>
 			)}
 		</Layout>

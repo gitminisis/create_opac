@@ -4,7 +4,7 @@ import { useToast } from '@/components/ui/use-toast'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { bookmarkSelect, removeBookmarkFromKey, validateBookmarkResponse } from '@/lib/bookmark'
-import { copyRecordURL, deepSearchKey } from '@/lib/record'
+import { copyRecordURL, deepSearchKey, handleCopyRecordURL } from '@/lib/record'
 import { cn } from '@/lib/utils'
 import { bookmarkCount } from '@/store'
 import { Record } from '@/types/record'
@@ -14,7 +14,7 @@ import { Copy, Star } from 'lucide-react'
 import { useState } from 'react'
 
 export const RecordAction = ({ record }: { record: Record }) => {
-	const { database_name, is_bookmarked } = record
+	const { is_bookmarked } = record
 	const [like, setLike] = useState(is_bookmarked ? Boolean(JSON.parse(is_bookmarked)) : true)
 	const { common } = useJSONData({ selector: '#xml_record' })
 	const { bookmark_url, bookmark_count } = common
@@ -22,37 +22,29 @@ export const RecordAction = ({ record }: { record: Record }) => {
 	const sisn = deepSearchKey(record, 'sisn')[0] as string
 	const { message } = useConstants()
 	const [count, setCount] = useAtom(bookmarkCount)
+	const [loading, setLoading] = useState(false)
 	const handleBookmark = () => {
-		if (record.input?._name && like) {
-			//if record.input?._name is exsisted, we use bookmark sum report, Don Ryu20240705
-			removeBookmarkFromKey(record).then((res) => {
-				setCount(count - 1)
-			})
-
-			toast({
-				title: `${message.bookmarkHasBeenRemoved}`,
-			})
-
-			// reload page on summary bookmark only
-			if (record.record.link_dbname) {
-				window.location.reload()
-			}
-			return
-		}
-
-		// Display toast only if record has already been bookmarked
+		setLoading(true)
 		if (like) {
+			setLoading(false)
 			toast({
-				title: `${message.recordAlreadyMarked}`,
+				title: message.successfullBookmark,
+				duration: 2000,
 				action: (
-					<ToastAction altText={message.viewBookmark}>{message.viewBookmark}</ToastAction>
+					<a
+						className={
+							'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'
+						}
+						href={`${bookmark_url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`}>
+						{message.viewBookmark}
+					</a>
 				),
 			})
 			return
 		}
 
-		// send request to bookmark
 		bookmarkSelect(`${bookmark_url}`, record).then((res) => {
+			setLoading(false)
 			const isValid = validateBookmarkResponse(
 				res,
 				typeof bookmark_count === 'number'
@@ -64,10 +56,15 @@ export const RecordAction = ({ record }: { record: Record }) => {
 				setCount(isValid.newCount || count)
 				toast({
 					title: message.successfullBookmark,
+					duration: 2000,
 					action: (
-						<ToastAction altText={message.viewBookmark}>
+						<a
+							className={
+								'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'
+							}
+							href={`${bookmark_url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`}>
 							{message.viewBookmark}
-						</ToastAction>
+						</a>
 					),
 				})
 				return
@@ -76,7 +73,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 	}
 
 	const handleCopy = () => {
-		copyRecordURL(database_name, sisn)
+		handleCopyRecordURL(record)
 		toast({
 			title: message.recordIsCopied,
 		})
@@ -87,6 +84,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 			<TooltipButton
 				variant="ghost"
 				size="icon"
+				disabled={loading}
 				onClick={handleBookmark}
 				tooltipContent="Bookmark record">
 				<Star

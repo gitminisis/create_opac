@@ -1,24 +1,22 @@
 import Link from '@/components/common/Link'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import clientProfileJSON from '@/constants/en/client-profile.json'
 import { getCookieValue } from '@/lib/utils'
 import {
-	Home,
-	Settings,
-	ShoppingBag,
-	Copyright,
-	Copy,
 	BookMarked,
+	CalendarDays,
+	Copy,
+	Copyright,
+	FileX,
+	Home,
 	Lightbulb,
 	MessageCircleMore,
-	CalendarDays,
+	Settings,
+	ShoppingBag,
 	Upload,
-	FileX,
 } from 'lucide-react'
-import clientProfileJSON from '@/constants/en/client-profile.json'
 
-type Props = {}
-
-const Sidebar = (props: Props) => {
+const Sidebar = () => {
 	const m2l_patron_id = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
 	const home_url =
 		'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
@@ -29,7 +27,7 @@ const Sidebar = (props: Props) => {
 					<TooltipTrigger asChild>
 						<Link
 							href={getCookieValue('HOME_SESSID') + home_url}
-							className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+							className="flex h-9 w-9 items-center justify-center  text-accent-foreground rounded-full hover:bg-neutral-200 hover:text-slate-700 md:h-8 md:w-8">
 							<Home className="h-5 w-5" />
 							<span className="sr-only">Patron Dashboard</span>
 						</Link>
@@ -41,7 +39,7 @@ const Sidebar = (props: Props) => {
 					<Tooltip key={index}>
 						<TooltipTrigger asChild>
 							<Link
-								href={`${getCookieValue('HOME_SESSID') + item.url + (item.label === 'Bookmarks' || item.label === 'Easy Load' ? '' : m2l_patron_id)}`}
+								href={`${getCookieValue('HOME_SESSID') + item.url + (item.label === 'Bookmarks' || item.label === 'Easy Upload' ? '' : m2l_patron_id)}`}
 								className="flex h-9 w-9 items-center justify-center  text-accent-foreground rounded-full hover:bg-neutral-200 hover:text-slate-700 md:h-8 md:w-8">
 								{item.label === 'Orders' ? (
 									<ShoppingBag className="h-5 w-5" />
@@ -69,13 +67,8 @@ const Sidebar = (props: Props) => {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<Link
-							href={
-								getCookieValue('HOME_SESSID') +
-								'?SEARCH&DATABASE=M2L_TAG_SYN&REPORT=WEB_CALENDAR_PROFILE&EXP=TAG_FUNC_P_ID%20' +
-								m2l_patron_id +
-								'&M_GVAR1=USER_ID:' +
-								m2l_patron_id
-							}
+							href={`/scripts/mwimain.dll/144/WEB_CALENDAR/WEB_CALENDAR_PROFILE?commandsearch&exp=%2B%2B%40&EXP=TAG_FUNC_P_ID%20${m2l_patron_id}
+								&M_GVAR1=USER_ID:${m2l_patron_id}`}
 							className="flex h-9 w-9 items-center justify-center  text-accent-foreground rounded-full hover:bg-neutral-200 hover:text-slate-700 md:h-8 md:w-8">
 							<CalendarDays className="h-5 w-5" />
 						</Link>
