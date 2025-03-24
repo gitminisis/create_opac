@@ -32,7 +32,7 @@ const SectionActions = <T extends HTMLFormControlsCollection>({
 			/>
 			{newItemForm && (
 				<Dialog onOpenChange={setAddNewForm} open={addNewForm}>
-					<DialogContent>
+					<DialogContent className={'rounded'}>
 						<DialogHeader>
 							<DialogTitle>Add new item</DialogTitle>
 						</DialogHeader>

@@ -74,7 +74,7 @@
 	],
 	"rsvp": {
 		"filterDatabase": "Museum",
-		"filterOption": "TAG_DB_TYPE",
+		"filterOption": "",
 		"filterTypes": []
 	},
 	"enableCategoriesItems": true,

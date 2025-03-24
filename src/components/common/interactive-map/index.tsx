@@ -46,34 +46,24 @@ interface DataType {
 	SCOPE: string
 }
 
-// Add background circle to icons using CSS
 const createIcon = (iconUrl: string, bgColor: string): L.DivIcon => {
 	return L.divIcon({
-		className: 'custom-icon',
+		className: `min-w-[22px] min-h-[22px] flex justify-center items-center rounded-full shadow-md ${bgColor}`,
 		html: `
-      <div style="
-        background: ${bgColor};
-        width: 20px;
-        height: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-      ">
-        <img src="${iconUrl}" style="width: 16px; height: 16px;" />
+      <div>
+        <img src="${iconUrl}" class="w-4 h-4" />
       </div>
     `,
-		iconSize: [16, 16],
-		iconAnchor: [16, 16],
-		popupAnchor: [0, -16],
+		iconSize: [20, 20],
+		iconAnchor: [10, 10],
+		popupAnchor: [0, -10],
 	})
 }
 
 const COLOR_MAP: any = {
-	library: 'rgba(255, 0, 0, 0.7)',
-	archive: 'rgba(12, 74, 110, 0.7)',
-	museum: 'rgba(255, 255, 0, 0.7)',
+	library: 'bg-minisis-library',
+	archive: 'bg-minisis-archives',
+	museum: 'bg-minisis-museum',
 }
 
 const icons: Record<string, L.DivIcon> = {
@@ -84,22 +74,11 @@ const icons: Record<string, L.DivIcon> = {
 
 const createClusterIcon = function (cluster: any, iconUrl: string, bgColor: string) {
 	return L.divIcon({
-		className: 'custom-icon',
+		className: `${bgColor} min-w-[60px] min-h-[60px] flex flex-col justify-center items-center rounded-full shadow-md`,
 		html: `
-      <div style="
-        background: ${bgColor};
-        width: 4vw;
-		min-width:55px;
-        height: 8vh;
-        display: flex;
-		flex-direction:column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-      ">
-      <div><img src="${iconUrl}" style="width: 20px; height: 20px;" /></div>
-		<div>${cluster.getChildCount()}</div>
+      <div >
+        <div><img src="${iconUrl}" class="w-5 h-5" /></div>
+        <div>${cluster.getChildCount()}</div>
       </div>
     `,
 	})
@@ -316,8 +295,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											)}
 										/>
 										<div
-											style={{ background: `${COLOR_MAP.archive}` }}
-											className={`w-[30px] h-[30px] flex justify-center items-center rounded-full shadow-md`}>
+											className={`w-[30px] h-[30px] flex justify-center items-center rounded-full shadow-md ${COLOR_MAP.archive}`}>
 											<img src={archiveIcon} className="w-5 h-5" />
 										</div>
 										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
@@ -325,6 +303,25 @@ const InteractiveMap = ({ page }: { page: string }) => {
 										</Label>
 										<div>
 											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.archive)}
+										</div>
+									</div>
+								</div>
+								<div className="flex">
+									<div className={'flex items-center space-x-2'}>
+										<Checkbox
+											onClick={() => handleDatabaseChange(DB_TYPE_MAP.museum)}
+											checked={selectedDatabases.includes(DB_TYPE_MAP.museum)}
+										/>
+										<div
+											className={`w-[30px] h-[30px] flex justify-center items-center rounded-full shadow-md ${COLOR_MAP.museum}`}>
+											{' '}
+											<img src={museumIcon} className="w-5 h-5" />
+										</div>
+										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+											{DB_TYPE_MAP.museum}
+										</Label>
+										<div>
+											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.museum)}
 										</div>
 									</div>
 								</div>
@@ -339,8 +336,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											)}
 										/>
 										<div
-											style={{ background: `${COLOR_MAP.library}` }}
-											className={`w-[30px] h-[30px] flex justify-center items-center rounded-full shadow-md`}>
+											className={`w-[30px] h-[30px] flex justify-center items-center rounded-full shadow-md ${COLOR_MAP.library}`}>
 											{' '}
 											<img src={libraryIcon} className=" w-5 h-5" />
 										</div>
@@ -349,26 +345,6 @@ const InteractiveMap = ({ page }: { page: string }) => {
 										</Label>
 										<div>
 											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.library)}
-										</div>
-									</div>
-								</div>
-								<div className="flex">
-									<div className={'flex items-center space-x-2'}>
-										<Checkbox
-											onClick={() => handleDatabaseChange(DB_TYPE_MAP.museum)}
-											checked={selectedDatabases.includes(DB_TYPE_MAP.museum)}
-										/>
-										<div
-											style={{ background: `${COLOR_MAP.museum}` }}
-											className={`w-[30px] h-[30px] flex justify-center items-center rounded-full shadow-md`}>
-											{' '}
-											<img src={museumIcon} className="w-5 h-5" />
-										</div>
-										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-											{DB_TYPE_MAP.museum}
-										</Label>
-										<div>
-											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.museum)}
 										</div>
 									</div>
 								</div>
@@ -464,7 +440,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 					maxZoom={18}
 					style={{
 						height: '90vh',
-						borderRadius: '10px',
+						borderRadius: '0.25rem',
 						boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 						zIndex: 8,
 					}}>
@@ -512,24 +488,27 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											marker?.DECIMAL_LONGITUDE,
 										]}
 										icon={icons['library']}>
-										<Popup className="hidden md:block" offset={[-7, 0]}>
-											<div className="w-[300px]">
+										<Popup
+											className="hidden md:block border-minisis-library  border-2 rounded-[14px]"
+											offset={[2, 0]}>
+											<div className="w-[300px] ">
 												<a
 													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${library.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=ACCESSION_NUMBER%20${marker.ACCESSION_NUMBER}`}
 													target="_blank">
-													<h3 className="text-lg font-bold text-blue-600  border-b pb-2">
+													<h3 className="text-lg font-bold text-black  border-b pb-2">
 														{marker.ALL_TITLE_WORD_OCCURRENCE ?? 'n/a'}
 													</h3>
+
+													{marker?.IMAG_URL && (
+														<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
+															<img
+																src={getImage(marker.IMAG_URL)}
+																alt="Library"
+																className="w-full h-full object-contain  rounded-[14px]"
+															/>
+														</div>
+													)}
 												</a>
-												{marker?.IMAG_URL && (
-													<div className="bg-slate-100 h-48 mb-4">
-														<img
-															src={getImage(marker.IMAG_URL)}
-															alt="Library"
-															className="w-full h-full object-contain rounded-t-lg "
-														/>
-													</div>
-												)}
 												<table className="w-full text-sm">
 													<tbody>
 														{marker.ACCESSION_NUMBER && (
@@ -595,24 +574,27 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											marker?.DECIMAL_LONGITUDE,
 										]}
 										icon={icons['archive']}>
-										<Popup className="hidden md:block" offset={[-7, 0]}>
+										<Popup
+											className="hidden md:block border-minisis-archives  border-2 rounded-[14px]"
+											offset={[2, 0]}>
 											<div className="w-[300px]">
 												<a
 													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${archives.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=refd%20${marker.REFD}`}
 													target="_blank">
-													<h3 className="text-lg font-bold text-blue-600  border-b pb-2">
+													<h3 className="text-lg font-bold text-black  border-b pb-2">
 														{marker.TITLE ?? 'n/a'}
 													</h3>
+
+													{marker?.IMAG_URL && (
+														<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
+															<img
+																src={getImage(marker.IMAG_URL)}
+																alt="Archive"
+																className="w-full h-full object-contain rounded-t-lg rounded-[14px]"
+															/>
+														</div>
+													)}
 												</a>
-												{marker?.IMAG_URL && (
-													<div className="bg-slate-100 h-48 mb-4">
-														<img
-															src={getImage(marker.IMAG_URL)}
-															alt="Archive"
-															className="w-full h-full object-contain rounded-t-lg "
-														/>
-													</div>
-												)}
 												<table className="w-full text-sm">
 													<tbody>
 														{marker.REFD && (
@@ -669,24 +651,26 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											marker?.DECIMAL_LONGITUDE,
 										]}
 										icon={icons['museum']}>
-										<Popup className="hidden md:block" offset={[-7, 0]}>
+										<Popup
+											className="hidden md:block border-minisis-museum  border-2 rounded-[14px]"
+											offset={[2, 0]}>
 											<div className="w-[300px]">
 												<a
 													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${museum.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=ACCESSION_NUMBER%20${marker.ACCESSION_NUMBER}`}
 													target="_blank">
-													<h3 className="text-lg font-bold text-blue-600 border-b pb-2 overflow-x-auto">
+													<h3 className="text-lg font-bold text-black border-b pb-2 overflow-x-auto">
 														{marker.TITLE ?? 'n/a'}
 													</h3>
+													{marker?.IMAG_URL && (
+														<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
+															<img
+																src={getImage(marker.IMAG_URL)}
+																alt="Museum"
+																className="w-full h-full object-contain rounded-t-lg rounded-[14px]"
+															/>
+														</div>
+													)}
 												</a>
-												{marker?.IMAG_URL && (
-													<div className="bg-slate-100 h-48 mb-4">
-														<img
-															src={getImage(marker.IMAG_URL)}
-															alt="Museum"
-															className="w-full h-full object-contain rounded-t-lg "
-														/>
-													</div>
-												)}
 												<table className="w-full text-sm">
 													<tbody>
 														{marker.ACCESSION_NUMBER && (

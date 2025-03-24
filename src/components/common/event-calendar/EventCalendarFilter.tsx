@@ -17,7 +17,6 @@ type SelectType = {
 
 const EventCalendarFilter: React.FC<MyComponentProps> = ({ setCurrentFilter, filterTypes }) => {
 	const [selectType, setSelectedType] = useState<SelectType>({})
-
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.id) return
 		let map = selectType
@@ -38,7 +37,7 @@ const EventCalendarFilter: React.FC<MyComponentProps> = ({ setCurrentFilter, fil
 	return (
 		<div
 			className={
-				'px-3 relative flex-none sm:flex flex-wrap w-full justify-start items-center my-2 h-16 overflow-auto'
+				'px-3 relative flex-none sm:flex flex-wrap w-full justify-start items-center mb-2 h-16 overflow-auto'
 			}>
 			{filterTypes?.map((item, key) => {
 				return (

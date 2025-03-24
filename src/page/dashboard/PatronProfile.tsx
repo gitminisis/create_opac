@@ -138,7 +138,7 @@ export default function PatronProfile() {
 			</div>
 
 			{/* Recent Media Section */}
-			<div className="space-y-4">
+			<div className="space-y-4 min-h-[550px]">
 				<div className="flex items-center justify-between">
 					<h2 className="text-xl font-medium">
 						<span>{message.searchDatabase}</span>

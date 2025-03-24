@@ -23,17 +23,6 @@ const Summary = () => {
 
 	const navigations = [home, archives, museum, library]
 
-	const getDBTitle = (search_database: string) => {
-		const currentUrl = window.location.href
-		const match = home.searchURL.match(/&DATABASE=[^&]+/) ?? ''
-		let db = navigations.filter((item) => item.database_name === search_database)
-		if (currentUrl.includes(match[0])) return ''
-
-		if (db[0]?.displayTitle) return `${message.in} ${db[0].displayTitle}`
-
-		return ''
-	}
-
 	if (!common) return <></>
 
 	return (

@@ -52,7 +52,7 @@ export default function ShareButton({ url }: { url: string }) {
 					{message.shareThisPage}
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-md">
+			<DialogContent className="sm:max-w-md rounded">
 				<DialogHeader>
 					<DialogTitle>Share this page</DialogTitle>
 				</DialogHeader>

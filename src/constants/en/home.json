@@ -33,18 +33,18 @@
         "filterOption": "TAG_DB_TYPE",
         "filterTypes": [
             {
-                "type": "Library",
-                "color": "bg-red-500 border-red-500",
+                "type": "Archives",
+                "color": "bg-minisis-archives border-minisis-archives",
                 "icon": "rounded"
             },
             {
                 "type": "Museum",
-                "color": "bg-yellow-500 border-yellow-500",
+                "color": "bg-minisis-museum border-minisis-museum",
                 "icon": "rounded"
             },
             {
-                "type": "Archives",
-                "color": "bg-sky-900 border-sky-900",
+                "type": "Library",
+                "color": "bg-minisis-library border-minisis-library",
                 "icon": "rounded"
             }
         ]

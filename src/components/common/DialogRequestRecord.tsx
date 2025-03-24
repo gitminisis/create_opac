@@ -11,7 +11,7 @@ interface DialogLoginProps {
 const DialogLogin: React.FC<DialogLoginProps> = ({ isOpen, onClose, title, description }) => {
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent>
+			<DialogContent className={'rounded'}>
 				<DialogHeader>
 					<DialogTitle>{title}</DialogTitle>
 					<DialogDescription>{description}</DialogDescription>

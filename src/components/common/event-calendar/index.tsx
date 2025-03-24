@@ -8,6 +8,8 @@ import { useAtom } from 'jotai'
 import { CALENDAR_START_MONTH, CALENDAR_WEEK_VIEW_DAYS, Day_obj, FilterType } from './Constants'
 import useConstants from '@/hooks/useConstants'
 import { cn } from '@/lib/utils'
+import { MonitorPlay, SquareUserRound } from 'lucide-react'
+import { Label } from '@/components/ui/label'
 
 export interface calendarFilterType {
 	databaseType?: string
@@ -218,11 +220,28 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 				</Button>
 			</div>
 			{filterOption && (
-				<EventCalendarFilter
-					setCurrentFilter={setCurrentFilter}
-					filterTypes={filterTypes}
-				/>
+				<>
+					<div className={'pl-[14px] mt-1 font-bold'}>{message.filterBy}</div>
+					<EventCalendarFilter
+						setCurrentFilter={setCurrentFilter}
+						filterTypes={filterTypes}
+					/>
+				</>
 			)}
+			<div className={'w-full flex justify-end'}>
+				<div className={'flex items-center mr-4'}>
+					<div>
+						<SquareUserRound size={20} />
+					</div>
+					<Label className="text-sm" style={{marginLeft:'7px'}}>{message.inPerson}</Label>
+				</div>
+				<div className={'flex items-center'}>
+					<div>
+						<MonitorPlay size={20} />
+					</div>
+					<Label className="text-sm" style={{marginLeft:'7px'}}> {message.online}</Label>
+				</div>
+			</div>
 
 			<div className={'w-full mt-1'}>
 				<div className={'grid grid-cols-7 gap-0.5'}>

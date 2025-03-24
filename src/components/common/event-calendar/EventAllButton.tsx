@@ -32,7 +32,7 @@ const EventAllButton = ({
 			</DialogTrigger>
 			<DialogContent
 				hideClose={'invisible'}
-				className={'max-h-[90vh] max-w-5xl overflow-y-auto p-1 gap-1 custom-scrollbar'}>
+				className={'max-h-[90vh] max-w-5xl overflow-y-auto p-1 gap-1 custom-scrollbar rounded'}>
 				<DialogHeader className={'w-full sticky top-0 bg-white z-10 '}>
 					<DialogTitle
 						className={

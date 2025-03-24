@@ -21,6 +21,9 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
+import { DateRange } from 'react-day-picker'
+import {subMonths } from 'date-fns'
+import { DatePickerWithRange } from './DatePickerWithRange'
 
 export type ProfileData = {
 	[key: string]: any
@@ -41,6 +44,10 @@ export function ProfileTable({
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = React.useState({})
+	const [date, setDate] = React.useState<DateRange | undefined>({
+		from: subMonths(new Date(), 1),
+		to: new Date(),
+	})
 
 	const table = useReactTable({
 		data,
@@ -61,9 +68,11 @@ export function ProfileTable({
 		},
 	})
 
+	console.log('date',date)
+
 	return (
 		<div className="w-full">
-			<div className="flex items-center py-4">
+			<div className="md:flex items-center py-4">
 				<Input
 					placeholder={`Search ${filterTypeShow}...`}
 					value={(table.getColumn(filterType)?.getFilterValue() as string) ?? ''}
@@ -72,6 +81,7 @@ export function ProfileTable({
 					}
 					className="max-w-sm"
 				/>
+				<DatePickerWithRange date={date} setDate={setDate} className={'mt-1 md:mt-0 md:ml-3'} />
 			</div>
 			<div className="rounded-md border">
 				<Table className={'bg-white rounded shadow-md border '}>

@@ -190,5 +190,6 @@
 	"searchDatabase": "Search databases",
 	"searchAllCollections": "Search all collections",
 	"returnToSearchResults": "Return to Search Results",
-	"shareThisPage": "Share this page"
+	"shareThisPage": "Share this page",
+	"inPerson":"In Person"
 }

@@ -75,7 +75,7 @@ const EventAccordianViewButton = ({
 			</DialogTrigger>
 			<DialogContent
 				className={
-					'max-w-lg h-[500px] overflow-auto p-1 flex flex-col items-center max-w-l md:max-w-3xl'
+					'max-w-lg h-[500px] overflow-auto p-1 flex flex-col items-center max-w-l md:max-w-3xl rounded'
 				}
 				hideClose={'invisible'}>
 				<DialogHeader className={'w-full sticky top-0 bg-white z-10 '}>

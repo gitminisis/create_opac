@@ -19,7 +19,7 @@ const DialogLogin: React.FC<DialogLoginProps> = ({ open, onOpenChange }) => {
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent>
+			<DialogContent className={'rounded'}>
 				<DialogHeader>
 					<DialogTitle>Login</DialogTitle>
 					<DialogDescription>Please login to continue action.</DialogDescription>

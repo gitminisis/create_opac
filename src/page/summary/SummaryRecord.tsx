@@ -11,8 +11,8 @@ const SummaryRecords = () => {
 
 	return (
 		<>
-			{records.map((record, index) => (
-				<RecordView record={record} key={index} />
+			{records.map((record, key) => (
+				<RecordView record={record} key={key} />
 			))}
 		</>
 	)
@@ -72,9 +72,6 @@ export interface ViewProps {
 	database: string
 	thumbnailUrl: string
 }
-
-
-
 
 // Helper function to extract thumbnail URL
 function getThumbnailUrl(record: Record): string {

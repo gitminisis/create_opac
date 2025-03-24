@@ -314,7 +314,7 @@ const ShowButton = ({
 						'h-1/2 w-full flex flex-col items-center justify-evenly p-1 border-2 rounded'
 					}>
 					<div className={'flex justify-center items-center'}>
-						<SquareUserRound className={'h-[30px]'} /> {message.registrationRequired}
+						{message.registrationRequired}
 					</div>
 					<Button
 						disabled={
@@ -349,11 +349,11 @@ const ShowButton = ({
 					<div className={'w-full flex justify-center'}>{message.contactInfo}</div>
 					<div className={'w-full text-center'}>
 						<div className={'flex font-normal items-center text-base'}>
-							<Phone size={25} />
+							<Phone size={25} className={'mr-2'} />
 							{event[TAG_FUNC_LOC_CT]}
 						</div>
 						<div className={'flex font-normal items-center text-base'}>
-							<Mail size={25} />
+							<Mail size={25} className={'mr-2'} />
 							{event[TAG_FUNC_LOC_EM]}
 						</div>
 					</div>
@@ -362,7 +362,7 @@ const ShowButton = ({
 						{event[TAG_FUNC_O] === RSVP_MAP.YES ? (
 							<>
 								<div className={'flex font-normal items-center'}>
-									<MonitorPlay size={25} />
+									<MonitorPlay size={25} className={'mr-2'} />
 									<div>{message.online}</div>
 								</div>
 								<div className={'text-sm my-2 text-center'}>
@@ -371,18 +371,29 @@ const ShowButton = ({
 							</>
 						) : (
 							<>
-								<div className={'font-normal text-base'}>
-									{getContactInfo(BD_BUILDING_NAME, contactInfo, event)}
-								</div>
-								<div className={'font-normal text-base'}>
-									<div>{getContactInfo(BD_ADDRESS, contactInfo, event)}</div>
+								<div className={'flex'}>
+									<SquareUserRound size={25} className={'mr-2'} />
 									<div>
-										<span className={'mr-1'}>
-											{getContactInfo(BD_CITY, contactInfo, event)}
-										</span>
-										<span>
-											{getContactInfo(BD_POSTAL_CODE, contactInfo, event)}
-										</span>
+										<div className={'font-normal text-base'}>
+											{getContactInfo(BD_BUILDING_NAME, contactInfo, event)}
+										</div>
+										<div className={'font-normal text-base'}>
+											<div>
+												{getContactInfo(BD_ADDRESS, contactInfo, event)}
+											</div>
+											<div>
+												<span className={'mr-1'}>
+													{getContactInfo(BD_CITY, contactInfo, event)}
+												</span>
+												<span>
+													{getContactInfo(
+														BD_POSTAL_CODE,
+														contactInfo,
+														event
+													)}
+												</span>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div className={'text-sm my-2 text-center'}>
@@ -452,37 +463,39 @@ const ShowRSVPSuccess = ({
 				</div>
 			</div>
 			<div>
-				<div className={'w-full flex justify-center text-lg'}>{message.contactInfo}</div>
+				<div className={'w-full flex justify-center text-lg mb-3'}>
+					{message.contactInfo}
+				</div>
 				{event[TAG_FUNC_O] === RSVP_MAP.YES ? (
 					<>
 						<div className={'flex font-normal items-center'}>
-							<MonitorPlay size={25} />
+							<MonitorPlay size={25} className={'mr-2'} />
 							<div>{message.online}</div>
 						</div>
-						<div className={'text-sm my-2 text-center'}>
-							"Use the meeting link to access the session!"
-						</div>
+						<div className={'text-sm my-2 text-center'}>"{message.onlineTip}"</div>
 					</>
 				) : (
 					<>
-						<div className={'font-normal text-base'}>
-							{getContactInfo(BD_BUILDING_NAME, contactInfo, event)}
-						</div>
-						<div className={'font-normal text-base'}>
-							<div>{getContactInfo(BD_ADDRESS, contactInfo, event)}</div>
+						<div className={'flex items-center'}>
+							<SquareUserRound size={25} className={'mr-2'} />
 							<div>
-								<span className={'mr-1'}>
-									{getContactInfo(BD_CITY, contactInfo, event)}
-								</span>
-								<span>{getContactInfo(BD_POSTAL_CODE, contactInfo, event)}</span>
-							</div>
-							<div>
-								{message.room}:{event[TAG_FUNC_LOC_ROO]}
+								<div className={'font-normal text-base'}>
+									{getContactInfo(BD_BUILDING_NAME, contactInfo, event)}
+								</div>
+								<div className={'font-normal text-base'}>
+									<div>{getContactInfo(BD_ADDRESS, contactInfo, event)}</div>
+									<div>
+										<span className={'mr-1'}>
+											{getContactInfo(BD_CITY, contactInfo, event)}
+										</span>
+										<span>
+											{getContactInfo(BD_POSTAL_CODE, contactInfo, event)}
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div className={'text-sm my-2 text-center'}>
-							"Please be in the room before meeting time"
-						</div>
+						<div className={'text-sm my-2 text-center'}>"{message.inPersonTip}"</div>
 					</>
 				)}
 			</div>
@@ -742,7 +755,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 
 		return await axios
 			.post(
-				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${event.TAG_FUNC_O === RSVP_MAP.YES? '[OPAC_EMAIL_TMP]RSVPRegOnlineComfrimTmp.txt' : '[OPAC_EMAIL_TMP]RSVPRegConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${userData[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${REG_CONFIMRATION_EMAIL_T}:${event[TAG_NAME]}`,
+				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${event.TAG_FUNC_O === RSVP_MAP.YES ? '[OPAC_EMAIL_TMP]RSVPRegOnlineComfrimTmp.txt' : '[OPAC_EMAIL_TMP]RSVPRegConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${userData[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${REG_CONFIMRATION_EMAIL_T}:${event[TAG_NAME]}`,
 				{
 					BD_ADDRESS: event[TAG_FUNC_LOC],
 					...userData,

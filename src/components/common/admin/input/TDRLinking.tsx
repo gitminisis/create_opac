@@ -84,7 +84,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 						Browse from TDR
 					</Button>
 				</DialogTrigger>
-				<DialogContent className=" max-w-full w-fit h-fit">
+				<DialogContent className=" max-w-full w-fit h-fit rounded">
 					<DialogHeader>
 						<DialogTitle>Search from TDR Portal</DialogTitle>
 					</DialogHeader>

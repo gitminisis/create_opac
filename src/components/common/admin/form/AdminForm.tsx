@@ -40,7 +40,7 @@ const AdminForm = ({
 				)}
 			</div>
 			<Dialog open={previewMode} onOpenChange={setPreviewMode}>
-				<DialogContent className="w-screen max-w-screen-2xl h-[80vh]">
+				<DialogContent className="w-screen max-w-screen-2xl h-[80vh] roundedv">
 					<DialogHeader>
 						<DialogTitle>Preview</DialogTitle>
 						<DialogDescription></DialogDescription>

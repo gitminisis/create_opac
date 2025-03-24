@@ -25,12 +25,21 @@ const MobileMenu = () => {
 					<SheetHeader>
 						<SheetTitle>{siteName}</SheetTitle>
 					</SheetHeader>
+					{auth.login && (
+						<div className={'flex justify-center items-center py-5'}>
+							<div
+								className=" inline-block bg-primary p-2 ring-offset-background rounded-lg"
+								style={{ borderRadius: '5px' }}>
+								<LoginBtn />
+							</div>
+						</div>
+					)}
 					<nav className="">
-						<ul className="flex flex-col items-center  text-md">
+						<ul className="flex flex-col items-center text-md">
 							{navigations.map((nav) => (
 								<li
 									key={nav.displayTitle}
-									className="flex items-center text-left h-12 w-full px-2  hover:text-white hover:bg-primary/60 ">
+									className="flex items-center text-left h-12 w-full px-2 hover:text-white hover:bg-primary/60 ">
 									<Link
 										className="transition no-underline text-md text-primary"
 										href={nav.linkURL}>
@@ -38,16 +47,11 @@ const MobileMenu = () => {
 									</Link>
 								</li>
 							))}
-							{auth.login && (
-								<li className="flex items-center text-left h-12 w-full px-2  hover:text-white hover:bg-primary/60">
-									<LoginBtn className="text-primary text-md " />
-								</li>
-							)}
 						</ul>
-						<div className="px-2">
-							<LanguageSelect />
-						</div>
 					</nav>
+					<div className="px-2 absolute bottom-[23px] right-[14px]">
+						<LanguageSelect />
+					</div>
 				</SheetContent>
 			</Sheet>
 		</div>

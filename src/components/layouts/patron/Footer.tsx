@@ -7,7 +7,7 @@ const Footer = () => {
 	const { logo, siteName } = getJSONType(CONSTANTS.EN.config)
 
 	return (
-		<footer className="w-full bg-black mx-auto">
+		<footer className="w-full bg-black mx-auto absolute bottom-0">
 			<HeroHighlight containerClassName="h-28">
 				<div className="flex gap-4 items-center flex-col text-white text-center">
 					<p className="text-lg mx-auto">
