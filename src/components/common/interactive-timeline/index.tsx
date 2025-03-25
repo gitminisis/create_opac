@@ -153,7 +153,7 @@ const Timeline = ({ page }: { page: string }) => {
 
 	const getIconForType = (databaseType: string) => {
 		switch (databaseType) {
-			case 'Archive':
+			case 'Archives':
 				return {
 					borderColor: 'border-minisis-archives',
 					icon: archiveIcon,
@@ -254,7 +254,7 @@ const Timeline = ({ page }: { page: string }) => {
 											<a
 												href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${database}&language=144&REPORT=WEB_UNION_DETAIL&EXP=${key}%20${item.ID}`}
 												target="_blank">
-												<h3 className="text-lg font-bold text-black border-b pb-2">
+												<h3 className="text-lg font-bold text-black pb-2">
 													{item[title_key] ?? 'n/a'}
 												</h3>
 

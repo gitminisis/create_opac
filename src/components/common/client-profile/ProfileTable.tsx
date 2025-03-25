@@ -22,7 +22,7 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 import { DateRange } from 'react-day-picker'
-import {subMonths } from 'date-fns'
+import { subMonths } from 'date-fns'
 import { DatePickerWithRange } from './DatePickerWithRange'
 
 export type ProfileData = {
@@ -34,23 +34,30 @@ export function ProfileTable({
 	columns,
 	filterType,
 	filterTypeShow,
+	filterDateType,
 }: {
 	data: ProfileData[]
 	columns: ColumnDef<ProfileData>[]
 	filterType: string
 	filterTypeShow: string
+	filterDateType?: string
 }) {
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = React.useState({})
-	const [date, setDate] = React.useState<DateRange | undefined>({
+	const [records,setRecords] = React.useState<any>([])
+	const [date, setDate] = React.useState<DateRange>({
 		from: subMonths(new Date(), 1),
 		to: new Date(),
 	})
 
+	React.useEffect(() => {
+		setRecords((filterDateType && date) ? filterEventsByDateRange(data, date) : data);
+	  }, [date]);
+
 	const table = useReactTable({
-		data,
+		data:records,
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
@@ -68,7 +75,14 @@ export function ProfileTable({
 		},
 	})
 
-	console.log('date',date)
+	const filterEventsByDateRange = (events: any[], range: any) => {
+		const fromDate = new Date(range.from)
+		const toDate = new Date(range.to)
+			return events.filter((event) => {
+				const eventDate = new Date(event[`${filterDateType}`])
+				return eventDate >= fromDate && eventDate <= toDate
+			})
+	}
 
 	return (
 		<div className="w-full">
@@ -81,7 +95,13 @@ export function ProfileTable({
 					}
 					className="max-w-sm"
 				/>
-				<DatePickerWithRange date={date} setDate={setDate} className={'mt-1 md:mt-0 md:ml-3'} />
+				{filterDateType && (
+					<DatePickerWithRange
+						date={date}
+						setDate={setDate}
+						className={'mt-1 md:mt-0 md:ml-3'}
+					/>
+				)}
 			</div>
 			<div className="rounded-md border">
 				<Table className={'bg-white rounded shadow-md border '}>

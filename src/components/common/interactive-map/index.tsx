@@ -20,7 +20,7 @@ import './style.css'
 
 const DB_TYPE_MAP = {
 	library: 'Library',
-	archive: 'Archive',
+	archive: 'Archives',
 	museum: 'Museum',
 }
 
@@ -299,7 +299,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											<img src={archiveIcon} className="w-5 h-5" />
 										</div>
 										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-											{DB_TYPE_MAP.archive}
+											{message.archives}
 										</Label>
 										<div>
 											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.archive)}
@@ -318,7 +318,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											<img src={museumIcon} className="w-5 h-5" />
 										</div>
 										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-											{DB_TYPE_MAP.museum}
+											{message.museum}
 										</Label>
 										<div>
 											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.museum)}
@@ -341,7 +341,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											<img src={libraryIcon} className=" w-5 h-5" />
 										</div>
 										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-											{DB_TYPE_MAP.library}
+											{message.library}
 										</Label>
 										<div>
 											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.library)}
@@ -495,16 +495,15 @@ const InteractiveMap = ({ page }: { page: string }) => {
 												<a
 													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${library.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=ACCESSION_NUMBER%20${marker.ACCESSION_NUMBER}`}
 													target="_blank">
-													<h3 className="text-lg font-bold text-black  border-b pb-2">
+													<h3 className="text-lg font-bold text-black  pb-2">
 														{marker.ALL_TITLE_WORD_OCCURRENCE ?? 'n/a'}
 													</h3>
-
 													{marker?.IMAG_URL && (
 														<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
 															<img
 																src={getImage(marker.IMAG_URL)}
 																alt="Library"
-																className="w-full h-full object-contain  rounded-[14px]"
+																className="w-full h-full object-contain rounded-[14px]"
 															/>
 														</div>
 													)}
@@ -581,10 +580,9 @@ const InteractiveMap = ({ page }: { page: string }) => {
 												<a
 													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${archives.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=refd%20${marker.REFD}`}
 													target="_blank">
-													<h3 className="text-lg font-bold text-black  border-b pb-2">
+													<h3 className="text-lg font-bold text-black   pb-2">
 														{marker.TITLE ?? 'n/a'}
 													</h3>
-
 													{marker?.IMAG_URL && (
 														<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
 															<img
@@ -652,13 +650,13 @@ const InteractiveMap = ({ page }: { page: string }) => {
 										]}
 										icon={icons['museum']}>
 										<Popup
-											className="hidden md:block border-minisis-museum  border-2 rounded-[14px]"
+											className="hidden md:block border-minisis-museum border-2 rounded-[14px]"
 											offset={[2, 0]}>
 											<div className="w-[300px]">
 												<a
 													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${museum.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=ACCESSION_NUMBER%20${marker.ACCESSION_NUMBER}`}
 													target="_blank">
-													<h3 className="text-lg font-bold text-black border-b pb-2 overflow-x-auto">
+													<h3 className="text-lg font-bold text-black pb-2 overflow-x-auto">
 														{marker.TITLE ?? 'n/a'}
 													</h3>
 													{marker?.IMAG_URL && (

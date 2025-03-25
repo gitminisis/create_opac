@@ -20,10 +20,11 @@ import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
-import { convertToArr, convertXMLToJson, getHomeSessionID } from '@/lib/utils'
+import { convertToArr, convertXMLToJson, getHomeSessionID, isDatePast } from '@/lib/utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import axios from 'axios'
+  
 
 interface TagFunction {
 	[key: string]: any
@@ -40,6 +41,229 @@ interface PatronInfo {
 	tag_func_p_id: string
 	_hidden: string
 }
+
+const test = [
+	{
+		"sisn": "1",
+		"tag_name": "Japanese Tea Ceremony",
+		"tag_func_loc": "Toronto Public Library, Main Branch",
+		"tag_func_date": "2025-01-12",
+		"tag_func_start_t": "10:00 am",
+		"tag_func_end_t": "11:30 am",
+		"tag_func_p_email": "tea.master@example.com",
+		"tag_func_p_id": "20250001"
+	  },
+	  {
+		"sisn": "2",
+		"tag_name": "Chinese Cooking Class 2",
+		"tag_func_loc": "Vancouver Public Library, Central Library",
+		"tag_func_date": "2025-02-20",
+		"tag_func_start_t": "01:00 pm",
+		"tag_func_end_t": "02:00 pm",
+		"tag_func_p_email": "donryu1031@gmail.com",
+		"tag_func_p_id": "20250004"
+	  },
+	  {
+		"sisn": "3",
+		"tag_name": "French Pastry Workshop",
+		"tag_func_loc": "Montreal Library, Downtown Branch",
+		"tag_func_date": "2025-03-08",
+		"tag_func_start_t": "02:00 pm",
+		"tag_func_end_t": "04:00 pm",
+		"tag_func_p_email": "pastry.chef@example.com",
+		"tag_func_p_id": "20250007"
+	  },
+	  {
+		"sisn": "1",
+		"tag_name": "Japanese Tea Ceremony",
+		"tag_func_loc": "Toronto Public Library, Main Branch",
+		"tag_func_date": "2025-01-12",
+		"tag_func_start_t": "10:00 am",
+		"tag_func_end_t": "11:30 am",
+		"tag_func_p_email": "tea.master@example.com",
+		"tag_func_p_id": "20250001"
+	  },
+	  {
+		"sisn": "2",
+		"tag_name": "Chinese Cooking Class 2",
+		"tag_func_loc": "Vancouver Public Library, Central Library",
+		"tag_func_date": "2025-02-20",
+		"tag_func_start_t": "01:00 pm",
+		"tag_func_end_t": "02:00 pm",
+		"tag_func_p_email": "donryu1031@gmail.com",
+		"tag_func_p_id": "20250004"
+	  },
+	  {
+		"sisn": "3",
+		"tag_name": "French Pastry Workshop",
+		"tag_func_loc": "Montreal Library, Downtown Branch",
+		"tag_func_date": "2025-03-08",
+		"tag_func_start_t": "02:00 pm",
+		"tag_func_end_t": "04:00 pm",
+		"tag_func_p_email": "pastry.chef@example.com",
+		"tag_func_p_id": "20250007"
+	  },
+	  {
+		"sisn": "1",
+		"tag_name": "Japanese Tea Ceremony",
+		"tag_func_loc": "Toronto Public Library, Main Branch",
+		"tag_func_date": "2025-01-12",
+		"tag_func_start_t": "10:00 am",
+		"tag_func_end_t": "11:30 am",
+		"tag_func_p_email": "tea.master@example.com",
+		"tag_func_p_id": "20250001"
+	  },
+	  {
+		"sisn": "2",
+		"tag_name": "Chinese Cooking Class 2",
+		"tag_func_loc": "Vancouver Public Library, Central Library",
+		"tag_func_date": "2025-02-20",
+		"tag_func_start_t": "01:00 pm",
+		"tag_func_end_t": "02:00 pm",
+		"tag_func_p_email": "donryu1031@gmail.com",
+		"tag_func_p_id": "20250004"
+	  },
+	  {
+		"sisn": "3",
+		"tag_name": "French Pastry Workshop",
+		"tag_func_loc": "Montreal Library, Downtown Branch",
+		"tag_func_date": "2025-03-08",
+		"tag_func_start_t": "02:00 pm",
+		"tag_func_end_t": "04:00 pm",
+		"tag_func_p_email": "pastry.chef@example.com",
+		"tag_func_p_id": "20250007"
+	  },
+	  {
+		"sisn": "1",
+		"tag_name": "Japanese Tea Ceremony",
+		"tag_func_loc": "Toronto Public Library, Main Branch",
+		"tag_func_date": "2025-01-12",
+		"tag_func_start_t": "10:00 am",
+		"tag_func_end_t": "11:30 am",
+		"tag_func_p_email": "tea.master@example.com",
+		"tag_func_p_id": "20250001"
+	  },
+	  {
+		"sisn": "2",
+		"tag_name": "Chinese Cooking Class 2",
+		"tag_func_loc": "Vancouver Public Library, Central Library",
+		"tag_func_date": "2025-02-20",
+		"tag_func_start_t": "01:00 pm",
+		"tag_func_end_t": "02:00 pm",
+		"tag_func_p_email": "donryu1031@gmail.com",
+		"tag_func_p_id": "20250004"
+	  },
+	  {
+		"sisn": "3",
+		"tag_name": "French Pastry Workshop",
+		"tag_func_loc": "Montreal Library, Downtown Branch",
+		"tag_func_date": "2025-03-08",
+		"tag_func_start_t": "02:00 pm",
+		"tag_func_end_t": "04:00 pm",
+		"tag_func_p_email": "pastry.chef@example.com",
+		"tag_func_p_id": "20250007"
+	  },
+	{
+	  "sisn": "1",
+	  "tag_name": "Japanese Tea Ceremony",
+	  "tag_func_loc": "Toronto Public Library, Main Branch",
+	  "tag_func_date": "2025-01-12",
+	  "tag_func_start_t": "10:00 am",
+	  "tag_func_end_t": "11:30 am",
+	  "tag_func_p_email": "tea.master@example.com",
+	  "tag_func_p_id": "20250001"
+	},
+	{
+	  "sisn": "2",
+	  "tag_name": "Chinese Cooking Class 2",
+	  "tag_func_loc": "Vancouver Public Library, Central Library",
+	  "tag_func_date": "2025-02-20",
+	  "tag_func_start_t": "01:00 pm",
+	  "tag_func_end_t": "02:00 pm",
+	  "tag_func_p_email": "donryu1031@gmail.com",
+	  "tag_func_p_id": "20250004"
+	},
+	{
+	  "sisn": "3",
+	  "tag_name": "French Pastry Workshop",
+	  "tag_func_loc": "Montreal Library, Downtown Branch",
+	  "tag_func_date": "2025-03-08",
+	  "tag_func_start_t": "02:00 pm",
+	  "tag_func_end_t": "04:00 pm",
+	  "tag_func_p_email": "pastry.chef@example.com",
+	  "tag_func_p_id": "20250007"
+	},
+	{
+	  "sisn": "4",
+	  "tag_name": "Yoga for Beginners",
+	  "tag_func_loc": "Calgary Public Library, Main Hall",
+	  "tag_func_date": "2025-04-15",
+	  "tag_func_start_t": "09:00 am",
+	  "tag_func_end_t": "10:30 am",
+	  "tag_func_p_email": "yoga.instructor@example.com",
+	  "tag_func_p_id": "20250010"
+	},
+	{
+	  "sisn": "5",
+	  "tag_name": "Creative Writing Workshop",
+	  "tag_func_loc": "Ottawa Public Library, Writers’ Room",
+	  "tag_func_date": "2025-05-27",
+	  "tag_func_start_t": "03:00 pm",
+	  "tag_func_end_t": "05:00 pm",
+	  "tag_func_p_email": "author@example.com",
+	  "tag_func_p_id": "20250013"
+	},
+	{
+	  "sisn": "6",
+	  "tag_name": "Photography Basics",
+	  "tag_func_loc": "Edmonton Public Library, Studio A",
+	  "tag_func_date": "2025-06-10",
+	  "tag_func_start_t": "01:30 pm",
+	  "tag_func_end_t": "03:00 pm",
+	  "tag_func_p_email": "photo.expert@example.com",
+	  "tag_func_p_id": "20250016"
+	},
+	{
+	  "sisn": "7",
+	  "tag_name": "Public Speaking Seminar",
+	  "tag_func_loc": "Winnipeg Public Library, Conference Room 2",
+	  "tag_func_date": "2025-07-05",
+	  "tag_func_start_t": "11:00 am",
+	  "tag_func_end_t": "12:30 pm",
+	  "tag_func_p_email": "speech.trainer@example.com",
+	  "tag_func_p_id": "20250019"
+	},
+	{
+	  "sisn": "8",
+	  "tag_name": "Coding for Kids",
+	  "tag_func_loc": "Halifax Public Library, Tech Lab",
+	  "tag_func_date": "2025-08-22",
+	  "tag_func_start_t": "10:00 am",
+	  "tag_func_end_t": "12:00 pm",
+	  "tag_func_p_email": "coder.kids@example.com",
+	  "tag_func_p_id": "20250022"
+	},
+	{
+	  "sisn": "9",
+	  "tag_name": "Digital Marketing Strategies",
+	  "tag_func_loc": "Quebec City Public Library, Seminar Room",
+	  "tag_func_date": "2025-09-30",
+	  "tag_func_start_t": "02:30 pm",
+	  "tag_func_end_t": "04:00 pm",
+	  "tag_func_p_email": "marketing.guru@example.com",
+	  "tag_func_p_id": "20250025"
+	},
+	{
+	  "sisn": "10",
+	  "tag_name": "Advanced Chess Strategies",
+	  "tag_func_loc": "Regina Public Library, Chess Hall",
+	  "tag_func_date": "2025-10-18",
+	  "tag_func_start_t": "04:00 pm",
+	  "tag_func_end_t": "06:00 pm",
+	  "tag_func_p_email": "chess.master@example.com",
+	  "tag_func_p_id": "20250028"
+	}
+  ]
 
 const Calendar = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
@@ -75,7 +299,7 @@ const Calendar = () => {
 			accessorKey: TAG_FUNC_START_T.toLocaleLowerCase(),
 			header: message.start,
 			cell: ({ row }) => (
-				<div className="capitalize">
+				<div>
 					{row.getValue(TAG_FUNC_START_T.toLocaleLowerCase())}
 				</div>
 			),
@@ -84,7 +308,7 @@ const Calendar = () => {
 			accessorKey: TAG_FUNC_END_T.toLocaleLowerCase(),
 			header: message.end,
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue(TAG_FUNC_END_T.toLocaleLowerCase())}</div>
+				<div>{row.getValue(TAG_FUNC_END_T.toLocaleLowerCase())}</div>
 			),
 		},
 		{
@@ -101,7 +325,7 @@ const Calendar = () => {
 				<div className="capitalize">
 					{row.getValue(TAG_FUNC_P_ATTND.toLocaleLowerCase())}
 				</div>
-			),
+			)
 		},
 		{
 			accessorKey: ' ',
@@ -118,12 +342,13 @@ const Calendar = () => {
 								{message.yes} {message.cancel}
 							</button>
 						}
-						InitialButton={<Button variant={'danger'}>{message.cancel}</Button>}
+						InitialButton={<Button variant={'danger'} disabled={isDatePast(cell.row.original.tag_func_date)}>{message.cancel}</Button>}
 					/>
 				)
 			},
-		},
+		}
 	]
+
 
 	const cancelEvent = async (patronInfo: any, sisnValue: number) => {
 		getOCCNumber(patronInfo, sisnValue)
@@ -235,6 +460,7 @@ const Calendar = () => {
 				columns={columns}
 				filterType={TAG_NAME.toLocaleLowerCase()}
 				filterTypeShow={message.event}
+				filterDateType={'tag_func_date'}
 			/>
 		</PatronLayout>
 	)

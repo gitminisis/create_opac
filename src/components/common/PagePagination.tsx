@@ -107,8 +107,7 @@ const PagePagination = ({ items, maxItem = 10 }: PagePaginationProps) => {
 								href={item.url}
 								className={cn(
 									window.innerWidth < 640 ? 'h-8 w-8 p-0' : '',
-									item.active ? 'font-bold' : '',
-									'hover:text-foreground'
+									item.active ? 'font-bold' : ''
 								)}>
 								<span>{items.indexOf(item as PageLink) + 1}</span>
 							</PaginationLink>

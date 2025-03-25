@@ -41,7 +41,7 @@ body {
 }
 
 .border-minisis-archives {
-	@apply border-sky-500;
+	@apply border-sky-700;
 }
 
 .text-minisis-archives {
@@ -53,7 +53,7 @@ body {
 }
 
 .border-minisis-museum {
-	@apply border-yellow-500;
+	@apply border-yellow-700;
 }
 
 .text-minisis-museum {
@@ -65,7 +65,7 @@ body {
 }
 
 .border-minisis-library {
-	@apply border-orange-500;
+	@apply border-orange-700;
 }
 
 .text-minisis-library {

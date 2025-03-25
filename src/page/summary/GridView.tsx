@@ -6,6 +6,7 @@ import { ReactNode } from 'react'
 import { RecordAction } from './RecordAction'
 import Link from '@/components/common/Link'
 import { ViewProps } from './SummaryRecord'
+import { cn, getClassName } from '@/lib/utils'
 
 const GridView = ({
 	title,
@@ -33,7 +34,7 @@ const GridView = ({
 
 	return (
 		<InfoCard
-			className="border-primary"
+			className={cn(getClassName(database, 'border'), 'border-2')}
 			title={
 				<Link href={recordLink}>
 					<HighlightText text={truncateString(title)} highlights={searchTerms} />

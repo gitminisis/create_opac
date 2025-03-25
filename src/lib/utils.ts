@@ -6,16 +6,15 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getImage = (image: string) => {
-	if(Array.isArray(image)){
+	if (Array.isArray(image)) {
 		return image[0]?.toLowerCase().includes('[media]')
-		? image[0].replace(/\[media\]/i, '/media/')
-		: image[0]
-	}else{
+			? image[0].replace(/\[media\]/i, '/media/')
+			: image[0]
+	} else {
 		return image?.toLowerCase().includes('[media]')
-		? image.replace(/\[media\]/i, '/media/')
-		: image
+			? image.replace(/\[media\]/i, '/media/')
+			: image
 	}
-
 }
 
 /**
@@ -61,7 +60,7 @@ export const truncateWords = (
  * @returns {string} The processed string with leading and trailing spaces removed and converted to lowercase.
  */
 export const convertLowerTrim = (type: string): string => {
-	return type?.replace(/\s/g, "")?.toLowerCase();
+	return type?.replace(/\s/g, '')?.toLowerCase()
 }
 
 /**
@@ -208,4 +207,18 @@ export const encodeURIStringToMinisisSpecialCharacter = (originalString: string)
 
 export const isDescriptionDatabase = (database: string) => {
 	return database.toLocaleUpperCase() === 'DESCRIPTION_WEB'
+}
+
+export function getClassName(databaseName: string, type: 'text' | 'border' | 'bg'): string {
+	const normalizedDbName = databaseName.toLowerCase()
+
+	if (normalizedDbName === 'description_web') {
+		return `${type}-minisis-archives`
+	} else if (normalizedDbName === 'collections_web') {
+		return `${type}-minisis-museum`
+	} else if (normalizedDbName === 'biblio_web') {
+		return `${type}-minisis-library`
+	}
+
+	return '' // Return an empty string or handle other cases as needed
 }

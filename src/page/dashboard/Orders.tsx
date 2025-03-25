@@ -222,6 +222,7 @@ const Orders = () => {
 				columns={columns}
 				filterType={'req_title'}
 				filterTypeShow=""
+				filterDateType={'date_needed'}
 			/>
 		</PatronLayout>
 	)

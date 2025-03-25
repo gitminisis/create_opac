@@ -10,7 +10,6 @@ const EnquiryConfirmed = () => {
 	const { config } = useConstants()
 	const { navigations } = config
 	let enqData = records[0].enquiry
-	console.log(enqData)
 
 	return (
 		<Layout>

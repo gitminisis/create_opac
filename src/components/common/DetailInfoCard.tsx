@@ -21,7 +21,7 @@ const DetailInfoCard = ({
 	children,
 }: DetailInfoCardrops) => {
 	return (
-		<div className={cn('border rounded-lg rounded-l-none', className)}>
+		<div className={cn('border-2 rounded-md col-span-4 border-primary', className)}>
 			<article className="shadow-md flex rounded-lg rounded-l-none flex-col md:flex-row transition hover:shadow-xl">
 				<div className="basis-56">
 					<img

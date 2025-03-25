@@ -14,7 +14,7 @@ export function DatePickerWithRange({
 }: {
 	className: string
 	date: DateRange | undefined
-	setDate: SelectRangeEventHandler
+	setDate: any
 }) {
 	return (
 		<div className={cn('grid gap-2', className)}>
@@ -24,7 +24,7 @@ export function DatePickerWithRange({
 						id="date"
 						variant={'outline'}
 						className={cn(
-							'w-[300px] justify-start text-left font-normal',
+							'w-[220px] justify-evenly text-left font-normal',
 							!date && 'text-muted-foreground'
 						)}>
 						<CalendarIcon />
@@ -43,6 +43,7 @@ export function DatePickerWithRange({
 				</PopoverTrigger>
 				<PopoverContent className="w-auto p-0" align="start">
 					<Calendar
+						className="relative w-full"
 						mode="range"
 						defaultMonth={date?.from}
 						selected={date}

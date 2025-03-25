@@ -1,5 +1,11 @@
 import { Button } from '@/components/ui/button'
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from '@/components/ui/carousel'
 import { cn } from '@/lib/utils'
 import Autoplay from 'embla-carousel-autoplay'
 import * as React from 'react'
@@ -72,10 +78,10 @@ const Slide = <T,>({
 						</CarouselItem>
 					))}
 				</CarouselContent>
-				{/* <CarouselPrevious /> */}
-				{/* <CarouselNext /> */}
+				<CarouselPrevious className="bottom-[-40px] left-[calc(50%-20px)]" />
+				<CarouselNext className="bottom-[-40px] left-[calc(50%+20px)]" />
 			</Carousel>
-
+			{/* 
 			<div className="flex justify-center mt-4 space-x-2">
 				{items.map((_, index) => (
 					<Button
@@ -89,7 +95,7 @@ const Slide = <T,>({
 						onClick={() => handleIndexClick(index)}
 					/>
 				))}
-			</div>
+			</div> */}
 		</div>
 	)
 }

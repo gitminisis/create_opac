@@ -97,9 +97,9 @@ const Detail = () => {
 				</PageAction>
 				<section>
 					<div className="container mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-						<div className="flex flex-col  space-y-12 items-start p-4 mx-auto ">
-							<div className="w-full flex flex-col lg:flex-row">
-								<div className="w-full lg:w-2/3">
+						<div className="flex flex-col items-start p-4 mx-auto ">
+							<div className="w-full flex gap-12  flex-col lg:flex-row">
+								<div className="w-full lg:w-1/3">
 									<div className="min-w-[300px] w-full max-w-[500px] text-center ">
 										{images && images.length > 0 ? (
 											<ImageCarousel
@@ -139,37 +139,37 @@ const Detail = () => {
 											</>
 										)}
 									</div>
-								</div>
-
-								<div className="w-full lg:w-1/3">
 									<NavigationSideBar />
 								</div>
-							</div>
-							<div className="w-full flex flex-col lg:flex-row lg:space-x-6 lg:space-y-0  space-y-6  items-start ">
-								<div className="w-full lg:w-2/3 ">
-									<DetailRecord />
-								</div>
 
-								{isDescriptionDatabase(database) && (
-									<div className="w-full lg:w-1/3">
-										<Accordion
-											items={[
-												{
-													title: message.descriptionTree,
-													content: (
-														<div className="max-h-[600px] overflow-auto">
-															<DescriptionTree
-																loading={loading}
-																tree={tree}
-																selectedId={openKeyPath[0]}
-															/>
-														</div>
-													),
-												},
-											]}
-										/>
+								<div className="w-full lg:w-2/3">
+									<div className="w-full flex flex-col gap-6 items-start ">
+										<div className="w-full ">
+											<DetailRecord />
+										</div>
+
+										{isDescriptionDatabase(database) && (
+											<div className="w-full ">
+												<Accordion
+													items={[
+														{
+															title: message.descriptionTree,
+															content: (
+																<div className="max-h-[600px] overflow-auto">
+																	<DescriptionTree
+																		loading={loading}
+																		tree={tree}
+																		selectedId={openKeyPath[0]}
+																	/>
+																</div>
+															),
+														},
+													]}
+												/>
+											</div>
+										)}
 									</div>
-								)}
+								</div>
 							</div>
 						</div>
 					</div>

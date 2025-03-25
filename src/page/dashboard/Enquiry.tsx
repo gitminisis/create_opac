@@ -144,6 +144,7 @@ const Enquiries = () => {
 				columns={columns}
 				filterType={'enquiry'}
 				filterTypeShow=""
+				filterDateType={'enq_create_date'}
 			/>
 		</PatronLayout>
 	)

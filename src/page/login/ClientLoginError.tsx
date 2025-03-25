@@ -56,7 +56,7 @@ const ClientLoginError = () => {
 							action={
 								password && accountNumber
 									? getHomeSessionID() +
-										'/scripts/mwimain.dll?patronlogin&application=UNION_VIEW&language=144&file=[OPAC]home.html'
+										'/scripts/mwimain.dll?patronlogin&application=UNION_VIEW&language=144&file=[OPAC]loginSuccessful.html'
 									: '/scripts/mwimain.dll?get&file=[OPAC]login.html'
 							}
 							className="mt-2 grid grid-cols-6 gap-6">

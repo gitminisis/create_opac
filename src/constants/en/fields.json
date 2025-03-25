@@ -84,8 +84,20 @@
 	{
 		"database": "DESCRIPTION_WEB",
 		"items": [
-			{ "label": "Title", "name": "title", "summary": true, "grid": true, "detail": true },
-			{ "label": "Ref. Code", "name": "REFD", "summary": true, "grid": true, "detail": true },
+			{
+				"label": "Title",
+				"name": "title",
+				"summary": true,
+				"grid": true,
+				"detail": true
+			},
+			{
+				"label": "Ref. Code",
+				"name": "REFD",
+				"summary": true,
+				"grid": true,
+				"detail": true
+			},
 			{
 				"label": "Creation",
 				"name": "date_cr_inc",
@@ -93,7 +105,7 @@
 				"grid": false,
 				"detail": true
 			},
-            {
+			{
 				"label": "GMD",
 				"name": "form_occurrence",
 				"summary": true,
@@ -189,7 +201,7 @@
 				"grid": true,
 				"detail": true
 			},
-            {
+			{
 				"label": "ISBN",
 				"name": "ISBN",
 				"summary": true,
@@ -208,7 +220,7 @@
 				"name": "pauthor_occurrence",
 				"summary": true,
 				"grid": false,
-				"detail": false
+				"detail": true
 			},
 			{
 				"label": "Author",
@@ -217,14 +229,14 @@
 				"grid": true,
 				"detail": true
 			},
-            {
+			{
 				"label": "Publication Date",
 				"name": "lib_pub_whole",
 				"summary": true,
 				"grid": false,
 				"detail": true
 			},
-            {
+			{
 				"label": "Publication Place",
 				"name": "marc_260_b",
 				"summary": true,
@@ -238,7 +250,7 @@
 				"grid": false,
 				"detail": true
 			},
-            {
+			{
 				"label": "Material Type",
 				"name": "i_collect_code",
 				"summary": true,
@@ -259,7 +271,7 @@
 				"grid": false,
 				"detail": true
 			},
-            {
+			{
 				"label": "SERIES",
 				"name": "series_occurrence",
 				"summary": false,

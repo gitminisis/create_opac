@@ -28,7 +28,7 @@ const PatronLayout = ({ children, activeSection, heading }: PatronLayoutProps) =
 	return (
 		<div className="flex min-h-screen w-full flex-col bg-muted/40 relative">
 			{/* <Sidebar /> */}
-			<div className="min-h-screen flex flex-col relative">
+			<div className="flex-1 flex flex-col relative">
 				<Header />
 				<main className="container grid items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 pb-4">
 					<div className="container flex flex-col gap-8 p-6">
@@ -59,8 +59,8 @@ const PatronLayout = ({ children, activeSection, heading }: PatronLayoutProps) =
 					{children}
 				</main>
 				<ScrollToTopButton />
-				<Footer />
 			</div>
+			<Footer />
 		</div>
 	)
 }

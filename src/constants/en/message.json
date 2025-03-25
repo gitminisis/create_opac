@@ -191,5 +191,8 @@
 	"searchAllCollections": "Search all collections",
 	"returnToSearchResults": "Return to Search Results",
 	"shareThisPage": "Share this page",
-	"inPerson":"In Person"
+	"inPerson":"In Person",
+	"archives":"Archives",
+	"museum":"Museum",
+	"library":"Library"
 }
