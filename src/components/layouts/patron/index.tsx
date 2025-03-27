@@ -31,7 +31,7 @@ const PatronLayout = ({ children, activeSection, heading }: PatronLayoutProps) =
 			<div className="flex-1 flex flex-col relative">
 				<Header />
 				<main className="container grid items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 pb-4">
-					<div className="container flex flex-col gap-8 p-6">
+					<div className="flex flex-col gap-8 pt-4">
 						<div className="flex flex-wrap gap-2 sm:gap-4">
 							{profileList.map((button) => (
 								<a

@@ -34,17 +34,17 @@
         "filterTypes": [
             {
                 "type": "Archives",
-                "color": "bg-sky-900 border-sky-900",
+                "color": "bg-minisis-archives border-minisis-archives",
                 "icon": "rounded"
             },
             {
                 "type": "Library",
-                "color": "bg-red-500 border-red-500",
+                "color": "bg-minisis-museum border-minisis-museum",
                 "icon": "rounded"
             },
             {
                 "type": "Museum",
-                "color": "bg-yellow-500 border-yellow-500",
+                "color": "bg-minisis-library border-minisis-library",
                 "icon": "rounded"
             }
         ]

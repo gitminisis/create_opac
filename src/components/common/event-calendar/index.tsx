@@ -157,7 +157,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 	}
 
 	return (
-		<div className={'w-full  custom-scrollbar'}>
+		<div className={'w-full custom-scrollbar'}>
 			<div
 				className={
 					'relative flex justify-center items-center bg-primary h-[80px] rounded '
@@ -228,7 +228,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 					/>
 				</>
 			)}
-			<div className={'w-full flex justify-start'}>
+			<div className={'w-full flex justify-start px-4 py-1'}>
 				<div className={'flex items-center mr-4'}>
 					<div>
 						<SquareUserRound size={20} />

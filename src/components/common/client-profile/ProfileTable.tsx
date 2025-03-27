@@ -21,12 +21,18 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
-import { DateRange } from 'react-day-picker'
-import { subMonths } from 'date-fns'
+import { endOfMonth, subMonths } from 'date-fns'
 import { DatePickerWithRange } from './DatePickerWithRange'
+import useConstants from '@/hooks/useConstants'
+import { RefreshCw } from 'lucide-react'
 
 export type ProfileData = {
 	[key: string]: any
+}
+
+type DateRange = {
+	from: Date | string
+	to: Date | string
 }
 
 export function ProfileTable({
@@ -42,22 +48,28 @@ export function ProfileTable({
 	filterTypeShow: string
 	filterDateType?: string
 }) {
+	const message = useConstants().message
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = React.useState({})
-	const [records,setRecords] = React.useState<any>([])
+	const [records, setRecords] = React.useState<any>([])
 	const [date, setDate] = React.useState<DateRange>({
 		from: subMonths(new Date(), 1),
-		to: new Date(),
+		to: endOfMonth(new Date()),
 	})
 
 	React.useEffect(() => {
-		setRecords((filterDateType && date) ? filterEventsByDateRange(data, date) : data);
-	  }, [date]);
+		setRecords(filterDateType && date?.from ? filterEventsByDateRange(data, date) : data)
+	}, [date])
+
+	const resetFilter = () => {
+		filterDateType && setDate({ from: '', to: '' })
+		table.getColumn(filterType)?.setFilterValue('')
+	}
 
 	const table = useReactTable({
-		data:records,
+		data: records,
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
@@ -78,10 +90,10 @@ export function ProfileTable({
 	const filterEventsByDateRange = (events: any[], range: any) => {
 		const fromDate = new Date(range.from)
 		const toDate = new Date(range.to)
-			return events.filter((event) => {
-				const eventDate = new Date(event[`${filterDateType}`])
-				return eventDate >= fromDate && eventDate <= toDate
-			})
+		return events.filter((event) => {
+			const eventDate = new Date(event[`${filterDateType}`])
+			return eventDate >= fromDate && eventDate <= toDate
+		})
 	}
 
 	return (
@@ -96,11 +108,20 @@ export function ProfileTable({
 					className="max-w-sm"
 				/>
 				{filterDateType && (
-					<DatePickerWithRange
-						date={date}
-						setDate={setDate}
-						className={'mt-1 md:mt-0 md:ml-3'}
-					/>
+					<div className="flex items-center">
+						<DatePickerWithRange
+							date={date}
+							setDate={setDate}
+							className={'mt-1 mr-1 md:mt-0 md:ml-3'}
+						/>
+						<Button
+							variant={'outline'}
+							size="sm"
+							className={'mt-1 md:mt-0 h-10 w-10 rounded-[7px] p-0'}
+							onClick={resetFilter}>
+							<RefreshCw height={20} width={20}/>
+						</Button>
+					</div>
 				)}
 			</div>
 			<div className="rounded-md border">
@@ -144,7 +165,7 @@ export function ProfileTable({
 						) : (
 							<TableRow>
 								<TableCell colSpan={columns.length} className="h-24 text-center">
-									No results.
+									{message.noResultFound}
 								</TableCell>
 							</TableRow>
 						)}
@@ -153,7 +174,7 @@ export function ProfileTable({
 			</div>
 			<div className="flex items-center justify-end space-x-2 py-4">
 				<div className="flex-1 text-sm text-muted-foreground">
-					Total {table.getFilteredRowModel().rows.length} row(s)
+					{message.total} {table.getFilteredRowModel().rows.length} row(s)
 				</div>
 				<div className="space-x-2">
 					<Button
@@ -161,14 +182,14 @@ export function ProfileTable({
 						size="sm"
 						onClick={() => table.previousPage()}
 						disabled={!table.getCanPreviousPage()}>
-						Previous
+						{message.previous}
 					</Button>
 					<Button
 						variant="outline"
 						size="sm"
 						onClick={() => table.nextPage()}
 						disabled={!table.getCanNextPage()}>
-						Next
+						{message.next}
 					</Button>
 				</div>
 			</div>

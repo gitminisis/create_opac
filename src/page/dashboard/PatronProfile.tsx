@@ -89,17 +89,17 @@ export default function PatronProfile() {
 	]
 	function StatCard({ icon, label, value, color }: StatCardProps) {
 		const colorClasses = {
-			blue: 'bg-blue-100 text-blue-500',
-			green: 'bg-green-100 text-green-500',
-			red: 'bg-red-100 text-red-500',
+			blue:   'bg-blue-100 text-blue-500',
+			green:  'bg-green-100 text-green-500',
+			red:    'bg-red-100 text-red-500',
 			purple: 'bg-purple-100 text-purple-500',
-			amber: 'bg-amber-100 text-amber-500',
+			amber:  'bg-amber-100 text-amber-500',
 			orange: 'bg-orange-100 text-orange-500',
-			pink: 'bg-pink-100 text-pink-500',
+			pink:   'bg-pink-100 text-pink-500',
 		} as const
 
 		return (
-			<div className="rounded-lg bg-white p-6 shadow">
+			<div className="rounded-md bg-white p-6 shadow">
 				<div className="flex flex-col gap-2">
 					<div className="flex items-center justify-center gap-2">
 						<div
@@ -117,7 +117,7 @@ export default function PatronProfile() {
 	}
 	return (
 		<PatronLayout heading="">
-			<div className="mb-4 rounded-lg bg-white p-6 shadow">
+			<div className="mb-4 rounded-md bg-white p-6 shadow">
 				<h1 className="text-3xl font-semibold text-gray-800">
 					{message.welcome} {records[0]?.full_name || 'User'}!
 				</h1>
@@ -148,7 +148,7 @@ export default function PatronProfile() {
 					{[home, archives, museum, library].map((item, index) => (
 						<div
 							key={index}
-							className="overflow-hidden rounded-lg bg-white shadow hover:brightness-95">
+							className="overflow-hidden rounded-md bg-white shadow hover:brightness-95">
 							<Link href={item.linkURL} className="group no-underline">
 								<div className="aspect-square relative overflow-hidden">
 									<img

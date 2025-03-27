@@ -194,8 +194,8 @@ const Timeline = ({ page }: { page: string }) => {
 
 	return (
 		<div className="w-full relative md:flex my-2">
-			<div className="absolute top-3 right-0 z-40 w-[5px] h-[100px] bg-gray-600" />
-			<div className="absolute top-3 left-0 z-40 w-[5px] h-[100px] bg-gray-600" />
+			<div className="absolute top-3 right-0 z-20 w-[5px] h-[100px] bg-gray-600" />
+			<div className="absolute top-3 left-0 z-20 w-[5px] h-[100px] bg-gray-600" />
 			<div className="absolute top-[45%] z-0 w-full h-[7px] bg-gray-400" />
 			<div
 				className="w-full relative flex items-center h-40 justify-around overflow-x-auto px-2 cursor-grab active:cursor-grabbing"
@@ -245,7 +245,7 @@ const Timeline = ({ page }: { page: string }) => {
 										onMouseLeave={() => setOpenPopoverId(null)}
 										side="top"
 										align="center"
-										className={`p-4 bg-white shadow-lg rounded-[14px] z-10 focus:outline-none border-2  ${borderColor}`}
+										className={`p-4 bg-white shadow-lg rounded-[14px] z-30 focus:outline-none border-2 ${borderColor}`}
 										sideOffset={20}>
 										<Popover.Arrow
 											className={`fill-white w-[18px] h-[15px] transform -translate-x-1 `}
