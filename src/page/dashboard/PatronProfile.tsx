@@ -14,7 +14,9 @@ import {
 	Library,
 	Lightbulb,
 	MessageCircleMore,
+	Search,
 	ShoppingBag,
+	Upload
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -43,6 +45,7 @@ export default function PatronProfile() {
 			label: profileList[0].label,
 			color: 'blue',
 			value: records[0].orders_count,
+			link: profileList[0].url
 		},
 		{
 			key: 2,
@@ -50,6 +53,7 @@ export default function PatronProfile() {
 			label: profileList[1].label,
 			color: 'green',
 			value: records[0].copyright_count,
+			link: profileList[1].url
 		},
 		{
 			key: 3,
@@ -57,6 +61,7 @@ export default function PatronProfile() {
 			label: profileList[2].label,
 			color: 'red',
 			value: records[0].reproductions_count,
+			link: profileList[2].url
 		},
 		{
 			key: 4,
@@ -64,6 +69,8 @@ export default function PatronProfile() {
 			label: profileList[3].label,
 			color: 'purple',
 			value: records[0].bookmark_count,
+			link: profileList[3].url
+
 		},
 		{
 			key: 5,
@@ -71,6 +78,8 @@ export default function PatronProfile() {
 			label: profileList[4].label,
 			color: 'amber',
 			value: records[0].enquiries_count,
+			link: profileList[4].url
+
 		},
 		{
 			key: 6,
@@ -78,6 +87,8 @@ export default function PatronProfile() {
 			label: profileList[5].label,
 			color: 'orange',
 			value: records[0].crowdsource_count,
+			link: profileList[5].url
+
 		},
 		{
 			key: 7,
@@ -85,6 +96,7 @@ export default function PatronProfile() {
 			label: message.calendar,
 			color: 'pink',
 			value: records[0].calendar_count,
+			link: `/scripts/mwimain.dll/144/WEB_CALENDAR/WEB_CALENDAR_PROFILE?commandsearch&exp=%2B%2B%40&EXP=TAG_FUNC_P_ID%20${m2l_patron_id}&M_GVAR1=USER_ID:${m2l_patron_id}`
 		},
 	]
 	function StatCard({ icon, label, value, color }: StatCardProps) {
@@ -96,6 +108,7 @@ export default function PatronProfile() {
 			amber:  'bg-amber-100 text-amber-500',
 			orange: 'bg-orange-100 text-orange-500',
 			pink:   'bg-pink-100 text-pink-500',
+			violet: 'bg-violet-100 text-violet-500'
 		} as const
 
 		return (
@@ -127,13 +140,15 @@ export default function PatronProfile() {
 			{/* Stats Grid */}
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				{statCards.map((card, index) => (
-					<StatCard
-						key={card.key}
-						icon={card.icon}
-						label={card.label}
-						color={card.color}
-						value={card.value}
-					/>
+					
+						<StatCard
+							key={card.key}
+							icon={card.icon}
+							label={card.label}
+							color={card.color}
+							value={card.value}
+						/>
+					
 				))}
 			</div>
 
