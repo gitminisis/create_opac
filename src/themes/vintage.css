@@ -1,0 +1,31 @@
+.theme-vintage.light {
+	--background: 0 0% 100%;
+	--foreground: 33.33 27.27% 6.47%;
+
+	--primary: 34.88 48.31% 65.1%;
+	--primary-foreground: 0 0% 100%;
+
+	--card: 0 0% 100%;
+	--card-foreground: 33.33 27.27% 6.47%;
+
+	--popover: 0 0% 100%;
+	--popover-foreground: 33.33 27.27% 6.47%;
+
+	--secondary: 36.92 48.15% 94.71%;
+	--secondary-foreground: 40 23.08% 2.55%;
+
+	--muted: 37.5 44.44% 96.47%;
+	--muted-foreground: 0 0% 40%;
+
+	--accent: 37.5 44.44% 96.47%;
+	--accent-foreground: 34.88 48.31% 65.1%;
+
+	--destructive: 0 84.2% 60.2%;
+	--destructive-foreground: 210 40% 98%;
+
+	--border: 0 0% 90.2%;
+	--input: 0 0% 90.2%;
+	--ring: 34.88 48.31% 65.1%;
+
+	--radius: 0.5rem;
+}

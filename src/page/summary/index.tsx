@@ -1,0 +1,101 @@
+import PageAction from '@/components/common/PageAction'
+import PageHeader from '@/components/common/PageHeader'
+import PagePagination from '@/components/common/PagePagination'
+import SearchForm from '@/components/common/search-form/SearchForm'
+import ViewToggle from '@/components/common/ViewToggle'
+import Layout from '@/components/layouts'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import useConstants from '@/hooks/useConstants'
+import useJSONData from '@/hooks/useJSONData'
+import { ChevronRight } from 'lucide-react'
+import { useState } from 'react'
+import SummaryPageAction from './SummaryPageAction'
+import SummaryRecords from './SummaryRecord'
+import { getSearchURL } from '@/lib/utils'
+
+const Summary = () => {
+	const [mobileFilter, setMobileFilter] = useState(false)
+	const { message, home, archives, museum, library } = useConstants()
+	const { common, pagination, backToSummary, data } = useJSONData({
+		selector: '#xml_record',
+	})
+
+	const navigations = [home, archives, museum, library]
+
+	if (!common) return <></>
+
+	return (
+		<Layout>
+			<div className="rounded-sm border border-primary bg-background shadow-md md:shadow-xl h-full flex-col flex w-full my-12">
+				<PageAction
+					breadcrumbs={[
+						{ label: message.home, url: '/' },
+						{
+							label: message.summaryPage,
+							url: backToSummary,
+							active: true,
+						},
+					]}>
+					<div className="flex w-full flex-row space-x-2 justify-end">
+						<SearchForm
+							className="w-[450px] m-0"
+							inputStyle="text-black"
+							inputName={'KEYWORD_CLUSTER'}
+							action={getSearchURL(home.searchURL)}
+						/>
+						<ViewToggle />
+					</div>
+				</PageAction>
+				<section>
+					<div className="mx-auto py-4 sm:py-12  container flex flex-col">
+						<PageHeader
+							heading={`${common.total_record} ${message.resultsFor.toLowerCase()} "${common.search_statement}"`}
+							subHeading={`${message.displaying} ${common.first_record_seq}-${common.last_record_seq} ${message.of} ${common.total_record}`}
+						/>
+						<div className="mt-8 block lg:hidden">
+							<Button
+								className="flex cursor-pointer items-center gap-2 border-b "
+								onClick={() => setMobileFilter(true)}>
+								<span className="font-medium"> {message.filtersAndSorting} </span>
+								<ChevronRight className="h-4 w-4" />
+							</Button>
+							<Sheet open={mobileFilter} onOpenChange={setMobileFilter}>
+								<SheetContent className={'overflow-auto'}>
+									<SheetHeader>
+										<SheetTitle>{message.filtersAndSorting}</SheetTitle>
+									</SheetHeader>
+									<div className="mt-6">
+										<SummaryPageAction />
+									</div>
+								</SheetContent>
+							</Sheet>
+						</div>
+						<div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8 ">
+							<div className="hidden space-y-4 lg:block col-span-1">
+								<SummaryPageAction />
+							</div>
+							<div className="col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+								<SummaryRecords />
+							</div>
+							{pagination?.a && pagination.a.length > 0 && (
+								<div className="col-span-4 mt-4">
+									<PagePagination
+										items={pagination.a.map(
+											(item: { _href: any; b: undefined }) => ({
+												url: item._href,
+												active: item.b !== undefined,
+											})
+										)}
+									/>
+								</div>
+							)}
+						</div>
+					</div>
+				</section>
+			</div>
+		</Layout>
+	)
+}
+
+export default Summary

@@ -1,0 +1,82 @@
+.theme-sfophos.light {
+	--background: 240 17.65% 96.67%;
+	--foreground: 233.33 100% 1.76%;
+
+	--primary: 196 20% 18%;
+	--primary-foreground: 0 0% 100%;
+
+	--card: 240 17.65% 96.67%;
+	--card-foreground: 233.33 100% 1.76%;
+
+	--popover: 0 0% 100%;
+	--popover-foreground: 233.33 100% 1.76%;
+
+	--secondary: 240 17.65% 96.67%;
+	--secondary-foreground: 240 100% 0.78%;
+
+	--muted: 240 21.95% 91.96%;
+	--muted-foreground: 0 0% 40%;
+
+	--accent: 240 21.95% 91.96%;
+	--accent-foreground: 196 20% 18%;
+
+	--destructive: 0 84.2% 60.2%;
+	--destructive-foreground: 210 40% 98%;
+
+	--border: 0 0% 61.2%;
+	--input: 0 0% 61.2%;
+	--ring: 196 20% 18%;
+
+	--radius: 0;
+
+	--opac-white: 0 0% 95.7%;
+
+	--opac-grey: 0 0% 61.2%;
+
+	--opac-darkblue: 213.9 100% 9%;
+
+	--opac-green: 115 42% 48%;
+
+	--opac-blue: 206, 83%, 40%;
+}
+.theme-sfophos.dark {
+	--background: 240 17.65% 96.67%;
+	--foreground: 233.33 100% 1.76%;
+
+	--primary: 196 20% 18%;
+	--primary-foreground: 0 0% 100%;
+
+	--card: 240 17.65% 96.67%;
+	--card-foreground: 233.33 100% 1.76%;
+
+	--popover: 0 0% 100%;
+	--popover-foreground: 233.33 100% 1.76%;
+
+	--secondary: 240 17.65% 96.67%;
+	--secondary-foreground: 240 100% 0.78%;
+
+	--muted: 240 21.95% 91.96%;
+	--muted-foreground: 0 0% 40%;
+
+	--accent: 240 21.95% 91.96%;
+	--accent-foreground: 196 20% 18%;
+
+	--destructive: 0 84.2% 60.2%;
+	--destructive-foreground: 210 40% 98%;
+
+	--border: 0 0% 61.2%;
+	--input: 0 0% 61.2%;
+	--ring: 196 20% 18%;
+
+	--radius: 0;
+
+	--opac-white: 0 0% 95.7%;
+
+	--opac-grey: 0 0% 61.2%;
+
+	--opac-darkblue: 213.9 100% 9%;
+
+	--opac-green: 115 42% 48%;
+
+	--opac-blue: 206, 83%, 40%;
+}

@@ -1,0 +1,29 @@
+.landing-page-title {
+	@apply text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl;
+}
+
+.landing-page-sub-title {
+	@apply mt-4 text-gray-500;
+}
+
+.landing-page-button {
+	@apply mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+	width: 5px; /* Adjust the width to make it shorter */
+	height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background-color: #808792;
+	border-radius: 5px; /* Make it rounded */
+}
+
+/* .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background-color: #2d3748;
+} */
+
+iframe {
+	pointer-events: auto !important;
+}

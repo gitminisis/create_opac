@@ -1,0 +1,236 @@
+{
+	"xml_record": [
+		{
+			"media": {
+				"image_caption": ["1996.0018.0003", "1996.0018.0003"],
+				"im_access_link": [
+					"https://SURREY.MINISISINC.COM/SAMOA_IMAGES/Museum/Images/LOW%20RES/996.18.3_R.\nJPG",
+					"https://SURREY.MINISISINC.COM/SAMOA_IMAGES/Museum/Images/LOW%20RES/996.18.3_R.\nJPG"
+				]
+			},
+			"is_bookmarked": "false",
+			"database_name": "COLLECTIONS_WEB",
+			"record_link": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/138317284/2/1/6178?RECORD&UN\nION=Y",
+			"record": {
+				"sisn": "6178",
+				"accession_number": "1996.0018.0003",
+				"collection": "Human History",
+				"on_display": "Not on display",
+				"date_notes": "n.d.",
+				"legal_title": "Book, First Class Tests and How to Pass Them",
+				"object_name_grp": {
+					"object_name_grp_occurrence": {
+						"object_name": "instruction book",
+						"obj_name_id": "300426522"
+					}
+				},
+				"legal_status": "Permanent Collection",
+				"object_status": "Permanent Collection",
+				"category": "8: Communication Objects",
+				"classification": "Documentary Objects",
+				"sub_classify": "Instructional Documents",
+				"primary": "Book, Instruction",
+				"cur_grp": {
+					"cur_grp_occurrence": [
+						{
+							"cur_grp_date": "1997-07-18",
+							"cur_grp_curator": "Curator"
+						},
+						{
+							"cur_grp_date": "1997-07-18",
+							"cur_grp_curator": "Demeulemeester, John"
+						}
+					]
+				},
+				"obj_description": "Yellowed paper covered boyscout test instruction book with\nblack and navy text and image of a boyscout on the cover. The cover is signed\nby Bill Hulbert who was part of a Cloverdale boyscout troop.",
+				"assoc_person_grp": {
+					"assoc_person_grp_occurrence": {
+						"assoc_full_id": "P5468",
+						"assoc_fullname": "Hulbert, William"
+					}
+				},
+				"assoc_notes": "Bill Hulbert belonged to a CLoverdale boyscout troop led by\nreverend Ashby",
+				"dimensions_info": {
+					"dimensions_info_occurrence": [
+						{
+							"width_imp": "7 2/16 in",
+							"width_metric": "18.0 cm",
+							"depth_imp": "4 12/16 in",
+							"depth_metric": "12.0 cm",
+							"dimension_notes": "Book, Boy Scouts; Title: \"FIRST CLASS TESTS AND HOW\nTO PASS THEM\"; Content: How to pass boy scout tests; Cover is black with\nnavy blue printing that shows a boy scout looking at a map with teepees and\nthe Union Jack in the background, printed words read: \"Approved\npublication, Issued under agreement with the boy scouts Association, London /\nJames Brown & Son / Official Scout Publishers. Glasgow\";\nhand-written name in ink reads \"BILL HULBERT\"; back page has\nwritten in pencil which tests were passed; 45+ pages.",
+							"dim_source": "Object Dimensions"
+						},
+						{
+							"height_imp": "7.0",
+							"height_metric": "17.8",
+							"width_imp": "4.5",
+							"width_metric": "11.5",
+							"depth_imp": "2/16",
+							"depth_metric": "0.25",
+							"dim_source": "Primary Support",
+							"obj_date": "2014-06-26"
+						}
+					]
+				},
+				"other_num_group": {
+					"other_num_group_occurrence": {
+						"other_number": "1996.18.3"
+					}
+				},
+				"research_grp": {
+					"research_grp_occurrence": {
+						"research_notes": "Subject: Boy Scouts Test Instruction\nScouting"
+					}
+				},
+				"label_txt_group": {
+					"label_txt_group_occurrence": {
+						"public": "Y"
+					}
+				},
+				"acq_date": "1996-04-12",
+				"acq_method": "Gift",
+				"acq_source_grp": {
+					"acq_source_grp_occurrence": {
+						"acq_source": "Hulbert (nee Lomas), Marie Hope, Mrs., b. 1921",
+						"acq_source_id": "P1327"
+					}
+				},
+				"planned_loc_grp": {
+					"planned_loc_grp_occurrence": [
+						{
+							"moved_flag": "0",
+							"plnd_cur_code": "A-21.c4",
+							"plnd_bldg": "Surrey Museum",
+							"pland_remov_date": "2014-07-15"
+						},
+						{
+							"moved_flag": "0",
+							"plnd_access": "Private",
+							"plnd_cur_code": "M-20.c4",
+							"plnd_bldg": "Museum of Surrey",
+							"plnd_loc_type": "Permanent",
+							"pland_remov_date": "2018-11-29",
+							"plnd_move_ex": "Louisa Smith"
+						}
+					]
+				},
+				"current_loc_info": {
+					"current_loc_info_occurrence": [
+						{
+							"curators_code": "A-21.c5",
+							"building": "Surrey Museum"
+						},
+						{
+							"movement_ref_num": "2014-07-15-01444",
+							"curators_code": "A-21.c4",
+							"building": "Surrey Museum",
+							"location_date": "2014-07-15"
+						},
+						{
+							"movement_ref_num": "2018-11-29-11200",
+							"curators_code": "M-20.c4",
+							"building": "Museum of Surrey",
+							"loc_access": "Private",
+							"location_type": "Permanent",
+							"location_date": "2018-11-29",
+							"move_ex": "Louisa Smith"
+						}
+					]
+				},
+				"conserve_info": {
+					"conserve_info_occurrence": {
+						"condition_status": "Stable",
+						"exam_treat": "Examination",
+						"cond_comments": "Cover is detached at front and back.",
+						"condition": "Fair/Poor",
+						"condtion_chk_dte": "2014-06-26",
+						"condn_chk_person": "Jessie McLean",
+						"cond_chk_notes": "fragile; pages bent and dog-eared",
+						"nxt_condit_chk": "2019-06-26"
+					}
+				},
+				"m_im_ref_grp": {
+					"m_im_ref_grp_occurrence": {
+						"m_im_access": "[IMAGES]Museum\\Images\\LOW RES\\996.18.3_R.JPG",
+						"m_im_opac": "Yes"
+					}
+				},
+				"c_bldg": "Museum of Surrey",
+				"c_loc_date": "2018-11-29",
+				"c_move_ex": "Louisa Smith",
+				"p_cur_code": "A-21.c4",
+				"p_bldg": "A-21.c4",
+				"p_flr": "A-21.c4",
+				"p_bu": "A-21.c4",
+				"p_ma": "A-21.c4",
+				"p_r_date": "2018-11-29",
+				"p_move_ex": "Louisa Smith",
+				"tree_id": "252585",
+				"medium_group": {
+					"medium_group_occurrence": {
+						"medium": "Printed"
+					}
+				},
+				"material_group": {
+					"material_group_occurrence": {
+						"material": "Paper"
+					}
+				},
+				"discipline": "Museum",
+				"c_cur_code": "M-20.c4",
+				"web_display": "Ready",
+				"what_keyword": {
+					"what_keyword_occurrence": [
+						"instruction book",
+						"Yellowed paper covered boyscout test\ninstruction book with black and navy text and image of a boyscout on the\ncover. The cover is signed by Bill Hulbert who was part of a Cloverdale\nboyscout troop."
+					]
+				},
+				"who_keyword": {
+					"who_keyword_occurrence": "Hulbert, William"
+				},
+				"old_sisn": "6183",
+				"record_number": "6172",
+				"assoc_whole": {
+					"assoc_whole_occurrence": "Hulbert, Marie"
+				},
+				"mform": "Artifact"
+			}
+		}
+	],
+	"session": "https://surrey.minisisinc.com/scripts/mwimain.dll/501169764",
+	"bookmark_count": "0",
+	"search_statement": "test",
+	"query_statement": "KEYWORD_CLUSTER test",
+	"pagesize_25": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169763/2/1?RECLIST&DATABA\nSE=UNION_VIEW&TM=1711328474.655&PAGESIZE=25",
+	"pagesize_50": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169763/2/1?RECLIST&DATABA\nSE=UNION_VIEW&TM=1711328474.655&PAGESIZE=50",
+	"pagesize_100": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169763/2/1?RECLIST&DATABA\nSE=UNION_VIEW&TM=1711328474.655&PAGESIZE=100",
+	"first_record_seq": "1",
+	"last_record_seq": "25",
+	"bookmark_url": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169763/2/1",
+	"back_to_summary": {
+		"a": {
+			"_href": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169763/2/1?RECLIST&\nDATABASE=UNION_VIEW&TM=1711328474.670",
+			"__text": "CURRENT_PAGE_URL"
+		}
+	},
+	"next_record": {
+		"a": {
+			"_href": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169764/2/1/6178?NEX\nTREC&UNION=Y",
+			"__text": "NEXT_RECORD_URL"
+		}
+	},
+	"pagination": {
+		"a": [
+			{
+				"b": "1",
+				"_href": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169763/2/1?RECLIST&\nDATABASE=UNION_VIEW&TM=1711328474.670"
+			},
+			{
+				"_href": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169763/2/26?RECLIST\n&DATABASE=UNION_VIEW&TM=1711328474.670",
+				"__text": "2"
+			}
+		]
+	},
+	"total_record": "40",
+	"sort": "https://SURREY.MINISISINC.COM/SCRIPTS/MWIMAIN.DLL/501169763/2/1/WEB_UNION_SUM?\nRECLIST&DATABASE=UNION_VIEW&TM=1711328474.670"
+}

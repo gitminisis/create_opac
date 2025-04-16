@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete your account!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f8fc;
+    }
+    .header {
+      background-color: rgb(30, 73, 70);
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      padding: 30px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      margin: 40px auto; /* More margin for spacing */
+      text-align: center;
+    }
+    .info {
+      margin-bottom: 30px;
+      text-align: center; /* Centering text */
+    }
+    .info div {
+      font-weight: 600;
+      font-size: 22px;
+      color: rgb(30, 73, 70);
+      margin-bottom: 10px;
+    }
+    .info p {
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background-color: #f5f5f5;
+      font-size: 16px;
+      margin: 0;
+      word-wrap: break-word;
+    }
+    .highlight {
+      font-weight: bold;
+      color: rgb(30, 73, 70);
+    }
+    .button-container {
+      margin-top: 30px;
+    }
+    .button-container button {
+      width: 100%;
+      height: 50px;
+      background-color: rgb(30, 73, 70);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    .button-container button:hover {
+      background-color: rgba(255, 0, 0, 0.555);
+    }
+    .alternative-link {
+      margin-top: 20px;
+      font-size: 16px;
+      color: rgb(30, 73, 70);
+    }
+    .alternative-link a {
+      color: rgb(30, 73, 70);
+      text-decoration: none;
+    }
+    .alternative-link a:hover {
+      text-decoration: underline;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #333;
+      color: white;
+      font-size: 14px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      margin-top: 40px;
+    }
+    table {
+      width: 100%;
+      max-width: 100%;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+<body>
+   <table role="presentation" class="header" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
+        <table cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="center">
+              <h1 style="padding:20px 0; font-size: 22px; margin: 0; color: white;">Complete your account!</h1>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <div class="container">
+    <div class="info">
+      <div>
+        Hello <strong class="highlight">^firstName^</strong>!
+      </div>
+      <p>We are excited to have you join us. Please confirm your email to complete your registration.</p>
+      <div style="margin-top: 15px;">Your confirmation link will expire in <strong>24 hours</strong>.</div>
+    </div>
+    <div class="button-container">
+      <a href="^REG_CONFIRM_LANDING_PAGE_URL^?user=^encoded^" style="text-decoration: none;">
+        <button>Confirm Email</button>
+      </a>
+    </div>
+    <div class="alternative-link">
+      If the button doesn't work, click <a href="^REG_CONFIRM_LANDING_PAGE_URL^?user=^encoded^">here</a> to verify your email.
+    </div>
+  </div>
+  <footer class="footer">
+    2024 MINISIS Inc. All rights reserved.
+  </footer>
+</body>
+</html>

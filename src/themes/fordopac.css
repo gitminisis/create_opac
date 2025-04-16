@@ -1,0 +1,83 @@
+.theme-fordopac.light {
+	--background: 240 17.65% 96.67%;
+	--foreground: 233.33 100% 1.76%;
+
+	--primary: 234.07 100% 17.84%;
+	--primary-foreground: 0 0% 100%;
+
+	--card: 240 17.65% 96.67%;
+	--card-foreground: 233.33 100% 1.76%;
+
+	--popover: 0 0% 100%;
+	--popover-foreground: 233.33 100% 1.76%;
+
+	--secondary: 240 17.65% 96.67%;
+	--secondary-foreground: 240 100% 0.78%;
+
+	--muted: 240 21.95% 91.96%;
+	--muted-foreground: 0 0% 40%;
+
+	--accent: 240 21.95% 91.96%;
+	--accent-foreground: 234.07 100% 17.84%;
+
+	--destructive: 0 84.2% 60.2%;
+	--destructive-foreground: 210 40% 98%;
+
+	--border: 0 0% 61.2%;
+	--input: 0 0% 61.2%;
+	--ring: 234.07 100% 17.84%;
+
+	--radius: 20px;
+
+	--ford-white: 0 0% 95.7%;
+
+	--ford-grey: 0 0% 61.2%;
+
+	--ford-darkblue: 213.9 100% 9%;
+}
+
+.theme-fordopac.dark {
+	--background: 240 17.65% 96.67%;
+	--foreground: 233.33 100% 1.76%;
+
+	--primary: 234.07 100% 17.84%;
+	--primary-foreground: 0 0% 100%;
+
+	--card: 240 17.65% 96.67%;
+	--card-foreground: 233.33 100% 1.76%;
+
+	--popover: 0 0% 100%;
+	--popover-foreground: 233.33 100% 1.76%;
+
+	--secondary: 240 17.65% 96.67%;
+	--secondary-foreground: 240 100% 0.78%;
+
+	--muted: 240 21.95% 91.96%;
+	--muted-foreground: 0 0% 40%;
+
+	--accent: 240 21.95% 91.96%;
+	--accent-foreground: 234.07 100% 17.84%;
+
+	--destructive: 0 84.2% 60.2%;
+	--destructive-foreground: 210 40% 98%;
+
+	--border: 0 0% 61.2%;
+	--input: 0 0% 61.2%;
+	--ring: 234.07 100% 17.84%;
+
+	--radius: 20px;
+
+	--ford-white: 0 0% 95.7%;
+
+	--ford-grey: 0 0% 61.2%;
+
+	--ford-darkblue: 213.9 100% 9%;
+}
+
+#footer a:hover {
+	text-decoration: underline;
+}
+
+input::placeholder {
+	color: hsl(var(--ford-grey)) !important;
+}

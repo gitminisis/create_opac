@@ -1,0 +1,73 @@
+/* CSS Reset */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+@layer base {
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+/* Masonry styling  */
+@layer utilities {
+	.masonry {
+		column-count: 1;
+	}
+	.masonry-sm {
+		column-count: 2;
+	}
+	.masonry-md {
+		column-count: 3;
+	}
+	.break-inside {
+		break-inside: avoid;
+	}
+}
+* {
+	box-sizing: border-box;
+	position: relative;
+	min-width: 0;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+	min-height: 100dvh;
+}
+
+.bg-minisis-archives {
+	@apply bg-sky-500;
+}
+
+.border-minisis-archives {
+	@apply border-sky-700;
+}
+
+.text-minisis-archives {
+	@apply text-sky-500;
+}
+
+.bg-minisis-museum {
+	@apply bg-yellow-500;
+}
+
+.border-minisis-museum {
+	@apply border-yellow-700;
+}
+
+.text-minisis-museum {
+	@apply text-yellow-500;
+}
+
+.bg-minisis-library {
+	@apply bg-orange-500;
+}
+
+.border-minisis-library {
+	@apply border-orange-700;
+}
+
+.text-minisis-library {
+	@apply text-orange-500;
+}
