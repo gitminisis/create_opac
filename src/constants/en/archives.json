@@ -48,11 +48,7 @@
 			"thumbnail": "https://camsopac-dev.minisisinc.com/media/I0016400.JPG"
 		}
 	],
-	"rsvp": {
-		"filterDatabase": "Archives",
-		"filterOption": "",
-		"filterTypes": []
-	},
+	"rsvp": { "filterDatabase": "Archives", "filterOption": "", "filterTypes": [] },
 	"enableCategoriesItems": true,
 	"enableFeaturedCollection": true,
 	"enableRSVP": true,

@@ -1,6 +1,8 @@
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
 import PatronLayout from '@/components/layouts/patron'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { getHomeSessionID } from '@/lib/utils'
 import { Checkbox } from '@radix-ui/react-checkbox'
@@ -9,6 +11,13 @@ import { ColumnDef } from '@tanstack/react-table'
 
 const Enquiries = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
+	const statusClassMap = {
+		Request: 'bg-blue-200 text-blue-800',
+		Active: 'bg-green-200 text-green-800',
+		Closed: 'bg-orange-200 text-yellow-800',
+		Deleted: 'bg-red-200 text-red-800',
+	}
+	const message = useConstants().message
 
 	const columns: ColumnDef<ProfileData>[] = [
 		{
@@ -40,7 +49,7 @@ const Enquiries = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Inquiry #
+						{message.inquiryNumber}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -66,7 +75,7 @@ const Enquiries = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Topic
+						{message.topic}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -80,7 +89,7 @@ const Enquiries = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Title
+						{message.title}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -94,7 +103,7 @@ const Enquiries = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Date Created
+						{message.dateCreated}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -108,33 +117,19 @@ const Enquiries = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Status
+						{message.status}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
 			},
-			//bg-red-200 text-red-600 - delete
-			//bg-green-200 text-green-600 - active
-			//bg-orange-200 text-orange-600 - closed
-			//bg-blue-200 text-blue-600 - request
-			cell: ({ row }) => (
-				<div className="">
-					<span
-						className={
-							(row.getValue('enq_status') == 'Request'
-								? 'bg-blue-200 text-blue-800'
-								: row.getValue('enq_status') == 'Active'
-									? 'bg-green-200 text-green-800'
-									: row.getValue('enq_status') == 'Closed'
-										? 'bg-orange-200 text-yellow-800'
-										: row.getValue('enq_status') == 'Deleted'
-											? 'bg-red-200 text-red-800'
-											: '') + ' font-medium me-2 px-2.5 py-0.5 rounded-full'
-						}>
+			cell: ({ row }) => {
+				const status = row.getValue('enq_status') as keyof typeof statusClassMap
+				return (
+					<Badge className={`${statusClassMap[status]}`} variant={'tag'}>
 						{row.getValue('enq_status')}
-					</span>
-				</div>
-			),
+					</Badge>
+				)
+			},
 		},
 	]
 	return (

@@ -46,3 +46,5 @@ src/types/*.d.ts
 
 backend/logs.txt
 
+
+constants/*.json

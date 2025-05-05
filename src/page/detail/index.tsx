@@ -13,6 +13,7 @@ import { deepSearchKey } from '@/lib/record'
 import { getJSONTree, TreeNode } from '@/lib/tree'
 import { useEffect, useState } from 'react'
 import NavigationSideBar from './NavigationSideBar'
+import NoRecord from '../NoRecord'
 
 const Detail = () => {
 	const { backToSummary, records, getMedia, common } = useJSONData({ selector: '#xml_record' })
@@ -59,8 +60,10 @@ const Detail = () => {
 				})
 		}
 	}, [database, refd])
-	// TODO: create placeholder component when there is no data
-	if (!records || records.length === 0) return <></>
+
+	//If the XML_TREE is not working at the repo spec.
+	if (!record.record) return <NoRecord />
+
 	return (
 		<Layout>
 			<div className="rounded-[0.5rem] border bg-background shadow-md md:shadow-xl h-full flex-col flex w-full my-12">
@@ -99,8 +102,8 @@ const Detail = () => {
 					<div className="container mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
 						<div className="flex flex-col items-start p-4 mx-auto ">
 							<div className="w-full flex gap-12  flex-col lg:flex-row">
-								<div className="w-full lg:w-1/3">
-									<div className="min-w-[300px] w-full max-w-[500px] text-center ">
+								<div className="w-full lg:w-1/3 flex flex-col gap-10">
+									<div className="min-w-[300px] w-full max-w-[500px] text-center mx-auto ">
 										{images && images.length > 0 ? (
 											<ImageCarousel
 												items={[...images, ...videos]}
@@ -121,9 +124,9 @@ const Detail = () => {
 													const image = item as ImageProps
 													return (
 														<img
-															alt={image.caption}
+															alt={image.src}
 															src={image.src}
-															className="h-36 mx-auto cursor-pointer object-cover border-4 hover:border-primary"
+															className="rounded h-36 mx-auto cursor-pointer object-cover border-4 hover:border-primary bg-gray-300"
 														/>
 													)
 												}}

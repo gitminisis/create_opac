@@ -159,8 +159,12 @@ const AdvancedSearchIndexDialog = ({
 					}>
 					<Menu />
 				</Button>
-			</DialogTrigger> 
-			<DialogContent hideClose={'hidden'} onInteractOutside={() => setOpen(false)} modal={true} className={'rounded'}>
+			</DialogTrigger>
+			<DialogContent
+				hideClose={'hidden'}
+				onInteractOutside={() => setOpen(false)}
+				modal={true}
+				className={'rounded'}>
 				<div className={'w-full flex justify-center items-center relative'}>
 					<DialogHeader className={'font-bold text-xl md:text-2xl'}>
 						{message.browseCluster} '{label}'

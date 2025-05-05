@@ -16,7 +16,7 @@ import {
 	MessageCircleMore,
 	Search,
 	ShoppingBag,
-	Upload
+	Upload,
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -45,7 +45,7 @@ export default function PatronProfile() {
 			label: profileList[0].label,
 			color: 'blue',
 			value: records[0].orders_count,
-			link: profileList[0].url
+			link: profileList[0].url,
 		},
 		{
 			key: 2,
@@ -53,7 +53,7 @@ export default function PatronProfile() {
 			label: profileList[1].label,
 			color: 'green',
 			value: records[0].copyright_count,
-			link: profileList[1].url
+			link: profileList[1].url,
 		},
 		{
 			key: 3,
@@ -61,7 +61,7 @@ export default function PatronProfile() {
 			label: profileList[2].label,
 			color: 'red',
 			value: records[0].reproductions_count,
-			link: profileList[2].url
+			link: profileList[2].url,
 		},
 		{
 			key: 4,
@@ -69,8 +69,7 @@ export default function PatronProfile() {
 			label: profileList[3].label,
 			color: 'purple',
 			value: records[0].bookmark_count,
-			link: profileList[3].url
-
+			link: profileList[3].url,
 		},
 		{
 			key: 5,
@@ -78,8 +77,7 @@ export default function PatronProfile() {
 			label: profileList[4].label,
 			color: 'amber',
 			value: records[0].enquiries_count,
-			link: profileList[4].url
-
+			link: profileList[4].url,
 		},
 		{
 			key: 6,
@@ -87,28 +85,19 @@ export default function PatronProfile() {
 			label: profileList[5].label,
 			color: 'orange',
 			value: records[0].crowdsource_count,
-			link: profileList[5].url
-
-		},
-		{
-			key: 7,
-			icon: <CalendarDays className="h-4 w-4" />,
-			label: message.calendar,
-			color: 'pink',
-			value: records[0].calendar_count,
-			link: `/scripts/mwimain.dll/144/WEB_CALENDAR/WEB_CALENDAR_PROFILE?commandsearch&exp=%2B%2B%40&EXP=TAG_FUNC_P_ID%20${m2l_patron_id}&M_GVAR1=USER_ID:${m2l_patron_id}`
+			link: profileList[5].url,
 		},
 	]
 	function StatCard({ icon, label, value, color }: StatCardProps) {
 		const colorClasses = {
-			blue:   'bg-blue-100 text-blue-500',
-			green:  'bg-green-100 text-green-500',
-			red:    'bg-red-100 text-red-500',
+			blue: 'bg-blue-100 text-blue-500',
+			green: 'bg-green-100 text-green-500',
+			red: 'bg-red-100 text-red-500',
 			purple: 'bg-purple-100 text-purple-500',
-			amber:  'bg-amber-100 text-amber-500',
+			amber: 'bg-amber-100 text-amber-500',
 			orange: 'bg-orange-100 text-orange-500',
-			pink:   'bg-pink-100 text-pink-500',
-			violet: 'bg-violet-100 text-violet-500'
+			pink: 'bg-pink-100 text-pink-500',
+			violet: 'bg-violet-100 text-violet-500',
 		} as const
 
 		return (
@@ -128,6 +117,7 @@ export default function PatronProfile() {
 			</div>
 		)
 	}
+
 	return (
 		<PatronLayout heading="">
 			<div className="mb-4 rounded-md bg-white p-6 shadow">
@@ -140,7 +130,13 @@ export default function PatronProfile() {
 			{/* Stats Grid */}
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				{statCards.map((card, index) => (
-					
+					<a
+						href={
+							getCookieValue('HOME_SESSID') +
+							card.link +
+							(card.label == 'Bookmarks' ? '' : m2l_patron_id)
+						}
+						className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
 						<StatCard
 							key={card.key}
 							icon={card.icon}
@@ -148,8 +144,20 @@ export default function PatronProfile() {
 							color={card.color}
 							value={card.value}
 						/>
-					
+					</a>
 				))}
+				{/* Calednar statCard's Anchor tag should be different, it uses commandsearch so never need seesion id, I made seperate StatCard for Calendar. Don Ryu 20250402 */}
+				<a
+					href={`/scripts/mwimain.dll/144/WEB_CALENDAR/WEB_CALENDAR_PROFILE?commandsearch&exp=%2B%2B%40&EXP=TAG_FUNC_P_ID%20${m2l_patron_id}&M_GVAR1=USER_ID:${m2l_patron_id}`}
+					className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+					<StatCard
+						key={7}
+						icon={<CalendarDays className="h-4 w-4" />}
+						label={message.calendar}
+						color={'pink'}
+						value={records[0].calendar_count}
+					/>
+				</a>
 			</div>
 
 			{/* Recent Media Section */}
@@ -167,6 +175,7 @@ export default function PatronProfile() {
 							<Link href={item.linkURL} className="group no-underline">
 								<div className="aspect-square relative overflow-hidden">
 									<img
+										loading={'lazy'}
 										src={item.heroBanner}
 										alt={`Recent media ${index + 1}`}
 										className="h-full w-full object-cover transition ease-in-out duration-150 group-hover:scale-105"

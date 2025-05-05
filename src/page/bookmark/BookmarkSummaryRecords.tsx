@@ -61,6 +61,7 @@ const RecordView = ({ record }: { record: Record }) => {
 	if (displayMode === 'grid') {
 		return (
 			<InfoCard
+				link_dbname={record.link_dbname}
 				className="border-primary"
 				title={<Link href={recordLink}>{truncateString(title)}</Link>}
 				description={gridFields}
@@ -76,14 +77,16 @@ const RecordView = ({ record }: { record: Record }) => {
 						<BookmarkRecordAction record={record} />
 					</div>
 				}
+				record={record}
 			/>
 		)
 	}
 
 	return (
 		<DetailInfoCard
+			link_dbname={record.link_dbname}
 			title={<Link href={recordLink}>{title}</Link>}
-			className="col-span-4 border-primary"
+			className="col-span-4"
 			thumbnail={
 				thumbnail
 					? thumbnail.includes('[MEDIA]')

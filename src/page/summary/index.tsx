@@ -8,11 +8,11 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
+import { getSearchURL } from '@/lib/utils'
 import { ChevronRight } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SummaryPageAction from './SummaryPageAction'
 import SummaryRecords from './SummaryRecord'
-import { getSearchURL } from '@/lib/utils'
 
 const Summary = () => {
 	const [mobileFilter, setMobileFilter] = useState(false)
@@ -21,7 +21,20 @@ const Summary = () => {
 		selector: '#xml_record',
 	})
 
-	const navigations = [home, archives, museum, library]
+	// const [hasDatabaseParam, setHasDatabaseParam] = useState(false);
+
+	// useEffect(() => {
+	//   const url = window.location.href;
+	//   const hasParam = url.includes("&DATABASE=");
+	//   setHasDatabaseParam(hasParam);
+	// }, []);
+
+	// const navigations = [home, archives, museum, library]
+	// const getDBTitle = (search_database: string) => {
+	// 	let db = navigations.filter((item) => item.database_name === search_database)
+	// 	if (!hasDatabaseParam || !search_database) return ''
+	// 	return `${db[0].displayTitle}`
+	// }
 
 	if (!common) return <></>
 
@@ -51,7 +64,7 @@ const Summary = () => {
 					<div className="mx-auto py-4 sm:py-12  container flex flex-col">
 						<PageHeader
 							heading={`${common.total_record} ${message.resultsFor.toLowerCase()} "${common.search_statement}"`}
-							subHeading={`${message.displaying} ${common.first_record_seq}-${common.last_record_seq} ${message.of} ${common.total_record}`}
+							subHeading={`${message.displaying}  ${common.first_record_seq}-${common.last_record_seq} ${message.of} ${common.total_record}`}
 						/>
 						<div className="mt-8 block lg:hidden">
 							<Button

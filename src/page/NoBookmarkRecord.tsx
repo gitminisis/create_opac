@@ -11,7 +11,7 @@ const NoBookmarkRecord = () => {
 	return (
 		<Layout>
 			<Hero
-				className=""
+				className="min-h-screen"
 				title={message.noBookmark}
 				backgroundImage={heroBanner}
 				description="">

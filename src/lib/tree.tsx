@@ -2,8 +2,6 @@ import axios from 'axios'
 import { clone, findIndex, flatten, isEmpty } from 'lodash'
 import X2JS from 'x2js'
 import { deepSearchKey, DEFAULT_DETAIL_REPORT, GenericObject, getRecordPermalink } from './record'
-import { ExternalLink } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
 export type TreeNode = {
 	id: string

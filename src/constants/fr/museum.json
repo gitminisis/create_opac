@@ -82,6 +82,6 @@
 	"enableRSVP": true,
 	"enableRecentAddition": false,
 	"enableMap": true,
-	"enableTimeline":true,
+	"enableTimeline": true,
 	"linkURL": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]museum.html"
 }

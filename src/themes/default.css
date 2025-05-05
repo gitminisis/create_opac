@@ -41,11 +41,11 @@ body {
 }
 
 .border-minisis-archives {
-	@apply border-sky-700;
+	@apply border-sky-800;
 }
 
 .text-minisis-archives {
-	@apply text-sky-500;
+	@apply text-sky-800;
 }
 
 .bg-minisis-museum {

@@ -50,5 +50,10 @@
 		"title": "Your registration is successfully canceled.",
 		"subtitle": "We will send you email about your cancellation detail.",
 		"showButton": false
+	},
+	"emailSubject": {
+		"verificationEmailT": "Please confirm your event: ",
+		"regConfirmationEmailT": "You're confirmed for: ",
+		"cancelConfirmationEmailT": "Your registration has been cancelled for: "
 	}
 }

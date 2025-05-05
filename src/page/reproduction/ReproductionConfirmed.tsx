@@ -10,7 +10,7 @@ const ReproductionConfirmed = () => {
 	const { config } = useConstants()
 	const { navigations } = config
 	let reprodData = records[0].reproduction
-	console.log(reprodData)
+	const message = useConstants().message
 
 	return (
 		<Layout>
@@ -21,24 +21,21 @@ const ReproductionConfirmed = () => {
 						<div className="flex justify-between items-center border-b pb-4">
 							<h1 className="flex items-center text-xl font-bold">
 								<CircleCheck className="mr-2 text-green-500" />
-								Reproduction Confirmed
+								{message.reproductionConfirmed}
 							</h1>
 						</div>
 						<div className="py-4 [&_p]:my-4 [&_b]:text-lg [&_b]:underline">
-							<h1 className="text-lg font-bold">Thank you for your request!</h1>
-							<p>Your information has been submitted.</p>
-							<p>Please give us 24 hours to reply back to your inquiry.</p>
-							<p>
-								Check your profile to stay updated with replies and/or comment from
-								the staff.
-							</p>
+							<h1 className="text-lg font-bold">{message.thankYouTitle}</h1>
+							<p>{message.infoSubmitted}</p>
+							<p>{message.replyTime}</p>
+							<p>{message.profileCheck}</p>
 						</div>
 						<div>
 							<div className="border p-4 rounded">
 								<div className="flex flex-row items-center">
 									<Copy className="mr-2" />
 									<h1 className="text-xl font-bold">
-										Request Order Number: {reprodData.req_order_num}
+										{message.requestOrderNumber}: {reprodData.req_order_num}
 									</h1>
 								</div>
 

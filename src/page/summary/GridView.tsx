@@ -1,12 +1,12 @@
 import DataWithLabel from '@/components/common/DataWithLabel'
 import { HighlightText } from '@/components/common/HighlightText'
 import InfoCard from '@/components/common/InfoCard'
+import Link from '@/components/common/Link'
 import { getFieldsFromRecord, truncateString } from '@/lib/record'
+import { cn, getClassName } from '@/lib/utils'
 import { ReactNode } from 'react'
 import { RecordAction } from './RecordAction'
-import Link from '@/components/common/Link'
 import { ViewProps } from './SummaryRecord'
-import { cn, getClassName } from '@/lib/utils'
 
 const GridView = ({
 	title,
@@ -34,6 +34,7 @@ const GridView = ({
 
 	return (
 		<InfoCard
+			record={record}
 			className={cn(getClassName(database, 'border'), 'border-2')}
 			title={
 				<Link href={recordLink}>

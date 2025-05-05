@@ -1,6 +1,7 @@
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
 import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
+import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { CaretSortIcon } from '@radix-ui/react-icons'
@@ -8,7 +9,7 @@ import { ColumnDef } from '@tanstack/react-table'
 
 const Crowdsource = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-
+	const message = useConstants().message
 	const columns: ColumnDef<ProfileData>[] = [
 		{
 			id: 'select',
@@ -44,7 +45,7 @@ const Crowdsource = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Creator
+						{message.creator}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -58,7 +59,7 @@ const Crowdsource = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Item-ID
+						{message.itemId}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -72,7 +73,7 @@ const Crowdsource = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Comment
+						{message.comment}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)

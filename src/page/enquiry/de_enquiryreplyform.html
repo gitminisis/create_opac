@@ -10,10 +10,14 @@
 	</head>
 
 	<body>
-        <div id="wwwgateway" hidden>^WWW_GATEWAY^</div>
-        <div id="enq-save-record" hidden>^SAVERECORD^</div>
-        <div id="enq-skip-n-stop-record" hidden>^SKIP_N_STOP_RECORD^</div>
-		<xml id="xml_record" hidden><xml_record hidden>^XML_TREE^-(ENQ_ID*,E_METHOD_REQUEST*,ENQ_HANDLED_BY*,ENQ_RECEIVED_BY*,ENQ_PATRON_NAME*,ENQ_PATRON_ID*,ENQ_USER*,ENQ_STATUS*,ENQ_TELEPHONE*,ENQ_CREATE_DATE*,ENQ_TOPIC*,ENQ_PATRON_EMAIL*,ENQ_TOPIC_DETAIL*,ENQ_TITLE*,CORRESPOND_DATE*,CORRESPOND_TYPE*,CORRESPOND_WHO*,MESSAGE_TEXT*)</xml_record></xml>
+		<div id="wwwgateway" hidden>^WWW_GATEWAY^</div>
+		<div id="enq-save-record" hidden>^SAVERECORD^</div>
+		<div id="enq-skip-n-stop-record" hidden>^SKIP_N_STOP_RECORD^</div>
+		<xml id="xml_record" hidden
+			><xml_record hidden
+				>^XML_TREE^-(ENQ_ID*,E_METHOD_REQUEST*,ENQ_HANDLED_BY*,ENQ_RECEIVED_BY*,ENQ_PATRON_NAME*,ENQ_PATRON_ID*,ENQ_USER*,ENQ_STATUS*,ENQ_TELEPHONE*,ENQ_CREATE_DATE*,ENQ_TOPIC*,ENQ_PATRON_EMAIL*,ENQ_TOPIC_DETAIL*,ENQ_TITLE*,CORRESPOND_DATE*,CORRESPOND_TYPE*,CORRESPOND_WHO*,MESSAGE_TEXT*)</xml_record
+			></xml
+		>
 		<div id="root" data-id="enquiryreplyform" style="height: 100%"></div>
 		<script src="/dist/main.js"></script>
 	</body>

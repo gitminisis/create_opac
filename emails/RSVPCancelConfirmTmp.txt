@@ -100,6 +100,8 @@
       <p><strong>Time:</strong> ^TAG_FUNC_START_T^ - ^TAG_FUNC_END_T^</p>
     </div>
   </div>
-  <footer class="footer">2024 MINISIS Inc. All rights reserved.</footer>
+  <footer class="footer">
+  Software powered by MINISIS Inc
+  </footer>
 </body>
 </html>

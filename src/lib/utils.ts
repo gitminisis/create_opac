@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import X2JS from 'x2js'
+
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
@@ -9,7 +10,7 @@ export const getImage = (image: string) => {
 	if (Array.isArray(image)) {
 		return image[0]?.toLowerCase().includes('[media]')
 			? image[0].replace(/\[media\]/i, '/media/')
-			: image[0]
+			: image
 	} else {
 		return image?.toLowerCase().includes('[media]')
 			? image.replace(/\[media\]/i, '/media/')
@@ -68,17 +69,22 @@ export const convertLowerTrim = (type: string): string => {
  * @param elm
  * @returns Array
  */
-export const convertToArr = (elm: Object | Array<any>) => {
+export const convertToArr = (elm: any) => {
 	if (Array.isArray(elm)) {
 		return elm
 	}
 	return elm ? [elm] : []
 }
 
-export const convertXMLToJson = (response: any) => {
+export const convertXMLToJson = (response: string) => {
 	const x2js = new X2JS()
-	const jsonData: any = x2js.xml2js(response)
+	const cleaned = escapeBrTags(response)
+	const jsonData: any = x2js.xml2js(cleaned)
 	return jsonData
+}
+
+const escapeBrTags = (xml: string): string => {
+	return xml.replace(/<br\s*\/?>/gi, '');
 }
 
 export const encodeObj = (input: string) => {
@@ -209,8 +215,8 @@ export const isDescriptionDatabase = (database: string) => {
 	return database.toLocaleUpperCase() === 'DESCRIPTION_WEB'
 }
 
-export function getClassName(databaseName: string, type: 'text' | 'border' | 'bg'): string {
-	const normalizedDbName = databaseName.toLowerCase()
+export function getClassName(databaseName?: string, type?: 'text' | 'border' | 'bg'): string {
+	const normalizedDbName = databaseName?.toLowerCase()
 
 	if (normalizedDbName === 'description_web') {
 		return `${type}-minisis-archives`

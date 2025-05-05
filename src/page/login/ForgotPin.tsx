@@ -37,7 +37,7 @@ const ResetPin = () => {
 		// m2l extention's config is at the parameter database.
 		axios
 			.post(
-				'/scripts/mwimain.dll?emailpassword&application=UNION_VIEW&language=144&from=noreply@minisisinc.com',
+				`/scripts/mwimain.dll?emailpassword&application=UNION_VIEW&language=144&from=noreply@minisisinc.com&SUBJECT=${message.forgotpasswordEmailTitle}`,
 				formData
 			)
 			.then((res) => {

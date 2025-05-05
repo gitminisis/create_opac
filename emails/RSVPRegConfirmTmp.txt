@@ -141,7 +141,7 @@
     </div>
   </div>
   <footer class="footer">
-    2024 MINISIS Inc. All rights reserved.
+Software powered by MINISIS Inc
   </footer>
 </body>
 </html>

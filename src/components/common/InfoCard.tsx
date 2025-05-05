@@ -6,7 +6,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import useConstants from '@/hooks/useConstants'
+import { cn, convertLowerTrim } from '@/lib/utils'
+import { Record } from '@/types/record'
+import { Badge } from '../ui/badge'
 
 export interface InfoCardProps {
 	title: string | React.ReactNode
@@ -16,6 +19,8 @@ export interface InfoCardProps {
 	children?: React.ReactNode
 	thumbnail?: string
 	alt?: string
+	record: Record
+	link_dbname?: string
 }
 
 const InfoCard = ({
@@ -26,14 +31,33 @@ const InfoCard = ({
 	children,
 	thumbnail,
 	alt,
+	record,
+	link_dbname,
 }: InfoCardProps) => {
+	const { navigations } = useConstants().config
+
+	const getColor = (event_type: string) => {
+		let result = navigations?.filter((item) => {
+			return convertLowerTrim(item.search_database) === convertLowerTrim(event_type)
+		})
+
+		return {
+			color: `${result[0]?.color}`,
+			title: `${result[0]?.title}`,
+		}
+	}
 	return (
 		<Card
 			className={cn(
-				'cursor-pointer rounded-md shadow-md hover:shadow-xl border-2 border-primary',
+				'cursor-pointer rounded-md shadow-md hover:shadow-xl border-2 border-primary relative',
 				className
 			)}>
-			<CardHeader className="h-48 pb-0">
+			<Badge
+				className={`${getColor(link_dbname ?? record?.database_name).color} absolute z-10 top-1 right-1 text-white`}
+				variant={'tag'}>
+				{getColor(link_dbname ?? record?.database_name).title}
+			</Badge>
+			<CardHeader className="h-40 pb-0 mt-2">
 				<CardTitle className="text-lg font-bold">{title}</CardTitle>
 				{description && (
 					<CardDescription className="text-sm text-gray-500 dark:text-gray-400">
@@ -47,7 +71,7 @@ const InfoCard = ({
 					<img
 						src={thumbnail}
 						alt={alt || 'image thumbnail'}
-						className=" rounded-md h-64 md:h-48 lg:h-52 object-cover mx-auto"
+						className=" rounded-md h-64 md:h-48 lg:h-52 object-cover mx-auto bg-gray-300"
 					/>
 				)}
 			</CardContent>

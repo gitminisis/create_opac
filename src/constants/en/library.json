@@ -30,7 +30,7 @@
 	],
 	"rsvp": {
 		"filterDatabase": "Library",
-		"filterOption": "TAG_FUNC_LOC",
+		"filterOption": "TAG_FUNC_LOC_BLD",
 		"filterTypes": [
 			{
 				"type": "Vancouver Public Library, Joe Fortes Branch",
@@ -90,6 +90,6 @@
 	"enableRSVP": true,
 	"enableRecentAddition": false,
 	"enableMap": true,
-	"enableTimeline":true,
+	"enableTimeline": true,
 	"linkURL": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html"
 }

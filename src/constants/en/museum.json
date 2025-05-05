@@ -1,5 +1,5 @@
 {
-	"heading": "Search the Museum",
+	"heading": "The Museum of Science ",
 	"heroBanner": "https://images.unsplash.com/photo-1579748048451-365c9c9bfbc1",
 	"searchURL": "UNIONSEARCH&SHOWSINGLE=Y&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW&DATABASE=COLLECTIONS_WEB",
 	"browseByCategoryTitle": "Browse by Category",
@@ -72,16 +72,12 @@
 			"thumbnail": "https://picsum.photos/660/360"
 		}
 	],
-	"rsvp": {
-		"filterDatabase": "Museum",
-		"filterOption": "",
-		"filterTypes": []
-	},
+	"rsvp": { "filterDatabase": "Museum", "filterOption": "", "filterTypes": [] },
 	"enableCategoriesItems": true,
 	"enableFeaturedCollection": true,
 	"enableRSVP": true,
 	"enableRecentAddition": false,
 	"enableMap": true,
-	"enableTimeline":true,
+	"enableTimeline": true,
 	"linkURL": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]museum.html"
 }

@@ -54,7 +54,7 @@
 			{ "label": "Date de publication", "name": "LIB_PUB_WHOL" },
 			{ "label": "Type de matériel", "name": "I_COLLECT_CODE" },
 			{ "label": "Emplacement de la succursale", "name": "HOLDING_CENTRE" },
-			{ "label": "Statut", "name": "ITEM_STATUS" } 
+			{ "label": "Statut", "name": "ITEM_STATUS" }
 		]
 	}
 ]

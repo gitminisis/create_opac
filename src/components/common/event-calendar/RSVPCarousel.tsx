@@ -36,7 +36,7 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 			return (
 				<>
 					<img
-						className="w-full object-fill h-full"
+						className="w-full object-contain h-full"
 						alt={elm[TAG_NAME]}
 						src={`${currentMedia[MEDIA_TYPE.IMAGE]?.toLowerCase().includes('[media]') ? currentMedia[MEDIA_TYPE.IMAGE].replace(/\[media\]/i, '/media/') : currentMedia[MEDIA_TYPE.IMAGE]}`}
 					/>

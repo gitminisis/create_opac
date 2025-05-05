@@ -1,26 +1,32 @@
-import fs from 'node:fs';
-import { resolve } from 'node:path';
+import fs from 'node:fs'
+import { resolve } from 'node:path'
 
-const base = process.cwd();
-// Read package.json
-const packageJsonPath = resolve(base, 'package.json');
+const base = process.cwd()
+const outputPath = resolve(base, 'src/app_version.json')
 
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+// Get the current year
+const currentYear = new Date().getFullYear()
 
-// Get the current date in YYYY.MM.DD format
-const now = new Date();
-const formattedDate = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+// Read existing version file if it exists
+let currentVersion = '00'
+if (fs.existsSync(outputPath)) {
+	const existing = JSON.parse(fs.readFileSync(outputPath, 'utf8'))
+	const match = existing.APP_VERSION?.match(/^(\d{4})\.(\d{2})$/)
+	if (match && match[1] === currentYear.toString()) {
+		currentVersion = match[2]
+	}
+}
 
-// Generate the app version
-const appVersion = `${packageJson.version}-${formattedDate}`;
+// Bump the version (e.g., 01 -> 02)
+const nextVersion = String(parseInt(currentVersion, 10) + 1).padStart(2, '0')
+const appVersion = `${currentYear}.${nextVersion}`
 
 // Create the JSON object
 const outputJson = {
-    "APP_VERSION": appVersion
-};
+	APP_VERSION: appVersion,
+}
 
 // Write to a JSON file
-const outputPath = resolve(base, 'src/app_version.json');
-fs.writeFileSync(outputPath, JSON.stringify(outputJson, null, 2));
+fs.writeFileSync(outputPath, JSON.stringify(outputJson, null, 2))
 
-console.log(`App version file created: ${outputPath}`);
+console.log(`App version bumped to: ${appVersion}`)

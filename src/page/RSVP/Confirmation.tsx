@@ -1,17 +1,16 @@
 import '@/components/common/event-calendar/CalendarStyle.css'
 import {
+	EVENT_EMAIL_LOGO,
 	FUNC_LOC_P_GRP,
+	MAIN_EVENT_CAL_DB,
 	MAIN_MWI_APPLICATION,
 	MONTH_REPORT,
 	NON_LOGIN_USER_TYPE,
-	REG_CONFIMRATION_EMAIL_T,
 	RSVP_CANCEL_LANDING_PAGE_URL,
-	RSVP_LOG_P_STATUS,
+	RSVP_MAP,
 	SISN,
-	MAIN_EVENT_CAL_DB,
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
-	TAG_FUNC_END_T,
 	TAG_FUNC_LOC_DEC,
 	TAG_FUNC_LOC_GRP,
 	TAG_FUNC_P_ATTND,
@@ -20,14 +19,8 @@ import {
 	TAG_FUNC_P_FIRST,
 	TAG_FUNC_P_ID,
 	TAG_FUNC_P_LAST,
-	TAG_FUNC_P_PAID,
-	TAG_FUNC_P_T,
 	TAG_FUNC_START_T,
-	TAG_NAME,
-	TAG_P_STATUS,
-	MAIN_EVENT_CAL_LOG_DB,
-	EVENT_EMAIL_LOGO,
-	RSVP_MAP,
+	TAG_NAME
 } from '@/components/common/event-calendar/Constants'
 import { calNumOfPatron } from '@/components/common/event-calendar/EC-Util'
 import Spinner from '@/components/common/event-calendar/Spinner'
@@ -38,6 +31,7 @@ import {
 	convertXMLToJson,
 	decodeObj,
 	encodeObj,
+	getCookieValue,
 	getHomeSessionID,
 	isDatePast,
 } from '@/lib/utils'
@@ -233,9 +227,24 @@ const RSVPConfirm = () => {
 				TAG_FUNC_LOC_DEC: undefined, //TAG_FUNC_LOC_DECis too big for query string
 			})
 		)
+		let isFrench = getCookieValue('my_lang') === '145'
+		const is_online = patronInfo.TAG_FUNC_O === RSVP_MAP.YES
+		let templateName = ''
+
+		if (is_online && isFrench) {
+			templateName = 'RSVPRegOnlineComfrimTmp_fr.txt'
+		} else if (is_online && !isFrench) {
+			templateName = 'RSVPRegOnlineComfrimTmp.txt'
+		} else if (!is_online && isFrench) {
+			templateName = 'RSVPRegConfirmTmp_fr.txt'
+		} else {
+			templateName = 'RSVPRegConfirmTmp.txt'
+		}
+		const templateParam = `[OPAC_EMAIL_TMP]${templateName}`
+
 		return await axios
 			.post(
-				`${obj.HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${patronInfo.TAG_FUNC_O === RSVP_MAP.YES? '[OPAC_EMAIL_TMP]RSVPRegOnlineComfrimTmp.txt' : '[OPAC_EMAIL_TMP]RSVPRegConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${REG_CONFIMRATION_EMAIL_T}:${patronInfo[TAG_NAME]}`,
+				`${obj.HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${templateParam}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${rsvp.emailSubject.regConfirmationEmailT}:${patronInfo[TAG_NAME]}`,
 				{
 					...patronInfo,
 					EVENT_EMAIL_LOGO: logo,
@@ -260,39 +269,39 @@ const RSVPConfirm = () => {
 			})
 	}
 
-	const storeAtLog = async (obj: { HOME_SESSID: string | boolean; ID: string }) => {
-		let xmlFormAdd = `<?xml version="1.0" encoding="UTF-8"?>
-		<RECORD>
-			<${TAG_NAME} op="add">${patronInfo[TAG_NAME]}</${TAG_NAME}>
-			<${TAG_FUNC_P_ID} op="add">${obj.ID}</${TAG_FUNC_P_ID}>
-			<${TAG_FUNC_P_EMAIL} op="add">${patronInfo[TAG_FUNC_P_EMAIL]}</${TAG_FUNC_P_EMAIL}>
-			<${TAG_FUNC_P_PAID} op="add">${patronInfo[TAG_FUNC_P_PAID]}</${TAG_FUNC_P_PAID}>
-			<${TAG_FUNC_P_T} op="add">${patronInfo[TAG_FUNC_P_T]}</${TAG_FUNC_P_T}>
-			<${TAG_FUNC_P_ATTND} op="add">${patronInfo[TAG_FUNC_P_ATTND]}</${TAG_FUNC_P_ATTND}>
-			<${TAG_P_STATUS} op="add">${RSVP_LOG_P_STATUS.CONFIRM}</${TAG_P_STATUS}>
-			<${TAG_FUNC_DATE} op="add">${patronInfo[TAG_FUNC_DATE]}</${TAG_FUNC_DATE}>
-			<${TAG_FUNC_START_T} op="add">${patronInfo[TAG_FUNC_START_T]}</${TAG_FUNC_START_T}>
-			<${TAG_FUNC_END_T} op="add">${patronInfo[TAG_FUNC_END_T]}</${TAG_FUNC_END_T}>
-		</RECORD>`
+	// const storeAtLog = async (obj: { HOME_SESSID: string | boolean; ID: string }) => {
+	// 	let xmlFormAdd = `<?xml version="1.0" encoding="UTF-8"?>
+	// 	<RECORD>
+	// 		<${TAG_NAME} op="add">${patronInfo[TAG_NAME]}</${TAG_NAME}>
+	// 		<${TAG_FUNC_P_ID} op="add">${obj.ID}</${TAG_FUNC_P_ID}>
+	// 		<${TAG_FUNC_P_EMAIL} op="add">${patronInfo[TAG_FUNC_P_EMAIL]}</${TAG_FUNC_P_EMAIL}>
+	// 		<${TAG_FUNC_P_PAID} op="add">${patronInfo[TAG_FUNC_P_PAID]}</${TAG_FUNC_P_PAID}>
+	// 		<${TAG_FUNC_P_T} op="add">${patronInfo[TAG_FUNC_P_T]}</${TAG_FUNC_P_T}>
+	// 		<${TAG_FUNC_P_ATTND} op="add">${patronInfo[TAG_FUNC_P_ATTND]}</${TAG_FUNC_P_ATTND}>
+	// 		<${TAG_P_STATUS} op="add">${RSVP_LOG_P_STATUS.CONFIRM}</${TAG_P_STATUS}>
+	// 		<${TAG_FUNC_DATE} op="add">${patronInfo[TAG_FUNC_DATE]}</${TAG_FUNC_DATE}>
+	// 		<${TAG_FUNC_START_T} op="add">${patronInfo[TAG_FUNC_START_T]}</${TAG_FUNC_START_T}>
+	// 		<${TAG_FUNC_END_T} op="add">${patronInfo[TAG_FUNC_END_T]}</${TAG_FUNC_END_T}>
+	// 	</RECORD>`
 
-		return await axios
-			.post(
-				`${obj.HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_LOG_DB}&READ=N`,
-				xmlFormAdd,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-				}
-			)
-			.then((res) => {
-				return
-			})
-			.catch((error) => {
-				throw error
-			})
-	}
+	// 	return await axios
+	// 		.post(
+	// 			`${obj.HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_LOG_DB}&READ=N`,
+	// 			xmlFormAdd,
+	// 			{
+	// 				headers: {
+	// 					'Content-Type': 'text/xml',
+	// 				},
+	// 				withCredentials: true,
+	// 			}
+	// 		)
+	// 		.then((res) => {
+	// 			return
+	// 		})
+	// 		.catch((error) => {
+	// 			throw error
+	// 		})
+	// }
 
 	// Various view for different status
 	const showRegStatus = () => {

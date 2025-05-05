@@ -93,9 +93,9 @@ const ClientLoginError = () => {
 							</div>
 							<div className="col-span-6 sm:flex sm:items-center sm:gap-4">
 								<Button
-									className="bg-opac-darkblue"
+									className="bg-primary text-primary-foreground"
 									type="submit"
-									variant="default">
+									variant="secondary">
 									{message.logIn}
 								</Button>
 							</div>

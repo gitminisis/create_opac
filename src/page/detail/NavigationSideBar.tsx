@@ -14,7 +14,7 @@ export default function NavigationSideBar() {
 	})
 	const record = records[0]
 	return (
-		<div className="w-full  space-y-3">
+		<div className="w-full mt-2 space-y-3">
 			<nav className="grid gap-2">
 				<a href={backToSummary}>
 					<Button
@@ -26,14 +26,6 @@ export default function NavigationSideBar() {
 				</a>
 
 				<ShareButton url={handleCopyRecordURL(record, true) || window.location.href} />
-
-				<Button
-					onClick={() => window.print()}
-					variant="ghost"
-					className="w-full bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground group transition-all duration-300">
-					<Printer className="mr-2 h-4 w-4" />
-					{message.printPage}
-				</Button>
 			</nav>
 		</div>
 	)

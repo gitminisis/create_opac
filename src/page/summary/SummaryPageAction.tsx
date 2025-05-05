@@ -3,11 +3,10 @@ import CollapseList from '@/components/common/CollapseList'
 import DropdownSelect from '@/components/common/DropdownSelect'
 import useConstants from '@/hooks/useConstants'
 import useJSONData, { COMMON_FIELDS_TYPE, SORT_TYPE } from '@/hooks/useJSONData'
-import { Label } from '@radix-ui/react-dropdown-menu'
-import ViewBookmarks from '../bookmark/ViewBookmarks'
-import BookmarkAll from '../bookmark/BookmarkAll'
-import PrintPage from '../bookmark/PrintPage'
 import { convertToArr } from '@/lib/utils'
+import { Label } from '@radix-ui/react-dropdown-menu'
+import BookmarkAll from '../bookmark/BookmarkAll'
+import ViewBookmarks from '../bookmark/ViewBookmarks'
 
 /**
  * This component contains:
@@ -43,13 +42,13 @@ const SummaryPageAction = () => {
 		},
 	]
 
+	console.log({ filterArr })
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex flex-col space-y-2">
 				<Label className="font-bold">{message.bookmark}</Label>
 				<ViewBookmarks />
 				<BookmarkAll />
-				{/* <PrintPage /> */}
 			</div>
 			<div className="flex flex-col space-y-2">
 				<Label className="font-bold">{message.recordPerPage}</Label>
@@ -67,19 +66,19 @@ const SummaryPageAction = () => {
 					title={message.selectRecordsNumber}
 					options={[
 						{
-							label: `${message.displaying} 12 ${message.record}`,
+							label: `${message.displaying} 12 ${message.record}s`,
 							value: 12,
 						},
 						{
-							label: `${message.displaying} 25 ${message.record}`,
+							label: `${message.displaying} 25 ${message.record}s`,
 							value: 25,
 						},
 						{
-							label: `${message.displaying} 50 ${message.record}`,
+							label: `${message.displaying} 50 ${message.record}s`,
 							value: 50,
 						},
 						{
-							label: `${message.displaying} 100 ${message.record}`,
+							label: `${message.displaying} 100 ${message.record}s`,
 							value: 100,
 						},
 					]}
@@ -107,17 +106,24 @@ const SummaryPageAction = () => {
 								<div className="space-y-3 border-t p-4 max-h-[500px] overflow-y-auto">
 									{item.item_group.map(
 										(option: {
-											item_link: string
+											item_link: string | { item_selected: string, __text: string }
 											item_value: any
 											item_frequency: any
 											item_selected: string
 										}) => (
 											<CheckboxWithLabel
 												callback={() => {
-													window.location.href = option.item_link
+													window.location.href =
+														typeof option.item_link === 'string'
+															? option.item_link
+															: option.item_link?.__text ?? option.item_link
 												}}
 												label={`${option.item_value} (${option.item_frequency})`}
-												checked={option.item_selected === 'Y'}
+												checked={
+													option.item_selected === 'Y' ||
+													(typeof option.item_link === 'object' &&
+														option.item_link?.item_selected === 'Y')
+												}
 											/>
 										)
 									)}

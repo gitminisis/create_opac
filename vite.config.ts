@@ -5,6 +5,7 @@ import tailwindcss from 'tailwindcss'
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 // https://vitejs.dev/config/
 export default defineConfig({
+	
 	plugins: [react(), cssInjectedByJsPlugin()],
 	css: {
 		postcss: {
@@ -17,6 +18,7 @@ export default defineConfig({
 		},
 	},
 	build: {
+		chunkSizeWarningLimit: 1000, // Increase the warning limit
 		rollupOptions: {
 			input: {
 				main: resolve(__dirname, 'src/index.tsx'), // Specify the entry file

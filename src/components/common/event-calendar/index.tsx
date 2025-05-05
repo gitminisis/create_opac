@@ -163,12 +163,13 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 					'relative flex justify-center items-center bg-primary h-[80px] rounded '
 				}>
 				<Button
+					variant="secondary"
 					onClick={weekType ? prevWeek : prevMonth}
-					className={'text-4xl text-primary-foreground sm:mx-5'}
+					className={'text-4xl bg-primary text-primary-foreground sm:mx-5'}
 					disabled={isClickablePrev}>
-					<div className="mt-2">&lt;</div>
+					<div>&lt;</div>
 				</Button>
-				<h2 className="max-w-[330px] text-center text-3xl text-primary-foreground">
+				<h2 className="max-w-[330px] bg-primary text-center text-3xl text-primary-foreground">
 					{monthType &&
 						currentDate.toLocaleString(message.dateType, {
 							month: 'long',
@@ -177,26 +178,25 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 					{weekType && showWeek()}
 				</h2>
 				<Button
+					variant="secondary"
 					onClick={weekType ? nextWeek : nextMonth}
-					className={'text-4xl text-primary-foreground sm:mx-5'}
+					className={'text-4xl bg-primary text-primary-foreground sm:mx-5'}
 					disabled={isClickableNext}>
-					<div className="mt-2">&gt;</div>
+					<div>&gt;</div>
 				</Button>
 				<div
 					className={
 						'hidden sm:absolute sm:right-5 w-[160px] sm:flex justify-evenly items-center'
 					}>
 					<Button
-						className={
-							'w-[67px] bg-black text-primary-foreground rounded hover:bg-black'
-						}
+						variant="secondary"
+						className={'w-[67px] bg-primary text-primary-foreground rounded '}
 						onClick={convertToMonth}>
 						{message.month}
 					</Button>
 					<Button
-						className={
-							'w-[67px] bg-black text-primary-foreground rounded hover:bg-black'
-						}
+						variant="secondary"
+						className={'w-[67px] bg-primary text-primary-foreground rounded '}
 						onClick={convertToWeek}>
 						{message.week}
 					</Button>
@@ -233,13 +233,18 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 					<div>
 						<SquareUserRound size={20} />
 					</div>
-					<Label className="text-sm" style={{marginLeft:'7px'}}>{message.inPerson}</Label>
+					<Label className="text-sm" style={{ marginLeft: '7px' }}>
+						{message.inPerson}
+					</Label>
 				</div>
 				<div className={'flex items-center'}>
 					<div>
 						<MonitorPlay size={20} />
 					</div>
-					<Label className="text-sm" style={{marginLeft:'7px'}}> {message.online}</Label>
+					<Label className="text-sm" style={{ marginLeft: '7px' }}>
+						{' '}
+						{message.online}
+					</Label>
 				</div>
 			</div>
 			<div className={'w-full mt-1'}>

@@ -442,7 +442,7 @@ const Register = () => {
 								</ul>
 								<div className="flex justify-center scale-75 sm:scale-90 mr-[210px] sm:mr-[0px]">
 									<ReCAPTCHA
-										sitekey={conf.reCaptchaKey}
+										sitekey={ process.env.REACT_APP_RSVP_RECAPTCHA || import.meta.env.VITE_REACT_APP_RECAPTCHA}
 										onChange={onCaptchaChange}
 									/>
 								</div>

@@ -38,7 +38,6 @@ import {
 	MWI_XML_DATA_INDEX,
 	NON_LOGIN_USER_TYPE,
 	patron,
-	REG_CONFIMRATION_EMAIL_T,
 	RSVP_CANCEL_LANDING_PAGE_URL,
 	RSVP_CONFIRM_LANDING_PAGE_URL,
 	SISN,
@@ -46,7 +45,7 @@ import {
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
-	TAG_FUNC_LOC,
+	TAG_FUNC_LOC_BLD,
 	TAG_FUNC_LOC_CT,
 	TAG_FUNC_LOC_EM,
 	TAG_FUNC_LOC_GRP,
@@ -66,7 +65,6 @@ import {
 	TAG_FUNC_RSVP,
 	TAG_FUNC_START_T,
 	TAG_NAME,
-	VERIFICATION_EMAIL_T,
 	RSVP_MAP,
 } from './Constants'
 import { calNumOfPatron } from './EC-Util'
@@ -251,7 +249,13 @@ const ShowForm = ({
 				{!isIDValid && <div className={'my-2'}>{message.emailAlreadyRegistered}</div>}
 				<div className={'my-2'}>
 					{!isLoginValid && (
-						<ReCAPTCHA sitekey={conf.reCaptchaKey} onChange={handleCaptchaChange} />
+						<ReCAPTCHA
+							sitekey={
+								process.env.REACT_APP_RSVP_RECAPTCHA ||
+								import.meta.env.VITE_REACT_APP_RECAPTCHA
+							}
+							onChange={handleCaptchaChange}
+						/>
 					)}
 				</div>
 				<Button className={'w-full font-bold'} type="submit">
@@ -348,14 +352,18 @@ const ShowButton = ({
 					className={`${event[TAG_FUNC_RSVP] !== RSVP_MAP.NO ? 'h-1/2' : 'h-[54%]'} w-full flex flex-col items-start justify-evenly text-lg p-3 border-2 rounded`}>
 					<div className={'w-full flex justify-center'}>{message.contactInfo}</div>
 					<div className={'w-full text-center'}>
-						<div className={'flex font-normal items-center text-base'}>
-							<Phone size={25} className={'mr-2'} />
-							{event[TAG_FUNC_LOC_CT]}
-						</div>
-						<div className={'flex font-normal items-center text-base'}>
-							<Mail size={25} className={'mr-2'} />
-							{event[TAG_FUNC_LOC_EM]}
-						</div>
+						{event[TAG_FUNC_LOC_CT] && (
+							<div className={'flex font-normal items-center text-base'}>
+								<Phone size={25} className={'mr-2'} />
+								{event[TAG_FUNC_LOC_CT]}
+							</div>
+						)}
+						{event[TAG_FUNC_LOC_EM] && (
+							<div className={'flex font-normal items-center text-base'}>
+								<Mail size={25} className={'mr-2'} />
+								{event[TAG_FUNC_LOC_EM]}
+							</div>
+						)}
 					</div>
 					<div className={'w-full'}>
 						{/*@ts-ignore there is variable called TAG_FUNC_O*/}
@@ -505,6 +513,7 @@ const ShowRSVPSuccess = ({
 
 const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: EventRSVPForm) => {
 	const [status, setStatus] = useState(STATUS_TYPE.SHOW_BTN)
+	const rsvp: any = useConstants().rsvp
 	const { logo } = useConstants().config
 	const {
 		register,
@@ -591,8 +600,8 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 				let TAG_FUNC_DTE_OCC = 0
 
 				loc_group?.forEach((elm) => {
-					const funcLoc = elm?.TAG_FUNC_LOC
-					if (funcLoc === event[TAG_FUNC_LOC]) {
+					const funcLoc = elm?.TAG_FUNC_LOC_BLD
+					if (funcLoc === event[TAG_FUNC_LOC_BLD]) {
 						TAG_FUNC_LOC_OCC = elm._occ // regards as Occurence number of the repeating field
 					}
 				})
@@ -618,6 +627,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 
 	const sendEmail = async (patron: any, patronInfo: Inputs, event: Cal_event) => {
 		let HOME_SESSID = getSessionID()
+		let is_french = getCookieValue('my_lang') === '145' ? true : false
 		const encoded = encodeObj(
 			JSON.stringify({
 				...patronInfo,
@@ -626,7 +636,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 				[TAG_FUNC_END_T]: event[TAG_FUNC_END_T],
 				[TAG_FUNC_LOC_ROO]: event[TAG_FUNC_LOC_ROO],
 				[TAG_FUNC_DATE]: event[TAG_FUNC_DATE],
-				[TAG_FUNC_LOC]: event[TAG_FUNC_LOC],
+				[TAG_FUNC_LOC_BLD]: event[TAG_FUNC_LOC_BLD],
 				[SISN]: event[SISN],
 				[TAG_FUNC_P_T]: getCurrentDate(),
 				BD_ADDRESS: getContactInfo(BD_ADDRESS, contactInfo, event),
@@ -641,7 +651,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 
 		return await axios
 			.post(
-				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=[OPAC_EMAIL_TMP]RSVPVerificationConfirmTmp.txt&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${VERIFICATION_EMAIL_T} ${event[TAG_NAME]}`,
+				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=[OPAC_EMAIL_TMP]${is_french ? 'RSVPVerificationConfirmTmp_fr.txt' : 'RSVPVerificationConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${rsvp.emailSubject.cancelConfirmationEmailT}${event[TAG_NAME]}`,
 				{
 					...patronInfo,
 					EVENT_EMAIL_LOGO: logo,
@@ -731,6 +741,8 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 	const sendRegConfirmEmail = async (occ_info: any, userData: Inputs, event: Cal_event) => {
 		const userID = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
 		let HOME_SESSID = getSessionID()
+		let isFrench = getCookieValue('my_lang') === '145'
+
 		const encoded = encodeObj(
 			JSON.stringify({
 				...userData,
@@ -740,7 +752,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 				[TAG_FUNC_END_T]: event[TAG_FUNC_END_T],
 				[TAG_FUNC_LOC_ROO]: event[TAG_FUNC_LOC_ROO],
 				[TAG_FUNC_DATE]: event[TAG_FUNC_DATE],
-				[TAG_FUNC_LOC]: event[TAG_FUNC_LOC],
+				[TAG_FUNC_LOC_BLD]: event[TAG_FUNC_LOC_BLD],
 				[SISN]: event[SISN],
 				[TAG_FUNC_P_T]: getCurrentDate(),
 				BD_ADDRESS: getContactInfo(BD_ADDRESS, contactInfo, event),
@@ -753,11 +765,27 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 			})
 		)
 
+		const is_online = event.TAG_FUNC_O === RSVP_MAP.YES
+		let templateName = ''
+
+		if (is_online && isFrench) {
+			templateName = 'RSVPRegOnlineComfrimTmp_fr.txt'
+		} else if (is_online && !isFrench) {
+			templateName = 'RSVPRegOnlineComfrimTmp.txt'
+		} else if (!is_online && isFrench) {
+			templateName = 'RSVPRegConfirmTmp_fr.txt'
+		} else {
+			templateName = 'RSVPRegConfirmTmp.txt'
+		}
+
+		const templateParam = `[OPAC_EMAIL_TMP]${templateName}`
+		const subject = `${rsvp.emailSubject.regConfirmationEmailT}:${event[TAG_NAME]}`
+
 		return await axios
 			.post(
-				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${event.TAG_FUNC_O === RSVP_MAP.YES ? '[OPAC_EMAIL_TMP]RSVPRegOnlineComfrimTmp.txt' : '[OPAC_EMAIL_TMP]RSVPRegConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${userData[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${REG_CONFIMRATION_EMAIL_T}:${event[TAG_NAME]}`,
+				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${templateParam}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${userData[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${subject}`,
 				{
-					BD_ADDRESS: event[TAG_FUNC_LOC],
+					BD_ADDRESS: event[TAG_FUNC_LOC_BLD],
 					...userData,
 					...event,
 					EVENT_EMAIL_LOGO: logo,
@@ -774,7 +802,6 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 			.then(async (res) => {
 				setStatus(STATUS_TYPE.SHOW_SUCCESS)
 				setLoading(false)
-				return
 			})
 			.catch((error) => {
 				throw error

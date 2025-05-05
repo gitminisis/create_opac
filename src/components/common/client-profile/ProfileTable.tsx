@@ -119,7 +119,7 @@ export function ProfileTable({
 							size="sm"
 							className={'mt-1 md:mt-0 h-10 w-10 rounded-[7px] p-0'}
 							onClick={resetFilter}>
-							<RefreshCw height={20} width={20}/>
+							<RefreshCw height={20} width={20} />
 						</Button>
 					</div>
 				)}

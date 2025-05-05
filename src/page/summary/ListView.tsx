@@ -1,13 +1,13 @@
 import DataWithLabel from '@/components/common/DataWithLabel'
 import DetailInfoCard from '@/components/common/DetailInfoCard'
 import { HighlightText } from '@/components/common/HighlightText'
+import Link from '@/components/common/Link'
+import { Separator } from '@/components/ui/separator'
 import { getFieldsFromRecord } from '@/lib/record'
+import { cn, getClassName } from '@/lib/utils'
 import { ReactNode } from 'react'
 import { RecordAction } from './RecordAction'
 import { ViewProps } from './SummaryRecord'
-import Link from '@/components/common/Link'
-import { Separator } from '@/components/ui/separator'
-import { cn, getClassName } from '@/lib/utils'
 
 const ListView = ({
 	title,
@@ -38,6 +38,7 @@ const ListView = ({
 
 	return (
 		<DetailInfoCard
+			record={record}
 			title={
 				<Link href={recordLink}>
 					<HighlightText text={title} highlights={searchTerms} />

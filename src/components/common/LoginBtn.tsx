@@ -21,12 +21,16 @@ const LoginBtn = ({ className }: { className?: string }) => {
 			{isAuthenticated ? (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild className={'focus:outline-none focus:border-none'}>
-						<button
-							className={
-								'text-opac-white text-lg font-bold flex items-center max-w-[250px] truncate'
-							}>
-							{message.welcome} {decodeURIComponent(m2l_patron_name)}!
-							<ChevronDown className={'h-4'} />
+						<button className={'text-opac-white text-lg font-bold flex items-center'}>
+							<div>
+								<div className="block sm:hidden">{message.welcome}!</div>
+								<div className={'break-words whitespace-normal'}>
+									{decodeURIComponent(m2l_patron_name)}
+								</div>
+							</div>
+							<div>
+								<ChevronDown className={'h-4'} />
+							</div>
 						</button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end" className={'w-full'}>

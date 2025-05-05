@@ -8,22 +8,24 @@
 	</head>
 	<body>
 		<script>
-			function getCookie(cname) {
-				var name = cname + "=";
-				var decodedCookie = decodeURIComponent(document.cookie);
-				var ca = decodedCookie.split(";");
-				for (var i = 0; i < ca.length; i++) {
-					var c = ca[i];
-					while (c.charAt(0) === " ") {
-						c = c.substring(1, c.length);
-					}
-					if (c.indexOf(name) === 0) {
-						return c.substring(name.length, c.length);
-					}
-				}
-				return "";
+			function getCookie(name) {
+				return (
+					document.cookie
+						.split('; ')
+						.find((row) => row.startsWith(name + '='))
+						?.split('=')[1] || ''
+				)
 			}
-			window.location = getCookie("HOME_SESSID") + "?SEARCH&DATABASE=CLIENT_VIEW&AUX_SESSID=client&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)"
+
+			document.addEventListener('DOMContentLoaded', () => {
+				const sessionId = getCookie('HOME_SESSID')
+				if (sessionId) {
+					const url = `${sessionId}?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)`
+					window.location.href = url
+				} else {
+					console.error('HOME_SESSID cookie not found.')
+				}
+			})
 		</script>
 	</body>
 </html>

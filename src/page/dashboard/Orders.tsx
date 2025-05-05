@@ -1,6 +1,7 @@
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
 import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
+import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import {
 	encodeURIStringToMinisisSpecialCharacter,
@@ -14,7 +15,7 @@ import axios from 'axios'
 
 const Orders = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-
+	const message = useConstants().message
 	const cancelRequest = (reqNumber: string) => {
 		var cancelReq_url =
 			getCookieValue('HOME_SESSID') +
@@ -72,7 +73,7 @@ const Orders = () => {
 		},
 		{
 			accessorKey: 'date_needed',
-			header: 'Date',
+			header: message.date,
 			cell: ({ row }) => (
 				<div className="capitalize">
 					{row.getValue('date_needed') ? row.getValue('date_needed') : 'N/A'}
@@ -86,7 +87,7 @@ const Orders = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Time
+						{message.time}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -104,7 +105,7 @@ const Orders = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Status
+						{message.status}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -118,7 +119,7 @@ const Orders = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Reference No.
+						{message.referenceNo}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -126,6 +127,7 @@ const Orders = () => {
 			cell: ({ row }) => (
 				<div className="underline">
 					<a
+						className={`${row.getValue('req_db_name') ? '' : 'pointer-events-none'}`}
 						href={
 							getHomeSessionID() +
 							'/' +
@@ -150,7 +152,7 @@ const Orders = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Title
+						{message.title}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -164,7 +166,7 @@ const Orders = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Amount
+						{message.amount}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -178,7 +180,7 @@ const Orders = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Action
+						{message.action}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -186,16 +188,16 @@ const Orders = () => {
 			cell: ({ row }) => (
 				<div className="">
 					{row.getValue('rec_status') === 'Deleted' ? (
-						<Button disabled>Cancelled</Button>
+						<Button disabled>{message.cancelled}</Button>
 					) : row.getValue('req_status') === 'Retrieve' ||
 					  row.getValue('req_status') === 'Prepared' ||
 					  row.getValue('req_status') === 'Requested' ||
 					  row.getValue('req_status') === 'Conservation' ? (
 						<Button onClick={() => cancelRequest(row.getValue('req_order_num'))}>
-							Cancel
+							{message.cancel}
 						</Button>
 					) : (
-						<Button disabled>No Action</Button>
+						<Button disabled>{message.noAction}</Button>
 					)}
 				</div>
 			),

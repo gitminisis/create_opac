@@ -5,26 +5,32 @@
 		"login": true,
 		"url": "/scripts/mwimain.dll?get&file=[OPAC]login.html"
 	},
-	"reCaptchaKey": "6LcOFlYqAAAAAHc_oWNTonTkkRdzvQ30B42eQm6r",
 	"navigations": [
 		{
 			"url": "/",
-			"title": "Accueil"
+			"title": "Accueil",
+			"search_database": ""
 		},
 		{
 			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]archives.html",
 			"title": "Archives",
-			"search_database": "DESCRIPTION_WEB"
+			"search_database": "DESCRIPTION_WEB",
+			"color": "bg-minisis-archives",
+			"text": "text-minisis-archives"
 		},
 		{
 			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html",
 			"title": "Bibliothèque",
-			"search_database": "BIBLIO_WEB"
+			"search_database": "BIBLIO_WEB",
+			"color": "bg-minisis-museum",
+			"text": "text-minisis-museum"
 		},
 		{
 			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]museum.html",
 			"title": "Musée",
-			"search_database": "COLLECTIONS_WEB"
+			"search_database": "COLLECTIONS_WEB",
+			"color": "bg-minisis-library",
+			"text": "text-minisis-library"
 		}
 	]
 }

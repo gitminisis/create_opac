@@ -11,12 +11,12 @@ import { LayersControl, MapContainer, Marker, Popup, TileLayer } from 'react-lea
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css'
 import { v4 as uuidv4 } from 'uuid'
-import Button from '../admin/Button'
 import CollapseList from '../CollapseList'
-import archiveIcon from '../../../assets/icons/archive.png'
-import libraryIcon from '../../../assets/icons/library.png'
-import museumIcon from '../../../assets/icons/museum.png'
+import archiveIcon from '@/assets/icons/archive.png'
+import libraryIcon from '@/assets/icons/library.png'
+import museumIcon from '@/assets/icons/museum.png'
 import './style.css'
+import { Button } from '@/components/ui/button'
 
 const DB_TYPE_MAP = {
 	library: 'Library',
@@ -46,12 +46,23 @@ interface DataType {
 	SCOPE: string
 }
 
-const createIcon = (iconUrl: string, bgColor: string): L.DivIcon => {
+const markerIcon = (iconUrl: string, bgColor: string): L.DivIcon => {
 	return L.divIcon({
-		className: `min-w-[22px] min-h-[22px] flex justify-center items-center rounded-full shadow-md ${bgColor}`,
+		className: '',
 		html: `
-      <div>
-        <img src="${iconUrl}" class="w-4 h-4" />
+      <div class="${bgColor}" style="
+        width: 22px;
+        height: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 9999px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      "
+           onmouseover="this.style.transform='scale(2)'"
+           onmouseout="this.style.transform='scale(1)'">
+        <img src="${iconUrl}" style="width: 16px; height: 16px;" />
       </div>
     `,
 		iconSize: [20, 20],
@@ -67,16 +78,16 @@ const COLOR_MAP: any = {
 }
 
 const icons: Record<string, L.DivIcon> = {
-	library: createIcon(libraryIcon, COLOR_MAP.library),
-	archive: createIcon(archiveIcon, COLOR_MAP.archive),
-	museum: createIcon(museumIcon, COLOR_MAP.museum),
+	library: markerIcon(libraryIcon, COLOR_MAP.library),
+	archive: markerIcon(archiveIcon, COLOR_MAP.archive),
+	museum: markerIcon(museumIcon, COLOR_MAP.museum),
 }
 
-const createClusterIcon = function (cluster: any, iconUrl: string, bgColor: string) {
+const clusterMarkerIcon = function (cluster: any, iconUrl: string, bgColor: string) {
 	return L.divIcon({
-		className: `${bgColor} min-w-[60px] min-h-[60px] flex flex-col justify-center items-center rounded-full shadow-md`,
+		className: ``,
 		html: `
-      <div >
+      <div class='${bgColor} min-w-[60px] min-h-[60px] flex flex-col justify-center items-center rounded-full shadow-md'>
         <div><img src="${iconUrl}" class="w-5 h-5" /></div>
         <div>${cluster.getChildCount()}</div>
       </div>
@@ -276,13 +287,16 @@ const InteractiveMap = ({ page }: { page: string }) => {
 			<div className="mb-2 md:mb-0 md:w-1/4 rounded border border-primary mr-2 relative">
 				<div className="flex justify-between items-center bg-primary p-2">
 					<div className={'text-white'}>{message.filterBy}</div>
-					<Button onClick={resetMap} className={'bg-black text-white'}>
+					<Button
+						onClick={resetMap}
+						className={'bg-primary text-white'}
+						variant={'secondary'}>
 						<RefreshCw />
 					</Button>
 				</div>
 				<div className="flex flex-col space-y-4 max-h-[90vh] mb-2 p-2 overflow-y-auto custom-scrollbar">
 					{page === 'home' && (
-						<CollapseList title={message.Type} expand={true}>
+						<CollapseList title={message.type} expand={true}>
 							<div className="space-y-3 border-t p-4">
 								<div className="flex">
 									<div className={'flex items-center space-x-2'}>
@@ -473,10 +487,10 @@ const InteractiveMap = ({ page }: { page: string }) => {
 					{/* @ts-ignore */}
 					<MarkerClusterGroup
 						key={`L${uuidv4()?.substring(15)}`}
-						spiderfyDistanceMultiplier={2}
+						spiderfyDistanceMultiplier={1}
 						showCoverageOnHover={false}
 						iconCreateFunction={(cluster) =>
-							createClusterIcon(cluster, libraryIcon, COLOR_MAP.library)
+							clusterMarkerIcon(cluster, libraryIcon, COLOR_MAP.library)
 						}>
 						{filteredData?.map((marker: DataType, key: number) => {
 							if (marker.DATABASE_TYPE === DB_TYPE_MAP.library) {
@@ -487,27 +501,34 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											marker?.DECIMAL_LATITUDE,
 											marker?.DECIMAL_LONGITUDE,
 										]}
+										eventHandlers={{
+											mouseover: (e) => e.target.openPopup(),
+											mouseout: (e) => e.target.closePopup(),
+											click: () => {
+												const url = `/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${library.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=ACCESSION_NUMBER%20${marker.ACCESSION_NUMBER}`
+												window.location.href = url
+											},
+										}}
 										icon={icons['library']}>
 										<Popup
 											className="hidden md:block border-minisis-library  border-2 rounded-[14px]"
 											offset={[2, 0]}>
 											<div className="w-[300px] ">
-												<a
-													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${library.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=ACCESSION_NUMBER%20${marker.ACCESSION_NUMBER}`}
-													target="_blank">
-													<h3 className="text-lg font-bold text-black  pb-2">
-														{marker.ALL_TITLE_WORD_OCCURRENCE ?? 'n/a'}
-													</h3>
-													{marker?.IMAG_URL && (
-														<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
-															<img
-																src={getImage(marker.IMAG_URL)}
-																alt="Library"
-																className="w-full h-full object-contain rounded-[14px]"
-															/>
-														</div>
-													)}
-												</a>
+												<h3 className="text-lg font-bold text-black  pb-2">
+													{typeof marker.ALL_TITLE_WORD_OCCURRENCE !==
+													'object'
+														? marker?.ALL_TITLE_WORD_OCCURRENCE
+														: 'n/a'}
+												</h3>
+												{marker?.IMAG_URL && (
+													<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
+														<img
+															src={getImage(marker.IMAG_URL)}
+															alt="Library"
+															className="w-full h-full object-contain rounded-[14px]"
+														/>
+													</div>
+												)}
 												<table className="w-full text-sm">
 													<tbody>
 														{marker.ACCESSION_NUMBER && (
@@ -558,10 +579,10 @@ const InteractiveMap = ({ page }: { page: string }) => {
 					{/* @ts-ignore */}
 					<MarkerClusterGroup
 						key={`A${uuidv4()?.substring(15)}`}
-						spiderfyDistanceMultiplier={2}
+						spiderfyDistanceMultiplier={1}
 						showCoverageOnHover={false}
 						iconCreateFunction={(cluster) =>
-							createClusterIcon(cluster, archiveIcon, COLOR_MAP.archive)
+							clusterMarkerIcon(cluster, archiveIcon, COLOR_MAP.archive)
 						}>
 						{filteredData?.map((marker: DataType, key: number) => {
 							if (marker.DATABASE_TYPE === DB_TYPE_MAP.archive) {
@@ -572,33 +593,39 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											marker?.DECIMAL_LATITUDE,
 											marker?.DECIMAL_LONGITUDE,
 										]}
+										eventHandlers={{
+											mouseover: (e) => e.target.openPopup(),
+											mouseout: (e) => e.target.closePopup(),
+											click: () => {
+												const url = `/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${archives.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=refd%20${marker.REFD}`
+												window.location.href = url
+											},
+										}}
 										icon={icons['archive']}>
 										<Popup
 											className="hidden md:block border-minisis-archives  border-2 rounded-[14px]"
 											offset={[2, 0]}>
 											<div className="w-[300px]">
-												<a
-													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${archives.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=refd%20${marker.REFD}`}
-													target="_blank">
-													<h3 className="text-lg font-bold text-black   pb-2">
-														{marker.TITLE ?? 'n/a'}
-													</h3>
-													{marker?.IMAG_URL && (
-														<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
-															<img
-																src={getImage(marker.IMAG_URL)}
-																alt="Archive"
-																className="w-full h-full object-contain rounded-t-lg rounded-[14px]"
-															/>
-														</div>
-													)}
-												</a>
+												<h3 className="text-lg font-bold text-black   pb-2">
+													{typeof marker.TITLE !== 'object'
+														? marker.TITLE
+														: 'n/a'}
+												</h3>
+												{marker?.IMAG_URL && (
+													<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
+														<img
+															src={getImage(marker.IMAG_URL)}
+															alt="Archive"
+															className="w-full h-full object-contain rounded-t-lg rounded-[14px]"
+														/>
+													</div>
+												)}
 												<table className="w-full text-sm">
 													<tbody>
 														{marker.REFD && (
 															<tr className="border-b">
 																<td className="font-semibold">
-																	Refd
+																	REFD
 																</td>
 																<td>{marker.REFD} </td>
 															</tr>
@@ -634,10 +661,10 @@ const InteractiveMap = ({ page }: { page: string }) => {
 					{/* @ts-ignore */}
 					<MarkerClusterGroup
 						key={`M${uuidv4()?.substring(15)}`}
-						spiderfyDistanceMultiplier={2}
+						spiderfyDistanceMultiplier={1}
 						showCoverageOnHover={false}
 						iconCreateFunction={(cluster) =>
-							createClusterIcon(cluster, museumIcon, COLOR_MAP.museum)
+							clusterMarkerIcon(cluster, museumIcon, COLOR_MAP.museum)
 						}>
 						{filteredData?.map((marker: DataType) => {
 							if (marker.DATABASE_TYPE === DB_TYPE_MAP.museum) {
@@ -648,27 +675,33 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											marker?.DECIMAL_LATITUDE,
 											marker?.DECIMAL_LONGITUDE,
 										]}
+										eventHandlers={{
+											mouseover: (e) => e.target.openPopup(),
+											mouseout: (e) => e.target.closePopup(),
+											click: () => {
+												const url = `/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${museum.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=ACCESSION_NUMBER%20${marker.ACCESSION_NUMBER}`
+												window.location.href = url
+											},
+										}}
 										icon={icons['museum']}>
 										<Popup
 											className="hidden md:block border-minisis-museum border-2 rounded-[14px]"
 											offset={[2, 0]}>
 											<div className="w-[300px]">
-												<a
-													href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${museum.database_name}&language=144&REPORT=WEB_UNION_DETAIL&EXP=ACCESSION_NUMBER%20${marker.ACCESSION_NUMBER}`}
-													target="_blank">
-													<h3 className="text-lg font-bold text-black pb-2 overflow-x-auto">
-														{marker.TITLE ?? 'n/a'}
-													</h3>
-													{marker?.IMAG_URL && (
-														<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
-															<img
-																src={getImage(marker.IMAG_URL)}
-																alt="Museum"
-																className="w-full h-full object-contain rounded-t-lg rounded-[14px]"
-															/>
-														</div>
-													)}
-												</a>
+												<h3 className="text-lg font-bold text-black pb-2 overflow-x-auto">
+													{marker.TITLE !== 'object'
+														? marker.TITLE
+														: 'n/a'}
+												</h3>
+												{marker?.IMAG_URL && (
+													<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
+														<img
+															src={getImage(marker.IMAG_URL)}
+															alt="Museum"
+															className="w-full h-full object-contain rounded-t-lg rounded-[14px]"
+														/>
+													</div>
+												)}
 												<table className="w-full text-sm">
 													<tbody>
 														{marker.ACCESSION_NUMBER && (

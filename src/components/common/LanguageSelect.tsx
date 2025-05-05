@@ -2,6 +2,8 @@ import { ENGLISH_CODE, FRENCH_CODE, LanguageCode } from '@/types/lang'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { useLanguage } from '@/hooks/useLanguage'
 import { db } from '../../db/client'
+import { deleteCookie, getCookieValue, setCookie } from '@/lib/utils'
+import { useEffect } from 'react'
 export interface ILANGUAGE {
 	code: LanguageCode
 	name: string
@@ -26,12 +28,21 @@ export const LANGUAGE_ITEMS: ILANGUAGE[] = [
 export function LanguageSelect() {
 	const languageCode = useLanguage()
 	const language = LANGUAGE_ITEMS.find((e) => e.code === languageCode) || LANGUAGE_ITEMS[0]
+	useEffect(() => {
+		if (languageCode === FRENCH_CODE && !getCookieValue('my_lang')) {
+			setCookie('my_lang', '145')
+		}
+	}, [languageCode])
 
 	const setLanguage = async (code: LanguageCode) => {
 		const id = await db.language.put({
 			id: 'lang',
 			code,
 		})
+
+		if (code == ENGLISH_CODE) {
+			deleteCookie('my_lang')
+		}
 	}
 	return (
 		<Select

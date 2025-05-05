@@ -7,7 +7,6 @@ import { Archive, CircleEllipsis, Landmark, LibraryBig } from 'lucide-react'
 const Request = () => {
 	const { backToSummary, records, getMedia, common } = useJSONData({ selector: '#xml_record' })
 	let reqData = records[0].request
-	console.log(reqData)
 	const handleGoBack = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
 		window.history.back()
@@ -120,14 +119,14 @@ const Request = () => {
 										value={reqData.req_queue}
 									/>
 									<Button
-										className="bg-opac-darkblue rounded mx-1 hover:bg-opac-darkblue"
+										className="bg-primary rounded mx-1 hover:bg-primary"
 										type="submit"
 										name="Submit"
 										variant="default">
 										Place Request
 									</Button>
 									<Button
-										className="bg-opac-darkblue rounded mx-1 hover:bg-opac-darkblue"
+										className="bg-primary rounded mx-1 hover:bg-primary"
 										type="submit"
 										name="Submit2"
 										variant="default"

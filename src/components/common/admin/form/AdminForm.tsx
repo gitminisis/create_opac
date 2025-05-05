@@ -19,7 +19,7 @@ const AdminForm = ({
 }) => {
 	const { handleFormSave, formData } = useAdminForm()
 	const [previewMode, setPreviewMode] = useState(false)
-
+	console.log({ formData })
 	return (
 		<div className="flex col-span-3 flex-row  space-x-4 min-w-[500px] w-full max-w-6xl mx-auto">
 			<div className="w-full">{children}</div>

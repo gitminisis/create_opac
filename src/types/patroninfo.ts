@@ -12,7 +12,7 @@ export type PatronInfo = {
 	TAG_FUNC_END_T: string
 	TAG_FUNC_LOC_ROO: string
 	TAG_FUNC_DATE: string
-	TAG_FUNC_LOC: string
+	TAG_FUNC_LOC_BLD: string
 	SISN: string
 	TAG_FUNC_P_ID: string
 	TAG_FUNC_P_T: string
@@ -33,7 +33,7 @@ export const initialPatronInfo: PatronInfo = {
 	TAG_FUNC_END_T: '',
 	TAG_FUNC_LOC_ROO: '',
 	TAG_FUNC_DATE: '',
-	TAG_FUNC_LOC: '',
+	TAG_FUNC_LOC_BLD: '',
 	SISN: '',
 	TAG_FUNC_P_ID: '',
 	TAG_FUNC_P_T: '',

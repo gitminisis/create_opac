@@ -3,12 +3,12 @@ import { decodeString, encodeString } from './encoder'
 
 export const OPAC_ADMIN_USERNAME = 'OPAC_ADMIN'
 export const TDR_CONFIG: TdrParams = {
-	username: '|2s|2w|6yx|0y|3|5|4u|6u|5|B',
-	userpassword: '|Fs|Bx|Kv|7x|4z|8|3|1|7|0|5x|7u|Bt|Eu|G|F',
-	tdr_api: 'https://titanapi.minisisinc.com',
-	tdr_ui: 'https://titan.minisisinc.com',
+	username: 'Karl',
+	userpassword: 'F1re_water',
+	tdr_api: 'https://tdrmultiapi.minisisinc.com',
+	tdr_ui: 'https://tdrmultiui.minisisinc.com',
 	login_endpoint: '/token',
-	search_endpoint: '/#/discover',
+	search_endpoint: '/#/search',
 	bookmark_endpoint: '/api/Discover/BookmarkLinks',
 	delete_bookmark_ep: '/api/Discover/Bookmarks',
 }
@@ -49,21 +49,13 @@ export type TDRFile = {
 	LastModifiedOn: string // ISO 8601 date string
 }
 
-export const generateTDRIframeURL = (bookmarkId: string) => {
-	// Encode URLs
-	const loginUrl = encodeString(`${TDR_CONFIG.tdr_api}${TDR_CONFIG.login_endpoint}`)
-	const searchUrl = encodeString(`${TDR_CONFIG.tdr_ui}${TDR_CONFIG.search_endpoint}`)
-
+export const generateTDRIframeURL = (accessToken: string, bookmarkId: string) => {
 	// Generate discovery URL
 	const discoveryUrl =
-		`${TDR_CONFIG.tdr_ui}/m2a-search.html` +
-		`?US=${TDR_CONFIG.username}` +
-		`&PW=${TDR_CONFIG.userpassword}` +
-		`&LO=${loginUrl}` +
-		`&SE=${searchUrl}` +
-		`&BI=${bookmarkId}` +
+		TDR_CONFIG.tdr_ui +
 		TDR_CONFIG.search_endpoint +
-		`/${bookmarkId}`
+		"?&phrase=%2b%2b%40&token=" + accessToken +
+		"&bookmark=" + bookmarkId;
 
 	return discoveryUrl
 }
@@ -84,7 +76,7 @@ export const generateBookmarkId = (userName = OPAC_ADMIN_USERNAME) => {
 }
 
 export const getTDRAccessToken = async () => {
-	const res = await axios.post<{ access_token: string }>(
+	const res = await axios.post<AuthResponse>(
 		`${TDR_CONFIG.tdr_api}/token`,
 		{
 			grant_type: 'password',
@@ -139,3 +131,21 @@ export const isSupportedImageExtension = (extension: string): boolean => {
 	// Check if the provided extension matches any of the supported image extensions
 	return supportedImageExtensions.includes(extension?.toLowerCase())
 }
+
+
+export type AuthResponse = {
+	access_token: string;
+	token_type: string;
+	expires_in: number;
+	userName: string;
+	roleId: string;
+	roleName: string;
+	organizationUuid: string;
+	multiTenant: string; // Consider changing to boolean if you normalize the value
+	master: string;      // Same here
+	".issued": string;
+	".expires": string;
+	logo: string;
+	avatar: string | null;
+  };
+  

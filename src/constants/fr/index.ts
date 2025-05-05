@@ -1,4 +1,4 @@
-import config from '../en/config.json'
+import config from '../fr/config.json'
 import faq from './faq.json'
 import fields from './fields.json'
 import home from './home.json'

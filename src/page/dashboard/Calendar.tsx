@@ -1,6 +1,5 @@
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
 import {
-	CANCEL_CONFIRMATION_EMAIL_T,
 	FUNC_LOC_P_GRP,
 	MAIN_EVENT_CAL_DB,
 	MWI_RESFUL_RES,
@@ -9,7 +8,7 @@ import {
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
-	TAG_FUNC_LOC,
+	TAG_FUNC_LOC_BLD,
 	TAG_FUNC_LOC_GRP,
 	TAG_FUNC_P_ATTND,
 	TAG_FUNC_START_T,
@@ -20,11 +19,16 @@ import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
-import { convertToArr, convertXMLToJson, getHomeSessionID, isDatePast } from '@/lib/utils'
+import {
+	convertToArr,
+	convertXMLToJson,
+	getCookieValue,
+	getHomeSessionID,
+	isDatePast,
+} from '@/lib/utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import axios from 'axios'
-  
 
 interface TagFunction {
 	[key: string]: any
@@ -47,6 +51,7 @@ const Calendar = () => {
 	const message = useConstants().message
 	let HOME_SESSID = getHomeSessionID()
 	const { logo } = useConstants().config
+	const rsvp = useConstants().rsvp
 
 	const columns: ColumnDef<ProfileData>[] = [
 		{
@@ -75,24 +80,18 @@ const Calendar = () => {
 		{
 			accessorKey: TAG_FUNC_START_T.toLocaleLowerCase(),
 			header: message.start,
-			cell: ({ row }) => (
-				<div>
-					{row.getValue(TAG_FUNC_START_T.toLocaleLowerCase())}
-				</div>
-			),
+			cell: ({ row }) => <div>{row.getValue(TAG_FUNC_START_T.toLocaleLowerCase())}</div>,
 		},
 		{
 			accessorKey: TAG_FUNC_END_T.toLocaleLowerCase(),
 			header: message.end,
-			cell: ({ row }) => (
-				<div>{row.getValue(TAG_FUNC_END_T.toLocaleLowerCase())}</div>
-			),
+			cell: ({ row }) => <div>{row.getValue(TAG_FUNC_END_T.toLocaleLowerCase())}</div>,
 		},
 		{
-			accessorKey: TAG_FUNC_LOC.toLocaleLowerCase(),
+			accessorKey: TAG_FUNC_LOC_BLD.toLocaleLowerCase(),
 			header: message.location,
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue(TAG_FUNC_LOC.toLocaleLowerCase())}</div>
+				<div className="capitalize">{row.getValue(TAG_FUNC_LOC_BLD.toLocaleLowerCase())}</div>
 			),
 		},
 		{
@@ -102,7 +101,7 @@ const Calendar = () => {
 				<div className="capitalize">
 					{row.getValue(TAG_FUNC_P_ATTND.toLocaleLowerCase())}
 				</div>
-			)
+			),
 		},
 		{
 			accessorKey: ' ',
@@ -119,13 +118,18 @@ const Calendar = () => {
 								{message.yes} {message.cancel}
 							</button>
 						}
-						InitialButton={<Button variant={'danger'} disabled={isDatePast(cell.row.original.tag_func_date)}>{message.cancel}</Button>}
+						InitialButton={
+							<Button
+								variant={'danger'}
+								disabled={isDatePast(cell.row.original.tag_func_date)}>
+								{message.cancel}
+							</Button>
+						}
 					/>
 				)
 			},
-		}
+		},
 	]
-
 
 	const cancelEvent = async (patronInfo: any, sisnValue: number) => {
 		getOCCNumber(patronInfo, sisnValue)
@@ -154,7 +158,7 @@ const Calendar = () => {
 				let TAG_FUNC_DTE_OCC = 0
 
 				loc_group?.forEach((elm) => {
-					const funcLoc = elm?.TAG_FUNC_LOC
+					const funcLoc = elm?.TAG_FUNC_LOC_BLD
 					if (funcLoc === patronInfo['tag_func_loc']) {
 						TAG_FUNC_LOC_OCC = elm._occ // regards as Occurence number of the repeating field
 					}
@@ -211,9 +215,10 @@ const Calendar = () => {
 	}
 
 	const sendCancelConfirmEmail = async (patronInfo: any) => {
+		let is_french = getCookieValue('my_lang') === '145' ? true : false
 		return await axios
 			.post(
-				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=[OPAC_EMAIL_TMP]RSVPCancelConfirmTmp.txt&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo?.tag_func_p_email}&SUBJECT_DEFAULT=${CANCEL_CONFIRMATION_EMAIL_T}:${patronInfo?.tag_name}`,
+				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=[OPAC_EMAIL_TMP]${is_french ? 'RSVPCancelConfirmTmp_fr.txt' : 'RSVPCancelConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo?.tag_func_p_email}&SUBJECT_DEFAULT=${rsvp.emailSubject.cancelConfirmationEmailT}:${patronInfo?.tag_name}`,
 				{
 					...patronInfo,
 					EVENT_EMAIL_LOGO: logo,

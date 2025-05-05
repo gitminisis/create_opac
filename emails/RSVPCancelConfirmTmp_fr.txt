@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration Successful</title>
+  <title>Event Cancellation Confirmation</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -78,13 +78,13 @@
   </style>
 </head>
 <body>
-   <table role="presentation" class="header" cellpadding="0" cellspacing="0">
+  <table role="presentation" class="header" cellpadding="0" cellspacing="0">
     <tr>
       <td align="center">
         <table cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-              <h1 style="padding:20px 0; font-size: 22px; margin: 0; color: white;">Confirm your Email!</h1>
+              <h1 style="padding:20px 0; font-size: 22px; margin: 0; color: white;">Inscription annulee!</h1>
             </td>
           </tr>
         </table>
@@ -92,42 +92,16 @@
     </tr>
   </table>
   <div class="container">
-    <div class="info">
-      <div>Event Name:</div>
-      <p>^TAG_NAME^</p>
-    </div>
-    <div class="info">
-      <div>Event Date:</div>
-      <p>^TAG_FUNC_DATE^</p>
-    </div>
-    <div class="info">
-      <div>Name:</div>
-      <p>^TAG_FUNC_P_LAST^, ^TAG_FUNC_P_FIRST^</p>
-    </div>
-    <div class="info">
-      <div>Date Registered:</div>
-      <p>^TAG_FUNC_P_T^</p>
-    </div>
-    <div class="info">
-      <div>Attendee(s):</div>
-      <div id="attendee-details" style="border: 2px dotted #ccc; padding: 10px; text-align: center;">
-        ^TAG_FUNC_P_ATTND^ Spot(s) Reserved
-      </div>
-    </div>
-    <div class="button-container">
-      <a href="^RSVP_CONFIRM_LANDING_PAGE_URL^?user=^encoded^" style="text-decoration: none;">
-        <button>Confirm the event</button>
-      </a>
-    </div>
-      <div class="info">
-     <div for="attendee-details" style="margin-top:50px"> If the button is not working...</div>
-      <p id="attendee-details" style="border: 2px dotted #ccc; padding: 10px;">
-     ^RSVP_CONFIRM_LANDING_PAGE_URL^?user=^encoded^
-      </p>
+    <div class="event-details">
+      <h2>Votre inscription a ete annulee pour:</h2>
+      <p><strong>ID d'inscription:</strong> ^TAG_FUNC_P_ID^</p>
+      <p><strong>evenement:</strong> ^TAG_NAME^</p>
+      <p><strong>Date:</strong> ^TAG_FUNC_DATE^</p>
+      <p><strong>Heure:</strong> ^TAG_FUNC_START_T^ - ^TAG_FUNC_END_T^</p>
     </div>
   </div>
   <footer class="footer">
-    Software powered by MINISIS Inc
+  Logiciel propulsé par MINISIS Inc
   </footer>
 </body>
 </html>

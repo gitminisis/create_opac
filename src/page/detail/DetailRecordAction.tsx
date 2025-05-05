@@ -163,14 +163,12 @@ const DetailRecordAction = () => {
 					{checkRecordHasMandatoryDataToRequest() &&
 					checkIfCurrentClientRequestedThisRecord() ? (
 						<TooltipButton
-							tooltipContent="Request Record"
+							tooltipContent={message.requestRecord}
 							variant="outline"
 							className={'w-[22%] md:w-[23.5%] flex '}
 							onClick={() => handleSubmit('Request')}>
 							<ShoppingBag className="w-4 h-4 md:mr-2 " />{' '}
-							<span className="hidden md:block">
-								{message.detailRecordActionRequest}
-							</span>
+							<span className="hidden md:block">{message.request}</span>
 							<form
 								method="post"
 								ref={formRef}
@@ -242,53 +240,48 @@ const DetailRecordAction = () => {
 									name="REQ_ITEM_TITLE"
 									value={requestData.req_item_title}
 								/>
-								<Button
-									className="bg-opac-darkblue"
-									type="submit"
-									variant="default">
+								<Button className="bg-primary" type="submit" variant="default">
 									Submit
 								</Button>
 							</form>
 						</TooltipButton>
 					) : (
 						<TooltipButton
-							tooltipContent="Request Record"
+							tooltipContent={message.requestRecord}
 							variant="outline"
 							disabled
 							className={'w-[22%] md:w-[23.5%] flex '}>
 							<ShoppingBag className="w-4 h-4 md:mr-2" />{' '}
-							<span className="hidden md:block">
-								{message.detailRecordActionRequest}
-							</span>
+							<span className="hidden md:block">{message.request}</span>
 						</TooltipButton>
 					)}
 
 					<TooltipButton
-						tooltipContent="Ask about this record"
+						tooltipContent={message.askAboutThisRecord}
 						variant="outline"
 						className={' w-[22%] md:w-[23.5%] flex  p-1'}
 						onClick={() => handleSubmit('Enquire')}>
 						<ShoppingBag className="w-4 h-4 md:mr-2 " />
-						<span className="hidden md:block">{message.detailRecordActionEnquire}</span>
+						<span className="hidden md:block">{message.enquire}</span>
 					</TooltipButton>
 					<TooltipButton
-						tooltipContent="Reproduce this record"
+						tooltipContent={message.reproduceThisRecord}
 						variant="outline"
 						className={'w-[22%] md:w-[23.5%] p-0'}
 						onClick={() => handleSubmit('Reproduction')}>
 						<Files className="w-4 h-4 md:mr-2" />
-						<span className="hidden md:block">{message.detailRecordActionReproduction}</span>
+						<span className="hidden md:block">{message.reproduction}</span>
 					</TooltipButton>
 					<TooltipButton
-						tooltipContent="Copyright this record"
+						tooltipContent={message.copyrightThisRecord}
 						variant="outline"
 						className={'w-[22%] md:w-[23.5%] flex '}
 						onClick={() => handleSubmit('Copyright')}>
 						<Files className="w-4 h-4 md:mr-2" />{' '}
-						<span className="hidden md:block">{message.detailRecordActionCopyright}</span>
+						<span className="hidden md:block">{message.copyright}</span>
 					</TooltipButton>
 					<TooltipButton
-						tooltipContent="Copy record URL"
+						tooltipContent={message.copyRecordUrl}
 						variant="outline"
 						className={'w-[22%] md:w-[23.5%] flex '}
 						onClick={() => {
@@ -297,7 +290,7 @@ const DetailRecordAction = () => {
 								title: message.recordIsCopied,
 							})
 						}}>
-						<Copy className="w-4 h-4 md:mr-2" /> 
+						<Copy className="w-4 h-4 md:mr-2" />
 						<span className="hidden md:block">{message.copy}</span>
 					</TooltipButton>
 					<TooltipButton
@@ -306,7 +299,7 @@ const DetailRecordAction = () => {
 						size="icon"
 						onClick={handleBookmark}
 						className={'w-[22%] md:w-[23.5%] flex '}
-						tooltipContent="Bookmark record">
+						tooltipContent={`${message.bookmark}`}>
 						<Star
 							className={cn('h-4 w-4 text-primary md:mr-2 ')}
 							fill={like ? 'hsl(var(--opac-blue))' : 'rgb(0,0,0,0)'}
@@ -317,7 +310,7 @@ const DetailRecordAction = () => {
 				</div>
 
 				<TooltipButton
-					tooltipContent="Next record"
+					tooltipContent={message.nextRecord}
 					className={'align-center md:w-[130px]'}
 					disabled={!nextRecord}
 					onClick={() => goToURL(nextRecord)}>

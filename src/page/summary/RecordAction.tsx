@@ -3,12 +3,11 @@ import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
-import { bookmarkSelect, removeBookmarkFromKey, validateBookmarkResponse } from '@/lib/bookmark'
-import { copyRecordURL, deepSearchKey, handleCopyRecordURL } from '@/lib/record'
+import { bookmarkSelect, validateBookmarkResponse } from '@/lib/bookmark'
+import { deepSearchKey, handleCopyRecordURL } from '@/lib/record'
 import { cn } from '@/lib/utils'
 import { bookmarkCount } from '@/store'
 import { Record } from '@/types/record'
-import { ToastAction } from '@radix-ui/react-toast'
 import { useAtom } from 'jotai'
 import { Copy, Star } from 'lucide-react'
 import { useState } from 'react'
@@ -86,7 +85,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 				size="icon"
 				disabled={loading}
 				onClick={handleBookmark}
-				tooltipContent="Bookmark record">
+				tooltipContent={`${message.bookmark}`}>
 				<Star
 					className={cn('h-4 w-4 text-primary')}
 					fill={like ? 'hsl(var(--opac-blue))' : 'rgb(0,0,0,0)'}
@@ -98,7 +97,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 				variant="ghost"
 				size="icon"
 				onClick={handleCopy}
-				tooltipContent="Copy record URL">
+				tooltipContent={message.copyRecordUrl}>
 				<Copy className="h-4 w-4 text-primary" />
 			</TooltipButton>
 			{/* {record.avail ? <><Separator orientation="vertical" />

@@ -1,6 +1,7 @@
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
 import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
+import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { CaretSortIcon } from '@radix-ui/react-icons'
@@ -8,7 +9,7 @@ import { ColumnDef } from '@tanstack/react-table'
 
 const Reproductions = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-
+	const message = useConstants().message
 	const columns: ColumnDef<ProfileData>[] = [
 		{
 			id: 'select',
@@ -19,14 +20,14 @@ const Reproductions = () => {
 						(table.getIsSomePageRowsSelected() && 'indeterminate')
 					}
 					onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-					aria-label="Select all"
+					aria-label={message.selectAll}
 				/>
 			),
 			cell: ({ row }) => (
 				<Checkbox
 					checked={row.getIsSelected()}
 					onCheckedChange={(value) => row.toggleSelected(!!value)}
-					aria-label="Select row"
+					aria-label={message.selectRow}
 				/>
 			),
 			enableSorting: false,
@@ -34,7 +35,7 @@ const Reproductions = () => {
 		},
 		{
 			accessorKey: 'req_order_num',
-			header: 'Order #',
+			header: `${message.order} #`,
 			cell: ({ row }) => (
 				<div className="capitalize">
 					<a
@@ -57,7 +58,7 @@ const Reproductions = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Item #
+						{message.item} #
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -71,7 +72,7 @@ const Reproductions = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Topic
+						{message.topic}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -85,7 +86,7 @@ const Reproductions = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Title
+						{message.title}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -99,7 +100,7 @@ const Reproductions = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Status
+						{message.status}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -113,7 +114,7 @@ const Reproductions = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Amount
+						{message.amount}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -127,7 +128,7 @@ const Reproductions = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						Paid
+						{message.paid}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -136,7 +137,7 @@ const Reproductions = () => {
 		},
 	]
 	return (
-		<PatronLayout heading="Reproductions">
+		<PatronLayout heading={message.reproduction}>
 			<ProfileTable
 				data={records}
 				columns={columns}

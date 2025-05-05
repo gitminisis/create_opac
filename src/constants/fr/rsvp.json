@@ -50,5 +50,10 @@
 		"title": "Votre inscription a été annulée avec succès.",
 		"subtitle": "Nous vous enverrons un e-mail concernant les détails de votre annulation.",
 		"showButton": false
+	},
+	"emailSubject": {
+		"verificationEmailT": "Veuillez confirmer votre evenement: ",
+		"regConfirmationEmailT": "Vous etes confirme pour: ",
+		"cancelConfirmationEmailT": "Votre inscription a ete annulee pour: "
 	}
 }

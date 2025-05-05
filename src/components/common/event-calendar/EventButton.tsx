@@ -75,7 +75,11 @@ const EventButton = ({
 									<div>{elm[TAG_FUNC_END_T]?.toUpperCase()}</div>
 								</div>
 								<div className={'hidden sm:block w-[18px]'}>
-									{elm[TAG_FUNC_O] === RSVP_MAP.YES ? <MonitorPlay /> : <SquareUserRound />}
+									{elm[TAG_FUNC_O] === RSVP_MAP.YES ? (
+										<MonitorPlay />
+									) : (
+										<SquareUserRound />
+									)}
 								</div>
 							</div>
 						</div>

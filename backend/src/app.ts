@@ -3,15 +3,15 @@ import path, { resolve } from 'node:path'
 import { applyMiddleware } from './middleware'
 import { easyload } from './routes/easyload'
 import { rebuildOPAC, setFileContent } from './utils'
+import { port } from '.'
 // Create the Hono application
 const app = new Hono()
-
 // Middleware
 applyMiddleware(app)
 
 // Route for checking server staPtus
 app.get('/', (c) => {
-	return c.text('Server is currently running on port 3030')
+	return c.text(`Server is currently running on port ${port}`)
 })
 
 // Route for updating files

@@ -14,7 +14,7 @@ import {
 	generateTDRIframeURL,
 	getTDRAccessToken,
 	getTDRBookmark,
-	TDRFile,
+	TDRFile
 } from '@/lib/tdr'
 import { useEffect, useState } from 'react'
 
@@ -37,7 +37,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 
 			if (id && accessToken) {
 				deleteTDRBookmark(accessToken, id)
-					.then((res) => {})
+					.then((res) => { })
 					.catch((err) => console.error(err))
 			}
 		}
@@ -48,13 +48,9 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 	}
 
 	const handleAssetsSelect = async () => {
-		const authRes = await getTDRAccessToken()
-		if (authRes && id) {
-			const { access_token } = authRes
-			setAccessToken(access_token)
-
-			const bookmarkedItems = await getTDRBookmark(access_token, id)
-
+		if (accessToken && id) {
+			debugger;
+			const bookmarkedItems = await getTDRBookmark(accessToken, id)
 			if (bookmarkedItems) {
 				onAssetsSelect(bookmarkedItems)
 			} else {
@@ -76,8 +72,12 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 				}}>
 				<DialogTrigger asChild>
 					<Button
-						onClick={() => {
-							if (!open) {
+						onClick={async () => {
+							const authRes = await getTDRAccessToken();
+
+
+							if (!open && authRes) {
+								setAccessToken(authRes.access_token)
 								setOpen(true)
 							}
 						}}>
@@ -88,12 +88,12 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 					<DialogHeader>
 						<DialogTitle>Search from TDR Portal</DialogTitle>
 					</DialogHeader>
-					{id && (
+					{id && accessToken && (
 						<iframe
 							width={width * 0.75}
 							height={height * 0.75}
 							title="TDR Portal"
-							src={generateTDRIframeURL(id)}
+							src={generateTDRIframeURL(accessToken, id)}
 						/>
 					)}
 

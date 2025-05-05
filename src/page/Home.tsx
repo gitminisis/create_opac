@@ -65,7 +65,7 @@ const Home = ({ previewMode = false, previewData }: MainPageProps) => {
 		enableRecentAddition,
 		enableMap,
 		enableTimeline,
-	}:any = data
+	}: any = data
 	const { message } = useConstants()
 	const mockData = Array.from({ length: 1000 }, (_, index) => ({
 		LEGAL_TITLE: `Event ${index + 1}`,
@@ -87,8 +87,6 @@ const Home = ({ previewMode = false, previewData }: MainPageProps) => {
 					/>
 				</div>
 			</Hero>
-
-		
 
 			<TopPick page={'home'} previewData={previewData} previewMode={previewMode} />
 
