@@ -15,7 +15,8 @@ import {
 } from '../../ui/dialog'
 import {
 	ContactInfoRSVP,
-	EVENT_DEFAULT_COLOR,
+	EVENT_ARCHIVE_COLOR,
+	EVENT_MUSEUM_COLOR,
 	FilterType,
 	RSVP_MAP,
 	TAG_DB_TYPE,
@@ -32,12 +33,14 @@ const EventButton = ({
 	contactInfo,
 	filterTypes,
 	filterOption,
+	databaseType
 }: {
 	elm: any
 	id: number
 	contactInfo: ContactInfoRSVP[]
 	filterTypes: FilterType[]
 	filterOption: string
+	databaseType:any
 }) => {
 	const [weekType, _] = useAtom(calendarWeekType)
 	const message = useConstants().message
@@ -46,9 +49,9 @@ const EventButton = ({
 		let result = filterTypes?.filter((item) => {
 			return convertLowerTrim(item.type) === convertLowerTrim(event_type)
 		})
-
+		
 		if (result.length < 1) {
-			return EVENT_DEFAULT_COLOR
+			return databaseType ==='Archives'? EVENT_ARCHIVE_COLOR : EVENT_MUSEUM_COLOR
 		}
 		return `${result[0]?.color} ${result[0]?.icon}`
 	}
@@ -118,7 +121,7 @@ const EventButton = ({
 							<div
 								className={cn(
 									'h-4 w-[16px] border rounded mr-1',
-									getColor(elm[TAG_DB_TYPE])
+									getColor(elm[filterOption])
 								)}></div>
 							<div
 								className={

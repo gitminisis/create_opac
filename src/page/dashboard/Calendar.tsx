@@ -37,7 +37,7 @@ interface TagFunction {
 interface PatronInfo {
 	sisn: string
 	tag_name: string
-	tag_func_loc: string
+	tag_func_loc_bld: string
 	tag_func_date: string
 	tag_func_start_t: string
 	tag_func_end_t: string
@@ -159,7 +159,7 @@ const Calendar = () => {
 
 				loc_group?.forEach((elm) => {
 					const funcLoc = elm?.TAG_FUNC_LOC_BLD
-					if (funcLoc === patronInfo['tag_func_loc']) {
+					if (funcLoc === patronInfo['tag_func_loc_bld']) {
 						TAG_FUNC_LOC_OCC = elm._occ // regards as Occurence number of the repeating field
 					}
 				})

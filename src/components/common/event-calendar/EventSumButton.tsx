@@ -12,7 +12,7 @@ import {
 	DialogTrigger,
 } from '../../ui/dialog'
 import ButtonTooltip from './ButtonTooltip'
-import { ContactInfoRSVP, EVENT_DEFAULT_COLOR, FilterType, TAG_FUNC_DTE_LIST } from './Constants'
+import { ContactInfoRSVP, EVENT_ARCHIVE_COLOR, EVENT_MUSEUM_COLOR, FilterType, TAG_FUNC_DTE_LIST } from './Constants'
 import EventCustomDialogContent from './EventCustomDialogContent'
 
 export interface eventSumType {
@@ -20,16 +20,17 @@ export interface eventSumType {
 	contactInfo: ContactInfoRSVP[]
 	filterTypes: FilterType[]
 	filterOption: any
+	databaseType:any
 }
 
-const EventSumButton = ({ item, contactInfo, filterTypes, filterOption }: eventSumType) => {
+const EventSumButton = ({ item, contactInfo, filterTypes, filterOption,databaseType }: eventSumType) => {
 	const { logo } = useConstants().config
 	const getColor = (event_type: string) => {
 		let result = filterTypes?.filter((item) => {
 			return convertLowerTrim(item.type) === convertLowerTrim(event_type)
 		})
 		if (result.length < 1) {
-			return EVENT_DEFAULT_COLOR
+			return databaseType ==='Archives'? EVENT_ARCHIVE_COLOR : EVENT_MUSEUM_COLOR
 		}
 		return `${result[0]?.color} ${result[0]?.icon}`
 	}

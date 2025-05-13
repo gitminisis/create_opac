@@ -1,5 +1,5 @@
 {
-	"heading": "MINISIS OPAC Template",
+	"heading": "Bienvenue sur votre nouveau portail!",
 	"heroBanner": "https://images.unsplash.com/photo-1559511260-66a654ae982a",
 	"searchURL": "UNIONSEARCH&SHOWSINGLE=Y&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW",
 	"browseByCategoryTitle": "Parcourir par catégorie",
@@ -50,24 +50,24 @@
 		]
 	},
 	"featuredCollection": [
-		{
-			"title": "Savauge family fonds",
-			"description": "Join the quest for understanding and enlightenment.",
-			"url": "REFD C 319",
-			"thumbnail": "https://camsopac-dev.minisisinc.com/media/I0014102.jpg"
-		},
-		{
-			"title": "Lieutenant Governor of Ontario",
-			"description": "Experience the thrill of bringing ideas to life.",
-			"url": "ACQ_METHOD Commission",
-			"thumbnail": "https://camsopac-dev.minisisinc.com/media/ac100459.jpg"
-		},
-		{
-			"title": "Alexander Thurtell Brown fonds",
-			"description": "Embark on exciting journeys and thrilling discoveries.",
-			"url": "REFD C 302",
-			"thumbnail": "https://camsopac-dev.minisisinc.com/media/I0016400.JPG"
-		}
+        {
+            "title": "Fonds de la famille Savauge",
+            "description": "Partez à la quête de la compréhension et de l’illumination.",
+            "url": "REFD C 319",
+            "thumbnail": "https://cams1.minisisinc.com/media/I0014102.jpg"
+        },
+        {
+            "title": "Collection d’art documentaire des Archives de l’Ontario",
+            "description": "Vivez l’excitation de donner vie aux idées.",
+            "url": "REFD C 281",
+            "thumbnail": "https://cams1.minisisinc.com/media/I0003077.jpg"
+        },
+        {
+            "title": "Fonds Alexander Thurtell Brown",
+            "description": "Embarquez pour des voyages passionnants et des découvertes palpitantes.",
+            "url": "REFD C 302",
+            "thumbnail": "https://cams1.minisisinc.com/media/I0016400.JPG"
+        }
 	],
 	"topPicks": [
 		{

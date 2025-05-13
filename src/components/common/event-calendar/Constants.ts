@@ -53,7 +53,8 @@ export interface Day_obj {
 	year?: number
 }
 export type FilterType = { type: string; color: string; icon: string }
-export const EVENT_DEFAULT_COLOR = 'bg-minisis-archives border-minisis-archives'
+export const EVENT_ARCHIVE_COLOR = 'bg-minisis-archives border-minisis-archives'
+export const EVENT_MUSEUM_COLOR = 'bg-minisis-museum border-minisis-museum'
 
 //DB
 export const MAIN_EVENT_CAL_DB = 'CALENDAR_VAL_SYN'
