@@ -120,7 +120,7 @@ export const copyRecordURL = ({
 }
 
 export const handleCopyRecordURL = (record: Record, urlOnly = false) => {
-	debugger;
+	
 	const LINK_DBNAME_MAP = {
 		DESCRIPTION_WEB: 'refd',
 		COLLECTIONS_WEB: 'accession_number',

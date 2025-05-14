@@ -16,28 +16,19 @@ import SummaryRecords from './SummaryRecord'
 
 const Summary = () => {
 	const [mobileFilter, setMobileFilter] = useState(false)
-	const { message, home, archives, museum, library } = useConstants()
+	const { message, home } = useConstants()
 	const { common, pagination, backToSummary, data } = useJSONData({
 		selector: '#xml_record',
 	})
+	const [dbparm, setDb_arm] = useState<any>('')
 
-	// const [hasDatabaseParam, setHasDatabaseParam] = useState(false);
-
-	// useEffect(() => {
-	//   const url = window.location.href;
-	//   const hasParam = url.includes("&DATABASE=");
-	//   setHasDatabaseParam(hasParam);
-	// }, []);
-
-	// const navigations = [home, archives, museum, library]
-	// const getDBTitle = (search_database: string) => {
-	// 	let db = navigations.filter((item) => item.database_name === search_database)
-	// 	if (!hasDatabaseParam || !search_database) return ''
-	// 	return `${db[0].displayTitle}`
-	// }
+	useEffect(() => {
+		const urlParams = new URLSearchParams(window.location.search)
+		const databaseValue = urlParams.get('DATABASE')
+		setDb_arm(databaseValue ?? '')
+	}, [])
 
 	if (!common) return <></>
-
 	return (
 		<Layout>
 			<div className="rounded-sm border border-primary bg-background shadow-md md:shadow-xl h-full flex-col flex w-full my-12">
@@ -55,7 +46,11 @@ const Summary = () => {
 							className="w-[450px] m-0"
 							inputStyle="text-black"
 							inputName={'KEYWORD_CLUSTER'}
-							action={getSearchURL(home.searchURL)}
+							action={
+								dbparm
+									? `${getSearchURL(home.searchURL)}&database=${dbparm}`
+									: getSearchURL(home.searchURL)
+							}
 						/>
 						<ViewToggle />
 					</div>

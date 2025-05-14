@@ -63,8 +63,6 @@ const AssetUpload: React.FC = () => {
 							file.size
 						)
 
-						console.log({ uploadResult })
-
 						if (!uploadResult.success) {
 							error(
 								uploadResult.message ||
