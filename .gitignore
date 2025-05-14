@@ -48,3 +48,4 @@ backend/logs.txt
 
 
 constants/*.json
+src/constants/**/*.json
