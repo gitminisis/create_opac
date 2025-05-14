@@ -127,6 +127,7 @@ const Orders = () => {
 			cell: ({ row }) => (
 				<div className="underline">
 					<a
+						className={`${row.getValue('req_db_name') ? '' : 'pointer-events-none'}`}
 						href={
 							getHomeSessionID() +
 							'/' +
@@ -165,7 +166,7 @@ const Orders = () => {
 					<Button
 						variant="ghost"
 						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-							{message.amount}
+						{message.amount}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
@@ -193,7 +194,7 @@ const Orders = () => {
 					  row.getValue('req_status') === 'Requested' ||
 					  row.getValue('req_status') === 'Conservation' ? (
 						<Button onClick={() => cancelRequest(row.getValue('req_order_num'))}>
-												{message.cancel}
+							{message.cancel}
 						</Button>
 					) : (
 						<Button disabled>{message.noAction}</Button>

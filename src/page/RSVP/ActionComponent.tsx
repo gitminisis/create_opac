@@ -27,7 +27,7 @@ const ActionComponent: React.FC<ActionProps> = ({ patronInfo, onClick }) => {
 					<div>
 						{patronInfo?.TAG_FUNC_START_T} - {patronInfo?.TAG_FUNC_END_T}
 					</div>
-					{patronInfo.TAG_FUNC_O === RSVP_MAP.YES? (
+					{patronInfo.TAG_FUNC_O === RSVP_MAP.YES ? (
 						<>
 							<div className={'flex'}>
 								<MonitorPlay />

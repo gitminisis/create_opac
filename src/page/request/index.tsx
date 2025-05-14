@@ -7,7 +7,6 @@ import { Archive, CircleEllipsis, Landmark, LibraryBig } from 'lucide-react'
 const Request = () => {
 	const { backToSummary, records, getMedia, common } = useJSONData({ selector: '#xml_record' })
 	let reqData = records[0].request
-	console.log(reqData)
 	const handleGoBack = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault()
 		window.history.back()

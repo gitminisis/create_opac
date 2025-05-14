@@ -1,16 +1,16 @@
 import '@/components/common/event-calendar/CalendarStyle.css'
 import {
+	EVENT_EMAIL_LOGO,
 	FUNC_LOC_P_GRP,
+	MAIN_EVENT_CAL_DB,
 	MAIN_MWI_APPLICATION,
 	MONTH_REPORT,
 	NON_LOGIN_USER_TYPE,
 	RSVP_CANCEL_LANDING_PAGE_URL,
-	RSVP_LOG_P_STATUS,
+	RSVP_MAP,
 	SISN,
-	MAIN_EVENT_CAL_DB,
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
-	TAG_FUNC_END_T,
 	TAG_FUNC_LOC_DEC,
 	TAG_FUNC_LOC_GRP,
 	TAG_FUNC_P_ATTND,
@@ -19,14 +19,8 @@ import {
 	TAG_FUNC_P_FIRST,
 	TAG_FUNC_P_ID,
 	TAG_FUNC_P_LAST,
-	TAG_FUNC_P_PAID,
-	TAG_FUNC_P_T,
 	TAG_FUNC_START_T,
-	TAG_NAME,
-	TAG_P_STATUS,
-	MAIN_EVENT_CAL_LOG_DB,
-	EVENT_EMAIL_LOGO,
-	RSVP_MAP,
+	TAG_NAME
 } from '@/components/common/event-calendar/Constants'
 import { calNumOfPatron } from '@/components/common/event-calendar/EC-Util'
 import Spinner from '@/components/common/event-calendar/Spinner'

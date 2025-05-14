@@ -125,7 +125,9 @@ const Enquiries = () => {
 			cell: ({ row }) => {
 				const status = row.getValue('enq_status') as keyof typeof statusClassMap
 				return (
-					<Badge className={`${statusClassMap[status]}`} variant={"tag"}>{row.getValue('enq_status')}</Badge>
+					<Badge className={`${statusClassMap[status]}`} variant={'tag'}>
+						{row.getValue('enq_status')}
+					</Badge>
 				)
 			},
 		},

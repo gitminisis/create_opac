@@ -45,7 +45,7 @@ import {
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
-	TAG_FUNC_LOC,
+	TAG_FUNC_LOC_BLD,
 	TAG_FUNC_LOC_CT,
 	TAG_FUNC_LOC_EM,
 	TAG_FUNC_LOC_GRP,
@@ -249,7 +249,13 @@ const ShowForm = ({
 				{!isIDValid && <div className={'my-2'}>{message.emailAlreadyRegistered}</div>}
 				<div className={'my-2'}>
 					{!isLoginValid && (
-						<ReCAPTCHA sitekey={conf.reCaptchaKey} onChange={handleCaptchaChange} />
+						<ReCAPTCHA
+							sitekey={
+								process.env.REACT_APP_RSVP_RECAPTCHA ||
+								import.meta.env.VITE_REACT_APP_RECAPTCHA
+							}
+							onChange={handleCaptchaChange}
+						/>
 					)}
 				</div>
 				<Button className={'w-full font-bold'} type="submit">
@@ -346,14 +352,18 @@ const ShowButton = ({
 					className={`${event[TAG_FUNC_RSVP] !== RSVP_MAP.NO ? 'h-1/2' : 'h-[54%]'} w-full flex flex-col items-start justify-evenly text-lg p-3 border-2 rounded`}>
 					<div className={'w-full flex justify-center'}>{message.contactInfo}</div>
 					<div className={'w-full text-center'}>
-						<div className={'flex font-normal items-center text-base'}>
-							<Phone size={25} className={'mr-2'} />
-							{event[TAG_FUNC_LOC_CT]}
-						</div>
-						<div className={'flex font-normal items-center text-base'}>
-							<Mail size={25} className={'mr-2'} />
-							{event[TAG_FUNC_LOC_EM]}
-						</div>
+						{event[TAG_FUNC_LOC_CT] && (
+							<div className={'flex font-normal items-center text-base'}>
+								<Phone size={25} className={'mr-2'} />
+								{event[TAG_FUNC_LOC_CT]}
+							</div>
+						)}
+						{event[TAG_FUNC_LOC_EM] && (
+							<div className={'flex font-normal items-center text-base'}>
+								<Mail size={25} className={'mr-2'} />
+								{event[TAG_FUNC_LOC_EM]}
+							</div>
+						)}
 					</div>
 					<div className={'w-full'}>
 						{/*@ts-ignore there is variable called TAG_FUNC_O*/}
@@ -519,7 +529,6 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 	const [isLogin, setIsLogin] = useState(false)
 	const [isIDValid, setIsIDValid] = useState(true)
 
-
 	useEffect(() => {
 		if (getCookieValue('M2L_PATRON_NAME')) {
 			setIsLogin(true)
@@ -591,8 +600,8 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 				let TAG_FUNC_DTE_OCC = 0
 
 				loc_group?.forEach((elm) => {
-					const funcLoc = elm?.TAG_FUNC_LOC
-					if (funcLoc === event[TAG_FUNC_LOC]) {
+					const funcLoc = elm?.TAG_FUNC_LOC_BLD
+					if (funcLoc === event[TAG_FUNC_LOC_BLD]) {
 						TAG_FUNC_LOC_OCC = elm._occ // regards as Occurence number of the repeating field
 					}
 				})
@@ -627,7 +636,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 				[TAG_FUNC_END_T]: event[TAG_FUNC_END_T],
 				[TAG_FUNC_LOC_ROO]: event[TAG_FUNC_LOC_ROO],
 				[TAG_FUNC_DATE]: event[TAG_FUNC_DATE],
-				[TAG_FUNC_LOC]: event[TAG_FUNC_LOC],
+				[TAG_FUNC_LOC_BLD]: event[TAG_FUNC_LOC_BLD],
 				[SISN]: event[SISN],
 				[TAG_FUNC_P_T]: getCurrentDate(),
 				BD_ADDRESS: getContactInfo(BD_ADDRESS, contactInfo, event),
@@ -730,7 +739,6 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 	}
 
 	const sendRegConfirmEmail = async (occ_info: any, userData: Inputs, event: Cal_event) => {
-
 		const userID = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
 		let HOME_SESSID = getSessionID()
 		let isFrench = getCookieValue('my_lang') === '145'
@@ -744,7 +752,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 				[TAG_FUNC_END_T]: event[TAG_FUNC_END_T],
 				[TAG_FUNC_LOC_ROO]: event[TAG_FUNC_LOC_ROO],
 				[TAG_FUNC_DATE]: event[TAG_FUNC_DATE],
-				[TAG_FUNC_LOC]: event[TAG_FUNC_LOC],
+				[TAG_FUNC_LOC_BLD]: event[TAG_FUNC_LOC_BLD],
 				[SISN]: event[SISN],
 				[TAG_FUNC_P_T]: getCurrentDate(),
 				BD_ADDRESS: getContactInfo(BD_ADDRESS, contactInfo, event),
@@ -777,7 +785,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 			.post(
 				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=${templateParam}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${userData[TAG_FUNC_P_EMAIL]}&SUBJECT_DEFAULT=${subject}`,
 				{
-					BD_ADDRESS: event[TAG_FUNC_LOC],
+					BD_ADDRESS: event[TAG_FUNC_LOC_BLD],
 					...userData,
 					...event,
 					EVENT_EMAIL_LOGO: logo,

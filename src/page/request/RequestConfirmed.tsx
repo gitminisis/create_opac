@@ -1,14 +1,12 @@
-import useConstants from '@/hooks/useConstants'
-import Layout from '@/components/layouts'
-import useJSONData from '@/hooks/useJSONData'
-import { Button } from '../../components/ui/button'
-import { Input } from '@/components/ui/input'
-import { getHomeSessionID } from '@/lib/utils'
-import { Archive, CircleCheck, Landmark, LibraryBig } from 'lucide-react'
 import Link from '@/components/common/Link'
+import Layout from '@/components/layouts'
+import useConstants from '@/hooks/useConstants'
+import useJSONData from '@/hooks/useJSONData'
+import { Archive, CircleCheck, Landmark, LibraryBig } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const RequestConfirmed = () => {
-	const { backToSummary, records, getMedia, common } = useJSONData({ selector: '#xml_record' })
+	const { records } = useJSONData({ selector: '#xml_record' })
 	const { config } = useConstants()
 	const { navigations } = config
 	let reqData = records[0].request

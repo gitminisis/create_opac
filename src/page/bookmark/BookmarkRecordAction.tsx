@@ -7,7 +7,7 @@ import { removeBookmarkFromKey } from '@/lib/bookmark'
 import { handleCopyRecordURL } from '@/lib/record'
 import { cn } from '@/lib/utils'
 import { Record } from '@/types/record'
-import { Copy,Trash2 } from 'lucide-react'
+import { Copy, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 export const BookmarkRecordAction = ({ record }: { record: Record }) => {
@@ -31,6 +31,7 @@ export const BookmarkRecordAction = ({ record }: { record: Record }) => {
 	}
 
 	const handleCopy = () => {
+		
 		handleCopyRecordURL(record)
 		toast({
 			title: message.recordIsCopied,
@@ -45,10 +46,11 @@ export const BookmarkRecordAction = ({ record }: { record: Record }) => {
 				disabled={loading}
 				onClick={removeBookmark}
 				tooltipContent={`${message.bookmarkRemove}`}>
-                    <Trash2 
-                    className={cn('h-4 w-4 text-primary')}
+				<Trash2
+					className={cn('h-4 w-4 text-primary')}
 					fill={'hsl(var(--opac-blue))'}
-					stroke={'hsl(var(--opac-blue))'}/>
+					stroke={'hsl(var(--opac-blue))'}
+				/>
 			</TooltipButton>
 			<Separator orientation="vertical" />
 			<TooltipButton

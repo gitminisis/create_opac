@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils'
+import { useEffect } from 'react'
 
 export interface HeroProps extends React.HTMLAttributes<HTMLDivElement> {
 	title: string
@@ -13,6 +14,14 @@ const Hero: React.FC<HeroProps> = ({
 	description,
 	backgroundImage,
 }: HeroProps) => {
+	useEffect(() => {
+		const link = document.createElement('link')
+		link.rel = 'preload'
+		link.as = 'image'
+		link.href = backgroundImage
+		document.head.appendChild(link)
+	}, [])
+
 	return (
 		<section
 			className={cn('relative w-full h-[600px] bg-center bg-cover', className)}

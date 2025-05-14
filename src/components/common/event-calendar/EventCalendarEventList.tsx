@@ -26,6 +26,7 @@ export interface Event_list {
 	contactInfo: ContactInfoRSVP[]
 	filterTypes: FilterType[]
 	filterOption: string
+	databaseType:any
 }
 
 const EventCalendarEventList = ({
@@ -35,6 +36,7 @@ const EventCalendarEventList = ({
 	contactInfo,
 	filterTypes,
 	filterOption,
+	databaseType
 }: Event_list) => {
 	const [filteredEvents, setFilteredEvents] = useState<Cal_event[]>([])
 	const [monthType, __] = useAtom(calendarMonthType)
@@ -126,6 +128,7 @@ const EventCalendarEventList = ({
 						contactInfo={contactInfo}
 						filterTypes={filterTypes}
 						filterOption={filterOption}
+						databaseType={databaseType}
 					/>
 				)
 			})
@@ -146,6 +149,7 @@ const EventCalendarEventList = ({
 							contactInfo={contactInfo}
 							filterTypes={filterTypes}
 							filterOption={filterOption}
+							databaseType={databaseType}
 						/>
 					))}
 				</div>

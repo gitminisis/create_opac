@@ -23,8 +23,10 @@ const LoginBtn = ({ className }: { className?: string }) => {
 					<DropdownMenuTrigger asChild className={'focus:outline-none focus:border-none'}>
 						<button className={'text-opac-white text-lg font-bold flex items-center'}>
 							<div>
-								<div className='block sm:hidden'>{message.welcome}!</div>
-								<div className={'break-words whitespace-normal'}>{decodeURIComponent(m2l_patron_name)}</div>
+								<div className="block sm:hidden">{message.welcome}!</div>
+								<div className={'break-words whitespace-normal'}>
+									{decodeURIComponent(m2l_patron_name)}
+								</div>
 							</div>
 							<div>
 								<ChevronDown className={'h-4'} />

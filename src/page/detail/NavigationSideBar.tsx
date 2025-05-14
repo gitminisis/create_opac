@@ -26,8 +26,6 @@ export default function NavigationSideBar() {
 				</a>
 
 				<ShareButton url={handleCopyRecordURL(record, true) || window.location.href} />
-
-
 			</nav>
 		</div>
 	)

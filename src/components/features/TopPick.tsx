@@ -39,14 +39,15 @@ const ReviewCard = ({
 }
 
 const TopPick = ({ page, previewData, previewMode }: PageSectionProps) => {
-	const sourceData = useConstants()[page as 'home'].topPicks
+	const sourceData = useConstants()[page as 'home']
+
 	const data = previewMode && previewData ? (previewData as typeof sourceData) : sourceData
 	const { message } = useConstants()
 	return (
 		<Section heading={message.topPick}>
 			<div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border  ">
 				<Marquee reverse pauseOnHover className="[--duration:25s]">
-					{data.map((item) => (
+					{data.topPicks.map((item) => (
 						<ReviewCard
 							onClick={() => {
 								window.location.href = `https://${window.location.hostname}/scripts/mwimain.dll/144/${item.database}/WEB_UNION_DETAIL?sessionsearch&exp=${item.expression}`

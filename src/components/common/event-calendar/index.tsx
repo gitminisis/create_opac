@@ -281,6 +281,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 										contactInfo={contactInfo}
 										filterTypes={filterTypes}
 										filterOption={filterOption}
+										databaseType={databaseType}
 									/>
 								</div>
 							)
@@ -307,6 +308,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 											contactInfo={contactInfo}
 											filterTypes={filterTypes}
 											filterOption={filterOption}
+											databaseType={databaseType}
 										/>
 									</div>
 								)

@@ -287,7 +287,10 @@ const InteractiveMap = ({ page }: { page: string }) => {
 			<div className="mb-2 md:mb-0 md:w-1/4 rounded border border-primary mr-2 relative">
 				<div className="flex justify-between items-center bg-primary p-2">
 					<div className={'text-white'}>{message.filterBy}</div>
-					<Button onClick={resetMap} className={'bg-primary text-white'} variant={'secondary'}>
+					<Button
+						onClick={resetMap}
+						className={'bg-primary text-white'}
+						variant={'secondary'}>
 						<RefreshCw />
 					</Button>
 				</div>

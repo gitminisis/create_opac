@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import X2JS from 'x2js'
-import noImage from '../assets/icons/image_not_found.png'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -79,20 +78,13 @@ export const convertToArr = (elm: any) => {
 
 export const convertXMLToJson = (response: string) => {
 	const x2js = new X2JS()
-	// const cleaned = escapeUnclosedTags(response)
-	const jsonData: any = x2js.xml2js(response)
+	const cleaned = escapeBrTags(response)
+	const jsonData: any = x2js.xml2js(cleaned)
 	return jsonData
 }
 
-const escapeUnclosedTags = (xml: string): string => {
-	return xml.replace(/<([A-Za-z0-9\-_]+)>/g, (match, tag) => {
-		const tagPattern = new RegExp(`<${tag}[^>]*>`, 'g')
-		const closeTagPattern = new RegExp(`</${tag}>`, 'g')
-		const openCount = (xml.match(tagPattern) || []).length
-		const closeCount = (xml.match(closeTagPattern) || []).length
-		if (openCount > closeCount) return `&lt;${tag}&gt;`
-		return match
-	})
+const escapeBrTags = (xml: string): string => {
+	return xml.replace(/<br\s*\/?>/gi, '');
 }
 
 export const encodeObj = (input: string) => {

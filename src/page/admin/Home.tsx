@@ -57,7 +57,6 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 
 			<div className="mt-2">
 				<SectionHeader heading="Featured Collections" />
-
 				<SectionActions
 					handleAddNewItem={(event: FormEvent<NewElementForm<FCForm>>) => {
 						const { url, description, title, thumbnail } = event.currentTarget.elements

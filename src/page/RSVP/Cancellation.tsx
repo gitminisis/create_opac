@@ -1,23 +1,15 @@
 import {
 	FUNC_LOC_P_GRP,
+	MAIN_EVENT_CAL_DB,
 	MAIN_MWI_APPLICATION,
 	MONTH_REPORT,
-	RSVP_LOG_P_STATUS,
 	SISN,
-	MAIN_EVENT_CAL_DB,
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
-	TAG_FUNC_END_T,
 	TAG_FUNC_LOC_GRP,
-	TAG_FUNC_P_ATTND,
 	TAG_FUNC_P_EMAIL,
 	TAG_FUNC_P_ID,
-	TAG_FUNC_P_PAID,
-	TAG_FUNC_P_T,
-	TAG_FUNC_START_T,
-	TAG_NAME,
-	TAG_P_STATUS,
-	MAIN_EVENT_CAL_LOG_DB,
+	TAG_NAME
 } from '@/components/common/event-calendar/Constants'
 import Spinner from '@/components/common/event-calendar/Spinner'
 import Layout from '@/components/layouts'
@@ -179,7 +171,6 @@ const RSVPCancel = () => {
 
 	const sendCancelConfirmEmail = async (HOME_SESSID: string | boolean) => {
 		let isFrench = getCookieValue('my_lang') === '145'
-		
 
 		return await axios
 			.post(

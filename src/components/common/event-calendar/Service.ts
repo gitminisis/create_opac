@@ -77,15 +77,12 @@ export const fetch_get = async (currentDate: Date, isWeekType?: boolean) => {
 }
 
 export const getLocation = async () => {
-	const response = await axios.get(
-		`/preprocessing/CALENDAR_LOCATION.html`,
-		{
-			headers: {
-				'Content-Type': 'text/xml',
-			},
-		}
-	)
-	
+	const response = await axios.get(`/preprocessing/CALENDAR_LOCATION.html`, {
+		headers: {
+			'Content-Type': 'text/xml',
+		},
+	})
+
 	const jsonData: any = convertXMLToJson(response.data)
 	return jsonData?.xml?.[LIBRARY_LOCATION_XML_TAG] ?? []
 }

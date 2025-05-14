@@ -20,7 +20,7 @@ export interface InfoCardProps {
 	thumbnail?: string
 	alt?: string
 	record: Record
-	link_dbname?:string
+	link_dbname?: string
 }
 
 const InfoCard = ({
@@ -32,7 +32,7 @@ const InfoCard = ({
 	thumbnail,
 	alt,
 	record,
-	link_dbname
+	link_dbname,
 }: InfoCardProps) => {
 	const { navigations } = useConstants().config
 

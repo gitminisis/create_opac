@@ -168,9 +168,7 @@ const DetailRecordAction = () => {
 							className={'w-[22%] md:w-[23.5%] flex '}
 							onClick={() => handleSubmit('Request')}>
 							<ShoppingBag className="w-4 h-4 md:mr-2 " />{' '}
-							<span className="hidden md:block">
-								{message.request}
-							</span>
+							<span className="hidden md:block">{message.request}</span>
 							<form
 								method="post"
 								ref={formRef}
@@ -242,10 +240,7 @@ const DetailRecordAction = () => {
 									name="REQ_ITEM_TITLE"
 									value={requestData.req_item_title}
 								/>
-								<Button
-									className="bg-primary"
-									type="submit"
-									variant="default">
+								<Button className="bg-primary" type="submit" variant="default">
 									Submit
 								</Button>
 							</form>
@@ -257,9 +252,7 @@ const DetailRecordAction = () => {
 							disabled
 							className={'w-[22%] md:w-[23.5%] flex '}>
 							<ShoppingBag className="w-4 h-4 md:mr-2" />{' '}
-							<span className="hidden md:block">
-								{message.request}
-							</span>
+							<span className="hidden md:block">{message.request}</span>
 						</TooltipButton>
 					)}
 
@@ -297,7 +290,7 @@ const DetailRecordAction = () => {
 								title: message.recordIsCopied,
 							})
 						}}>
-						<Copy className="w-4 h-4 md:mr-2" /> 
+						<Copy className="w-4 h-4 md:mr-2" />
 						<span className="hidden md:block">{message.copy}</span>
 					</TooltipButton>
 					<TooltipButton

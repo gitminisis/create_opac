@@ -1,3 +1,4 @@
+import version from '@/app_version.json'
 const Footer = () => {
 	return (
 		<footer className="bg-[#002a54] w-full text-white py-4 px-6">
@@ -19,6 +20,9 @@ const Footer = () => {
 				<div className="text-xs">
 					© {new Date().getFullYear()} MINISIS Inc. All Rights Reserved
 				</div>
+				{version.APP_VERSION && (
+					<div className="text-xs">Version {version.APP_VERSION} </div>
+				)}
 			</div>
 		</footer>
 	)

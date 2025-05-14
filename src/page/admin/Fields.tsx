@@ -4,24 +4,11 @@ import FormField from '@/components/common/admin/input/FormField'
 import SectionActions, { NewElementForm } from '@/components/common/admin/layout/SectionActions'
 import SectionHeader from '@/components/common/admin/layout/SectionHeader'
 import SectionWrapper from '@/components/common/admin/layout/SectionWrapper'
-import { Button } from '@/components/ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import enValues from '@/constants/en/fields.json'
 import frValues from '@/constants/fr/fields.json'
 import { useAdminForm } from '@/hooks/useAdminForm'
-import { cn } from '@/lib/utils'
 import fields from '@/schema/fields.json'
 import { SchemaType } from '@/types/schema'
-import {
-	Command,
-	CommandInput,
-	CommandList,
-	CommandEmpty,
-	CommandGroup,
-	CommandItem,
-} from '@/components/ui/command'
-import { ChevronsUpDown, Check } from 'lucide-react'
-import React from 'react'
 import { FormEvent } from 'react'
 
 type NewFormType = HTMLFormControlsCollection & {

@@ -1,4 +1,4 @@
-import { getDataFromXML, getRecordXML } from '@/hooks/useJSONData'
+import { getDataFromXML } from '@/hooks/useJSONData'
 import { BookmarkResponse, Record } from '@/types/record'
 import axios, { AxiosResponse } from 'axios'
 import { deepSearchKey } from './record'
@@ -46,8 +46,8 @@ export const validateBookmarkResponse = (
 	}
 }
 
-export const removeAllBookmarks = async (session: string,records: Record[]) => {
-	let dataString = records.map(({ database_name, book_input } ) => {
+export const removeAllBookmarks = async (session: string, records: Record[]) => {
+	let dataString = records.map(({ database_name, book_input }) => {
 		const { input }: any = book_input
 		return `${input._name}=${input._value}-${database_name}`
 	})
@@ -59,4 +59,3 @@ export const removeAllBookmarks = async (session: string,records: Record[]) => {
 		window.location.reload()
 	})
 }
-

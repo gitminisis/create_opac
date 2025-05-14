@@ -27,7 +27,7 @@ const SearchForm = ({ className, inputName, inputStyle, action, ...props }: Sear
 				/>
 			</div>
 			<Button
-			style={{borderRadius:'0px 5px 5px 0'}}
+				style={{ borderRadius: '0px 5px 5px 0' }}
 				variant={'default'}
 				className="right-0 top-0 h-full bg-primary"
 				type="submit">

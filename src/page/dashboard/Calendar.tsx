@@ -8,7 +8,7 @@ import {
 	TAG_FUNC_DATE,
 	TAG_FUNC_DTE_GRP,
 	TAG_FUNC_END_T,
-	TAG_FUNC_LOC,
+	TAG_FUNC_LOC_BLD,
 	TAG_FUNC_LOC_GRP,
 	TAG_FUNC_P_ATTND,
 	TAG_FUNC_START_T,
@@ -37,7 +37,7 @@ interface TagFunction {
 interface PatronInfo {
 	sisn: string
 	tag_name: string
-	tag_func_loc: string
+	tag_func_loc_bld: string
 	tag_func_date: string
 	tag_func_start_t: string
 	tag_func_end_t: string
@@ -88,10 +88,10 @@ const Calendar = () => {
 			cell: ({ row }) => <div>{row.getValue(TAG_FUNC_END_T.toLocaleLowerCase())}</div>,
 		},
 		{
-			accessorKey: TAG_FUNC_LOC.toLocaleLowerCase(),
+			accessorKey: TAG_FUNC_LOC_BLD.toLocaleLowerCase(),
 			header: message.location,
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue(TAG_FUNC_LOC.toLocaleLowerCase())}</div>
+				<div className="capitalize">{row.getValue(TAG_FUNC_LOC_BLD.toLocaleLowerCase())}</div>
 			),
 		},
 		{
@@ -158,8 +158,8 @@ const Calendar = () => {
 				let TAG_FUNC_DTE_OCC = 0
 
 				loc_group?.forEach((elm) => {
-					const funcLoc = elm?.TAG_FUNC_LOC
-					if (funcLoc === patronInfo['tag_func_loc']) {
+					const funcLoc = elm?.TAG_FUNC_LOC_BLD
+					if (funcLoc === patronInfo['tag_func_loc_bld']) {
 						TAG_FUNC_LOC_OCC = elm._occ // regards as Occurence number of the repeating field
 					}
 				})
@@ -218,7 +218,7 @@ const Calendar = () => {
 		let is_french = getCookieValue('my_lang') === '145' ? true : false
 		return await axios
 			.post(
-				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=[OPAC_EMAIL_TMP]${is_french ? 'RSVPCancelConfirmTmp_fr.txt':'RSVPCancelConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo?.tag_func_p_email}&SUBJECT_DEFAULT=${rsvp.emailSubject.cancelConfirmationEmailT}:${patronInfo?.tag_name}`,
+				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=[OPAC_EMAIL_TMP]${is_french ? 'RSVPCancelConfirmTmp_fr.txt' : 'RSVPCancelConfirmTmp.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${patronInfo?.tag_func_p_email}&SUBJECT_DEFAULT=${rsvp.emailSubject.cancelConfirmationEmailT}:${patronInfo?.tag_name}`,
 				{
 					...patronInfo,
 					EVENT_EMAIL_LOGO: logo,

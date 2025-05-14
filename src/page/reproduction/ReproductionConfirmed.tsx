@@ -28,9 +28,7 @@ const ReproductionConfirmed = () => {
 							<h1 className="text-lg font-bold">{message.thankYouTitle}</h1>
 							<p>{message.infoSubmitted}</p>
 							<p>{message.replyTime}</p>
-							<p>
-								{message.profileCheck}
-							</p>
+							<p>{message.profileCheck}</p>
 						</div>
 						<div>
 							<div className="border p-4 rounded">

@@ -175,6 +175,7 @@ export default function PatronProfile() {
 							<Link href={item.linkURL} className="group no-underline">
 								<div className="aspect-square relative overflow-hidden">
 									<img
+										loading={'lazy'}
 										src={item.heroBanner}
 										alt={`Recent media ${index + 1}`}
 										className="h-full w-full object-cover transition ease-in-out duration-150 group-hover:scale-105"

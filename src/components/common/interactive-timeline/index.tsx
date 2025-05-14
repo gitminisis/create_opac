@@ -262,7 +262,7 @@ const Timeline = ({ page }: { page: string }) => {
 													<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
 														<img
 															src={getImage(item.IMAG_URL)}
-															alt="image"
+															alt={description_keyname}
 															className="w-full h-full object-contain rounded-[14px]"
 														/>
 													</div>
