@@ -1,1 +1,1 @@
-cd backend && set PORT=3335 && npm run dev
+cd backend && set PORT=3332 && npm run dev
