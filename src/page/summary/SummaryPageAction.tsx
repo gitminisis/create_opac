@@ -41,8 +41,6 @@ const SummaryPageAction = () => {
 			value: 'date_dsc',
 		},
 	]
-
-	console.log({ filterArr })
 	return (
 		<div className="flex flex-col space-y-4">
 			<div className="flex flex-col space-y-2">

@@ -49,7 +49,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 
 	const handleAssetsSelect = async () => {
 		if (accessToken && id) {
-			debugger;
+			
 			const bookmarkedItems = await getTDRBookmark(accessToken, id)
 			if (bookmarkedItems) {
 				onAssetsSelect(bookmarkedItems)

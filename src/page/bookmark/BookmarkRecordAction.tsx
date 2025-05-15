@@ -31,7 +31,7 @@ export const BookmarkRecordAction = ({ record }: { record: Record }) => {
 	}
 
 	const handleCopy = () => {
-		debugger;
+		
 		handleCopyRecordURL(record)
 		toast({
 			title: message.recordIsCopied,

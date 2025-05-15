@@ -80,16 +80,7 @@ const Detail = () => {
 							url: '#',
 						},
 					]}>
-					{/* <Button>
-						<SlidersHorizontal className="mr-2 h-4 w-4" />
-						Advanced Search
-					</Button> */}
 					<div className="flex w-full flex-row space-x-2 justify-end">
-						{/* <Button>
-							<SlidersHorizontal className="mr-2 h-4 w-4" />
-							Advanced Search
-						</Button> */}
-						{/* <Separator orientation="vertical" /> */}
 						<SearchForm
 							className="w-[450px] m-0"
 							inputStyle="text-black"
