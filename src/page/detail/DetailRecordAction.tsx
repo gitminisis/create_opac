@@ -114,23 +114,26 @@ const DetailRecordAction = () => {
 
 	const checkRecordHasMandatoryDataToRequest = () => {
 		const checkRecord = record.record
-		const recordRequestBool = 'Yes' as string
-		let requestable = false as boolean
-		checkRecord?.a_avail === recordRequestBool ||
-		checkRecord?.m_avail === recordRequestBool ||
-		checkRecord?.l_avail === recordRequestBool
-			? (requestable = true)
-			: (requestable = false)
+		const recordRequestBool = 'Yes'
+		const requestable =
+			checkRecord?.a_avail === recordRequestBool ||
+			checkRecord?.m_avail === recordRequestBool ||
+			checkRecord?.l_avail === recordRequestBool
+
 		return requestable
 	}
 
+	// No : Item is not booked
+	// Current : Item is booked by the same client.
+	// Another : Item is booked by a different client.
+	// This function is for LMA style request, not allowing waitlist (Request queue)
 	const checkIfCurrentClientRequestedThisRecord = () => {
-		const recordRequested = record.record?.is_requested_by_client
+		const recordRequested = record.request?.is_requested_by_client
 		let currentClientRequested = false
-		if (recordRequested === 'Current') {
+		if (recordRequested === 'No' || recordRequested === 'Current') {
 			currentClientRequested = true
 		}
-		return currentClientRequested
+		return true
 	}
 
 	const checkLoggedInToRequest = (action: string | null) => {
@@ -158,10 +161,8 @@ const DetailRecordAction = () => {
 					<ChevronLeft />
 					<span className="hidden md:block">{message.previous}</span>
 				</TooltipButton>
-
 				<div className="flex flex-wrap justify-start gap-2">
-					{checkRecordHasMandatoryDataToRequest() &&
-					checkIfCurrentClientRequestedThisRecord() ? (
+					{checkRecordHasMandatoryDataToRequest() ? (
 						<TooltipButton
 							tooltipContent={message.requestRecord}
 							variant="outline"
@@ -241,7 +242,7 @@ const DetailRecordAction = () => {
 									value={requestData.req_item_title}
 								/>
 								<Button className="bg-primary" type="submit" variant="default">
-									Submit
+									{message.submit}
 								</Button>
 							</form>
 						</TooltipButton>

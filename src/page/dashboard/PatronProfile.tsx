@@ -10,6 +10,7 @@ import {
 	Copy,
 	Copyright,
 	File,
+	House,
 	Landmark,
 	Library,
 	Lightbulb,
@@ -17,11 +18,11 @@ import {
 	Search,
 	ShoppingBag,
 	Upload,
+	BookOpen
 } from 'lucide-react'
 import { useState } from 'react'
 
 interface StatCardProps {
-	key: number
 	icon: React.ReactNode
 	label: string
 	color: string
@@ -40,7 +41,6 @@ export default function PatronProfile() {
 
 	const statCards = [
 		{
-			key: 1,
 			icon: <ShoppingBag className="h-4 w-4" />,
 			label: profileList[0].label,
 			color: 'blue',
@@ -48,7 +48,6 @@ export default function PatronProfile() {
 			link: profileList[0].url,
 		},
 		{
-			key: 2,
 			icon: <Copyright className="h-4 w-4" />,
 			label: profileList[1].label,
 			color: 'green',
@@ -56,7 +55,6 @@ export default function PatronProfile() {
 			link: profileList[1].url,
 		},
 		{
-			key: 3,
 			icon: <Copy className="h-4 w-4" />,
 			label: profileList[2].label,
 			color: 'red',
@@ -64,7 +62,6 @@ export default function PatronProfile() {
 			link: profileList[2].url,
 		},
 		{
-			key: 4,
 			icon: <BookMarked className="h-4 w-4" />,
 			label: profileList[3].label,
 			color: 'purple',
@@ -72,7 +69,6 @@ export default function PatronProfile() {
 			link: profileList[3].url,
 		},
 		{
-			key: 5,
 			icon: <Lightbulb className="h-4 w-4" />,
 			label: profileList[4].label,
 			color: 'amber',
@@ -80,12 +76,18 @@ export default function PatronProfile() {
 			link: profileList[4].url,
 		},
 		{
-			key: 6,
 			icon: <MessageCircleMore className="h-4 w-4" />,
 			label: profileList[5].label,
 			color: 'orange',
 			value: records[0].crowdsource_count,
 			link: profileList[5].url,
+		},
+		{
+			icon: <BookOpen className="h-4 w-4" />,
+			label: profileList[7].label,
+			color: 'yellow',
+			value: "Coming Soon...",
+			link: profileList[7].url,
 		},
 	]
 	function StatCard({ icon, label, value, color }: StatCardProps) {
@@ -98,6 +100,9 @@ export default function PatronProfile() {
 			orange: 'bg-orange-100 text-orange-500',
 			pink: 'bg-pink-100 text-pink-500',
 			violet: 'bg-violet-100 text-violet-500',
+			yellow: 'bg-yellow-100 text-yellow-500',
+			rose: 'bg-rose-100 text-rose-500',
+			indigo: 'bg-indigo-100 text-indigo-500'
 		} as const
 
 		return (
@@ -138,7 +143,7 @@ export default function PatronProfile() {
 						}
 						className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
 						<StatCard
-							key={card.key}
+							key={index}
 							icon={card.icon}
 							label={card.label}
 							color={card.color}
@@ -151,7 +156,7 @@ export default function PatronProfile() {
 					href={`/scripts/mwimain.dll/144/WEB_CALENDAR/WEB_CALENDAR_PROFILE?commandsearch&exp=%2B%2B%40&EXP=TAG_FUNC_P_ID%20${m2l_patron_id}&M_GVAR1=USER_ID:${m2l_patron_id}`}
 					className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
 					<StatCard
-						key={7}
+						key={8}
 						icon={<CalendarDays className="h-4 w-4" />}
 						label={message.calendar}
 						color={'pink'}
@@ -184,7 +189,7 @@ export default function PatronProfile() {
 								<div className="p-4">
 									<div className="flex items-center justify-between text-sm text-gray-500">
 										<div className="flex items-center gap-2">
-											{item === home && <File className="w-5 h-5" />}
+											{item === home && <House className="w-5 h-5" />}
 											{item === archives && <Archive className="w-5 h-5" />}
 											{item === museum && <Landmark className="w-5 h-5" />}
 											{item === library && <Library className="w-5 h-5" />}

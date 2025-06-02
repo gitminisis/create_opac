@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import X2JS from 'x2js'
@@ -227,4 +228,21 @@ export function getClassName(databaseName?: string, type?: 'text' | 'border' | '
 	}
 
 	return '' // Return an empty string or handle other cases as needed
+}
+
+export const getSearchHistoryUrl = (): string => {
+	return getHomeSessionID() + `?QUERYHISTORY&XML_DOC=Y&DATABASE=UNION_VIEW`
+}
+
+export const fetchSearchHistory = async () => {
+	const url = getSearchHistoryUrl()
+
+	try {
+		const response = await axios.get(url)
+		const json = convertXMLToJson(response.data)
+		return json
+	} catch (error) {
+		console.error('Error fetching search history:', error)
+		return null
+	}
 }

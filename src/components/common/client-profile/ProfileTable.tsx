@@ -35,6 +35,8 @@ type DateRange = {
 	to: Date | string
 }
 
+const REQUEST_TYPE_WAIT = 'Wait'
+
 export function ProfileTable({
 	data,
 	columns,
@@ -92,7 +94,7 @@ export function ProfileTable({
 		const toDate = new Date(range.to)
 		return events.filter((event) => {
 			const eventDate = new Date(event[`${filterDateType}`])
-			return eventDate >= fromDate && eventDate <= toDate
+			return (eventDate >= fromDate && eventDate <= toDate) || event.req_status === REQUEST_TYPE_WAIT
 		})
 	}
 
