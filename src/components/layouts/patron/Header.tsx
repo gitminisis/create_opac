@@ -55,34 +55,35 @@ const Header = () => {
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
-							<DropdownMenuLabel>Patron Dashboard</DropdownMenuLabel>
+							<DropdownMenuLabel>Your Account</DropdownMenuLabel>
 							<DropdownMenuItem>
 								<Link
 									href={
 										getCookieValue('HOME_SESSID') +
 										'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
-									}>
+									}
+									className="no-underline ml-[0.5rem]">
 									{message.dashboardHome}
 								</Link>
 							</DropdownMenuItem>
-							<DropdownMenuItem>Account Settings</DropdownMenuItem>
+							{/* <DropdownMenuItem>Account Settings</DropdownMenuItem> */}
 							<DropdownMenuSeparator />
 							<DropdownMenuLabel>Search Database</DropdownMenuLabel>
 							<DropdownMenuItem>
-								<Link href="/">All</Link>
+								<Link href="/" className="no-underline ml-[0.5rem]">All</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
-								<Link href="/archives.html">Archives</Link>
+								<Link href="/archives.html" className="no-underline ml-[0.5rem]">Archives</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
-								<Link href="/museum.html">Museum</Link>
+								<Link href="/museum.html" className="no-underline ml-[0.5rem]">Museum</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
-								<Link href="/library.html">Library</Link>
+								<Link href="/library.html" className="no-underline ml-[0.5rem]">Library</Link>
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem>
-								<Link onClick={clearCookies}>Logout</Link>
+								<Link onClick={clearCookies} className="no-underline ml-[0.5rem]">Logout</Link>
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
