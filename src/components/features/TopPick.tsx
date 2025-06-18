@@ -50,7 +50,7 @@ const TopPick = ({ page, previewData, previewMode }: PageSectionProps) => {
 					{data.topPicks.map((item) => (
 						<ReviewCard
 							onClick={() => {
-								window.location.href = `https://${window.location.hostname}/scripts/mwimain.dll/144/${item.database}/WEB_UNION_DETAIL?sessionsearch&exp=${item.expression}`
+								window.location.href = `${window.location.protocol}//${window.location.hostname}/scripts/mwimain.dll/144/${item.database}/WEB_UNION_DETAIL?sessionsearch&exp=${item.expression}`
 							}}
 							key={item.title}
 							{...item}

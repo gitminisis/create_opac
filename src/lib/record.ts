@@ -94,7 +94,7 @@ export const getRecordPermalink = ({
 	lang?: number
 	key?: string
 }) => {
-	return `https://${window.location.hostname}/scripts/mwimain.dll/${lang}/${database}/${report}?sessionsearch&exp=${key}+${value}`
+	return `${window.location.protocol}//${window.location.hostname}/scripts/mwimain.dll/${lang}/${database}/${report}?sessionsearch&exp=${key}+${value}`
 }
 
 export const copyRecordURL = ({

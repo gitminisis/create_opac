@@ -99,13 +99,13 @@ export const mapLowerLevelXMLToNode = (xml: any[], parentId: string): any[] => {
 				isChildrenLoaded: !hasChildren,
 				onClick: () =>
 					window.open(
-						getRecordPermalink(
-							'DESCRIPTION_WEB',
-							deepSearchKey(e, 'refd')[0],
-							DEFAULT_DETAIL_REPORT,
-							144,
-							'REFD'
-						)
+						getRecordPermalink({
+							database: 'DESCRIPTION_WEB',
+							value: deepSearchKey(e, 'refd')[0],
+							report: DEFAULT_DETAIL_REPORT,
+							lang: 144,
+							key: 'REFD',
+						})
 					),
 			}
 		})
@@ -136,7 +136,13 @@ export const mapXMLToNode = (xml: any, id: string): any => {
 		children: hasChildren ? mapLowerLevelXMLToNode(lower_level_occurrence, id) : null,
 		onClick: () =>
 			window.open(
-				getRecordPermalink('DESCRIPTION_WEB', id, DEFAULT_DETAIL_REPORT, 144, 'REFD')
+				getRecordPermalink({
+					database: 'DESCRIPTION_WEB',
+					value: id,
+					report: DEFAULT_DETAIL_REPORT,
+					lang: 144,
+					key: 'REFD',
+				})
 			),
 	}
 }
