@@ -57,7 +57,7 @@ export type TDRFile = {
 	LastModifiedOn: string // ISO 8601 date string
 }
 
-export const generateTDRIframeURL = (bookmarkId: string) => {
+export const generateTDRIframeURL = (access_token: string, bookmarkId: string) => {
 	// Generate discovery URL
 	const discoveryUrl = `${TDR_CONFIG.tdr_ui}${TDR_CONFIG.search_endpoint}/${bookmarkId}`
 	return discoveryUrl
