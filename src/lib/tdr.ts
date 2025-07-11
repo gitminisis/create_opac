@@ -74,7 +74,7 @@ export const generateBookmarkId = (userName = OPAC_ADMIN_USERNAME) => {
 	const second = today.getSeconds().toString().padStart(2, '0')
 
 	// Generate bookmark ID
-	const bookmarkId = `${userName}_${year}${month}${day}_${hour}${minute}${second}`
+	const bookmarkId = `${userName}_${year}${month}${day}`
 	return bookmarkId
 }
 
