@@ -17,17 +17,7 @@ export interface DetailInfoCardrops {
 	link_dbname?: string // For bookmark summary list
 }
 
-const DetailInfoCard = ({
-	title,
-	description,
-	thumbnail,
-	alt,
-	className,
-	footer,
-	children,
-	record,
-	link_dbname,
-}: DetailInfoCardrops) => {
+const DetailInfoCard = ({ title, description, thumbnail, alt, className, footer, children, record, link_dbname }: DetailInfoCardrops) => {
 	const { navigations } = useConstants().config
 	const getColor = (event_type: string | undefined) => {
 		if (!event_type) return {}
@@ -42,11 +32,7 @@ const DetailInfoCard = ({
 	}
 
 	return (
-		<div
-			className={cn(
-				`border-2 rounded-md col-span-4 ${getClassName(link_dbname ?? record?.database_name, 'border')} relative`,
-				className
-			)}>
+		<div className={cn(`border-2 rounded-md col-span-4 ${getClassName(link_dbname ?? record?.database_name, 'border')} relative`, className)}>
 			<Badge
 				className={`${getColor(link_dbname ?? record?.database_name).color} absolute z-10 right-1 top-1 md:top-[27px] md:right-[15px] text-white`}
 				variant={'tag'}>
@@ -64,11 +50,7 @@ const DetailInfoCard = ({
 					<div className="border-s border-gray-900/10 sm:border-l-transparent sm:p-6 md:w-[90%] break-all">
 						<h3 className="font-bold text-2xl">{title}</h3>
 
-						{description && (
-							<p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
-								{description}
-							</p>
-						)}
+						{description && <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">{description}</p>}
 						<div>{children}</div>
 					</div>
 

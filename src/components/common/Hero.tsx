@@ -7,13 +7,7 @@ export interface HeroProps extends React.HTMLAttributes<HTMLDivElement> {
 	backgroundImage: string
 }
 
-const Hero: React.FC<HeroProps> = ({
-	children,
-	className,
-	title,
-	description,
-	backgroundImage,
-}: HeroProps) => {
+const Hero: React.FC<HeroProps> = ({ children, className, title, description, backgroundImage }: HeroProps) => {
 	useEffect(() => {
 		const link = document.createElement('link')
 		link.rel = 'preload'
@@ -31,9 +25,7 @@ const Hero: React.FC<HeroProps> = ({
 			<div className="absolute inset-0 bg-black/50" />
 			<div className=" relative h-full flex flex-col space-y-6 items-center justify-center text-center px-4">
 				<h1 className="text-white text-4xl font-bold md:text-5xl lg:text-6xl">{title}</h1>
-				<p className="text-white mt-2 text-lg md:text-xl lg:text-xl max-w-[1000px] mx-auto">
-					{description}
-				</p>
+				<p className="text-white mt-2 text-lg md:text-xl lg:text-xl max-w-[1000px] mx-auto">{description}</p>
 				{children}
 			</div>
 		</section>

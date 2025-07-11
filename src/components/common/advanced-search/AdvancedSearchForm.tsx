@@ -104,33 +104,19 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 			return
 		}
 		let len = data.length
-		let qry = data
-			.map(
-				(exp, index) =>
-					`${exp.field} ${exp.keyword} ${exp.boolean && index !== len - 1 ? exp.boolean : ''}`
-			)
-			.join(' ')
+		let qry = data.map((exp, index) => `${exp.field} ${exp.keyword} ${exp.boolean && index !== len - 1 ? exp.boolean : ''}`).join(' ')
 		inputRef.current.value = qry
 		formRef.current?.submit()
 	}
 
 	return (
-		<div
-			className={'w-full h-full min-h-[45vh] my-8 flex flex-col justify-center items-center'}>
-			<div
-				className={
-					'w-full md:w-5/6 flex flex-col justify-center items-center bg-slate-200 py-11 rounded-xl'
-				}>
+		<div className={'w-full h-full min-h-[45vh] my-8 flex flex-col justify-center items-center'}>
+			<div className={'w-full md:w-5/6 flex flex-col justify-center items-center bg-slate-200 py-11 rounded-xl'}>
 				<h2 className={'text-4xl text-center'}>
 					{getDBTitle(search_database)} {message.advanceSearch}
 				</h2>
 				<div className={'text-center'}>{message.advanceSearchDesc}</div>
-				<form
-					ref={formRef}
-					method="POST"
-					id="advancedSearchForm"
-					action={`${url}`}
-					className={'hidden'}>
+				<form ref={formRef} method="POST" id="advancedSearchForm" action={`${url}`} className={'hidden'}>
 					<input name="QUERY_EXPRESSION" ref={inputRef} hidden id="advancedSearchInput" />
 				</form>
 				<div className={'w-full md:w-4/6 mt-3 flex flex-col items-center'}>
@@ -158,11 +144,7 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 						</div>
 					))}
 					<div className={'flex items-center text-primary my-3 cursor-pointer'}>
-						<div
-							onClick={addField}
-							className={
-								'w-40 border-dashed border-2 border-primary p-2 flex justify-evenly items-center'
-							}>
+						<div onClick={addField} className={'w-40 border-dashed border-2 border-primary p-2 flex justify-evenly items-center'}>
 							<CirclePlus />
 							<div className={'text-center font-bold'}>{message.addField}</div>
 						</div>
@@ -176,17 +158,11 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 						</div>
 					</div>
 					<div className="w-full mt-10 flex justify-between m-2">
-						<Button
-							variant={'default'}
-							className={'h-[50px] w-[45%] ml-[7px] font-bold text-lg'}
-							onClick={submitSearch}>
+						<Button variant={'default'} className={'h-[50px] w-[45%] ml-[7px] font-bold text-lg'} onClick={submitSearch}>
 							<TextSearch className={'mb-1'} />
 							<span className="mx-2 block text-l">{message.searchButton}</span>
 						</Button>
-						<Button
-							variant={'default'}
-							className={'h-[50px] w-[45%] mr-[25px] font-bold text-lg'}
-							onClick={resetFields}>
+						<Button variant={'default'} className={'h-[50px] w-[45%] mr-[25px] font-bold text-lg'} onClick={resetFields}>
 							<CircleX className={'mb-1'} />
 							<span className="mx-2 block text-l">{message.clear}</span>
 						</Button>

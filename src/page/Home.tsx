@@ -80,30 +80,16 @@ const Home = ({ previewMode = false, previewData }: MainPageProps) => {
 		<Layout>
 			<Hero className="" title={heading} backgroundImage={heroBanner} description="">
 				<div className={'w-full mx-auto flex space-x-4 justify-center mt-6 max-w-2xl'}>
-					<HomeSearchForm
-						title={message.searchAllCollections}
-						inputName={UNION_SEARCH_CL}
-						action={getSearchURL(searchURL)}
-					/>
+					<HomeSearchForm title={message.searchAllCollections} inputName={UNION_SEARCH_CL} action={getSearchURL(searchURL)} />
 				</div>
 			</Hero>
 
 			<TopPick page={'home'} previewData={previewData} previewMode={previewMode} />
 
-			{enableFeaturedCollection && (
-				<FeaturedCollection
-					page={'home'}
-					previewData={previewData}
-					previewMode={previewMode}
-				/>
-			)}
-			{enableCategoriesItems && (
-				<Categories page={'home'} previewData={previewData} previewMode={previewMode} />
-			)}
+			{enableFeaturedCollection && <FeaturedCollection page={'home'} previewData={previewData} previewMode={previewMode} />}
+			{enableCategoriesItems && <Categories page={'home'} previewData={previewData} previewMode={previewMode} />}
 
-			{enableRSVP && (
-				<RSVPCalendar page={'home'} previewData={previewData} previewMode={previewMode} />
-			)}
+			{enableRSVP && <RSVPCalendar page={'home'} previewData={previewData} previewMode={previewMode} />}
 			{enableMap && (
 				<Section heading={`${message.map}`}>
 					<InterativeMap page={'home'} />

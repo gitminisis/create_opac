@@ -20,18 +20,12 @@ const BookmarkAll = () => {
 		setLoading(true)
 		const dataString = records
 			.filter(({ is_bookmarked }) => is_bookmarked === 'false')
-			.map(
-				({ record, database_name }) =>
-					`mcheckbox_${record.sisn}=${record.sisn}-${database_name}`
-			)
+			.map(({ record, database_name }) => `mcheckbox_${record.sisn}=${record.sisn}-${database_name}`)
 			.join('&')
 
 		if (dataString) {
 			axios.post(`${bookmark_url}?ADDSELECTION&COOKIE=BOOKMARK`, dataString).then((res) => {
-				const bookmarkCount =
-					typeof bookmark_count === 'number'
-						? bookmark_count
-						: Number.parseInt(bookmark_count || '0')
+				const bookmarkCount = typeof bookmark_count === 'number' ? bookmark_count : Number.parseInt(bookmark_count || '0')
 				const isValid = validateBookmarkResponse(res, bookmarkCount)
 				if (isValid?.isSuccess) {
 					setCount(isValid.newCount || count)
@@ -40,9 +34,7 @@ const BookmarkAll = () => {
 						title: message.allRecordsBookmarked,
 						action: (
 							<a
-								className={
-									'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'
-								}
+								className={'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'}
 								href={`${bookmark_url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`}>
 								{message.viewBookmark}
 							</a>
@@ -59,9 +51,7 @@ const BookmarkAll = () => {
 				title: message.allRecordsBookmarked,
 				action: (
 					<a
-						className={
-							'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'
-						}
+						className={'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'}
 						href={`${bookmark_url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`}>
 						{message.viewBookmark}
 					</a>

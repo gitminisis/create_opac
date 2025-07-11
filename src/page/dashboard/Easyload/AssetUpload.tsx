@@ -14,10 +14,7 @@ const AssetUpload: React.FC = () => {
 	const [files, setFiles] = useState<File[]>([])
 
 	const filePondRef = useRef<FilePond>(null)
-	const handleProcessFile = (
-		error: FilePondErrorDescription | null,
-		file: FilePondFile
-	): void => {
+	const handleProcessFile = (error: FilePondErrorDescription | null, file: FilePondFile): void => {
 		if (error) {
 			console.error('Error uploading file:', error)
 			return
@@ -38,17 +35,7 @@ const AssetUpload: React.FC = () => {
 					if (deleteResult.success) load()
 					else error(deleteResult.message || `Error reverting file id ${uniqueFieldId}`)
 				},
-				process: async (
-					fieldName,
-					file,
-					metadata,
-					load,
-					error,
-					progress,
-					abort,
-					transfer,
-					options
-				) => {
+				process: async (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
 					const chunks = sliceChunks(file, options.chunkSize)
 					const blockIds = new Array<string>()
 
@@ -64,10 +51,7 @@ const AssetUpload: React.FC = () => {
 						)
 
 						if (!uploadResult.success) {
-							error(
-								uploadResult.message ||
-									`Error uploading chunk ${index + 1} of ${file.name}`
-							)
+							error(uploadResult.message || `Error uploading chunk ${index + 1} of ${file.name}`)
 						} else {
 							const blockId = uploadResult.data as string
 							blockIds.push(blockId)
@@ -76,12 +60,7 @@ const AssetUpload: React.FC = () => {
 					}
 
 					if (blockIds.length === chunks.length) {
-						const commitResult = await CommitAssetUpload(
-							metadata.fileId,
-							file.name,
-							file.type,
-							blockIds
-						)
+						const commitResult = await CommitAssetUpload(metadata.fileId, file.name, file.type, blockIds)
 
 						console.log({ commitResult })
 						if (commitResult.success) load(commitResult.data as string)

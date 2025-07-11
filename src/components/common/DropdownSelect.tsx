@@ -1,10 +1,4 @@
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import useConstants from '@/hooks/useConstants'
 import { cn } from '@/lib/utils'
 import { SelectProps } from '@radix-ui/react-select'

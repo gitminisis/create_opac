@@ -16,11 +16,7 @@ const DetailRecord = (props: Props) => {
 	const record = records[0]
 	const database = record.database_name
 	const recordData: DBFields<'COLLECTIONS'> = record.record
-	const title =
-		getFieldDataByLabel(record, fields, database, 'Title') ||
-		record.record.title ||
-		record.record.legal_title ||
-		'Untitled'
+	const title = getFieldDataByLabel(record, fields, database, 'Title') || record.record.title || record.record.legal_title || 'Untitled'
 	const detailFields = getFieldsFromRecord(
 		convertLowerTrim(database) === 'selection_list' ? record.record : record,
 		fields,
@@ -30,9 +26,7 @@ const DetailRecord = (props: Props) => {
 	const searchTerms = common?.search_statement?.toString()?.split(' ') ?? []
 
 	return (
-		<RecordDetail
-			heading={<HighlightText text={title} highlights={searchTerms} />}
-			subHeading={recordData.collection}>
+		<RecordDetail heading={<HighlightText text={title} highlights={searchTerms} />} subHeading={recordData.collection}>
 			<div className="flex flex-col space-y-12">
 				<InfoTable
 					rowsData={detailFields || []}

@@ -27,16 +27,9 @@ const RecordView = ({ record }: { record: Record }) => {
 	const { fields } = useConstants()
 	const database = record.database_name || record.link_dbname || ''
 	const recordLink = record.book_record_link.toString()
-	const title =
-		getFieldDataByLabel(record, fields, database, 'Title') ||
-		record.record.title ||
-		record.record.legal_title ||
-		'Untitled'
+	const title = getFieldDataByLabel(record, fields, database, 'Title') || record.record.title || record.record.legal_title || 'Untitled'
 	const thumbnail =
-		record.media &&
-		Array.isArray(record.media.im_access_link) &&
-		record.media.im_access_link.length > 0 &&
-		record.media.im_access_link[0]
+		record.media && Array.isArray(record.media.im_access_link) && record.media.im_access_link.length > 0 && record.media.im_access_link[0]
 	const gridFields = getFieldsFromRecord(
 		record,
 		fields,
@@ -66,11 +59,7 @@ const RecordView = ({ record }: { record: Record }) => {
 				title={<Link href={recordLink}>{truncateString(title)}</Link>}
 				description={gridFields}
 				thumbnail={
-					thumbnail
-						? thumbnail.includes('[MEDIA]')
-							? thumbnail.replace('[MEDIA]', '/media/')
-							: thumbnail
-						: 'https://placehold.co/250x250'
+					thumbnail ? (thumbnail.includes('[MEDIA]') ? thumbnail.replace('[MEDIA]', '/media/') : thumbnail) : 'https://placehold.co/250x250'
 				}
 				footer={
 					<div className="flex h-4 items-center space-x-4 w-full justify-center ">
@@ -88,11 +77,7 @@ const RecordView = ({ record }: { record: Record }) => {
 			title={<Link href={recordLink}>{title}</Link>}
 			className="col-span-4"
 			thumbnail={
-				thumbnail
-					? thumbnail.includes('[MEDIA]')
-						? thumbnail.replace('[MEDIA]', '/media/')
-						: thumbnail
-					: 'https://placehold.co/250x250'
+				thumbnail ? (thumbnail.includes('[MEDIA]') ? thumbnail.replace('[MEDIA]', '/media/') : thumbnail) : 'https://placehold.co/250x250'
 			}
 			footer={
 				<div>

@@ -13,10 +13,7 @@ type StyleSchema = typeof enValues
 const AdminStyles = () => {
 	return (
 		<AdminLayout>
-			<AdminFormProvider
-				data={enValues}
-				schema={fields as SchemaType}
-				filepath="constants/en/styles.json">
+			<AdminFormProvider data={enValues} schema={fields as SchemaType} filepath="constants/en/styles.json">
 				<AdminForm>
 					<ThemePicker data={enValues} />
 				</AdminForm>
@@ -103,22 +100,15 @@ const ThemePicker = ({ data }: { data: StyleSchema }) => {
 								<div className={`${theme.colors.body} p-2`}>
 									<div className="flex space-x-2">
 										{[1, 2, 3, 4].map((i) => (
-											<Skeleton
-												key={i}
-												className="h-4 w-12 bg-foreground/20"
-											/>
+											<Skeleton key={i} className="h-4 w-12 bg-foreground/20" />
 										))}
 									</div>
 								</div>
 								<div className={`${theme.colors.footer} p-4`}>
 									<Skeleton className="h-5 w-48 mx-auto mb-3 bg-foreground/20" />
 									<div className="flex gap-2">
-										<Skeleton
-											className={`h-8 flex-1 ${theme.colors.buttonPrimary}`}
-										/>
-										<Skeleton
-											className={`h-8 w-20 ${theme.colors.buttonSecondary}`}
-										/>
+										<Skeleton className={`h-8 flex-1 ${theme.colors.buttonPrimary}`} />
+										<Skeleton className={`h-8 w-20 ${theme.colors.buttonSecondary}`} />
 									</div>
 								</div>
 							</CardContent>

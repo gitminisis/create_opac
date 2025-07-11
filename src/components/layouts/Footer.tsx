@@ -14,8 +14,7 @@ const Footer = () => {
 						{siteName} &copy; {new Date().getFullYear()}
 					</p>
 					<p className="text-sm text-gray-400">
-						Software powered by MINISIS Inc.{' '}
-						{version.APP_VERSION && `Version ${version.APP_VERSION}`}{' '}
+						Software powered by MINISIS Inc. {version.APP_VERSION && `Version ${version.APP_VERSION}`}{' '}
 					</p>
 				</div>
 			</HeroHighlight>

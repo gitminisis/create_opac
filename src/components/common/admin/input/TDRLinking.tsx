@@ -1,21 +1,7 @@
 import { Button } from '@/components/ui/button'
-import {
-	Dialog,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import useScreenDimensions from '@/hooks/useScreenDimensions'
-import {
-	deleteTDRBookmark,
-	generateBookmarkId,
-	generateTDRIframeURL,
-	getTDRAccessToken,
-	getTDRBookmark,
-	TDRFile
-} from '@/lib/tdr'
+import { deleteTDRBookmark, generateBookmarkId, generateTDRIframeURL, getTDRAccessToken, getTDRBookmark, TDRFile } from '@/lib/tdr'
 import { useEffect, useState } from 'react'
 
 type TDRLinkingProps = { onAssetsSelect: (files: TDRFile[]) => void }
@@ -37,7 +23,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 
 			if (id && accessToken) {
 				deleteTDRBookmark(accessToken, id)
-					.then((res) => { })
+					.then((res) => {})
 					.catch((err) => console.error(err))
 			}
 		}
@@ -49,7 +35,6 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 
 	const handleAssetsSelect = async () => {
 		if (accessToken && id) {
-			
 			const bookmarkedItems = await getTDRBookmark(accessToken, id)
 			if (bookmarkedItems) {
 				onAssetsSelect(bookmarkedItems)
@@ -73,8 +58,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 				<DialogTrigger asChild>
 					<Button
 						onClick={async () => {
-							const authRes = await getTDRAccessToken();
-
+							const authRes = await getTDRAccessToken()
 
 							if (!open && authRes) {
 								setAccessToken(authRes.access_token)
@@ -89,12 +73,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 						<DialogTitle>Search from TDR Portal</DialogTitle>
 					</DialogHeader>
 					{id && accessToken && (
-						<iframe
-							width={width * 0.75}
-							height={height * 0.75}
-							title="TDR Portal"
-							src={generateTDRIframeURL(accessToken, id)}
-						/>
+						<iframe width={width * 0.75} height={height * 0.75} title="TDR Portal" src={generateTDRIframeURL(accessToken, id)} />
 					)}
 
 					<DialogFooter>

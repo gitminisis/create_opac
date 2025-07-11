@@ -2,24 +2,11 @@ import Link from '@/components/common/Link'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import clientProfileJSON from '@/constants/en/client-profile.json'
 import { getCookieValue } from '@/lib/utils'
-import {
-	BookMarked,
-	CalendarDays,
-	Copy,
-	Copyright,
-	FileX,
-	Home,
-	Lightbulb,
-	MessageCircleMore,
-	Settings,
-	ShoppingBag,
-	Upload,
-} from 'lucide-react'
+import { BookMarked, CalendarDays, Copy, Copyright, FileX, Home, Lightbulb, MessageCircleMore, Settings, ShoppingBag, Upload } from 'lucide-react'
 
 const Sidebar = () => {
 	const m2l_patron_id = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-	const home_url =
-		'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
+	const home_url = '?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
 	return (
 		<aside className="fixed inset-y-0 left-0 z-10 hidden w-14 shadow-md flex-col border-r bg-background sm:flex">
 			<nav className="flex flex-col items-center gap-4 px-2 sm:py-5">

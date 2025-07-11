@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import X2JS from 'x2js'
@@ -8,13 +9,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export const getImage = (image: string) => {
 	if (Array.isArray(image)) {
-		return image[0]?.toLowerCase().includes('[media]')
-			? image[0].replace(/\[media\]/i, '/media/')
-			: image
+		return image[0]?.toLowerCase().includes('[media]') ? image[0].replace(/\[media\]/i, '/media/') : image
 	} else {
-		return image?.toLowerCase().includes('[media]')
-			? image.replace(/\[media\]/i, '/media/')
-			: image
+		return image?.toLowerCase().includes('[media]') ? image.replace(/\[media\]/i, '/media/') : image
 	}
 }
 
@@ -45,11 +42,7 @@ export const copyToClipboard = (text: string): void => {
  * @param appendText text to be appened after truncation
  * @returns truncated word
  */
-export const truncateWords = (
-	text: string,
-	maxLength: number = 20,
-	appendText: string = '...'
-): string => {
+export const truncateWords = (text: string, maxLength: number = 20, appendText: string = '...'): string => {
 	if (text.length <= maxLength) return text
 
 	return `${text.substring(0, maxLength)}${appendText}`
@@ -76,6 +69,13 @@ export const convertToArr = (elm: any) => {
 	return elm ? [elm] : []
 }
 
+export const convertLink = (item: { filename: string; linkURL: string }) => {
+	if (getCookieValue('HOME_SESSID')) {
+		return `${getCookieValue('HOME_SESSID')}?unionqueryform&SEARCHFORM=[OPAC]${item.filename}`
+	}
+	return item.linkURL
+}
+
 export const convertXMLToJson = (response: string) => {
 	const x2js = new X2JS()
 	const cleaned = escapeBrTags(response)
@@ -83,8 +83,12 @@ export const convertXMLToJson = (response: string) => {
 	return jsonData
 }
 
+export const convertToString = (response: any, type: string) => {
+	return typeof response[type] === 'object' ? response[type].__text.replace(/\s+/g, ' ').trim() : response[type]
+}
+
 const escapeBrTags = (xml: string): string => {
-	return xml.replace(/<br\s*\/?>/gi, '');
+	return xml.replace(/<br\s*\/?>/gi, '')
 }
 
 export const encodeObj = (input: string) => {
@@ -101,6 +105,10 @@ export const isDatePast = (dateString: string) => {
 	currentDate.setHours(0, 0, 0, 0)
 
 	return givenDate < currentDate
+}
+
+export const removeQuote = (str: string) => {
+	return str?.replace(/['"]+/g, '')
 }
 
 /**
@@ -211,8 +219,12 @@ export const encodeURIStringToMinisisSpecialCharacter = (originalString: string)
 	return encodeURIComponent(originalString).replace(/%/g, '~')
 }
 
-export const isDescriptionDatabase = (database: string) => {
-	return database.toLocaleUpperCase() === 'DESCRIPTION_WEB'
+export const isDescriptionDatabase = (database: string, req_database: string) => {
+	return database.toLocaleUpperCase() === 'DESCRIPTION_WEB' && req_database.toLocaleUpperCase() === 'DESCRIPTION_WEB'
+}
+
+export const isBiblioDatabase = (database: string, req_database: string) => {
+	return database.toLocaleUpperCase() === 'BIBLIO_WEB' && req_database.toLocaleUpperCase() === 'BIBLIO_WEB'
 }
 
 export function getClassName(databaseName?: string, type?: 'text' | 'border' | 'bg'): string {
@@ -227,4 +239,21 @@ export function getClassName(databaseName?: string, type?: 'text' | 'border' | '
 	}
 
 	return '' // Return an empty string or handle other cases as needed
+}
+
+export const getSearchHistoryUrl = (): string => {
+	return getHomeSessionID() + `?QUERYHISTORY&XML_DOC=Y&DATABASE=UNION_VIEW`
+}
+
+export const fetchSearchHistory = async () => {
+	const url = getSearchHistoryUrl()
+
+	try {
+		const response = await axios.get(url)
+		const json = convertXMLToJson(response.data)
+		return json
+	} catch (error) {
+		console.error('Error fetching search history:', error)
+		return null
+	}
 }

@@ -9,18 +9,10 @@ const ViewToggle = () => {
 
 	return (
 		<div className="flex flex-row">
-			<Button
-				className="rounded-r-none"
-				onClick={toggleDisplayMode}
-				variant={displayMode === 'grid' ? 'default' : 'outline'}
-				size="icon">
+			<Button className="rounded-r-none" onClick={toggleDisplayMode} variant={displayMode === 'grid' ? 'default' : 'outline'} size="icon">
 				<LayoutGrid className="h-4 w-4" />
 			</Button>
-			<Button
-				className="rounded-l-none"
-				onClick={toggleDisplayMode}
-				variant={displayMode === 'list' ? 'default' : 'outline'}
-				size="icon">
+			<Button className="rounded-l-none" onClick={toggleDisplayMode} variant={displayMode === 'list' ? 'default' : 'outline'} size="icon">
 				<List className="h-4 w-4" />
 			</Button>
 		</div>

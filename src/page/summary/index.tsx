@@ -46,11 +46,7 @@ const Summary = () => {
 							className="w-[450px] m-0"
 							inputStyle="text-black"
 							inputName={'KEYWORD_CLUSTER'}
-							action={
-								dbparm
-									? `${getSearchURL(home.searchURL)}&database=${dbparm}`
-									: getSearchURL(home.searchURL)
-							}
+							action={dbparm ? `${getSearchURL(home.searchURL)}&database=${dbparm}` : getSearchURL(home.searchURL)}
 						/>
 						<ViewToggle />
 					</div>
@@ -62,9 +58,7 @@ const Summary = () => {
 							subHeading={`${message.displaying}  ${common.first_record_seq}-${common.last_record_seq} ${message.of} ${common.total_record}`}
 						/>
 						<div className="mt-8 block lg:hidden">
-							<Button
-								className="flex cursor-pointer items-center gap-2 border-b "
-								onClick={() => setMobileFilter(true)}>
+							<Button className="flex cursor-pointer items-center gap-2 border-b " onClick={() => setMobileFilter(true)}>
 								<span className="font-medium"> {message.filtersAndSorting} </span>
 								<ChevronRight className="h-4 w-4" />
 							</Button>
@@ -89,12 +83,10 @@ const Summary = () => {
 							{pagination?.a && pagination.a.length > 0 && (
 								<div className="col-span-4 mt-4">
 									<PagePagination
-										items={pagination.a.map(
-											(item: { _href: any; b: undefined }) => ({
-												url: item._href,
-												active: item.b !== undefined,
-											})
-										)}
+										items={pagination.a.map((item: { _href: any; b: undefined }) => ({
+											url: item._href,
+											active: item.b !== undefined,
+										}))}
 									/>
 								</div>
 							)}

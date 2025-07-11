@@ -5,14 +5,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { useAtom } from 'jotai'
 import { MonitorPlay, SquareUserRound, X } from 'lucide-react'
 import { Button } from '../../ui/button'
-import {
-	Dialog,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '../../ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../../ui/dialog'
 import {
 	ContactInfoRSVP,
 	EVENT_ARCHIVE_COLOR,
@@ -33,14 +26,14 @@ const EventButton = ({
 	contactInfo,
 	filterTypes,
 	filterOption,
-	databaseType
+	databaseType,
 }: {
 	elm: any
 	id: number
 	contactInfo: ContactInfoRSVP[]
 	filterTypes: FilterType[]
 	filterOption: string
-	databaseType:any
+	databaseType: any
 }) => {
 	const [weekType, _] = useAtom(calendarWeekType)
 	const message = useConstants().message
@@ -49,9 +42,9 @@ const EventButton = ({
 		let result = filterTypes?.filter((item) => {
 			return convertLowerTrim(item.type) === convertLowerTrim(event_type)
 		})
-		
+
 		if (result.length < 1) {
-			return databaseType ==='Archives'? EVENT_ARCHIVE_COLOR : EVENT_MUSEUM_COLOR
+			return databaseType === 'Archives' ? EVENT_ARCHIVE_COLOR : EVENT_MUSEUM_COLOR
 		}
 		return `${result[0]?.color} ${result[0]?.icon}`
 	}
@@ -65,12 +58,7 @@ const EventButton = ({
 						variant="outline">
 						<div className={'w-full text-left'}>
 							<div className={'flex w-full'}>
-								<p
-									className={
-										'w-full sm:overflow-hidden font-bold md:h-[120px] overflow-y-hidden'
-									}>
-									{elm[TAG_NAME]}
-								</p>
+								<p className={'w-full sm:overflow-hidden font-bold md:h-[120px] overflow-y-hidden'}>{elm[TAG_NAME]}</p>
 							</div>
 							<div className={'hidden md:flex items-center justify-around w-full'}>
 								<div>
@@ -78,55 +66,29 @@ const EventButton = ({
 									<div>{elm[TAG_FUNC_END_T]?.toUpperCase()}</div>
 								</div>
 								<div className={'hidden sm:block w-[18px]'}>
-									{elm[TAG_FUNC_O] === RSVP_MAP.YES ? (
-										<MonitorPlay />
-									) : (
-										<SquareUserRound />
-									)}
+									{elm[TAG_FUNC_O] === RSVP_MAP.YES ? <MonitorPlay /> : <SquareUserRound />}
 								</div>
 							</div>
 						</div>
 					</Button>
 				) : (
-					<Button
-						className={` flex flex-col justify-start w-full  border-hidden p-0 text-sm whitespace-normal `}
-						variant="outline">
+					<Button className={` flex flex-col justify-start w-full  border-hidden p-0 text-sm whitespace-normal `} variant="outline">
 						<div className={'flex w-full text-left'}>
-							<div
-								className={cn(
-									'h-4 w-[16px] border rounded',
-									getColor(elm[filterOption])
-								)}></div>
-							<div className={'w-full h-full hidden sm:block break-all'}>
-								{elm[TAG_NAME]}
-							</div>
+							<div className={cn('h-4 w-[16px] border rounded', getColor(elm[filterOption]))}></div>
+							<div className={'w-full h-full hidden sm:block break-all'}>{elm[TAG_NAME]}</div>
 						</div>
 					</Button>
 				)}
 			</DialogTrigger>
-			<DialogContent
-				hideClose={'invisible'}
-				className={
-					'max-h-[90vh] max-w-5xl overflow-y-auto 2xl:overflow-y-hidden p-1 gap-1 rounded'
-				}>
+			<DialogContent hideClose={'invisible'} className={'max-h-[90vh] max-w-5xl overflow-y-auto 2xl:overflow-y-hidden p-1 gap-1 rounded'}>
 				<DialogHeader>
-					<DialogTitle
-						className={
-							' bg-primary text-primary-foreground h-10 flex items-center justify-between rounded p-2 '
-						}>
+					<DialogTitle className={' bg-primary text-primary-foreground h-10 flex items-center justify-between rounded p-2 '}>
 						<div className="h-8">
 							<img className="h-full" src={logo} alt="logo" />
 						</div>
 						<div className={'h-[40px] flex justify-center items-center'}>
-							<div
-								className={cn(
-									'h-4 w-[16px] border rounded mr-1',
-									getColor(elm[filterOption])
-								)}></div>
-							<div
-								className={
-									'whitespace-nowrap  w-[200px] sm:w-full overflow-x-auto overflow-y-hidden text-left min-h-[20px]'
-								}>
+							<div className={cn('h-4 w-[16px] border rounded mr-1', getColor(elm[filterOption]))}></div>
+							<div className={'whitespace-nowrap  w-[200px] sm:w-full overflow-x-auto overflow-y-hidden text-left min-h-[20px]'}>
 								{elm[TAG_NAME]}
 							</div>
 						</div>
@@ -138,9 +100,7 @@ const EventButton = ({
 				<EventCustomDialogContent elm={elm} contactInfo={contactInfo} />
 				<DialogFooter>
 					<DialogPrimitive.Close
-						className={
-							'font-bold bg-primary text-primary-foreground h-10 w-20 flex items-center justify-around rounded'
-						}>
+						className={'font-bold bg-primary text-primary-foreground h-10 w-20 flex items-center justify-around rounded'}>
 						{message.close}
 					</DialogPrimitive.Close>
 				</DialogFooter>

@@ -32,12 +32,7 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 
 	return (
 		<div className="flex gap-4 flex-col">
-			<FormField
-				type="text"
-				field={'Page heading'}
-				value={fieldsValue.heading}
-				onChange={(e) => handleChange(['heading'], e)}
-			/>
+			<FormField type="text" field={'Page heading'} value={fieldsValue.heading} onChange={(e) => handleChange(['heading'], e)} />
 
 			<FormField
 				type="image"
@@ -47,10 +42,7 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 				onTDRAssetsSelect={(files) => {
 					if (files.length > 0) {
 						const file = files[0]
-						handleChange(
-							['heroBanner'],
-							isSupportedImageExtension(file.Extension) ? file.Access : file.Thumbnail
-						)
+						handleChange(['heroBanner'], isSupportedImageExtension(file.Extension) ? file.Access : file.Thumbnail)
 					}
 				}}
 			/>
@@ -61,42 +53,19 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 					handleAddNewItem={(event: FormEvent<NewElementForm<FCForm>>) => {
 						const { url, description, title, thumbnail } = event.currentTarget.elements
 
-						handleAdd(
-							['featuredCollection', `${fieldsValue.featuredCollection.length}`],
-							{
-								title: title.value,
-								description: description.value,
-								url: url.value,
-								thumbnail: thumbnail.value,
-							}
-						)
+						handleAdd(['featuredCollection', `${fieldsValue.featuredCollection.length}`], {
+							title: title.value,
+							description: description.value,
+							url: url.value,
+							thumbnail: thumbnail.value,
+						})
 					}}
 					newItemForm={
 						<>
-							<FormField
-								name="title"
-								type="text"
-								field={'Category title'}
-								value={''}
-							/>
-							<FormField
-								name="description"
-								type="text"
-								field={'Description'}
-								value={''}
-							/>
-							<FormField
-								name="url"
-								type="text"
-								field={'Search expression'}
-								value={''}
-							/>
-							<FormField
-								name="thumbnail"
-								type="text"
-								field={'Thumbnail'}
-								value={''}
-							/>
+							<FormField name="title" type="text" field={'Category title'} value={''} />
+							<FormField name="description" type="text" field={'Description'} value={''} />
+							<FormField name="url" type="text" field={'Search expression'} value={''} />
+							<FormField name="thumbnail" type="text" field={'Thumbnail'} value={''} />
 						</>
 					}
 					enableFeatureValue={fieldsValue.enableFeaturedCollection}
@@ -119,44 +88,31 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 									type="text"
 									field={'Category title'}
 									value={item.title}
-									onChange={(e) =>
-										handleChange(['featuredCollection', `${index}`, 'title'], e)
-									}
+									onChange={(e) => handleChange(['featuredCollection', `${index}`, 'title'], e)}
 								/>
 								<FormField
 									type="text"
 									field={'Description'}
 									value={item.description}
-									onChange={(e) =>
-										handleChange(['featuredCollection', `${index}`, 'description'], e)
-									}
+									onChange={(e) => handleChange(['featuredCollection', `${index}`, 'description'], e)}
 								/>
 								<FormField
 									type="text"
 									field={'Search expression'}
 									value={item.url}
-									onChange={(e) =>
-										handleChange(['featuredCollection', `${index}`, 'url'], e)
-									}
+									onChange={(e) => handleChange(['featuredCollection', `${index}`, 'url'], e)}
 								/>
 								<FormField
 									type="image"
 									field={'Thumbnail'}
 									value={item.thumbnail}
-									onChange={(e) =>
-										handleChange(
-											['featuredCollection', `${index}`, 'thumbnail'],
-											e
-										)
-									}
+									onChange={(e) => handleChange(['featuredCollection', `${index}`, 'thumbnail'], e)}
 									onTDRAssetsSelect={(files) => {
 										if (files.length > 0) {
 											const file = files[0]
 											handleChange(
 												['featuredCollection', `${index}`, 'thumbnail'],
-												isSupportedImageExtension(file.Extension)
-													? file.Access
-													: file.Thumbnail
+												isSupportedImageExtension(file.Extension) ? file.Access : file.Thumbnail
 											)
 										}
 									}}
@@ -181,25 +137,10 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 					}}
 					newItemForm={
 						<>
-							<FormField
-								name="title"
-								type="text"
-								field={'Category title'}
-								value={''}
-							/>
+							<FormField name="title" type="text" field={'Category title'} value={''} />
 
-							<FormField
-								name="url"
-								type="text"
-								field={'Search expression'}
-								value={''}
-							/>
-							<FormField
-								name="thumbnail"
-								type="text"
-								field={'Thumbnail'}
-								value={''}
-							/>
+							<FormField name="url" type="text" field={'Search expression'} value={''} />
+							<FormField name="thumbnail" type="text" field={'Thumbnail'} value={''} />
 						</>
 					}
 					enableFeatureValue={fieldsValue.enableCategoriesItems}
@@ -222,38 +163,27 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 									type="text"
 									field={'Category title'}
 									value={item.title}
-									onChange={(e) =>
-										handleChange(['categoriesItems', `${index}`, 'title'], e)
-									}
+									onChange={(e) => handleChange(['categoriesItems', `${index}`, 'title'], e)}
 								/>
 
 								<FormField
 									type="text"
 									field={'Search expression'}
 									value={item.url}
-									onChange={(e) =>
-										handleChange(['categoriesItems', `${index}`, 'url'], e)
-									}
+									onChange={(e) => handleChange(['categoriesItems', `${index}`, 'url'], e)}
 								/>
 
 								<FormField
 									type="image"
 									field={'Thumbnail'}
 									value={item.thumbnail}
-									onChange={(e) =>
-										handleChange(
-											['categoriesItems', `${index}`, 'thumbnail'],
-											e
-										)
-									}
+									onChange={(e) => handleChange(['categoriesItems', `${index}`, 'thumbnail'], e)}
 									onTDRAssetsSelect={(files) => {
 										if (files.length > 0) {
 											const file = files[0]
 											handleChange(
 												['categoriesItems', `${index}`, 'thumbnail'],
-												isSupportedImageExtension(file.Extension)
-													? file.Access
-													: file.Thumbnail
+												isSupportedImageExtension(file.Extension) ? file.Access : file.Thumbnail
 											)
 										}
 									}}
@@ -268,8 +198,7 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 				<SectionHeader heading="Top Picks" />
 				<SectionActions
 					handleAddNewItem={(event: FormEvent<NewElementForm<TPForm>>) => {
-						const { title, subTitle, description, expression, database } =
-							event.currentTarget.elements
+						const { title, subTitle, description, expression, database } = event.currentTarget.elements
 
 						handleAdd(['topPicks', `${fieldsValue.topPicks.length}`], {
 							title: title.value,
@@ -283,18 +212,8 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 						<>
 							<FormField name="title" type="text" field={'Title'} value={''} />
 							<FormField name="subTitle" type="text" field={'Subtitle'} value={''} />
-							<FormField
-								name="description"
-								type="text"
-								field={'Description'}
-								value={''}
-							/>
-							<FormField
-								name="expression"
-								type="text"
-								field={'Expression'}
-								value={''}
-							/>
+							<FormField name="description" type="text" field={'Description'} value={''} />
+							<FormField name="expression" type="text" field={'Expression'} value={''} />
 							<FormField name="database" type="text" field={'Database'} value={''} />
 						</>
 					}
@@ -318,45 +237,35 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 									type="text"
 									field={'Title'}
 									value={item.title}
-									onChange={(e) =>
-										handleChange(['topPicks', `${index}`, 'title'], e)
-									}
+									onChange={(e) => handleChange(['topPicks', `${index}`, 'title'], e)}
 								/>
 
 								<FormField
 									type="text"
 									field={'Subtitle'}
 									value={item.subTitle}
-									onChange={(e) =>
-										handleChange(['topPicks', `${index}`, 'subTitle'], e)
-									}
+									onChange={(e) => handleChange(['topPicks', `${index}`, 'subTitle'], e)}
 								/>
 
 								<FormField
 									type="text"
 									field={'Description'}
 									value={item.description}
-									onChange={(e) =>
-										handleChange(['topPicks', `${index}`, 'description'], e)
-									}
+									onChange={(e) => handleChange(['topPicks', `${index}`, 'description'], e)}
 								/>
 
 								<FormField
 									type="text"
 									field={'Expression'}
 									value={item.expression}
-									onChange={(e) =>
-										handleChange(['topPicks', `${index}`, 'expression'], e)
-									}
+									onChange={(e) => handleChange(['topPicks', `${index}`, 'expression'], e)}
 								/>
 
 								<FormField
 									type="text"
 									field={'Database'}
 									value={item.database}
-									onChange={(e) =>
-										handleChange(['topPicks', `${index}`, 'database'], e)
-									}
+									onChange={(e) => handleChange(['topPicks', `${index}`, 'database'], e)}
 								/>
 							</SectionWrapper>
 						))}

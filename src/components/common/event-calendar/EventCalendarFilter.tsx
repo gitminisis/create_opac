@@ -35,10 +35,7 @@ const EventCalendarFilter: React.FC<MyComponentProps> = ({ setCurrentFilter, fil
 	}
 
 	return (
-		<div
-			className={
-				'px-3 relative flex-none sm:flex flex-wrap w-full justify-start items-center mb-2 h-16 overflow-auto'
-			}>
+		<div className={'px-3 relative flex-none sm:flex flex-wrap w-full justify-start items-center mb-2 h-16 overflow-auto'}>
 			{filterTypes?.map((item, key) => {
 				return (
 					<div className={'md:w-[30%] md:mx-1 my-1'} key={key}>
@@ -52,9 +49,7 @@ const EventCalendarFilter: React.FC<MyComponentProps> = ({ setCurrentFilter, fil
 				)
 			})}
 			<button
-				className={
-					'absolute sticky bottom-0 left-full bg-primary h-8 w-8 text-white flex justify-center items-center rounded'
-				}
+				className={'absolute sticky bottom-0 left-full bg-primary h-8 w-8 text-white flex justify-center items-center rounded'}
 				onClick={resetFilter}>
 				<RefreshCw />
 			</button>

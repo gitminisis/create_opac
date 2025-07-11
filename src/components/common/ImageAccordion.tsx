@@ -26,12 +26,7 @@ function ImageAccordion({
 									{item.description}
 								</span>
 							</a>
-							<img
-								loading={'lazy'}
-								className="object-cover h-72 md:h-[420px]  w-full"
-								src={item.thumbnail}
-								alt={item.title}
-							/>
+							<img loading={'lazy'} className="object-cover h-72 md:h-[420px]  w-full" src={item.thumbnail} alt={item.title} />
 						</article>
 					)
 				})}

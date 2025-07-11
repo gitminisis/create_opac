@@ -38,21 +38,18 @@ export function rebuildOPAC() {
 			const branch = branchStdout.trim()
 
 			// Run git commands sequentially
-			exec(
-				`cd ${base} && git add . && git commit -m "admin: CMS update" && git push origin ${branch}`,
-				(gitError, gitStdout, gitStderr) => {
-					if (gitError) {
-						console.error(`Git error: ${gitError.message}`)
-						return
-					}
-
-					if (gitStderr) {
-						console.error(`Git stderr: ${gitStderr}`)
-					}
-
-					console.log(`Git stdout:\n${gitStdout}`)
+			exec(`cd ${base} && git add . && git commit -m "admin: CMS update" && git push origin ${branch}`, (gitError, gitStdout, gitStderr) => {
+				if (gitError) {
+					console.error(`Git error: ${gitError.message}`)
+					return
 				}
-			)
+
+				if (gitStderr) {
+					console.error(`Git stderr: ${gitStderr}`)
+				}
+
+				console.log(`Git stdout:\n${gitStdout}`)
+			})
 		})
 	})
 

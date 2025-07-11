@@ -19,17 +19,11 @@ const ReviewCard = ({
 	onClick: () => void
 }) => {
 	return (
-		<figure
-			className={cn(
-				'relative w-min cursor-pointer overflow-hidden rounded-xl border p-4 hover:shadow-md'
-			)}
-			onClick={onClick}>
+		<figure className={cn('relative w-min cursor-pointer overflow-hidden rounded-xl border p-4 hover:shadow-md')} onClick={onClick}>
 			<div className="flex flex-row items-center gap-2">
 				<Archive className="w-8 h-8" />
 				<div className="flex flex-col">
-					<figcaption className="text-sm font-bold text-primary w-[45ch] line-clamp-1">
-						{title}
-					</figcaption>
+					<figcaption className="text-sm font-bold text-primary w-[45ch] line-clamp-1">{title}</figcaption>
 					<p className="text-xs font-medium ">{subTitle}</p>
 				</div>
 			</div>

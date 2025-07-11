@@ -114,27 +114,12 @@ const InteractiveMap = ({ page }: { page: string }) => {
 	}, [])
 
 	useEffect(() => {
-		if (
-			selectedDatabases.length > 0 ||
-			selectedCountries.length > 0 ||
-			selectedProvinces.length > 0 ||
-			selectedCities.length > 0
-		) {
+		if (selectedDatabases.length > 0 || selectedCountries.length > 0 || selectedProvinces.length > 0 || selectedCities.length > 0) {
 			const nData = allData.filter((item: DataType) => {
-				const matchesDatabase =
-					selectedDatabases.length > 0
-						? selectedDatabases.includes(item.DATABASE_TYPE)
-						: true
-				const matchesCountry =
-					selectedCountries.length > 0
-						? selectedCountries.includes(item.ORIGIN_COUNTRY)
-						: true
-				const matchesProvince =
-					selectedProvinces.length > 0
-						? selectedProvinces.includes(item.ORIGIN_PRV_STATE)
-						: true
-				const matchesCity =
-					selectedCities.length > 0 ? selectedCities.includes(item.ORIGIN_CITY) : true
+				const matchesDatabase = selectedDatabases.length > 0 ? selectedDatabases.includes(item.DATABASE_TYPE) : true
+				const matchesCountry = selectedCountries.length > 0 ? selectedCountries.includes(item.ORIGIN_COUNTRY) : true
+				const matchesProvince = selectedProvinces.length > 0 ? selectedProvinces.includes(item.ORIGIN_PRV_STATE) : true
+				const matchesCity = selectedCities.length > 0 ? selectedCities.includes(item.ORIGIN_CITY) : true
 
 				return matchesDatabase && matchesCountry && matchesProvince && matchesCity
 			})
@@ -176,9 +161,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 		})
 		setAllData(updatedRecords ?? [])
 		setFilteredData(updatedRecords ?? [])
-		const countries = Array.from(
-			new Set(updatedRecords?.map((item: any) => item.ORIGIN_COUNTRY))
-		)
+		const countries = Array.from(new Set(updatedRecords?.map((item: any) => item.ORIGIN_COUNTRY)))
 		setCkTypes({ countries })
 	}
 
@@ -191,56 +174,38 @@ const InteractiveMap = ({ page }: { page: string }) => {
 			case 'archives':
 				return ['/preprocessing/DESCRIPTION_WEB_MAP.html']
 			case 'home':
-				return [
-					'/preprocessing/BIBLIO_WEB_MAP.html',
-					'/preprocessing/COLLECTIONS_WEB_MAP.html',
-					'/preprocessing/DESCRIPTION_WEB_MAP.html',
-				]
+				return ['/preprocessing/BIBLIO_WEB_MAP.html', '/preprocessing/COLLECTIONS_WEB_MAP.html', '/preprocessing/DESCRIPTION_WEB_MAP.html']
 			default:
 				return []
 		}
 	}
 
 	const handleDatabaseChange = (database: string) => {
-		setSelectedDatabases((prev) =>
-			prev.includes(database) ? prev.filter((d) => d !== database) : [...prev, database]
-		)
+		setSelectedDatabases((prev) => (prev.includes(database) ? prev.filter((d) => d !== database) : [...prev, database]))
 		setSelectedCountries([])
 		setSelectedProvinces([])
 		setSelectedCities([])
 	}
 
 	const handleCountryChange = (country: string) => {
-		setSelectedCountries((prev) =>
-			prev.includes(country) ? prev.filter((c) => c !== country) : [...prev, country]
-		)
+		setSelectedCountries((prev) => (prev.includes(country) ? prev.filter((c) => c !== country) : [...prev, country]))
 		setSelectedProvinces([])
 		setSelectedCities([])
 	}
 
 	const handleProvinceChange = (province: string) => {
-		setSelectedProvinces((prev) =>
-			prev.includes(province) ? prev.filter((p) => p !== province) : [...prev, province]
-		)
+		setSelectedProvinces((prev) => (prev.includes(province) ? prev.filter((p) => p !== province) : [...prev, province]))
 		setSelectedCities([])
 	}
 
 	const handleCityChange = (city: string) => {
-		setSelectedCities((prev) =>
-			prev.includes(city) ? prev.filter((c) => c !== city) : [...prev, city]
-		)
+		setSelectedCities((prev) => (prev.includes(city) ? prev.filter((c) => c !== city) : [...prev, city]))
 	}
 
 	const getUniqueValuesP = () => {
 		const nData = allData.filter((item: any) => {
-			const matchesDatabase =
-				selectedDatabases.length > 0
-					? selectedDatabases.includes(item?.DATABASE_TYPE)
-					: true
-			const matchesCountry =
-				selectedCountries.length > 0
-					? selectedCountries.includes(item.ORIGIN_COUNTRY)
-					: true
+			const matchesDatabase = selectedDatabases.length > 0 ? selectedDatabases.includes(item?.DATABASE_TYPE) : true
+			const matchesCountry = selectedCountries.length > 0 ? selectedCountries.includes(item.ORIGIN_COUNTRY) : true
 
 			return matchesDatabase && matchesCountry
 		})
@@ -250,18 +215,9 @@ const InteractiveMap = ({ page }: { page: string }) => {
 
 	const getUniqueValuesC = () => {
 		const nData = allData.filter((item: any) => {
-			const matchesDatabase =
-				selectedDatabases.length > 0
-					? selectedDatabases.includes(item?.DATABASE_TYPE)
-					: true
-			const matchesCountry =
-				selectedCountries.length > 0
-					? selectedCountries.includes(item.ORIGIN_COUNTRY)
-					: true
-			const matchesProvince =
-				selectedProvinces.length > 0
-					? selectedProvinces.includes(item.ORIGIN_PRV_STATE)
-					: true
+			const matchesDatabase = selectedDatabases.length > 0 ? selectedDatabases.includes(item?.DATABASE_TYPE) : true
+			const matchesCountry = selectedCountries.length > 0 ? selectedCountries.includes(item.ORIGIN_COUNTRY) : true
+			const matchesProvince = selectedProvinces.length > 0 ? selectedProvinces.includes(item.ORIGIN_PRV_STATE) : true
 
 			return matchesDatabase && matchesCountry && matchesProvince
 		})
@@ -287,10 +243,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 			<div className="mb-2 md:mb-0 md:w-1/4 rounded border border-primary mr-2 relative">
 				<div className="flex justify-between items-center bg-primary p-2">
 					<div className={'text-white'}>{message.filterBy}</div>
-					<Button
-						onClick={resetMap}
-						className={'bg-primary text-white'}
-						variant={'secondary'}>
+					<Button onClick={resetMap} className={'bg-primary text-white'} variant={'secondary'}>
 						<RefreshCw />
 					</Button>
 				</div>
@@ -301,12 +254,8 @@ const InteractiveMap = ({ page }: { page: string }) => {
 								<div className="flex">
 									<div className={'flex items-center space-x-2'}>
 										<Checkbox
-											onClick={(e) =>
-												handleDatabaseChange(DB_TYPE_MAP.archive)
-											}
-											checked={selectedDatabases.includes(
-												DB_TYPE_MAP.archive
-											)}
+											onClick={(e) => handleDatabaseChange(DB_TYPE_MAP.archive)}
+											checked={selectedDatabases.includes(DB_TYPE_MAP.archive)}
 										/>
 										<div
 											className={`w-[30px] h-[30px] flex justify-center items-center rounded-full shadow-md ${COLOR_MAP.archive}`}>
@@ -315,9 +264,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
 											{message.archives}
 										</Label>
-										<div>
-											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.archive)}
-										</div>
+										<div>{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.archive)}</div>
 									</div>
 								</div>
 								<div className="flex">
@@ -334,20 +281,14 @@ const InteractiveMap = ({ page }: { page: string }) => {
 										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
 											{message.museum}
 										</Label>
-										<div>
-											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.museum)}
-										</div>
+										<div>{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.museum)}</div>
 									</div>
 								</div>
 								<div className="flex">
 									<div className={'flex items-center space-x-2'}>
 										<Checkbox
-											onClick={() =>
-												handleDatabaseChange(DB_TYPE_MAP.library)
-											}
-											checked={selectedDatabases.includes(
-												DB_TYPE_MAP.library
-											)}
+											onClick={() => handleDatabaseChange(DB_TYPE_MAP.library)}
+											checked={selectedDatabases.includes(DB_TYPE_MAP.library)}
 										/>
 										<div
 											className={`w-[30px] h-[30px] flex justify-center items-center rounded-full shadow-md ${COLOR_MAP.library}`}>
@@ -357,9 +298,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 										<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
 											{message.library}
 										</Label>
-										<div>
-											{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.library)}
-										</div>
+										<div>{getNumberofType('DATABASE_TYPE', DB_TYPE_MAP.library)}</div>
 									</div>
 								</div>
 							</div>
@@ -371,13 +310,8 @@ const InteractiveMap = ({ page }: { page: string }) => {
 								if (item) {
 									return (
 										item && (
-											<div
-												className={'flex items-center space-x-2'}
-												key={key}>
-												<Checkbox
-													onClick={() => handleCountryChange(item)}
-													checked={selectedCountries.includes(item)}
-												/>
+											<div className={'flex items-center space-x-2'} key={key}>
+												<Checkbox onClick={() => handleCountryChange(item)} checked={selectedCountries.includes(item)} />
 												<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
 													{item}
 												</Label>
@@ -396,19 +330,12 @@ const InteractiveMap = ({ page }: { page: string }) => {
 								getUniqueValuesP()?.map((item: any, key: number) => {
 									return (
 										item && (
-											<div
-												className={'flex items-center space-x-2'}
-												key={key}>
-												<Checkbox
-													onClick={() => handleProvinceChange(item)}
-													checked={selectedProvinces.includes(item)}
-												/>
+											<div className={'flex items-center space-x-2'} key={key}>
+												<Checkbox onClick={() => handleProvinceChange(item)} checked={selectedProvinces.includes(item)} />
 												<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
 													{item}
 												</Label>
-												<div>
-													{getNumberofType('ORIGIN_PRV_STATE', item)}
-												</div>
+												<div>{getNumberofType('ORIGIN_PRV_STATE', item)}</div>
 											</div>
 										)
 									)
@@ -426,10 +353,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 								getUniqueValuesC()?.map((item: any, key: number) => {
 									return (
 										<div className={'flex items-center space-x-2'} key={key}>
-											<Checkbox
-												onClick={() => handleCityChange(item)}
-												checked={selectedCities.includes(item)}
-											/>
+											<Checkbox onClick={() => handleCityChange(item)} checked={selectedCities.includes(item)} />
 											<Label className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
 												{item}
 											</Label>
@@ -489,18 +413,13 @@ const InteractiveMap = ({ page }: { page: string }) => {
 						key={`L${uuidv4()?.substring(15)}`}
 						spiderfyDistanceMultiplier={1}
 						showCoverageOnHover={false}
-						iconCreateFunction={(cluster) =>
-							clusterMarkerIcon(cluster, libraryIcon, COLOR_MAP.library)
-						}>
+						iconCreateFunction={(cluster) => clusterMarkerIcon(cluster, libraryIcon, COLOR_MAP.library)}>
 						{filteredData?.map((marker: DataType, key: number) => {
 							if (marker.DATABASE_TYPE === DB_TYPE_MAP.library) {
 								return (
 									<Marker
 										key={`L${marker.DATABASE_TYPE}-${uuidv4().substring(10)}`}
-										position={[
-											marker?.DECIMAL_LATITUDE,
-											marker?.DECIMAL_LONGITUDE,
-										]}
+										position={[marker?.DECIMAL_LATITUDE, marker?.DECIMAL_LONGITUDE]}
 										eventHandlers={{
 											mouseover: (e) => e.target.openPopup(),
 											mouseout: (e) => e.target.closePopup(),
@@ -510,15 +429,10 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											},
 										}}
 										icon={icons['library']}>
-										<Popup
-											className="hidden md:block border-minisis-library  border-2 rounded-[14px]"
-											offset={[2, 0]}>
+										<Popup className="hidden md:block border-minisis-library  border-2 rounded-[14px]" offset={[2, 0]}>
 											<div className="w-[300px] ">
 												<h3 className="text-lg font-bold text-black  pb-2">
-													{typeof marker.ALL_TITLE_WORD_OCCURRENCE !==
-														'object'
-														? marker?.ALL_TITLE_WORD_OCCURRENCE
-														: 'n/a'}
+													{typeof marker.ALL_TITLE_WORD_OCCURRENCE !== 'object' ? marker?.ALL_TITLE_WORD_OCCURRENCE : 'n/a'}
 												</h3>
 												{marker?.IMAG_URL && (
 													<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
@@ -533,25 +447,16 @@ const InteractiveMap = ({ page }: { page: string }) => {
 													<tbody>
 														{marker.ACCESSION_NUMBER && (
 															<tr className="border-b">
-																<td className="font-semibold">
-																	{message.accessionNumber}
-																</td>
+																<td className="font-semibold">{message.accessionNumber}</td>
 																<td>{marker.ACCESSION_NUMBER}</td>
 															</tr>
 														)}
 														<tr className="border-b">
-															<td className="font-semibold py-1 pr-2">
-																{message.author}
-															</td>
-															<td>
-																{marker.PAUTHOR_OCCURRENCE ||
-																	marker.CA_NAME_OCCURRENCE}
-															</td>
+															<td className="font-semibold py-1 pr-2">{message.author}</td>
+															<td>{marker.PAUTHOR_OCCURRENCE || marker.CA_NAME_OCCURRENCE}</td>
 														</tr>
 														<tr className="border-b">
-															<td className="font-semibold py-1 pr-2">
-																{message.location}
-															</td>
+															<td className="font-semibold py-1 pr-2">{message.location}</td>
 															<td>
 																{marker.ORIGIN_CITY}
 																{marker.ORIGIN_CITY && marker.ORIGIN_PRV_STATE ? ' , ' : ''}
@@ -560,9 +465,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 														</tr>
 														{marker.GEN_NOTE && (
 															<tr className="border-b">
-																<td className="font-semibold py-1 pr-2">
-																	{message.generalNote}
-																</td>
+																<td className="font-semibold py-1 pr-2">{message.generalNote}</td>
 																<div className="max-h-[150px] overflow-y-auto custom-scrollbar">
 																	<td>{marker.GEN_NOTE}</td>
 																</div>
@@ -582,18 +485,13 @@ const InteractiveMap = ({ page }: { page: string }) => {
 						key={`A${uuidv4()?.substring(15)}`}
 						spiderfyDistanceMultiplier={1}
 						showCoverageOnHover={false}
-						iconCreateFunction={(cluster) =>
-							clusterMarkerIcon(cluster, archiveIcon, COLOR_MAP.archive)
-						}>
+						iconCreateFunction={(cluster) => clusterMarkerIcon(cluster, archiveIcon, COLOR_MAP.archive)}>
 						{filteredData?.map((marker: DataType, key: number) => {
 							if (marker.DATABASE_TYPE === DB_TYPE_MAP.archive) {
 								return (
 									<Marker
 										key={`A${marker.DATABASE_TYPE}-${uuidv4().substring(10)}`}
-										position={[
-											marker?.DECIMAL_LATITUDE,
-											marker?.DECIMAL_LONGITUDE,
-										]}
+										position={[marker?.DECIMAL_LATITUDE, marker?.DECIMAL_LONGITUDE]}
 										eventHandlers={{
 											mouseover: (e) => e.target.openPopup(),
 											mouseout: (e) => e.target.closePopup(),
@@ -603,14 +501,10 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											},
 										}}
 										icon={icons['archive']}>
-										<Popup
-											className="hidden md:block border-minisis-archives  border-2 rounded-[14px]"
-											offset={[2, 0]}>
+										<Popup className="hidden md:block border-minisis-archives  border-2 rounded-[14px]" offset={[2, 0]}>
 											<div className="w-[300px]">
 												<h3 className="text-lg font-bold text-black   pb-2">
-													{typeof marker.TITLE !== 'object'
-														? marker.TITLE
-														: 'n/a'}
+													{typeof marker.TITLE !== 'object' ? marker.TITLE : 'n/a'}
 												</h3>
 												{marker?.IMAG_URL && (
 													<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
@@ -625,16 +519,12 @@ const InteractiveMap = ({ page }: { page: string }) => {
 													<tbody>
 														{marker.REFD && (
 															<tr className="border-b">
-																<td className="font-semibold">
-																	REFD
-																</td>
+																<td className="font-semibold">REFD</td>
 																<td>{marker.REFD} </td>
 															</tr>
 														)}
 														<tr className="border-b">
-															<td className="font-semibold py-1 pr-2">
-																{message.location}
-															</td>
+															<td className="font-semibold py-1 pr-2">{message.location}</td>
 															<td>
 																{marker.ORIGIN_CITY}
 																{marker.ORIGIN_CITY && marker.ORIGIN_PRV_STATE ? ' , ' : ''}
@@ -643,9 +533,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 														</tr>
 														{marker.SCOPE && (
 															<tr className="border-b">
-																<td className="font-semibold py-1 pr-2">
-																	{message.description}
-																</td>
+																<td className="font-semibold py-1 pr-2">{message.description}</td>
 																<div className="max-h-[150px] overflow-y-auto custom-scrollbar">
 																	<td>{marker.SCOPE}</td>
 																</div>
@@ -665,18 +553,13 @@ const InteractiveMap = ({ page }: { page: string }) => {
 						key={`M${uuidv4()?.substring(15)}`}
 						spiderfyDistanceMultiplier={1}
 						showCoverageOnHover={false}
-						iconCreateFunction={(cluster) =>
-							clusterMarkerIcon(cluster, museumIcon, COLOR_MAP.museum)
-						}>
+						iconCreateFunction={(cluster) => clusterMarkerIcon(cluster, museumIcon, COLOR_MAP.museum)}>
 						{filteredData?.map((marker: DataType) => {
 							if (marker.DATABASE_TYPE === DB_TYPE_MAP.museum) {
 								return (
 									<Marker
 										key={`M${marker.DATABASE_TYPE}-${uuidv4().substring(10)}`}
-										position={[
-											marker?.DECIMAL_LATITUDE,
-											marker?.DECIMAL_LONGITUDE,
-										]}
+										position={[marker?.DECIMAL_LATITUDE, marker?.DECIMAL_LONGITUDE]}
 										eventHandlers={{
 											mouseover: (e) => e.target.openPopup(),
 											mouseout: (e) => e.target.closePopup(),
@@ -686,14 +569,10 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											},
 										}}
 										icon={icons['museum']}>
-										<Popup
-											className="hidden md:block border-minisis-museum border-2 rounded-[14px]"
-											offset={[2, 0]}>
+										<Popup className="hidden md:block border-minisis-museum border-2 rounded-[14px]" offset={[2, 0]}>
 											<div className="w-[300px]">
 												<h3 className="text-lg font-bold text-black pb-2 overflow-x-auto">
-													{marker.TITLE !== 'object'
-														? marker.TITLE
-														: 'n/a'}
+													{marker.TITLE !== 'object' ? marker.TITLE : 'n/a'}
 												</h3>
 												{marker?.IMAG_URL && (
 													<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
@@ -708,19 +587,13 @@ const InteractiveMap = ({ page }: { page: string }) => {
 													<tbody>
 														{marker.ACCESSION_NUMBER && (
 															<tr className="border-b">
-																<td className="font-semibold">
-																	{message.accessionNumber}
-																</td>
-																<td className="overflow-x-auto">
-																	{marker.ACCESSION_NUMBER}
-																</td>
+																<td className="font-semibold">{message.accessionNumber}</td>
+																<td className="overflow-x-auto">{marker.ACCESSION_NUMBER}</td>
 															</tr>
 														)}
 
 														<tr className="border-b">
-															<td className="font-semibold py-1 pr-2">
-																{message.location}
-															</td>
+															<td className="font-semibold py-1 pr-2">{message.location}</td>
 															<td className="overflow-x-auto">
 																{marker.ORIGIN_CITY}
 																{marker.ORIGIN_CITY && marker.ORIGIN_PRV_STATE ? ' , ' : ''}
@@ -729,9 +602,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 														</tr>
 														{marker.DESCRIPTION && (
 															<tr className="border-b">
-																<td className="font-semibold py-1 pr-2">
-																	{message.description}
-																</td>
+																<td className="font-semibold py-1 pr-2">{message.description}</td>
 																<div className="max-h-[150px] overflow-y-auto custom-scrollbar">
 																	<td>{marker.DESCRIPTION}</td>
 																</div>

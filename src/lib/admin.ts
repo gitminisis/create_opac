@@ -2,11 +2,7 @@ import { SchemaValueType } from '@/types/schema'
 
 export const TEXTAREA_LENGTH = 300
 
-export const addJsonValue = (
-	data: SchemaValueType,
-	path: string[],
-	newValue: SchemaValueType
-): SchemaValueType => {
+export const addJsonValue = (data: SchemaValueType, path: string[], newValue: SchemaValueType): SchemaValueType => {
 	if (path.length === 0) return newValue
 
 	const [firstKey, ...restPath] = path
@@ -18,11 +14,7 @@ export const addJsonValue = (
 			throw new Error('Invalid index')
 		}
 		let newData = [...data] as SchemaValueType[]
-		newData.push(
-			restPath.length === 0
-				? newValue
-				: addJsonValue(newData[newData.length - 1] as SchemaValueType, restPath, newValue)
-		)
+		newData.push(restPath.length === 0 ? newValue : addJsonValue(newData[newData.length - 1] as SchemaValueType, restPath, newValue))
 
 		return newData as SchemaValueType
 	}
@@ -32,10 +24,7 @@ export const addJsonValue = (
 		const dataObject = data as Record<string, SchemaValueType>
 		return {
 			...dataObject,
-			[firstKey]:
-				restPath.length === 0
-					? newValue
-					: addJsonValue(dataObject[firstKey], restPath, newValue),
+			[firstKey]: restPath.length === 0 ? newValue : addJsonValue(dataObject[firstKey], restPath, newValue),
 		} as SchemaValueType
 	}
 
@@ -43,11 +32,7 @@ export const addJsonValue = (
 	return newValue
 }
 
-export const updateJsonValue = (
-	data: SchemaValueType,
-	path: string[],
-	newValue: SchemaValueType
-): SchemaValueType => {
+export const updateJsonValue = (data: SchemaValueType, path: string[], newValue: SchemaValueType): SchemaValueType => {
 	if (path.length === 0) return newValue
 
 	const [firstKey, ...restPath] = path

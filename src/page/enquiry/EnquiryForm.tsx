@@ -3,13 +3,7 @@ import { CircleEllipsis } from 'lucide-react'
 import { convertXMLToJson, getPatronID, getLanguageID } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
@@ -79,10 +73,7 @@ const EnquiryForm = () => {
 							</h1>
 						</div>
 						<div className="py-4">
-							<form
-								method="post"
-								className="m-0"
-								action={`${formActionSaveRecord}&RETURN_URL=[OPAC_ENQUIRY]enquiryConfirmed.html`}>
+							<form method="post" className="m-0" action={`${formActionSaveRecord}&RETURN_URL=[OPAC_ENQUIRY]enquiryConfirmed.html`}>
 								{getPatronID() ? (
 									<Input
 										type="hidden"
@@ -92,62 +83,15 @@ const EnquiryForm = () => {
 										readOnly
 									/>
 								) : (
-									<Input
-										type="hidden"
-										name="ENQ_PATRON_NAME"
-										value={patronName}
-										readOnly
-									/>
+									<Input type="hidden" name="ENQ_PATRON_NAME" value={patronName} readOnly />
 								)}
-								<Input
-									type="hidden"
-									name="E_METHOD_REQUEST"
-									className="w-full p-2 border rounded mb-4"
-									value="Web"
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="ENQ_CREATE_DATE"
-									className="w-full p-2 border rounded mb-4"
-									value={dateToday}
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="CORRESPOND_DATE"
-									className="w-full p-2 border rounded mb-4"
-									value={dateToday}
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="CORRESPOND_TYPE"
-									className="w-full p-2 border rounded mb-4"
-									value="Incoming"
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="CORRESPOND_SUBJ"
-									className="w-full p-2 border rounded mb-4"
-									value={subject}
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="MESSAGE_TEXT"
-									className="w-full p-2 border rounded mb-4"
-									value={messageText}
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="ENQ_STATUS"
-									className="w-full p-2 border rounded mb-4"
-									value="Request"
-									readOnly
-								/>
+								<Input type="hidden" name="E_METHOD_REQUEST" className="w-full p-2 border rounded mb-4" value="Web" readOnly />
+								<Input type="hidden" name="ENQ_CREATE_DATE" className="w-full p-2 border rounded mb-4" value={dateToday} readOnly />
+								<Input type="hidden" name="CORRESPOND_DATE" className="w-full p-2 border rounded mb-4" value={dateToday} readOnly />
+								<Input type="hidden" name="CORRESPOND_TYPE" className="w-full p-2 border rounded mb-4" value="Incoming" readOnly />
+								<Input type="hidden" name="CORRESPOND_SUBJ" className="w-full p-2 border rounded mb-4" value={subject} readOnly />
+								<Input type="hidden" name="MESSAGE_TEXT" className="w-full p-2 border rounded mb-4" value={messageText} readOnly />
+								<Input type="hidden" name="ENQ_STATUS" className="w-full p-2 border rounded mb-4" value="Request" readOnly />
 								{getPatronID() ? (
 									<Input
 										type="hidden"
@@ -161,9 +105,7 @@ const EnquiryForm = () => {
 								)}
 								<div className="px-4 rounded grid grid-cols-1 gap-4">
 									<div className="">
-										<Label
-											htmlFor="firstName"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="firstName" className="block text-sm font-semibold mb-1">
 											Full Name*
 										</Label>
 										<Input
@@ -179,9 +121,7 @@ const EnquiryForm = () => {
 								</div>
 								<div className="px-4 rounded grid grid-cols-2 gap-4">
 									<div className="">
-										<Label
-											htmlFor="firstName"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="firstName" className="block text-sm font-semibold mb-1">
 											Email*
 										</Label>
 										<Input
@@ -194,96 +134,60 @@ const EnquiryForm = () => {
 										/>
 									</div>
 									<div className="">
-										<Label
-											htmlFor="lastName"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="lastName" className="block text-sm font-semibold mb-1">
 											Phone Number
 										</Label>
-										<Input
-											id="lastName"
-											type="text"
-											name="ENQ_TELEPHONE"
-											className="w-full p-2 border rounded"
-										/>
+										<Input id="lastName" type="text" name="ENQ_TELEPHONE" className="w-full p-2 border rounded" />
 									</div>
 								</div>
 								<div className="px-4 rounded grid grid-cols-2 gap-4">
 									<div className="">
-										<Label
-											htmlFor="enqTopic"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="enqTopic" className="block text-sm font-semibold mb-1">
 											Topic*
 										</Label>
-										<Select
-											name="ENQ_TOPIC"
-											required
-											defaultValue="General Information">
+										<Select name="ENQ_TOPIC" required defaultValue="General Information">
 											<SelectTrigger className="w-full p-2 border rounded text-left">
 												<SelectValue placeholder={'General Information'} />
 											</SelectTrigger>
 											<SelectContent className="bg-white border rounded shadow-md">
-												<SelectItem
-													value="General Information"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="General Information" className="p-2 hover:bg-gray-100">
 													General Information
 												</SelectItem>
-												<SelectItem
-													value="Accessing Collection Items"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Accessing Collection Items" className="p-2 hover:bg-gray-100">
 													Accessing Collection Items
 												</SelectItem>
-												<SelectItem
-													value="Finding Collection Items"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Finding Collection Items" className="p-2 hover:bg-gray-100">
 													Finding Collection Items
 												</SelectItem>
-												<SelectItem
-													value="Obtaining Reproductions"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Obtaining Reproductions" className="p-2 hover:bg-gray-100">
 													Obtaining Reproductions
 												</SelectItem>
-												<SelectItem
-													value="Art Collection Inquiries"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Art Collection Inquiries" className="p-2 hover:bg-gray-100">
 													Art Collection Inquiries
 												</SelectItem>
-												<SelectItem
-													value="Donations - Art"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Donations - Art" className="p-2 hover:bg-gray-100">
 													Donations - Art
 												</SelectItem>
-												<SelectItem
-													value="Educational Resources and Workshops"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Educational Resources and Workshops" className="p-2 hover:bg-gray-100">
 													Educational Resources and Workshops
 												</SelectItem>
-												<SelectItem
-													value="Loans - Digitization"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Loans - Digitization" className="p-2 hover:bg-gray-100">
 													Loans - Digitization
 												</SelectItem>
-												<SelectItem
-													value="Tours and Events"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Tours and Events" className="p-2 hover:bg-gray-100">
 													Tours and Events
 												</SelectItem>
-												<SelectItem
-													value="Exhibits"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Exhibits" className="p-2 hover:bg-gray-100">
 													Exhibits
 												</SelectItem>
-												<SelectItem
-													value="Website Technical Issues"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Website Technical Issues" className="p-2 hover:bg-gray-100">
 													Website Technical Issues
 												</SelectItem>
 											</SelectContent>
 										</Select>
 									</div>
 									<div className="">
-										<Label
-											htmlFor="enqSubject"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="enqSubject" className="block text-sm font-semibold mb-1">
 											Subject*
 										</Label>
 										<Input
@@ -298,9 +202,7 @@ const EnquiryForm = () => {
 									</div>
 								</div>
 								<div className="px-4 rounded grid grid-cols-1 mt-4">
-									<Label
-										htmlFor="enqDetail"
-										className="block text-sm font-semibold mb-1">
+									<Label htmlFor="enqDetail" className="block text-sm font-semibold mb-1">
 										Inquiry*
 									</Label>
 									<Textarea

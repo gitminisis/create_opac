@@ -345,13 +345,7 @@
 		},
 		{
 			"media": {
-				"image_caption": [
-					"SA1992.036.12391",
-					"SA1992.036.12392",
-					"SA1992.036.12393",
-					"SA1992.036.12394",
-					"SA1992.036.12395"
-				],
+				"image_caption": ["SA1992.036.12391", "SA1992.036.12392", "SA1992.036.12393", "SA1992.036.12394", "SA1992.036.12395"],
 				"im_access_link": [
 					"https://SURREY.MINISISINC.COM/SAMOA_IMAGES/Archives/Images/Barber%20Grant%20Im\nages/SA1992.036.12391.jpg",
 					"https://SURREY.MINISISINC.COM/SAMOA_IMAGES/Archives/Images/Barber%20Grant%20Im\nages/SA1992.036.12392.jpg",
@@ -368,13 +362,7 @@
 				"title": "Frances Manor",
 				"date_cr_inc": "29 Aug. 1968",
 				"form_occurrence": "Graphic material",
-				"alpha_num_design_occurrence": [
-					"SA1992.036.12391",
-					"SA1992.036.12392",
-					"SA1992.036.12393",
-					"SA1992.036.12394",
-					"SA1992.036.12395"
-				],
+				"alpha_num_design_occurrence": ["SA1992.036.12391", "SA1992.036.12392", "SA1992.036.12393", "SA1992.036.12394", "SA1992.036.12395"],
 				"refd": "F62-0-1-0-0-2955"
 			}
 		},

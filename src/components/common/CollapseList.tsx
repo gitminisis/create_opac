@@ -20,13 +20,7 @@ const CollapseList = ({ title, children, expand = false, disabled }: CollapseLis
 				className="overflow-hidden rounded-md border border-input  [&_summary::-webkit-details-marker]:hidden">
 				<CollapsibleTrigger className="flex cursor-pointer items-center justify-between py-2 px-2.5 text-white transition w-full bg-primary">
 					<span className="text-sm "> {title} </span>
-					<span>
-						{isOpen ? (
-							<ChevronUp className="w-4 h-4 opacity-50" />
-						) : (
-							<ChevronDown className="w-4 h-4 opacity-50" />
-						)}
-					</span>
+					<span>{isOpen ? <ChevronUp className="w-4 h-4 opacity-50" /> : <ChevronDown className="w-4 h-4 opacity-50" />}</span>
 				</CollapsibleTrigger>
 				<CollapsibleContent>{children}</CollapsibleContent>
 			</Collapsible>

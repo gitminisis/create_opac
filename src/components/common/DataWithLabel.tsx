@@ -18,18 +18,9 @@ const DataWithLabel = ({ className, label, items, searchTerms = [] }: DataWithLa
 			<div className="text-sm font-normal">
 				{items.map((item: any) => {
 					if (typeof item === 'string') {
-						return (
-							<HighlightText
-								text={truncateString(item, 250)}
-								highlights={searchTerms}
-							/>
-						)
+						return <HighlightText text={truncateString(item, 250)} highlights={searchTerms} />
 					}
-					return item['__text'] ? (
-						<HighlightText text={item['__text']} highlights={searchTerms} />
-					) : (
-						''
-					)
+					return item['__text'] ? <HighlightText text={item['__text']} highlights={searchTerms} /> : ''
 				})}
 			</div>
 		</div>

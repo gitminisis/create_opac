@@ -140,40 +140,24 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 			{/* <FieldList /> */}
 			{fieldsValue.map((db, dbIndex) => (
 				<div>
-					<SectionHeader
-						heading={`${db.database} Fields`}
-						subHeading="Configure the fields for your web interface"
-					/>
+					<SectionHeader heading={`${db.database} Fields`} subHeading="Configure the fields for your web interface" />
 
 					<SectionActions
 						handleAddNewItem={(event: FormEvent<NewElementForm<NewFormType>>) => {
 							const { label, name } = event.currentTarget.elements
 
-							handleAdd(
-								[`${dbIndex}`, 'items', String(fieldsValue[dbIndex].items.length)],
-								{
-									name: name.value,
-									label: label.value,
-									summary: true,
-									grid: true,
-									detail: true,
-								}
-							)
+							handleAdd([`${dbIndex}`, 'items', String(fieldsValue[dbIndex].items.length)], {
+								name: name.value,
+								label: label.value,
+								summary: true,
+								grid: true,
+								detail: true,
+							})
 						}}
 						newItemForm={
 							<>
-								<FormField
-									name="name"
-									type="text"
-									field={'Field mnemonic'}
-									value={''}
-								/>
-								<FormField
-									name="label"
-									type="text"
-									field={'Field label'}
-									value={''}
-								/>
+								<FormField name="name" type="text" field={'Field mnemonic'} value={''} />
+								<FormField name="label" type="text" field={'Field label'} value={''} />
 							</>
 						}
 						enableFeatureValue={true}
@@ -191,58 +175,33 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 									type="text"
 									field={'Field mnemonic'}
 									value={item.name.toUpperCase()}
-									onChange={(e) =>
-										handleChange(
-											[`${dbIndex}`, 'items', `${itemIndex}`, 'name'],
-											e
-										)
-									}
+									onChange={(e) => handleChange([`${dbIndex}`, 'items', `${itemIndex}`, 'name'], e)}
 								/>
 
 								<FormField
 									type="text"
 									field={'Field label'}
 									value={item.label}
-									onChange={(e) =>
-										handleChange(
-											[`${dbIndex}`, 'items', `${itemIndex}`, 'label'],
-											e
-										)
-									}
+									onChange={(e) => handleChange([`${dbIndex}`, 'items', `${itemIndex}`, 'label'], e)}
 								/>
 
 								<div className="flex flex-row gap-4">
 									<CheckboxWithLabel
 										title={'Summary list report'}
 										value={item.summary}
-										onChange={(e) =>
-											handleChange(
-												[`${dbIndex}`, 'items', `${itemIndex}`, 'summary'],
-												e
-											)
-										}
+										onChange={(e) => handleChange([`${dbIndex}`, 'items', `${itemIndex}`, 'summary'], e)}
 									/>
 
 									<CheckboxWithLabel
 										title={'Summary grid report'}
 										value={item.grid}
-										onChange={(e) =>
-											handleChange(
-												[`${dbIndex}`, 'items', `${itemIndex}`, 'grid'],
-												e
-											)
-										}
+										onChange={(e) => handleChange([`${dbIndex}`, 'items', `${itemIndex}`, 'grid'], e)}
 									/>
 
 									<CheckboxWithLabel
 										title={'Detail report'}
 										value={item.detail}
-										onChange={(e) =>
-											handleChange(
-												[`${dbIndex}`, 'items', `${itemIndex}`, 'detail'],
-												e
-											)
-										}
+										onChange={(e) => handleChange([`${dbIndex}`, 'items', `${itemIndex}`, 'detail'], e)}
 									/>
 								</div>
 							</SectionWrapper>

@@ -1,9 +1,10 @@
 import { Hono } from 'hono'
 import path, { resolve } from 'node:path'
+import { port } from '.'
 import { applyMiddleware } from './middleware'
 import { easyload } from './routes/easyload'
+import { tdr } from './routes/tdr'
 import { rebuildOPAC, setFileContent } from './utils'
-import { port } from '.'
 // Create the Hono application
 const app = new Hono()
 // Middleware
@@ -33,5 +34,7 @@ app.post('/update', async (c) => {
 	}
 })
 app.route('/easyload', easyload)
+
+app.route('/tdr', tdr)
 
 export { app }

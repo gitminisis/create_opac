@@ -28,18 +28,13 @@ const CopyrightConfirmed = () => {
 							<h1 className="text-lg font-bold">Thank you for your request!</h1>
 							<p>Your information has been submitted.</p>
 							<p>Please give us 24 hours to reply back to your inquiry.</p>
-							<p>
-								Check your profile to stay updated with replies and/or comment from
-								the staff.
-							</p>
+							<p>Check your profile to stay updated with replies and/or comment from the staff.</p>
 						</div>
 						<div>
 							<div className="border p-4 rounded">
 								<div className="flex flex-row items-center">
 									<Copy className="mr-2" />
-									<h1 className="text-xl font-bold">
-										Request Order Number: {copyrightData.req_order_num}
-									</h1>
+									<h1 className="text-xl font-bold">Request Order Number: {copyrightData.req_order_num}</h1>
 								</div>
 
 								<p className="text-lg font-bold mt-4">{copyrightData.req_title}</p>

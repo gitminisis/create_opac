@@ -4,13 +4,7 @@ import { CircleEllipsis } from 'lucide-react'
 import { convertXMLToJson, getPatronID, getLanguageID } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
@@ -76,43 +70,14 @@ const ReproductionForm = () => {
 							</h1>
 						</div>
 						<div className="py-4">
-							<form
-								method="post"
-								className="m-0"
-								action={`${formActionSaveRecord}&RETURN_URL=[OPAC_REPROD]reproductionconfirmed.html`}>
-								<Input
-									type="hidden"
-									name="METHOD_REQUEST"
-									className="w-full p-2 border rounded mb-4"
-									value="Web"
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="REQ_PATRON_ID"
-									className="w-full p-2 border rounded mb-4"
-									value={getPatronID()}
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="REQ_TITLE"
-									className="w-full p-2 border rounded mb-4"
-									value={title}
-									readOnly
-								/>
-								<Input
-									type="hidden"
-									name="REQ_ITEM_ID"
-									className="w-full p-2 border rounded mb-4"
-									value={itemid}
-									readOnly
-								/>
+							<form method="post" className="m-0" action={`${formActionSaveRecord}&RETURN_URL=[OPAC_REPROD]reproductionconfirmed.html`}>
+								<Input type="hidden" name="METHOD_REQUEST" className="w-full p-2 border rounded mb-4" value="Web" readOnly />
+								<Input type="hidden" name="REQ_PATRON_ID" className="w-full p-2 border rounded mb-4" value={getPatronID()} readOnly />
+								<Input type="hidden" name="REQ_TITLE" className="w-full p-2 border rounded mb-4" value={title} readOnly />
+								<Input type="hidden" name="REQ_ITEM_ID" className="w-full p-2 border rounded mb-4" value={itemid} readOnly />
 								<div className="px-4 rounded grid grid-cols-1 gap-4">
 									<div className="">
-										<Label
-											htmlFor="firstName"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="firstName" className="block text-sm font-semibold mb-1">
 											{message.fullName}*
 										</Label>
 										<Input
@@ -127,9 +92,7 @@ const ReproductionForm = () => {
 								</div>
 								<div className="px-4 rounded grid grid-cols-2 gap-4">
 									<div className="">
-										<Label
-											htmlFor="firstName"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="firstName" className="block text-sm font-semibold mb-1">
 											{message.email}*
 										</Label>
 										<Input
@@ -142,9 +105,7 @@ const ReproductionForm = () => {
 										/>
 									</div>
 									<div className="">
-										<Label
-											htmlFor="reqAffiliation"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="reqAffiliation" className="block text-sm font-semibold mb-1">
 											{message.affliation}*
 										</Label>
 										<Input
@@ -160,9 +121,7 @@ const ReproductionForm = () => {
 								</div>
 								<div className="px-4 rounded grid grid-cols-2 gap-4">
 									<div className="">
-										<Label
-											htmlFor="reqTopic"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="reqTopic" className="block text-sm font-semibold mb-1">
 											{message.topic}*
 										</Label>
 										<Input
@@ -176,54 +135,33 @@ const ReproductionForm = () => {
 										/>
 									</div>
 									<div className="">
-										<Label
-											htmlFor="enqTopic"
-											className="block text-sm font-semibold mb-1">
+										<Label htmlFor="enqTopic" className="block text-sm font-semibold mb-1">
 											{message.reproduction} {message.type}*
 										</Label>
-										<Select
-											name="REQ_REPRO_TYPE"
-											required
-											defaultValue='Digital Copy up to 18" x 25"'>
+										<Select name="REQ_REPRO_TYPE" required defaultValue='Digital Copy up to 18" x 25"'>
 											<SelectTrigger className="w-full p-2 border rounded text-left">
-												<SelectValue
-													placeholder={'Digital Copy up to 18" x 25"'}
-												/>
+												<SelectValue placeholder={'Digital Copy up to 18" x 25"'} />
 											</SelectTrigger>
 											<SelectContent className="bg-white border rounded shadow-md">
-												<SelectItem
-													value='Digital Copy up to 18" x 25"'
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value='Digital Copy up to 18" x 25"' className="p-2 hover:bg-gray-100">
 													{message.digitalCopyUpTo18x25}
 												</SelectItem>
-												<SelectItem
-													value='Digital Copy up to 18" x 56"'
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value='Digital Copy up to 18" x 56"' className="p-2 hover:bg-gray-100">
 													{message.digitalCopyUpTo18x56}
 												</SelectItem>
-												<SelectItem
-													value="Hi-Resolution Copy"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Hi-Resolution Copy" className="p-2 hover:bg-gray-100">
 													{message.digitalCopyUpTo18x56}
 												</SelectItem>
-												<SelectItem
-													value="Sound & Moving Images"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Sound & Moving Images" className="p-2 hover:bg-gray-100">
 													{message.soundAndMovingImages}
 												</SelectItem>
-												<SelectItem
-													value='Print up to 11" x 17"'
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value='Print up to 11" x 17"' className="p-2 hover:bg-gray-100">
 													{message.printUpTo11x17}
 												</SelectItem>
-												<SelectItem
-													value='Print up to 11" x 36"'
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value='Print up to 11" x 36"' className="p-2 hover:bg-gray-100">
 													{message.printUpTo11x36}
 												</SelectItem>
-												<SelectItem
-													value="Certified Copies"
-													className="p-2 hover:bg-gray-100">
+												<SelectItem value="Certified Copies" className="p-2 hover:bg-gray-100">
 													{message.certifiedCopies}
 												</SelectItem>
 											</SelectContent>
@@ -232,37 +170,20 @@ const ReproductionForm = () => {
 								</div>
 								<div className="px-4 py-2 rounded grid grid-cols-1 gap-4">
 									<div className="flex items-center">
-										<Label
-											htmlFor="firstName"
-											className="text-sm font-semibold mr-1">
+										<Label htmlFor="firstName" className="text-sm font-semibold mr-1">
 											{message.rush}
 										</Label>
-										<Checkbox
-											id="firstName"
-											className="rounded"
-											name="REQ_RUSH"
-											value={'X'}
-										/>
+										<Checkbox id="firstName" className="rounded" name="REQ_RUSH" value={'X'} />
 									</div>
 								</div>
 								<div className="px-4 rounded grid grid-cols-1 mt-4">
-									<Label
-										htmlFor="reqDetail"
-										className="block text-sm font-semibold mb-1">
+									<Label htmlFor="reqDetail" className="block text-sm font-semibold mb-1">
 										{message.additionalInformation}*
 									</Label>
-									<Textarea
-										id="reqDetail"
-										name="REQ_TOPIC_GL"
-										title="Leave a comment here"
-										maxLength={5000}
-										required></Textarea>
+									<Textarea id="reqDetail" name="REQ_TOPIC_GL" title="Leave a comment here" maxLength={5000} required></Textarea>
 								</div>
 								<div className="px-4 pt-4 mt-4 rounded border-t">
-									<Button
-										className="bg-primary rounded mr-1 hover:bg-primary"
-										type="submit"
-										variant="default">
+									<Button className="bg-primary rounded mr-1 hover:bg-primary" type="submit" variant="default">
 										{`${message.submit} ${message.reproduction}`}
 									</Button>
 									<Button

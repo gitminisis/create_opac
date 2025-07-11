@@ -5,9 +5,7 @@ type Props = ButtonProps & { children?: ReactNode; className?: string }
 
 const Button = ({ children, className, ...rest }: Props) => {
 	return (
-		<DefaultButton
-			className={cn('bg-white text-blue-950 hover:bg-gray-100 py-1 px-2', className)}
-			{...rest}>
+		<DefaultButton className={cn('bg-white text-blue-950 hover:bg-gray-100 py-1 px-2', className)} {...rest}>
 			{children}
 		</DefaultButton>
 	)

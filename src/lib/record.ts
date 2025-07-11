@@ -52,14 +52,8 @@ export const getFieldsFromRecord = (
 		})
 		.filter((item: any) => item)
 }
-export const getFieldDataByLabel = (
-	record: Record,
-	fields: FieldsJson,
-	database: string,
-	label = 'Title'
-) => {
-	const fieldLabel = getListOfFields(fields, database)?.items?.filter((e) => e.label === label)[0]
-		?.name
+export const getFieldDataByLabel = (record: Record, fields: FieldsJson, database: string, label = 'Title') => {
+	const fieldLabel = getListOfFields(fields, database)?.items?.filter((e) => e.label === label)[0]?.name
 	return fieldLabel ? deepSearchKey(record, fieldLabel)[0] : null
 }
 
@@ -120,7 +114,6 @@ export const copyRecordURL = ({
 }
 
 export const handleCopyRecordURL = (record: Record, urlOnly = false) => {
-	
 	const LINK_DBNAME_MAP = {
 		DESCRIPTION_WEB: 'refd',
 		COLLECTIONS_WEB: 'accession_number',

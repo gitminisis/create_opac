@@ -68,6 +68,9 @@ export interface ReproductionData {
 	req_charge_amt: string
 }
 export interface RequestData {
+	req_db_link3: string | number | readonly string[] | undefined
+	req_db_link1: string | number | readonly string[] | undefined
+    action_later: string
 	action: string
 	auto_approve: string
 	item_req_time: string
@@ -80,7 +83,7 @@ export interface RequestData {
 	req_db_name: string
 	req_db_recid: string
 	req_item_id: string
-	req_item_title: string
+	req_item_title: any
 	req_loc_code: string
 	req_process_date: string
 	req_queue: string
@@ -90,8 +93,10 @@ export interface RequestData {
 	sentence_1: string
 	sentence_2: string
 	time_needed: string
+	is_requested_by_client:string
 }
 export interface Record {
+	biblio_r_count: any
 	action: string
 	biblio_count: string
 	bookmark_count: string
@@ -109,6 +114,7 @@ export interface Record {
 	full_name: string
 	input?: BookmarkCheckBoxData
 	is_bookmarked: string
+	last_name: string
 	link_dbname?: string
 	media?: Media
 	orders_count: string
@@ -124,6 +130,8 @@ export interface Record {
 	skip_n_stop_record?: string // for client registration
 	book_input:string
 	book_record_link:string
+	refd_lowerexist:string
+	container:any
 }
 
 export type MediaType = 'im_access_link' | 'vd_access_link' | 'ad_access_link' | 'tx_access_link'

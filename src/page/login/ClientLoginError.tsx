@@ -15,13 +15,9 @@ const ClientLoginError = () => {
 
 	const ErrorMessage = () => {
 		return (
-			<div
-				className="flex items-center gap-3 rounded-lg border border-red-100 bg-red-50 px-4 py-3 mt-6"
-				role="alert">
+			<div className="flex items-center gap-3 rounded-lg border border-red-100 bg-red-50 px-4 py-3 mt-6" role="alert">
 				<XCircle className="h-5 w-5 shrink-0 text-red-400" aria-hidden="true" />
-				<p className="text-sm text-red-800">
-					Incorrect username or password. Please try again.
-				</p>
+				<p className="text-sm text-red-800">Incorrect username or password. Please try again.</p>
 			</div>
 		)
 	}
@@ -44,9 +40,7 @@ const ClientLoginError = () => {
 								<a className="block text-teal-600" href="/">
 									<img className="h-14" src={config.logo} alt="logo" />
 								</a>
-								<h1 className="ml-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-									{message.logIn}
-								</h1>
+								<h1 className="ml-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">{message.logIn}</h1>
 							</div>
 							<LanguageSelect />
 						</div>
@@ -61,9 +55,7 @@ const ClientLoginError = () => {
 							}
 							className="mt-2 grid grid-cols-6 gap-6">
 							<div className="col-span-6">
-								<label
-									htmlFor="Email"
-									className="block text-sm font-medium text-red-700">
+								<label htmlFor="Email" className="block text-sm font-medium text-red-700">
 									{message.accountNumber}
 								</label>
 								<Input
@@ -77,9 +69,7 @@ const ClientLoginError = () => {
 							</div>
 
 							<div className="col-span-6 sm:col-span-6">
-								<label
-									htmlFor="Password"
-									className="block text-sm font-medium text-red-700">
+								<label htmlFor="Password" className="block text-sm font-medium text-red-700">
 									{message.password}
 								</label>
 								<Input
@@ -92,26 +82,19 @@ const ClientLoginError = () => {
 								/>
 							</div>
 							<div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-								<Button
-									className="bg-primary text-primary-foreground"
-									type="submit"
-									variant="secondary">
+								<Button className="bg-primary text-primary-foreground" type="submit" variant="secondary">
 									{message.logIn}
 								</Button>
 							</div>
 						</form>
 						<div className={'flex mt-1'}>
 							<div>{message.noLogin}</div>
-							<a
-								href={`/scripts/mwimain.dll/144/CLIENT_VIEW?DIRECTSEARCH`}
-								className={'border-b-2 border-b-black ml-[10px] h-[22px]'}>
+							<a href={`/scripts/mwimain.dll/144/CLIENT_VIEW?DIRECTSEARCH`} className={'border-b-2 border-b-black ml-[10px] h-[22px]'}>
 								{message.createAccount}
 							</a>
 						</div>
 						<div>
-							<a
-								href={`/forgot-pin.html`}
-								className={'border-b-2 border-b-black h-[22px]'}>
+							<a href={`/forgot-pin.html`} className={'border-b-2 border-b-black h-[22px]'}>
 								{message.forgotPassword}
 							</a>
 						</div>

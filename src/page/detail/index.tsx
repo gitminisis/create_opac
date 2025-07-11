@@ -4,9 +4,8 @@ import SearchForm from '@/components/common/search-form/SearchForm'
 import Layout from '@/components/layouts'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
-import { getSessionID, isDescriptionDatabase } from '@/lib/utils'
+import { getSessionID, isBiblioDatabase, isDescriptionDatabase } from '@/lib/utils'
 import DetailRecord from './DetailRecord'
-
 import DescriptionTree from '@/components/common/description-tree'
 import Accordion from '@/components/ui/simple-accordion'
 import { deepSearchKey } from '@/lib/record'
@@ -14,6 +13,8 @@ import { getJSONTree, TreeNode } from '@/lib/tree'
 import { useEffect, useState } from 'react'
 import NavigationSideBar from './NavigationSideBar'
 import NoRecord from '../NoRecord'
+import RequestAccordianDesc from './RequestAccordianDesc'
+import RequestAccordianBiblio from './RequestAccordianBiblio'
 
 const Detail = () => {
 	const { backToSummary, records, getMedia, common } = useJSONData({ selector: '#xml_record' })
@@ -42,17 +43,14 @@ const Detail = () => {
 	const [tree, setTree] = useState<TreeNode | undefined>()
 	useEffect(() => {
 		const sessionID = getSessionID()
-		if (sessionID && isDescriptionDatabase(database)) {
+		if (sessionID && isDescriptionDatabase(database, record.request.req_db_name)) {
 			getJSONTree(sessionID, database, refd)
 				.then((res) => {
 					if (!res || res.noTree) {
 						return
 					}
 					const { tree, openKeyPath } = res
-
 					setTree(tree)
-					console.log({ openKeyPath })
-
 					setOpenKeyPath(openKeyPath)
 				})
 				.finally(() => {
@@ -135,14 +133,12 @@ const Detail = () => {
 									</div>
 									<NavigationSideBar />
 								</div>
-
 								<div className="w-full lg:w-2/3">
 									<div className="w-full flex flex-col gap-6 items-start ">
 										<div className="w-full ">
 											<DetailRecord />
 										</div>
-
-										{isDescriptionDatabase(database) && (
+										{isDescriptionDatabase(database, record.request.req_db_name) && (
 											<div className="w-full ">
 												<Accordion
 													items={[
@@ -150,11 +146,7 @@ const Detail = () => {
 															title: message.descriptionTree,
 															content: (
 																<div className="max-h-[600px] overflow-auto">
-																	<DescriptionTree
-																		loading={loading}
-																		tree={tree}
-																		selectedId={openKeyPath[0]}
-																	/>
+																	<DescriptionTree loading={loading} tree={tree} selectedId={openKeyPath[0]} />
 																</div>
 															),
 														},
@@ -162,6 +154,10 @@ const Detail = () => {
 												/>
 											</div>
 										)}
+										{isDescriptionDatabase(database, record.request.req_db_name) && !record.record.refd_lowerexist && (
+											<RequestAccordianDesc />
+										)}
+										{isBiblioDatabase(database, record.request.req_db_name) && <RequestAccordianBiblio />}
 									</div>
 								</div>
 							</div>

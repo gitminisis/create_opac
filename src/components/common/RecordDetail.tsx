@@ -7,14 +7,7 @@ export interface RecordDetailProps extends React.HTMLAttributes<HTMLDivElement> 
 	description?: string | React.ReactNode
 }
 
-const RecordDetail = ({
-	heading,
-	subHeading,
-	description,
-	children,
-	className,
-	...props
-}: RecordDetailProps) => {
+const RecordDetail = ({ heading, subHeading, description, children, className, ...props }: RecordDetailProps) => {
 	return (
 		<div className={cn('grid gap-4', className)} {...props}>
 			<h1 className="font-bold text-3xl lg:text-4xl">{heading}</h1>

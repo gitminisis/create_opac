@@ -104,13 +104,7 @@ const Register = () => {
 	const getStepFields = (step: number) => {
 		switch (step) {
 			case 1:
-				return [
-					'C_EMAIL',
-					'C_NAME_FIRST',
-					'C_NAME_LAST',
-					'PATRON_PID',
-					'PATRON_PID_RE',
-				] as const
+				return ['C_EMAIL', 'C_NAME_FIRST', 'C_NAME_LAST', 'PATRON_PID', 'PATRON_PID_RE'] as const
 			case 2:
 				return ['C_STREET', 'C_CITY', 'C_PROV_STATE', 'C_POSTAL_ZIP', 'C_COUNTRY'] as const
 			case 3:
@@ -194,7 +188,7 @@ const Register = () => {
 							},
 							{
 								value: 'step4',
-								label: `${message.stepLabel} 4: ${message.confirmationLabel}`,
+								label: `${message.stepLabel} 4: ${message.confirmation}`,
 							},
 						].map((tab, idx) => (
 							<TabsTrigger
@@ -254,29 +248,22 @@ const Register = () => {
 									className={`p-2 w-full mt-1 border ${errors.PATRON_PID ? 'border-red-500' : 'border-gray-300'}`}
 								/>
 								<p>({message.passwordValidation})</p>
-								{errors.PATRON_PID && (
-									<p className="text-red-500">{errors.PATRON_PID.message}</p>
-								)}
+								{errors.PATRON_PID && <p className="text-red-500">{errors.PATRON_PID.message}</p>}
 							</div>
 
 							<div className="flex-1">
 								<label className="font-semibold">
-									{message.confirmPasswordLabel}{' '}
-									<span className="text-red-500">*</span>
+									{message.confirmPasswordLabel} <span className="text-red-500">*</span>
 								</label>
 								<input
 									type="password"
 									{...register('PATRON_PID_RE', {
 										required: ' ',
-										validate: (value) =>
-											value === watch('PATRON_PID') ||
-											`${message.passwordsDoNotMatch}`,
+										validate: (value) => value === watch('PATRON_PID') || `${message.passwordsDoNotMatch}`,
 									})}
 									className={`p-2 w-full mt-1 border ${errors.PATRON_PID_RE ? 'border-red-500' : 'border-gray-300'}`}
 								/>
-								{errors.PATRON_PID_RE && (
-									<p className="text-red-500">{errors.PATRON_PID_RE.message}</p>
-								)}
+								{errors.PATRON_PID_RE && <p className="text-red-500">{errors.PATRON_PID_RE.message}</p>}
 							</div>
 						</div>
 
@@ -345,8 +332,7 @@ const Register = () => {
 
 							<div className="sm:col-span-1">
 								<label className="font-semibold">
-									{message.postalCodeLabel}{' '}
-									<span className="text-red-500">*</span>
+									{message.postalCodeLabel} <span className="text-red-500">*</span>
 								</label>
 								<input
 									{...register('C_POSTAL_ZIP', {
@@ -354,9 +340,7 @@ const Register = () => {
 									})}
 									className={`p-2 w-full mt-1 border ${errors.C_POSTAL_ZIP ? 'border-red-500' : 'border-gray-300'}`}
 								/>
-								{errors.C_POSTAL_ZIP && (
-									<p className="text-red-500">{errors.C_POSTAL_ZIP.message}</p>
-								)}
+								{errors.C_POSTAL_ZIP && <p className="text-red-500">{errors.C_POSTAL_ZIP.message}</p>}
 							</div>
 
 							<div className="sm:col-span-1">
@@ -375,9 +359,7 @@ const Register = () => {
 
 					<TabsContent value="step3" className="p-6 bg-white shadow-md rounded-md">
 						<div className="flex flex-col space-y-2">
-							<label className="font-semibold">
-								What is the main reason for wishing to visit?
-							</label>
+							<label className="font-semibold">What is the main reason for wishing to visit?</label>
 							<div className="flex flex-col space-y-2">
 								<label className="inline-flex items-center">
 									<input
@@ -397,31 +379,24 @@ const Register = () => {
 										value="Non-leisure personal or family business"
 										className="form-checkbox h-5 w-5 text-blue-600"
 									/>
-									<span className="ml-2">
-										Non-leisure personal or family business
-									</span>
+									<span className="ml-2">Non-leisure personal or family business</span>
 								</label>
 							</div>
 						</div>
 					</TabsContent>
 
 					{/* Step 4: Confirmation */}
-					<TabsContent
-						value="step4"
-						className="p-6 bg-white shadow-md rounded-md w-full mx-auto">
+					<TabsContent value="step4" className="p-6 bg-white shadow-md rounded-md w-full mx-auto">
 						<div className={'flex justify-center'}>
 							<div>
-								<h2 className="text-lg font-semibold text-center mb-4">
-									{message.confirmation}
-								</h2>
+								<h2 className="text-lg font-semibold text-center mb-4">{message.confirmation}</h2>
 								<p className="text-center mb-6">{message.reviewDetails}</p>
 								<ul className="list-disc pl-5 space-y-2">
 									<li>
 										<strong>{message.email}:</strong> {watch('C_EMAIL')}
 									</li>
 									<li>
-										<strong>{message.fullName}:</strong>{' '}
-										{`${watch('C_NAME_FIRST')} ${watch('C_NAME_LAST')}`}
+										<strong>{message.fullName}:</strong> {`${watch('C_NAME_FIRST')} ${watch('C_NAME_LAST')}`}
 									</li>
 									<li>
 										<strong>{message.address}</strong> {watch('C_STREET')}
@@ -430,8 +405,7 @@ const Register = () => {
 										<strong>{message.city}:</strong> {watch('C_CITY')}
 									</li>
 									<li>
-										<strong>{message.provinceState}:</strong>{' '}
-										{watch('C_PROV_STATE')}
+										<strong>{message.provinceState}:</strong> {watch('C_PROV_STATE')}
 									</li>
 									<li>
 										<strong>{message.country}:</strong> {watch('C_COUNTRY')}
@@ -442,25 +416,18 @@ const Register = () => {
 								</ul>
 								<div className="flex justify-center scale-75 sm:scale-90 mr-[210px] sm:mr-[0px]">
 									<ReCAPTCHA
-										sitekey={ process.env.REACT_APP_RSVP_RECAPTCHA || import.meta.env.VITE_REACT_APP_RECAPTCHA}
+										sitekey={process.env.REACT_APP_RSVP_RECAPTCHA || import.meta.env.VITE_REACT_APP_RECAPTCHA}
 										onChange={onCaptchaChange}
 									/>
 								</div>
-								{status === 300 && (
-									<p className="text-red-500 text-center mt-2">
-										{message.emailAlreadyRegistered}
-									</p>
-								)}
+								{status === 300 && <p className="text-red-500 text-center mt-2">{message.emailAlreadyRegistered}</p>}
 							</div>
 						</div>
 					</TabsContent>
 					{/* Navigation Buttons */}
 					<div className="p-4 flex justify-evenly">
 						{currentStep > 1 && (
-							<button
-								type="button"
-								onClick={handlePrevStep}
-								className="w-[100px] bg-primary text-white px-4 py-2 rounded-md">
+							<button type="button" onClick={handlePrevStep} className="w-[100px] bg-primary text-white px-4 py-2 rounded-md">
 								{message.previous}
 							</button>
 						)}
@@ -501,23 +468,13 @@ const Register = () => {
 			) : (
 				<>
 					<div className={'flex flex-col justify-center items-center p-7'}>
-						<div className={' text-2xl font-extrabold'}>
-							{message.signUpUserAccount}
-						</div>
+						<div className={' text-2xl font-extrabold'}>{message.signUpUserAccount}</div>
 						<div className={'text-lg'}>{message.fillAllFields}</div>
 					</div>
-					<div
-						className={
-							'min-h-[460px] w-full flex justify-center items-center mb-4 relative'
-						}>
+					<div className={'min-h-[460px] w-full flex justify-center items-center mb-4 relative'}>
 						{loading && (
 							<div className=" h-full w-full  absolute ">
-								<Spinner
-									height={'h-full'}
-									spinHeight={'h-20'}
-									spinWidth={'w-20'}
-									background={'bg-gray-400 bg-opacity-30'}
-								/>
+								<Spinner height={'h-full'} spinHeight={'h-20'} spinWidth={'w-20'} background={'bg-gray-400 bg-opacity-30'} />
 							</div>
 						)}
 

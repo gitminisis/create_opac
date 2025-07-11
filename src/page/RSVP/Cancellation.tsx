@@ -9,18 +9,12 @@ import {
 	TAG_FUNC_LOC_GRP,
 	TAG_FUNC_P_EMAIL,
 	TAG_FUNC_P_ID,
-	TAG_NAME
+	TAG_NAME,
 } from '@/components/common/event-calendar/Constants'
 import Spinner from '@/components/common/event-calendar/Spinner'
 import Layout from '@/components/layouts'
 import useConstants from '@/hooks/useConstants'
-import {
-	convertXMLToJson,
-	decodeObj,
-	getCookieValue,
-	getHomeSessionID,
-	isDatePast,
-} from '@/lib/utils'
+import { convertXMLToJson, decodeObj, getCookieValue, getHomeSessionID, isDatePast } from '@/lib/utils'
 import { PatronInfo, STATUS_TYPE, initialPatronInfo } from '@/types/patroninfo'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
@@ -148,17 +142,13 @@ const RSVPCancel = () => {
     </RECORD>`
 
 		return await axios
-			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${PatronInfo?.SISN}`,
-				xmlFormDelete,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-					timeout: 5000,
-				}
-			)
+			.post(`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${PatronInfo?.SISN}`, xmlFormDelete, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+				timeout: 5000,
+			})
 			.then((res) => {
 				return HOME_SESSID
 			})
@@ -249,12 +239,7 @@ const RSVPCancel = () => {
 			/>
 			{loading ? (
 				<div className="flex h-full items-center justify-center">
-					<Spinner
-						height={'h-full'}
-						spinHeight={'h-20'}
-						spinWidth={'w-20'}
-						background={'bg-white'}
-					/>
+					<Spinner height={'h-full'} spinHeight={'h-20'} spinWidth={'w-20'} background={'bg-white'} />
 				</div>
 			) : (
 				showRegStatus()

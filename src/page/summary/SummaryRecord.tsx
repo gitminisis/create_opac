@@ -30,8 +30,7 @@ const RecordView = ({ record }: RecordViewProps) => {
 	// Extract and process record data
 	const database = record.database_name || record.link_dbname || ''
 	const recordLink = record.record_link.toString()
-	const title =
-		getFieldDataByLabel(record, fields, database, 'Title') || record.record.title || 'Untitled'
+	const title = getFieldDataByLabel(record, fields, database, 'Title') || record.record.title || 'Untitled'
 
 	// Process thumbnail URL
 	const thumbnailUrl = getThumbnailUrl(record)
@@ -76,10 +75,7 @@ export interface ViewProps {
 // Helper function to extract thumbnail URL
 function getThumbnailUrl(record: Record): string {
 	const thumbnail =
-		record.media &&
-		Array.isArray(record.media.im_access_link) &&
-		record.media.im_access_link.length > 0 &&
-		record.media.im_access_link[0]
+		record.media && Array.isArray(record.media.im_access_link) && record.media.im_access_link.length > 0 && record.media.im_access_link[0]
 
 	if (!thumbnail) {
 		return 'https://placehold.co/250x250'

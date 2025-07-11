@@ -2,12 +2,12 @@ import { useState, useRef } from 'react'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { copyRecordURL, deepSearchKey, handleCopyRecordURL } from '@/lib/record'
-import { ChevronLeft, ChevronRight, Files, Copy, ShoppingBag, Star } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Files, Copy, ShoppingBag, Star, SquareCheck, Copyright, Lightbulb, Link } from 'lucide-react'
 import { Button } from '../../components/ui/button'
 import { useToast } from '../../components/ui/use-toast'
 import DialogLogin from '../../components/common/DialogLogin'
 import TooltipButton from '@/components/common/TooltipButton'
-import { cn, getCookieValue, getHomeSessionID } from '@/lib/utils'
+import { cn, getCookieValue, getHomeSessionID, isDescriptionDatabase } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { bookmarkSelect, validateBookmarkResponse } from '@/lib/bookmark'
 import { useAtom } from 'jotai'
@@ -31,12 +31,7 @@ const DetailRecordAction = () => {
 	const [loading, setLoading] = useState(false)
 	const handleSubmit = (action: string | null) => {
 		if (checkLoggedInToRequest(action)) {
-			const {
-				refd,
-				accession_number,
-				title: recordTitle,
-				legal_title: recordLegalTitle,
-			} = record.record
+			const { refd, accession_number, title: recordTitle, legal_title: recordLegalTitle } = record.record
 			const itemid = refd || accession_number || ''
 			const title = recordLegalTitle || recordTitle || ''
 			switch (action) {
@@ -83,9 +78,7 @@ const DetailRecordAction = () => {
 			setLoading(false)
 			const isValid = validateBookmarkResponse(
 				res,
-				typeof bookmark_count === 'number'
-					? bookmark_count
-					: Number.parseInt(bookmark_count || '0')
+				typeof bookmark_count === 'number' ? bookmark_count : Number.parseInt(bookmark_count || '0')
 			)
 			if (isValid && isValid.isSuccess) {
 				setLike(true)
@@ -95,9 +88,7 @@ const DetailRecordAction = () => {
 					duration: 2000,
 					action: (
 						<a
-							className={
-								'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'
-							}
+							className={'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'}
 							href={`${bookmark_url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`}>
 							{message.viewBookmark}
 						</a>
@@ -114,32 +105,30 @@ const DetailRecordAction = () => {
 
 	const checkRecordHasMandatoryDataToRequest = () => {
 		const checkRecord = record.record
-		const recordRequestBool = 'Yes' as string
-		let requestable = false as boolean
-		checkRecord?.a_avail === recordRequestBool ||
-		checkRecord?.m_avail === recordRequestBool ||
-		checkRecord?.l_avail === recordRequestBool
-			? (requestable = true)
-			: (requestable = false)
+		const recordRequestBool = 'Yes'
+		const requestable =
+			checkRecord?.a_avail === recordRequestBool || checkRecord?.m_avail === recordRequestBool || checkRecord?.l_avail === recordRequestBool
+
 		return requestable
 	}
 
+	// No : Item is not booked
+	// Current : Item is booked by the same client.
+	// Another : Item is booked by a different client.
+	// This function is for LMA style request, not allowing waitlist (Request queue)
 	const checkIfCurrentClientRequestedThisRecord = () => {
-		const recordRequested = record.record?.is_requested_by_client
+		const recordRequested = record.request?.is_requested_by_client
 		let currentClientRequested = false
-		if (recordRequested === 'Current') {
+		if (recordRequested === 'No' || recordRequested === 'Current') {
 			currentClientRequested = true
 		}
-		return currentClientRequested
+		return true
 	}
 
 	const checkLoggedInToRequest = (action: string | null) => {
 		let isLoggedIn = false
 		const patronID = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-		if (
-			(patronID === null || patronID === undefined || patronID === '') &&
-			action !== 'Enquire'
-		) {
+		if ((patronID === null || patronID === undefined || patronID === '') && action !== 'Enquire') {
 			setIsModalOpen(true)
 		} else {
 			isLoggedIn = true
@@ -158,110 +147,84 @@ const DetailRecordAction = () => {
 					<ChevronLeft />
 					<span className="hidden md:block">{message.previous}</span>
 				</TooltipButton>
-
 				<div className="flex flex-wrap justify-start gap-2">
-					{checkRecordHasMandatoryDataToRequest() &&
-					checkIfCurrentClientRequestedThisRecord() ? (
-						<TooltipButton
-							tooltipContent={message.requestRecord}
-							variant="outline"
-							className={'w-[22%] md:w-[23.5%] flex '}
-							onClick={() => handleSubmit('Request')}>
-							<ShoppingBag className="w-4 h-4 md:mr-2 " />{' '}
-							<span className="hidden md:block">{message.request}</span>
-							<form
-								method="post"
-								ref={formRef}
-								action={
-									getHomeSessionID() +
-									'/1/' +
-									record.request.req_db_link2 +
-									'?REQUESTLOGIN&DBNAME=' +
-									record.request.req_db_name
-								}
-								className="hidden">
-								<Input
-									type="hidden"
-									name="ITEM_REQ_TIME"
-									value={requestData.item_req_time}
-								/>
-								<Input
-									type="hidden"
-									name="METHOD_REQUEST"
-									value={requestData.method_request}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_TOPIC"
-									value={requestData.req_topic}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_APPL_NAME"
-									value={requestData.req_appl_name}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_DB_NAME"
-									value={requestData.req_db_name}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_DB_LINK2"
-									value={requestData.req_db_link2}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_QUEUE"
-									value={requestData.req_queue}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_DB_RECID"
-									value={requestData.req_db_recid}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_TITLE"
-									value={requestData.req_title}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_ITEM_ID"
-									value={requestData.req_item_id}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_ACC_NUMBER"
-									value={requestData.req_acc_number}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_ITEM_TITLE"
-									value={requestData.req_item_title}
-								/>
-								<Button className="bg-primary" type="submit" variant="default">
-									Submit
-								</Button>
-							</form>
-						</TooltipButton>
-					) : (
-						<TooltipButton
-							tooltipContent={message.requestRecord}
-							variant="outline"
-							disabled
-							className={'w-[22%] md:w-[23.5%] flex '}>
-							<ShoppingBag className="w-4 h-4 md:mr-2" />{' '}
-							<span className="hidden md:block">{message.request}</span>
-						</TooltipButton>
-					)}
-
+					{/* <TooltipButton
+						tooltipContent={message.requestRecord}
+						variant="outline"
+						className={'w-[22%] md:w-[23.5%] flex '}
+						onClick={() => handleSubmit('Request')}>
+						<SquareCheck className="w-4 h-4 md:mr-2 " />{' '}
+						<span className="hidden md:block">{message.request}</span>
+						<form
+							method="post"
+							ref={formRef}
+							action={
+								getHomeSessionID() +
+								'/1/' +
+								record.request.req_db_link2 +
+								'?REQUESTLOGIN&DBNAME=' +
+								record.request.req_db_name
+							}
+							className="hidden">
+							<Input
+								type="hidden"
+								name="ITEM_REQ_TIME"
+								value={requestData.item_req_time}
+							/>
+							<Input
+								type="hidden"
+								name="METHOD_REQUEST"
+								value={requestData.method_request}
+							/>
+							<Input type="hidden" name="REQ_TOPIC" value={requestData.req_topic} />
+							<Input
+								type="hidden"
+								name="REQ_APPL_NAME"
+								value={requestData.req_appl_name}
+							/>
+							<Input
+								type="hidden"
+								name="REQ_DB_NAME"
+								value={requestData.req_db_name}
+							/>
+							<Input
+								type="hidden"
+								name="REQ_DB_LINK2"
+								value={requestData.req_db_link2}
+							/>
+							<Input type="hidden" name="REQ_QUEUE" value={requestData.req_queue} />
+							<Input
+								type="hidden"
+								name="REQ_DB_RECID"
+								value={requestData.req_db_recid}
+							/>
+							<Input type="hidden" name="REQ_TITLE" value={requestData.req_title} />
+							<Input
+								type="hidden"
+								name="REQ_ITEM_ID"
+								value={requestData.req_item_id}
+							/>
+							<Input
+								type="hidden"
+								name="REQ_ACC_NUMBER"
+								value={requestData.req_acc_number}
+							/>
+							<Input
+								type="hidden"
+								name="REQ_ITEM_TITLE"
+								value={requestData.req_item_title}
+							/>
+							<Button className="bg-primary" type="submit" variant="default">
+								{message.submit}
+							</Button>
+						</form>
+					</TooltipButton> */}
 					<TooltipButton
 						tooltipContent={message.askAboutThisRecord}
 						variant="outline"
 						className={' w-[22%] md:w-[23.5%] flex  p-1'}
 						onClick={() => handleSubmit('Enquire')}>
-						<ShoppingBag className="w-4 h-4 md:mr-2 " />
+						<Lightbulb className="w-4 h-4 md:mr-2 " />
 						<span className="hidden md:block">{message.enquire}</span>
 					</TooltipButton>
 					<TooltipButton
@@ -277,8 +240,7 @@ const DetailRecordAction = () => {
 						variant="outline"
 						className={'w-[22%] md:w-[23.5%] flex '}
 						onClick={() => handleSubmit('Copyright')}>
-						<Files className="w-4 h-4 md:mr-2" />{' '}
-						<span className="hidden md:block">{message.copyright}</span>
+						<Copyright className="w-4 h-4 md:mr-2" /> <span className="hidden md:block">{message.copyright}</span>
 					</TooltipButton>
 					<TooltipButton
 						tooltipContent={message.copyRecordUrl}
@@ -290,7 +252,7 @@ const DetailRecordAction = () => {
 								title: message.recordIsCopied,
 							})
 						}}>
-						<Copy className="w-4 h-4 md:mr-2" />
+						<Link className="w-4 h-4 md:mr-2" />
 						<span className="hidden md:block">{message.copy}</span>
 					</TooltipButton>
 					<TooltipButton
