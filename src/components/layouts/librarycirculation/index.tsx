@@ -12,6 +12,7 @@ import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { StatCardProps } from '@/page/dashboard/PatronProfile'
 import { getCookieValue } from '@/lib/utils'
+import { colorClasses } from '@/page/dashboard/constants'
 
 // Mock data for the dashboard
 const patronData = {
@@ -39,13 +40,9 @@ const patronData = {
 export default function LibraryDashboard() {
 	const [notifications, setNotifications] = useState(patronData.notifications)
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const { message, clientProfile, patronLibraryCirculation } = useConstants()
-	const profileList = clientProfile.database
+	const { message, patronLibraryCirculation } = useConstants()
+	const libraryProfileList = patronLibraryCirculation.database
 	const m2l_patron_id = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-	// const [sidebarOpen, setSidebarOpen] = useState(false)
-	// const toggleSidebar = () => {
-	// 	setSidebarOpen(!sidebarOpen)
-	// }
 
 	const dismissNotification = (id: number) => {
 		setNotifications(notifications.filter((n) => n.id !== id))
@@ -54,48 +51,35 @@ export default function LibraryDashboard() {
 	const statCards = [
 		{
 			icon: <BookOpen className="h-4 w-4" />,
-			label: 'Checked Out',
+			label: libraryProfileList[0].label,
 			color: 'blue',
 			value: patronData.stats.checkedOut,
-			link: profileList[0].url,
+			link: libraryProfileList[0].url,
 		},
 		{
 			icon: <Clock className="h-4 w-4" />,
-			label: 'On Hold',
+			label:libraryProfileList[1].label,
 			color: 'amber',
 			value: patronData.stats.onHold,
-			link: profileList[1].url,
+			link: libraryProfileList[1].url,
 		},
 		{
 			icon: <Truck className="h-4 w-4" />,
-			label: 'In Transit',
+			label: libraryProfileList[2].label,
 			color: 'green',
 			value: patronData.stats.inTransit,
-			link: profileList[2].url,
+			link: libraryProfileList[2].url,
 		},
 		{
 			icon: <FileText className="h-4 w-4" />,
-			label: 'On Request',
+			label: libraryProfileList[3].label,
 			color: 'purple',
 			value: patronData.stats.onRequest,
-			link: profileList[3].url,
+			link: libraryProfileList[3].url,
 		},
 	]
 
 	function StatCard({ icon, label, value, color }: StatCardProps) {
-		const colorClasses = {
-			blue: 'bg-blue-100 text-blue-500',
-			green: 'bg-green-100 text-green-500',
-			red: 'bg-red-100 text-red-500',
-			purple: 'bg-purple-100 text-purple-500',
-			amber: 'bg-amber-100 text-amber-500',
-			orange: 'bg-orange-100 text-orange-500',
-			pink: 'bg-pink-100 text-pink-500',
-			violet: 'bg-violet-100 text-violet-500',
-			yellow: 'bg-yellow-100 text-yellow-500',
-			rose: 'bg-rose-100 text-rose-500',
-			indigo: 'bg-indigo-100 text-indigo-500',
-		} as const
 
 		return (
 			<div className="rounded-md bg-white p-6 shadow">
@@ -115,7 +99,6 @@ export default function LibraryDashboard() {
 	return (
 		<PatronLayout
 			isLibrary={true}
-			list={patronLibraryCirculation.dashboard}
 			mainHeading={
 				<>
 					<BookOpen className="mr-1 h-5 w-5" />
@@ -151,7 +134,7 @@ export default function LibraryDashboard() {
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				{statCards.map((card, index) => (
 					<a
-						href={getCookieValue('HOME_SESSID') + card.link + (card.label == 'Bookmarks' || 'Library Circulation' ? '' : m2l_patron_id)}
+						href={getCookieValue('HOME_SESSID') + card.link + (card.label == 'Bookmarks' || 'Library Portal' ? '' : m2l_patron_id)}
 						className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
 						<StatCard key={index} icon={card.icon} label={card.label} color={card.color} value={card.value} />
 					</a>

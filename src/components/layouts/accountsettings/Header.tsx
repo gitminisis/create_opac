@@ -16,7 +16,7 @@ import { UserCog, UserRound } from 'lucide-react'
 
 const Header = () => {
 	const { message } = useConstants()
-	const home_url = '?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
+	const home_url = '?SEARCH&DATABASE=PATRON_SYN&REPORT=WEB_PATRON_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
 
 	return (
 		<header className="flex justify-between bg-primary sticky top-0 z-30  items-center gap-4 border-b py-2">
@@ -51,7 +51,7 @@ const Header = () => {
 								<Link
 									href={
 										getCookieValue('HOME_SESSID') +
-										'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
+										'?SEARCH&DATABASE=PATRON_SYN&REPORT=WEB_PATRON_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
 									}
 									className="no-underline ml-[0.5rem]">
 									{message.dashboardHome}
@@ -61,7 +61,7 @@ const Header = () => {
 								<Link
 									href={
 										getCookieValue('HOME_SESSID') +
-										'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)'
+										'?SEARCH&DATABASE=PATRON_SYN&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)'
 									}
 									className="no-underline ml-[0.5rem]">
 									{message.patronDashboard}
@@ -71,7 +71,7 @@ const Header = () => {
 								<Link
 									href={
 										getCookieValue('HOME_SESSID') +
-										'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_ACC_SETTINGS&EXP=patron_id+~3D+global(m2l_patron_id)'
+										'?SEARCH&DATABASE=PATRON_SYN&REPORT=WEB_CLIENT_ACC_SETTINGS&EXP=patron_id+~3D+global(m2l_patron_id)'
 									}
 									className="no-underline ml-[0.5rem]">
 									{message.accountSettings}

@@ -458,7 +458,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 		let HOME_SESSID = getSessionID()
 		let ID = getCookieValue('M2L_PATRON_ID') ?? ''
 		return axios
-			.post(`${HOME_SESSID}?manipxmlrecord&database=CLIENT&READ=Y&KEY=C_CLIENT_NUMBER&VALUE=${ID.replace(/\[.*?\]/g, '')}`, {
+			.post(`${HOME_SESSID}?manipxmlrecord&database=CLIENT&READ=Y&KEY=PATRON_INT_ID&VALUE=${ID.replace(/\[.*?\]/g, '')}`, {
 				headers: {
 					'Content-Type': 'text/xml',
 				},

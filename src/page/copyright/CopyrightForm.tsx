@@ -31,7 +31,7 @@ const CopyrightForm = () => {
 		const fetchData = async () => {
 			try {
 				const response = await axios.get(
-					`/scripts/mwimain.dll/${getLanguageID()}/CLIENT_VIEW/WEB_CLIENT/C_CLIENT_NUMBER%20${getPatronID()}?COMMANDSEARCH`,
+					`/scripts/mwimain.dll/${getLanguageID()}/PATRON/WEB_CLIENT/PATRON_ID%20${getPatronID()}?COMMANDSEARCH`,
 					{ headers: { 'Content-Type': 'text/xml' } }
 				)
 				let responseXMLToJson = convertXMLToJson(response.data)

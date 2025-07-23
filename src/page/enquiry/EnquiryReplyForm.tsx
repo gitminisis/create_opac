@@ -43,7 +43,7 @@ const EnquiryForm = () => {
 
 		const fetchData = async () => {
 			try {
-				const endpoint1 = `/scripts/mwimain.dll/${getLanguageID()}/CLIENT_VIEW/WEB_CLIENT/C_CLIENT_NUMBER%20${getPatronID()}?COMMANDSEARCH`
+				const endpoint1 = `/scripts/mwimain.dll/${getLanguageID()}/PATRON/WEB_CLIENT/PATRON_ID%20${getPatronID()}?COMMANDSEARCH`
 				const endpoint2 = `/scripts/mwimain.dll/${getLanguageID()}/ENQUIRIES_VIEW/WEB_ENQID_CLIENT_ALL/ENQ_PATRON_ID%20${getPatronID()}?COMMANDSEARCH`
 
 				const [clientXML, clientEnqIdXML] = await Promise.all([
@@ -139,7 +139,7 @@ const EnquiryForm = () => {
 	}
 
 	return (
-		<PatronLayout list={clientProfile.database} mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>}>
+		<PatronLayout  mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>}>
 			<div className="flex mb-5 bg-white">
 				{/* Sidebar */}
 				<div className="w-80 border-r hidden md:block">

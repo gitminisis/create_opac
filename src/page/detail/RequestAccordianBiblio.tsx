@@ -38,7 +38,7 @@ const RequestAccordianBiblio = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
 	const record = records[0]
 	const { request } = record
-	const { item_info_occurrence } = record.record.item_info
+	const { item_info_occurrence } = record.record.item_info ?? []
 	const [open, setOpen] = useState(false)
 	const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
 	const loadMoreRef = useRef<HTMLDivElement | null>(null)
@@ -85,8 +85,12 @@ const RequestAccordianBiblio = () => {
 									<thead className="bg-gray-100 sticky top-0 z-10">
 										<tr>
 											<th className="border px-4 py-2 text-left font-medium text-gray-700 min-w-[104px]">{message.barcode}</th>
-											<th className="border px-4 py-2 text-left font-medium text-gray-700 min-w-[91px]">{message.copyNumber}</th>
-											<th className="border px-4 py-2 text-left font-medium text-gray-700 min-w-[90px]">{message.volumeNumber}</th>
+											<th className="border px-4 py-2 text-left font-medium text-gray-700 min-w-[91px]">
+												{message.copyNumber}
+											</th>
+											<th className="border px-4 py-2 text-left font-medium text-gray-700 min-w-[90px]">
+												{message.volumeNumber}
+											</th>
 											<th className="border px-4 py-2 text-left font-medium text-gray-700">{message.callNumber}</th>
 											<th className="border px-4 py-2 text-left font-medium text-gray-700">{message.mediaType}</th>
 											<th className="border px-4 py-2 text-left font-medium text-gray-700">{message.holdingCentre}</th>
@@ -121,17 +125,24 @@ const RequestAccordianBiblio = () => {
 																getHomeSessionID() +
 																'/1/' +
 																record.request.req_db_link3 +
-																'?REQUESTLOGIN&REPORT=DIRECT_REQUEST_FORM'
+																'?REQUESTLOGIN&DBNAME=BIBLIO_WEB'
 															}
 															className="hidden">
-															<input type="hidden" name="method_request" value={request.method_request} />
-															<input type="hidden" name="req_topic" value={request.req_topic} />
-															<input type="hidden" name="req_appl_name" value={request.req_appl_name} />
-															<input type="hidden" name="req_db_name" value={REQUEST_BIBLIO_DB} />
-															<input type="hidden" name="req_db_link3" value={request.req_db_link3} />
-															<input type="hidden" name="req_db_recid" value={request.req_db_recid} />
-															<input type="hidden" name="req_item_id" value={value.barcode} />
-															<input type="hidden" name="req_item_title" value={request.req_item_title} />
+															<input type="hidden" name="REQ_ITEM_ID" value={`${value.barcode}`} />
+															<input type="hidden" name="REQ_WAIT_TIME" value={request.req_wait_time} />
+															<input type="hidden" name="ITEM_REQ_TIME" value={request.item_req_time} />
+															<input type="hidden" name="METHOD_REQUEST" value={request.method_request} />
+															<input type="hidden" name="REQ_TOPIC" value={request.req_topic} />
+															<input type="hidden" name="REQ_APPL_NAME" value={request.req_appl_name} />
+															<input type="hidden" name="REQ_DB_NAME" value={REQUEST_BIBLIO_DB} />
+															<input type="hidden" name="REQ_DB_RECID" value={request.req_db_recid} />
+															<input type="hidden" name="REQ_TITLE" value={request.req_title} />
+															<input type="hidden" name="REQ_DB_LINK3" value={request.req_db_link3} />
+															<input type="hidden" name="REQ_ITEM_TITLE" value={request.req_item_title} />
+															<input type="hidden" name="REQ_QUEUE" value={request.req_queue} />
+															<input type="hidden" name="LIBRARY_REQ" value={request.library_req} />
+															<input type="hidden" name="REQ_NEXT_COLLECT" value={request.req_next_collect} />
+															<input type="hidden" name="REQ_PICKUP_LOC" value={request.req_pickup_loc} />
 														</form>
 													</div>
 												</td>

@@ -71,7 +71,7 @@ const BookmarkProfile = () => {
 	]
 	return (
 		<PatronLayout
-			list={clientProfile.database}
+			
 			mainHeading={
 				<>
 					<Home className="mr-1 h-5 w-5" />

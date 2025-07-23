@@ -205,7 +205,7 @@ const Calendar = () => {
 	}
 
 	return (
-		<PatronLayout list={clientProfile.database} mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading={message.calendar}>
+		<PatronLayout  mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading={message.calendar}>
 			<ProfileTable
 				data={records}
 				columns={columns}

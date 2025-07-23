@@ -1,22 +1,25 @@
 import ProfileTable, { ProfileData } from '@/components/common/client-profile/ProfileTable'
 import PatronLayout from '@/components/layouts/patron'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
-import { encodeURIStringToMinisisSpecialCharacter, getCookieValue, getHomeSessionID } from '@/lib/utils'
+import { convertLowerTrim, encodeURIStringToMinisisSpecialCharacter, getCookieValue, getHomeSessionID } from '@/lib/utils'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import axios from 'axios'
 import { Home } from 'lucide-react'
 
+const REQ_STATUS_TYPES = ['Retrieve', 'Prepare', 'Requested', 'Conservation']
+
 const Orders = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const { message, clientProfile } = useConstants()
+	const { message, config } = useConstants()
+	const { navigations } = config
 	const cancelRequest = (reqNumber: string) => {
 		var cancelReq_url = getCookieValue('HOME_SESSID') + '?MANIPXMLRECORD&KEY=REQ_ORDER_NUM&VALUE=' + reqNumber + '&DATABASE=REQUEST_INFO'
-		var xmlForm = '<?xml version="1.0" encoding="UTF-8"?>\n<RECORD>\n'
-		xmlForm = xmlForm.concat('<REC_STATUS>Deleted</REC_STATUS>\n')
+		var xmlForm = '<?xml version="1.0" encoding="UTF-8"?><RECORD><REC_STATUS>Deleted</REC_STATUS></RECORD>'
 		axios({
 			method: 'post',
 			url: cancelReq_url,
@@ -39,6 +42,18 @@ const Orders = () => {
 			.catch((error) => {
 				console.error('Error:', error)
 			})
+	}
+
+	const getColor = (event_type: string) => {
+		if (!event_type) return {}
+		let result = navigations?.filter((item) => {
+			return convertLowerTrim(item.database) === convertLowerTrim(event_type)
+		})
+
+		return {
+			color: `${result[0]?.color}`,
+			title: `${result[0]?.title}`,
+		}
 	}
 
 	const columns: ColumnDef<ProfileData>[] = [
@@ -98,18 +113,31 @@ const Orders = () => {
 			},
 			cell: ({ row }) => (
 				<div className="underline">
-					<a
-						className={`${row.getValue('req_db_name') ? '' : 'pointer-events-none'}`}
-						href={
-							getHomeSessionID() +
-							'/DESCRIPTION_WEB' +
-							'/REFD' +
-							'/' +
-							encodeURIStringToMinisisSpecialCharacter(row.original.req_refd) +
-							'/WEB_UNION_DETAIL?JUMP'
-						}>
-						{row.getValue('req_item_id')}
-					</a>
+					{row.original.req_db_name === navigations[1].database ? (
+						<a
+							href={
+								getHomeSessionID() +
+								'/DESCRIPTION_WEB' +
+								'/REFD' +
+								'/' +
+								encodeURIStringToMinisisSpecialCharacter(row.original.req_refd) +
+								'/WEB_UNION_DETAIL?JUMP'
+							}>
+							{row.getValue('req_item_id')}
+						</a>
+					) : (
+						<a
+							href={
+								getHomeSessionID() +
+								'/BIBLIO_WEB' +
+								'/BARCODE' +
+								'/' +
+								encodeURIStringToMinisisSpecialCharacter(row.original.req_item_id) +
+								'/WEB_UNION_DETAIL?JUMP'
+							}>
+							{row.getValue('req_item_id')}
+						</a>
+					)}
 				</div>
 			),
 		},
@@ -126,16 +154,20 @@ const Orders = () => {
 			cell: ({ row }) => <div className="">{row.getValue('req_item_title')}</div>,
 		},
 		{
-			accessorKey: 'req_paid_amt',
+			accessorKey: 'req_db_name',
 			header: ({ column }) => {
 				return (
 					<Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-						{message.amount}
+						{message.type}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
 				)
 			},
-			cell: ({ row }) => <div className="">{row.getValue('req_paid_amt')}</div>,
+			cell: ({ row }) => (
+				<Badge className={`${getColor(row.getValue('req_db_name')).color} text-white`} variant={'tag'}>
+					{getColor(row.getValue('req_db_name')).title}
+				</Badge>
+			),
 		},
 		{
 			accessorKey: 'req_order_num',
@@ -147,40 +179,28 @@ const Orders = () => {
 					</Button>
 				)
 			},
-			cell: ({ row }) => (
-				<div className="">
-					{row.getValue('rec_status') === 'Deleted' ? (
-						<Button disabled>{message.cancelled}</Button>
-					) : row.getValue('req_status') === 'Retrieve' ||
-					  row.getValue('req_status') === 'Prepared' ||
-					  row.getValue('req_status') === 'Requested' ||
-					  row.getValue('req_status') === 'Conservation' ? (
-						<Button onClick={() => cancelRequest(row.getValue('req_order_num'))}>{message.cancel}</Button>
-					) : (
-						<Button disabled>{message.noAction}</Button>
-					)}
-				</div>
-			),
-		},
-		{
-			accessorKey: 'rec_status',
-			header: ({ column }) => {
-				return <></>
+			cell: ({ row }) => {
+				if (row.original.rec_status === 'Deleted') {
+					return <Button disabled>{message.cancelled}</Button>
+				} else if (REQ_STATUS_TYPES.includes(row.original.req_status)) {
+					return <Button onClick={() => cancelRequest(row.original.req_order_num)}>{message.cancel}</Button>
+				} else {
+					return <Button disabled>{message.noAction}</Button>
+				}
 			},
-			cell: ({ row }) => <></>,
-		},
-		{
-			accessorKey: 'req_db_name',
-			header: ({ column }) => {
-				return <></>
-			},
-			cell: ({ row }) => <></>,
 		},
 	]
 
+	const moveDeletedToBottom = (records: ProfileData[]) => {
+		return records.sort((a, b) => {
+			if (a.rec_status === 'Deleted' && b.rec_status !== 'Deleted') return 1
+			if (a.rec_status !== 'Deleted' && b.rec_status === 'Deleted') return -1
+			return 0
+		})
+	}
+
 	return (
 		<PatronLayout
-			list={clientProfile.database}
 			mainHeading={
 				<>
 					<Home className="mr-1 h-5 w-5" />
@@ -188,7 +208,13 @@ const Orders = () => {
 				</>
 			}
 			heading="Orders">
-			<ProfileTable data={records} columns={columns} filterType={'req_title'} filterTypeShow="" filterDateType={'date_needed'} />
+			<ProfileTable
+				data={moveDeletedToBottom(records)}
+				columns={columns}
+				filterType={'req_item_title'}
+				filterTypeShow=""
+				filterDateType={'date_needed'}
+			/>
 		</PatronLayout>
 	)
 }

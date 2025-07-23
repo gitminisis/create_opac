@@ -21,7 +21,7 @@ import {
 	BookOpen,
 	Home,
 } from 'lucide-react'
-import { useState } from 'react'
+import { colorClasses } from './constants'
 
 export interface StatCardProps {
 	icon: React.ReactNode
@@ -32,15 +32,12 @@ export interface StatCardProps {
 
 export default function PatronProfile() {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const [activeButton, setActiveButton] = useState(null)
 	const { home, archives, museum, library, message, clientProfile } = useConstants()
 	const profileList = clientProfile.database
 	const m2l_patron_id = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-	const handleClick = (id: any) => {
-		setActiveButton(id)
-	}
 
-	const statCards = [
+
+	const clientDashboardCards = [
 		{
 			icon: <ShoppingBag className="h-4 w-4" />,
 			label: profileList[0].label,
@@ -87,25 +84,12 @@ export default function PatronProfile() {
 			icon: <BookOpen className="h-4 w-4" />,
 			label: profileList[7].label,
 			color: 'yellow',
-			value: 'Coming Soon...',
+			value: records[0].biblio_r_count,
 			link: profileList[7].url,
 		},
 	]
-	function StatCard({ icon, label, value, color }: StatCardProps) {
-		const colorClasses = {
-			blue: 'bg-blue-100 text-blue-500',
-			green: 'bg-green-100 text-green-500',
-			red: 'bg-red-100 text-red-500',
-			purple: 'bg-purple-100 text-purple-500',
-			amber: 'bg-amber-100 text-amber-500',
-			orange: 'bg-orange-100 text-orange-500',
-			pink: 'bg-pink-100 text-pink-500',
-			violet: 'bg-violet-100 text-violet-500',
-			yellow: 'bg-yellow-100 text-yellow-500',
-			rose: 'bg-rose-100 text-rose-500',
-			indigo: 'bg-indigo-100 text-indigo-500',
-		} as const
 
+	function StatCard({ icon, label, value, color }: StatCardProps) {
 		return (
 			<div className="rounded-md bg-white p-6 shadow">
 				<div className="flex flex-col gap-2">
@@ -121,10 +105,15 @@ export default function PatronProfile() {
 		)
 	}
 
-
-
 	return (
-		<PatronLayout list={clientProfile.database} mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>}  >
+		<PatronLayout
+			
+			mainHeading={
+				<>
+					<Home className="mr-1 h-5 w-5" />
+					<h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2>
+				</>
+			}>
 			<div className="mb-4 rounded-md bg-white p-6 shadow">
 				<h1 className="text-3xl font-semibold text-gray-800">
 					{message.welcome} {records[0]?.full_name || 'User'}!
@@ -134,13 +123,16 @@ export default function PatronProfile() {
 
 			{/* Stats Grid */}
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				{statCards.map((card, index) => (
-					<a
-						href={getCookieValue('HOME_SESSID') + card.link + (card.label == 'Bookmarks' || 'Library Circulation' ? '' : m2l_patron_id)}
-						className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
-						<StatCard key={index} icon={card.icon} label={card.label} color={card.color} value={card.value} />
-					</a>
-				))}
+				{clientDashboardCards.map((card, index) => {
+					const isSpecialLabel = card.label === 'Bookmarks' || card.label === 'Library Portal'
+					const href = getCookieValue('HOME_SESSID') + card.link + (isSpecialLabel ? '' : m2l_patron_id)
+
+					return (
+						<a key={index} href={href} className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+							<StatCard icon={card.icon} label={card.label} color={card.color} value={card.value} />
+						</a>
+					)
+				})}
 				{/* Calednar statCard's Anchor tag should be different, it uses commandsearch so never need seesion id, I made seperate StatCard for Calendar. Don Ryu 20250402 */}
 				<a
 					href={`/scripts/mwimain.dll/144/WEB_CALENDAR/WEB_CALENDAR_PROFILE?commandsearch&exp=%2B%2B%40&EXP=TAG_FUNC_P_ID%20${m2l_patron_id}&M_GVAR1=USER_ID:${m2l_patron_id}`}
@@ -154,8 +146,6 @@ export default function PatronProfile() {
 					/>
 				</a>
 			</div>
-
-	
 
 			{/* Recent Media Section */}
 			<div className="space-y-4 min-h-[550px]">

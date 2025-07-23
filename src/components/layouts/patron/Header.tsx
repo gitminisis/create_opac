@@ -48,7 +48,7 @@ const Header = () => {
 								<Link
 									href={
 										getCookieValue('HOME_SESSID') +
-										'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
+										'?SEARCH&DATABASE=PATRON_SYN&REPORT=WEB_PATRON_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
 									}
 									className="no-underline ml-[0.5rem]">
 									{message.dashboardHome}
@@ -58,7 +58,7 @@ const Header = () => {
 								<Link
 									href={
 										getCookieValue('HOME_SESSID') +
-										'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)'
+										'?SEARCH&DATABASE=PATRON_SYN&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)'
 									}
 									className="no-underline ml-[0.5rem]">
 									{message.patronDashboard}
@@ -68,7 +68,7 @@ const Header = () => {
 								<Link
 									href={
 										getCookieValue('HOME_SESSID') +
-										'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_ACC_SETTINGS&EXP=patron_id+~3D+global(m2l_patron_id)'
+										'?SEARCH&DATABASE=PATRON_SYN&REPORT=WEB_CLIENT_ACC_SETTINGS&EXP=patron_id+~3D+global(m2l_patron_id)'
 									}
 									className="no-underline ml-[0.5rem]">
 									{message.accountSettings}
@@ -76,8 +76,8 @@ const Header = () => {
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuLabel>Search Database</DropdownMenuLabel>
-							{navigations.map((nav: any) => (
-								<DropdownMenuItem>
+							{navigations.map((nav: any,key) => (
+								<DropdownMenuItem key={key}>
 									<Link href={convertLink(nav)} className="no-underline ml-[0.5rem]">
 										{nav.displayTitle}
 									</Link>

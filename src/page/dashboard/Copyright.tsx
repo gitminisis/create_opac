@@ -70,7 +70,7 @@ const Copyright = () => {
 		},
 	]
 	return (
-		<PatronLayout list={clientProfile.database} mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading="Copyright">
+		<PatronLayout  mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading="Copyright">
 			<ProfileTable data={records} columns={columns} filterType={'req_item_id'} filterTypeShow="" />
 		</PatronLayout>
 	)

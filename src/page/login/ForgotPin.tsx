@@ -9,7 +9,7 @@ import axios from 'axios'
 import Spinner from '@/components/common/event-calendar/Spinner'
 
 type ResetFormData = {
-	C_CLIENT_NUMBER: string
+	PATRON_ID: string
 }
 
 const EMAIL_CONFIRM_CODE = '267'
@@ -22,7 +22,7 @@ const ResetPin = () => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			C_CLIENT_NUMBER: '',
+			PATRON_ID: '',
 		},
 	})
 	const [status, setStatus] = useState<string>('')
@@ -32,7 +32,7 @@ const ResetPin = () => {
 	const onSubmit = async (data: ResetFormData) => {
 		setLoading(true)
 		const formData = new FormData()
-		formData.append('C_CLIENT_NUMBER', data.C_CLIENT_NUMBER)
+		formData.append('PATRON_ID', data.PATRON_ID)
 		// Application name is not the matter, it need to use m2l extention at the site profile and follow the m2l extention's default databsae
 		// m2l extention's config is at the parameter database.
 		axios
@@ -83,14 +83,14 @@ const ResetPin = () => {
 								</label>
 								<input
 									disabled={loading}
-									{...register('C_CLIENT_NUMBER', {
+									{...register('PATRON_ID', {
 										required: `${message.cardNumberRequired}`,
 										minLength: {
 											value: PASSWORD_MIN_LENGTH,
 											message: `${message.cardNumberRequired}`,
 										},
 									})}
-									className={`p-2 w-full mt-1 border ${errors.C_CLIENT_NUMBER ? 'border-red-500' : 'border-gray-300'}`}
+									className={`p-2 w-full mt-1 border ${errors.PATRON_ID ? 'border-red-500' : 'border-gray-300'}`}
 								/>
 								{(status === '200' || status === CLIENT_LOGIN_ERROR) && <p className="text-red-500">{message.unknownPatronName}</p>}
 							</div>

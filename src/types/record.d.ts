@@ -68,6 +68,10 @@ export interface ReproductionData {
 	req_charge_amt: string
 }
 export interface RequestData {
+	req_pickup_loc: string | number | readonly string[] | undefined
+	req_next_collect: string | number | readonly string[] | undefined
+	library_req: string | number | readonly string[] | undefined
+	req_wait_time: string | number | readonly string[] | undefined
 	req_db_link3: string | number | readonly string[] | undefined
 	req_db_link1: string | number | readonly string[] | undefined
     action_later: string
@@ -96,6 +100,7 @@ export interface RequestData {
 	is_requested_by_client:string
 }
 export interface Record {
+	biblio_r_count: any
 	action: string
 	biblio_count: string
 	bookmark_count: string

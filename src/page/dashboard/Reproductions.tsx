@@ -117,7 +117,7 @@ const Reproductions = () => {
 		},
 	]
 	return (
-		<PatronLayout list={clientProfile.database} mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading={message.reproduction}>
+		<PatronLayout  mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading={message.reproduction}>
 			<ProfileTable data={records} columns={columns} filterType={'comments'} filterTypeShow="" />
 		</PatronLayout>
 	)

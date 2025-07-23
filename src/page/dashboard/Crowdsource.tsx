@@ -70,7 +70,7 @@ const Crowdsource = () => {
 		},
 	]
 	return (
-		<PatronLayout list={clientProfile.database} mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading="Crowdsource">
+		<PatronLayout  mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading="Crowdsource">
 			<ProfileTable data={records} columns={columns} filterType={'comments'} filterTypeShow="" />
 		</PatronLayout>
 	)

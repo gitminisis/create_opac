@@ -46,7 +46,7 @@ const Summary = () => {
 							className="w-[450px] m-0"
 							inputStyle="text-black"
 							inputName={'KEYWORD_CLUSTER'}
-							action={dbparm ? `${getSearchURL(home.searchURL)}&database=${dbparm}` : getSearchURL(home.searchURL)}
+							action={dbparm !== 'UNION_VIEW' ? `${getSearchURL(home.searchURL)}&database=${dbparm}` : getSearchURL(home.searchURL)}
 						/>
 						<ViewToggle />
 					</div>

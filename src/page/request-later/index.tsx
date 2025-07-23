@@ -79,7 +79,7 @@ const RequestLater = () => {
 
 	const getData = async () => {
 		return await axios
-			.get(`/preprocessing/paramter_calendar.html`, {
+			.get(`/preprocessing/REQUEST CALENDAR.TXT`, {
 				headers: {
 					'Content-Type': 'text/xml',
 				},
@@ -154,6 +154,12 @@ const RequestLater = () => {
 					<div className="max-w-4xl mx-auto bg-white shadow-md rounded-md p-6">
 						<div className="flex justify-between items-center border-b pb-4">
 							<form method="post" className="m-0 w-full" action={'?REQUESTLOGIN'}>
+								<input type="hidden" name="REQ_WAIT_TIME" value={'0'}/>
+								<input type="hidden" name="req_status" value={record.req_status} />
+								<input type="hidden" name="rec_status" value={record.rec_status} />
+								<input type="hidden" name="req_db_name" value={reqData.req_db_name} />
+								<input type="hidden" name="req_title" value={convertToString(reqData, 'req_item_title')} />
+								<input type="hidden" name="req_queue" value={reqData.req_queue} />
 								<input type="hidden" name="method_request" value={reqData.method_request} />
 								<input type="hidden" name="req_topic" value={reqData.req_topic} />
 								<input type="hidden" name="req_appl_name" value={reqData.req_appl_name} />
@@ -162,7 +168,6 @@ const RequestLater = () => {
 								<input type="hidden" name="req_db_link1" value={reqData.req_db_link1} />
 								<input type="hidden" name="req_db_recid" value={reqData.req_db_recid} />
 								<input type="hidden" name="req_item_title" value={convertToString(reqData, 'req_item_title')} />
-								<input type="hidden" name="req_own_collect" value={'X'} />
 								<h1 className="flex items-center text-xl font-bold">
 									<CircleEllipsis className="mr-2" />
 									{message.requestRecordLater}
@@ -231,14 +236,14 @@ const RequestLater = () => {
 												</DropdownMenu.Portal>
 											</DropdownMenu.Root>
 										</div>
-										<div className={'mx-2 md:mx-0'}>
+										{/* <div className={'mx-2 md:mx-0'}>
 											<div className="text-lg font-bold mt-2">{message.estimatedLoanDaysLabel}</div>
 											<input
 												name="LOAN_PERIOD"
 												type="number"
 												className="inline-flex items-center justify-between px-4 py-2 border rounded bg-white shadow text-sm w-40"
 											/>
-										</div>
+										</div> */}
 										<input type="hidden" name="TIME_NEEDED" value={time} />
 									</div>
 								</div>

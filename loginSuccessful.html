@@ -20,7 +20,7 @@
 			document.addEventListener('DOMContentLoaded', () => {
 				const sessionId = getCookie('HOME_SESSID')
 				if (sessionId) {
-					const url = `${sessionId}?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)`
+					const url = `${sessionId}?SEARCH&DATABASE=PATRON_SYN&REPORT=WEB_PATRON_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)`
 					window.location.href = url
 				} else {
 					console.error('HOME_SESSID cookie not found.')
