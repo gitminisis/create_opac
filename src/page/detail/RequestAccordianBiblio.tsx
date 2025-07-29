@@ -74,7 +74,7 @@ const RequestAccordianBiblio = () => {
 					className="flex justify-between items-center w-full p-4 text-left bg-primary text-white"
 					onClick={() => setOpen((prev) => !prev)}
 					aria-expanded={open}>
-					<span className="font-medium">{message.request}</span>
+					<span className="font-medium">{message.request+' By Barcode'}</span>
 					<ChevronDown className={cn('w-5 h-5 transition-transform duration-200', open && 'rotate-180')} />
 				</Button>
 				{open && (

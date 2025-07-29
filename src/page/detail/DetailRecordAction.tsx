@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input'
 import { bookmarkSelect, validateBookmarkResponse } from '@/lib/bookmark'
 import { useAtom } from 'jotai'
 import { bookmarkCount } from '@/store'
+import { REQUEST_BIBLIO_DB } from '../request/RequestConfirmed'
 
 const DetailRecordAction = () => {
 	const { common } = useJSONData({ selector: '#xml_record' })
@@ -148,77 +149,37 @@ const DetailRecordAction = () => {
 					<span className="hidden md:block">{message.previous}</span>
 				</TooltipButton>
 				<div className="flex flex-wrap justify-start gap-2">
-					{/* <TooltipButton
+					<TooltipButton
 						tooltipContent={message.requestRecord}
 						variant="outline"
 						className={'w-[22%] md:w-[23.5%] flex '}
 						onClick={() => handleSubmit('Request')}>
-						<SquareCheck className="w-4 h-4 md:mr-2 " />{' '}
-						<span className="hidden md:block">{message.request}</span>
+						<SquareCheck className="w-4 h-4 md:mr-2 " /> <span className="hidden md:block">{message.request}</span>
 						<form
 							method="post"
 							ref={formRef}
-							action={
-								getHomeSessionID() +
-								'/1/' +
-								record.request.req_db_link2 +
-								'?REQUESTLOGIN&DBNAME=' +
-								record.request.req_db_name
-							}
+							action={getHomeSessionID() + '/1/' + record.request.req_db_link3 + '?REQUESTLOGIN&DBNAME=BIBLIO_WEB'}
 							className="hidden">
-							<Input
-								type="hidden"
-								name="ITEM_REQ_TIME"
-								value={requestData.item_req_time}
-							/>
-							<Input
-								type="hidden"
-								name="METHOD_REQUEST"
-								value={requestData.method_request}
-							/>
-							<Input type="hidden" name="REQ_TOPIC" value={requestData.req_topic} />
-							<Input
-								type="hidden"
-								name="REQ_APPL_NAME"
-								value={requestData.req_appl_name}
-							/>
-							<Input
-								type="hidden"
-								name="REQ_DB_NAME"
-								value={requestData.req_db_name}
-							/>
-							<Input
-								type="hidden"
-								name="REQ_DB_LINK2"
-								value={requestData.req_db_link2}
-							/>
-							<Input type="hidden" name="REQ_QUEUE" value={requestData.req_queue} />
-							<Input
-								type="hidden"
-								name="REQ_DB_RECID"
-								value={requestData.req_db_recid}
-							/>
-							<Input type="hidden" name="REQ_TITLE" value={requestData.req_title} />
-							<Input
-								type="hidden"
-								name="REQ_ITEM_ID"
-								value={requestData.req_item_id}
-							/>
-							<Input
-								type="hidden"
-								name="REQ_ACC_NUMBER"
-								value={requestData.req_acc_number}
-							/>
-							<Input
-								type="hidden"
-								name="REQ_ITEM_TITLE"
-								value={requestData.req_item_title}
-							/>
+							<input type="hidden" name="REQ_ITEM_ID" value={``} />
+							<input type="hidden" name="REQ_WAIT_TIME" value={requestData.req_wait_time} />
+							<input type="hidden" name="ITEM_REQ_TIME" value={requestData.item_req_time} />
+							<input type="hidden" name="METHOD_REQUEST" value={requestData.method_request} />
+							<input type="hidden" name="REQ_TOPIC" value={requestData.req_topic} />
+							<input type="hidden" name="REQ_APPL_NAME" value={requestData.req_appl_name} />
+							<input type="hidden" name="REQ_DB_NAME" value={REQUEST_BIBLIO_DB} />
+							<input type="hidden" name="REQ_DB_RECID" value={'ACCESSION_NUMBER'} />
+							<input type="hidden" name="REQ_TITLE" value={requestData.req_title} />
+							<input type="hidden" name="REQ_DB_LINK3" value={requestData.req_db_link3} />
+							<input type="hidden" name="REQ_ITEM_TITLE" value={requestData.req_item_title} />
+							<input type="hidden" name="REQ_QUEUE" value={requestData.req_queue} />
+							<input type="hidden" name="LIBRARY_REQ" value={requestData.library_req} />
+							<input type="hidden" name="REQ_NEXT_COLLECT" value={requestData.req_next_collect} />
+							<input type="hidden" name="REQ_PICKUP_LOC" value={requestData.req_pickup_loc} />
 							<Button className="bg-primary" type="submit" variant="default">
 								{message.submit}
 							</Button>
 						</form>
-					</TooltipButton> */}
+					</TooltipButton>
 					<TooltipButton
 						tooltipContent={message.askAboutThisRecord}
 						variant="outline"
