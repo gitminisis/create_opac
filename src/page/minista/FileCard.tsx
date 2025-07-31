@@ -1,18 +1,17 @@
-"use client"
 
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import { FileItem } from "@/types/tdr"
 import {
-    Share,
     Bookmark,
+    Calendar,
     Download,
     Eye,
-    Calendar,
     MoreHorizontal,
+    Share,
 } from "lucide-react"
-import { FileItem } from "./types"
 
 interface FileCardProps {
     file: FileItem
@@ -51,10 +50,10 @@ export default function FileCard({ file, onClick, viewMode }: FileCardProps) {
 
             <CardContent className="p-0">
                 <div className="relative aspect-square bg-gray-100">
-                    <img 
-                        src={file.thumbnail || "/placeholder.svg"} 
-                        alt={file.name} 
-                        className="object-cover w-full h-full" 
+                    <img
+                        src={file.thumbnail || "/placeholder.svg"}
+                        alt={file.name}
+                        className="object-cover w-full h-full"
                     />
                     <div className="absolute top-2 right-2">
                         <Badge className="bg-blue-100 text-blue-800">{file.category}</Badge>
