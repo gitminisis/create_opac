@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { useToast } from '@/components/ui/use-toast'
 import { Copy } from 'lucide-react'
 import { ReactNode } from 'react'
 
@@ -11,8 +12,16 @@ interface IntegrationLinkItemProps {
 }
 
 export function IntegrationLinkItem({ icon, title, url, iconBgColor, iconTextColor }: IntegrationLinkItemProps) {
+	const { toast } = useToast()
+	
 	const handleCopyToClipboard = () => {
 		navigator.clipboard.writeText(url)
+		
+		toast({
+			title: "Link copied to clipboard",
+			description: url,
+			duration: 3000
+		})
 	}
 
 	return (

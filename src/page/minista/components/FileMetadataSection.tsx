@@ -105,7 +105,6 @@ export function FileMetadataSection({ file, assetDetail }: FileMetadataSectionPr
 		{
 			label: 'Description',
 			value: assetDetail?.Description || assetDetail?.Content || file.description,
-			scroll: true
 		},
 		{
 			label: 'OCR Content',

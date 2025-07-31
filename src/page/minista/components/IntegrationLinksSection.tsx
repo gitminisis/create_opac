@@ -12,16 +12,14 @@ export function IntegrationLinksSection({ file, assetDetail }: IntegrationLinksS
 		{
 			icon: <Eye className="w-4 h-4" />,
 			title: 'Access Link',
-			url: `https://titantdrapi.minisisinc.com/api/Asset/${assetDetail?.Uuid || file.id}`,
+			url: assetDetail?.AccessLink,
 			iconBgColor: 'bg-blue-100',
 			iconTextColor: 'text-blue-600',
 		},
 		{
 			icon: <Image className="w-4 h-4" />,
 			title: 'Thumbnail Link',
-			url:
-				assetDetail?.ThumbnailLink ||
-				`https://titantdrapi.minisisinc.com/api/links/thumbnails/${assetDetail?.Uuid || file.id}`,
+			url: assetDetail?.ThumbnailLink,
 			iconBgColor: 'bg-amber-100',
 			iconTextColor: 'text-amber-600',
 		},
@@ -29,26 +27,21 @@ export function IntegrationLinksSection({ file, assetDetail }: IntegrationLinksS
 			icon: <Shield className="w-4 h-4" />,
 			title: 'Preservation Link',
 			url:
-				assetDetail?.PreservationLink ||
-				`https://titantdrapi.minisisinc.com/api/links/preservation/${assetDetail?.Uuid || file.id}`,
+				assetDetail?.PreservationLink,
 			iconBgColor: 'bg-green-100',
 			iconTextColor: 'text-green-600',
 		},
 		{
 			icon: <Database className="w-4 h-4" />,
-			title: 'Metadata Link',
-			url:
-				assetDetail?.ContentLink ||
-				`https://titantdrapi.minisisinc.com/api/links/metadata/${assetDetail?.Uuid || file.id}`,
+			title: 'Content Link',
+			url: assetDetail?.ContentLink,
 			iconBgColor: 'bg-purple-100',
 			iconTextColor: 'text-purple-600',
 		},
 		{
 			icon: <ExternalLink className="w-4 h-4" />,
-			title: 'External Link',
-			url:
-				assetDetail?.OtherLink ||
-				`https://titantdrapi.minisisinc.com/api/links/external/${assetDetail?.Uuid || file.id}`,
+			title: 'Original Link',
+			url: assetDetail?.OriginalLink,
 			iconBgColor: 'bg-red-100',
 			iconTextColor: 'text-red-600',
 		},
@@ -63,7 +56,7 @@ export function IntegrationLinksSection({ file, assetDetail }: IntegrationLinksS
 						key={index}
 						icon={link.icon}
 						title={link.title}
-						url={link.url}
+						url={link.url ?? ''}
 						iconBgColor={link.iconBgColor}
 						iconTextColor={link.iconTextColor}
 					/>
