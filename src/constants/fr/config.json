@@ -1,6 +1,6 @@
 {
-    "siteName": "Soutron Global",
-    "logo": "https://titanapi.minisisinc.com/api/links/65043c1192f8422685fe7fcd57027d50/uuid/90d3f35b03ea4fa391a8d7d91af6175f/access",
+	"siteName": "Soutron Global",
+	"logo": "https://titanapi.minisisinc.com/api/links/65043c1192f8422685fe7fcd57027d50/uuid/90d3f35b03ea4fa391a8d7d91af6175f/access",
 	"auth": {
 		"login": true,
 		"url": "/scripts/mwimain.dll?get&file=[OPAC]login.html"
@@ -32,5 +32,12 @@
 			"color": "bg-minisis-library",
 			"text": "text-minisis-library"
 		}
-	]
+	],
+	"heading": "MINISIS OPAC Template",
+	"requestConfig": {
+		"archiveRequest": true,
+		"libraryRequest": true,
+		"archiveWaitlistEnabled": true,
+		"libraryWaitlistEnabled": true
+	}
 }

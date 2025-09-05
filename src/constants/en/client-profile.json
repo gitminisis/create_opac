@@ -5,7 +5,7 @@
 			"label": "Orders",
 			"db": "DOC_REQUEST",
 			"icon": "ShoppingBag",
-			"url": "?SEARCH&AUX_SESSID=client&DATABASE=DOC_REQUEST&REPORT=WEB_ORDERS_PROFILE&ERRMSG=[MESSAGES]no-record.html&EXP=REQ_PATRON_ID%20"
+			"url": "?SEARCH&AUX_SESSID=client&DATABASE=DOC_REQUEST&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_ORDERS_PROFILE&EXP=REQ_PATRON_ID%20"
 		},
 		{
 			"id": 2,
@@ -48,6 +48,13 @@
 			"db": "SHOWORDERLIST",
 			"icon": "Upload",
 			"url": "?GET&FILE=[OPAC]includes/easyload.html"
+		},
+		{
+			"id": 9,
+			"label": "Library Portal",
+			"db": "SHOWORDERLIST",
+			"icon": "BookOpen",
+			"url": "?SEARCH&DATABASE=PATRON_BIBLIO&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)"
 		}
 	]
 }

@@ -5,19 +5,19 @@
 			"label": "Commandes",
 			"db": "DOC_REQUEST",
 			"icon": "ShoppingBag",
-			"url": "?SEARCH&AUX_SESSID=client&DATABASE=DOC_REQUEST&REPORT=WEB_ORDERS_PROFILE&ERRMSG=[MESSAGES]no-record.html&EXP=REQ_PATRON_ID%20"
+			"url": "?SEARCH&AUX_SESSID=client&DATABASE=DOC_REQUEST&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_ORDERS_PROFILE&EXP=REQ_PATRON_ID%20"
 		},
 		{
 			"id": 2,
 			"label": "Demandes de droits d'auteur",
-			"db": "DOC_REQUEST",
+			"db": "REQUEST_VIEW",
 			"icon": "Copyright",
 			"url": "?SEARCH&AUX_SESSID=client&DATABASE=REQUEST_VIEW&REPORT=WEB_COPY_PROFILE&ERRMSG=[MESSAGES]no-record.html&EXP=REQ_TOPIC%20Copyright%20Services%20AND%20REQ_PATRON_ID%20"
 		},
 		{
 			"id": 3,
 			"label": "Reproductions",
-			"db": "DOC_REQUEST",
+			"db": "REQUEST_VIEW",
 			"icon": "Copy",
 			"url": "?SEARCH&AUX_SESSID=client&DATABASE=REQUEST_VIEW&REPORT=WEB_REPRODUCTION_PROFILE&ERRMSG=[MESSAGES]no-record.html&EXP=REQ_TOPIC%20Obtaining%20Reproductions%20AND%20REQ_PATRON_ID%20"
 		},
@@ -48,6 +48,13 @@
 			"db": "SHOWORDERLIST",
 			"icon": "Upload",
 			"url": "?GET&FILE=[OPAC]includes/easyload.html"
+		},
+		{
+			"id": 9,
+			"label": "Library Portal",
+			"db": "SHOWORDERLIST",
+			"icon": "BookOpen",
+			"url": "?SEARCH&DATABASE=PATRON_BIBLIO&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)"
 		}
 	]
 }
