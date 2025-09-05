@@ -12,14 +12,14 @@ import Spinner from '@/components/common/event-calendar/Spinner'
 
 type ClientFormData = {
 	C_TITLE: string
-	C_NAME_FIRST: string
-	C_NAME_LAST: string
+	P_FIRST_NAME: string
+	P_LAST_NAME: string
 	C_EMAIL: string
-	C_STREET: string
-	C_CITY: string
-	C_PROV_STATE: string
-	C_POSTAL_ZIP: string
-	C_COUNTRY: string
+	P_ADDRESS: string
+	P_CITY: string
+	P_PROV_STATE: string
+	P_POST_ZIP_CODE: string
+	P_COUNTRY: string
 	C_RES_PURPOSE: string
 	C_RES_SUBJECTS: string
 	PATRON_PID: string
@@ -38,14 +38,14 @@ const Register = () => {
 	const [status, setStatus] = useState(0)
 	const [userData, setUserData] = useState<ClientFormData>({
 		C_TITLE: '',
-		C_NAME_FIRST: '',
-		C_NAME_LAST: '',
+		P_FIRST_NAME: '',
+		P_LAST_NAME: '',
 		C_EMAIL: '',
-		C_STREET: '',
-		C_CITY: '',
-		C_PROV_STATE: '',
-		C_POSTAL_ZIP: '',
-		C_COUNTRY: '',
+		P_ADDRESS: '',
+		P_CITY: '',
+		P_PROV_STATE: '',
+		P_POST_ZIP_CODE: '',
+		P_COUNTRY: '',
 		C_RES_PURPOSE: '',
 		C_RES_SUBJECTS: '',
 		PATRON_PID: '',
@@ -61,16 +61,16 @@ const Register = () => {
 	} = useForm({
 		defaultValues: {
 			C_TITLE: '',
-			C_NAME_FIRST: '',
-			C_NAME_LAST: '',
+			P_FIRST_NAME: '',
+			P_LAST_NAME: '',
 			C_EMAIL: '',
 			PATRON_PID: '',
 			PATRON_PID_RE: '',
-			C_STREET: '',
-			C_CITY: '',
-			C_PROV_STATE: '',
-			C_POSTAL_ZIP: '',
-			C_COUNTRY: '',
+			P_ADDRESS: '',
+			P_CITY: '',
+			P_PROV_STATE: '',
+			P_POST_ZIP_CODE: '',
+			P_COUNTRY: '',
 			C_RES_PURPOSE: '',
 			C_RES_SUBJECTS: '',
 			recaptcha: '',
@@ -104,9 +104,9 @@ const Register = () => {
 	const getStepFields = (step: number) => {
 		switch (step) {
 			case 1:
-				return ['C_EMAIL', 'C_NAME_FIRST', 'C_NAME_LAST', 'PATRON_PID', 'PATRON_PID_RE'] as const
+				return ['C_EMAIL', 'P_FIRST_NAME', 'P_LAST_NAME', 'PATRON_PID', 'PATRON_PID_RE'] as const
 			case 2:
-				return ['C_STREET', 'C_CITY', 'C_PROV_STATE', 'C_POSTAL_ZIP', 'C_COUNTRY'] as const
+				return ['P_ADDRESS', 'P_CITY', 'P_PROV_STATE', 'P_POST_ZIP_CODE', 'P_COUNTRY'] as const
 			case 3:
 				return ['C_RES_PURPOSE', 'C_RES_SUBJECTS'] as const
 			default:
@@ -119,14 +119,14 @@ const Register = () => {
 		setLoading(true)
 		const formData = new FormData()
 		formData.append('C_EMAIL', data.C_EMAIL)
-		formData.append('C_NAME_FIRST', data.C_NAME_FIRST)
-		formData.append('C_NAME_LAST', data.C_NAME_LAST)
+		formData.append('P_FIRST_NAME', data.P_FIRST_NAME)
+		formData.append('P_LAST_NAME', data.P_LAST_NAME)
 		formData.append('PATRON_PID', data.PATRON_PID)
-		formData.append('C_STREET', data.C_STREET)
-		formData.append('C_CITY', data.C_CITY)
-		formData.append('C_PROV_STATE', data.C_PROV_STATE)
-		formData.append('C_POSTAL_ZIP', data.C_POSTAL_ZIP)
-		formData.append('C_COUNTRY', data.C_COUNTRY)
+		formData.append('P_ADDRESS', data.P_ADDRESS)
+		formData.append('P_CITY', data.P_CITY)
+		formData.append('P_PROV_STATE', data.P_PROV_STATE)
+		formData.append('P_POST_ZIP_CODE', data.P_POST_ZIP_CODE)
+		formData.append('P_COUNTRY', data.P_COUNTRY)
 		formData.append('C_RES_PURPOSE', data.C_RES_PURPOSE)
 		formData.append('C_RES_SUBJECTS', data.C_RES_SUBJECTS)
 
@@ -273,10 +273,10 @@ const Register = () => {
 									{message.firstName} <span className="text-red-500">*</span>
 								</label>
 								<input
-									{...register('C_NAME_FIRST', {
+									{...register('P_FIRST_NAME', {
 										required: ' ',
 									})}
-									className={`p-2 w-full mt-1 border ${errors.C_NAME_FIRST ? 'border-red-500' : 'border-gray-300'}`}
+									className={`p-2 w-full mt-1 border ${errors.P_FIRST_NAME ? 'border-red-500' : 'border-gray-300'}`}
 								/>
 							</div>
 
@@ -285,10 +285,10 @@ const Register = () => {
 									{message.lastName} <span className="text-red-500">*</span>
 								</label>
 								<input
-									{...register('C_NAME_LAST', {
+									{...register('P_LAST_NAME', {
 										required: ' ',
 									})}
-									className={`p-2 w-full mt-1 border ${errors.C_NAME_LAST ? 'border-red-500' : 'border-gray-300'}`}
+									className={`p-2 w-full mt-1 border ${errors.P_LAST_NAME ? 'border-red-500' : 'border-gray-300'}`}
 								/>
 							</div>
 						</div>
@@ -300,10 +300,10 @@ const Register = () => {
 							{message.address} <span className="text-red-500">*</span>
 						</label>
 						<input
-							{...register('C_STREET', {
+							{...register('P_ADDRESS', {
 								required: ' ',
 							})}
-							className={`p-2 w-full mt-1 border ${errors.C_STREET ? 'border-red-500' : 'border-gray-300'}`}
+							className={`p-2 w-full mt-1 border ${errors.P_ADDRESS ? 'border-red-500' : 'border-gray-300'}`}
 						/>
 						<div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-4 mt-4">
 							<div className="sm:col-span-1">
@@ -311,10 +311,10 @@ const Register = () => {
 									{message.city} <span className="text-red-500">*</span>
 								</label>
 								<input
-									{...register('C_CITY', {
+									{...register('P_CITY', {
 										required: ' ',
 									})}
-									className={`p-2 w-full mt-1 border ${errors.C_CITY ? 'border-red-500' : 'border-gray-300'}`}
+									className={`p-2 w-full mt-1 border ${errors.P_CITY ? 'border-red-500' : 'border-gray-300'}`}
 								/>
 							</div>
 
@@ -323,10 +323,10 @@ const Register = () => {
 									{message.provinceState} <span className="text-red-500">*</span>
 								</label>
 								<input
-									{...register('C_PROV_STATE', {
+									{...register('P_PROV_STATE', {
 										required: ' ',
 									})}
-									className={`p-2 w-full mt-1 border ${errors.C_PROV_STATE ? 'border-red-500' : 'border-gray-300'}`}
+									className={`p-2 w-full mt-1 border ${errors.P_PROV_STATE ? 'border-red-500' : 'border-gray-300'}`}
 								/>
 							</div>
 
@@ -335,12 +335,12 @@ const Register = () => {
 									{message.postalCodeLabel} <span className="text-red-500">*</span>
 								</label>
 								<input
-									{...register('C_POSTAL_ZIP', {
+									{...register('P_POST_ZIP_CODE', {
 										required: ' ',
 									})}
-									className={`p-2 w-full mt-1 border ${errors.C_POSTAL_ZIP ? 'border-red-500' : 'border-gray-300'}`}
+									className={`p-2 w-full mt-1 border ${errors.P_POST_ZIP_CODE ? 'border-red-500' : 'border-gray-300'}`}
 								/>
-								{errors.C_POSTAL_ZIP && <p className="text-red-500">{errors.C_POSTAL_ZIP.message}</p>}
+								{errors.P_POST_ZIP_CODE && <p className="text-red-500">{errors.P_POST_ZIP_CODE.message}</p>}
 							</div>
 
 							<div className="sm:col-span-1">
@@ -348,10 +348,10 @@ const Register = () => {
 									{message.country} <span className="text-red-500">*</span>
 								</label>
 								<input
-									{...register('C_COUNTRY', {
+									{...register('P_COUNTRY', {
 										required: ' ',
 									})}
-									className={`p-2 w-full mt-1 border ${errors.C_COUNTRY ? 'border-red-500' : 'border-gray-300'}`}
+									className={`p-2 w-full mt-1 border ${errors.P_COUNTRY ? 'border-red-500' : 'border-gray-300'}`}
 								/>
 							</div>
 						</div>
@@ -396,19 +396,19 @@ const Register = () => {
 										<strong>{message.email}:</strong> {watch('C_EMAIL')}
 									</li>
 									<li>
-										<strong>{message.fullName}:</strong> {`${watch('C_NAME_FIRST')} ${watch('C_NAME_LAST')}`}
+										<strong>{message.fullName}:</strong> {`${watch('P_FIRST_NAME')} ${watch('P_LAST_NAME')}`}
 									</li>
 									<li>
-										<strong>{message.address}</strong> {watch('C_STREET')}
+										<strong>{message.address}</strong> {watch('P_ADDRESS')}
 									</li>
 									<li>
-										<strong>{message.city}:</strong> {watch('C_CITY')}
+										<strong>{message.city}:</strong> {watch('P_CITY')}
 									</li>
 									<li>
-										<strong>{message.provinceState}:</strong> {watch('C_PROV_STATE')}
+										<strong>{message.provinceState}:</strong> {watch('P_PROV_STATE')}
 									</li>
 									<li>
-										<strong>{message.country}:</strong> {watch('C_COUNTRY')}
+										<strong>{message.country}:</strong> {watch('P_COUNTRY')}
 									</li>
 									<li>
 										<strong>{message.purpose}:</strong> {watch('C_RES_PURPOSE')}

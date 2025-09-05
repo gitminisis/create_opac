@@ -43,7 +43,7 @@ const EnquiryForm = () => {
 
 		const fetchData = async () => {
 			try {
-				const endpoint1 = `/scripts/mwimain.dll/${getLanguageID()}/CLIENT_VIEW/WEB_CLIENT/C_CLIENT_NUMBER%20${getPatronID()}?COMMANDSEARCH`
+				const endpoint1 = `/scripts/mwimain.dll/${getLanguageID()}/CLIENT/WEB_CLIENT/PATRON_ID%20${getPatronID()}?COMMANDSEARCH`
 				const endpoint2 = `/scripts/mwimain.dll/${getLanguageID()}/ENQUIRIES_VIEW/WEB_ENQID_CLIENT_ALL/ENQ_PATRON_ID%20${getPatronID()}?COMMANDSEARCH`
 
 				const [clientXML, clientEnqIdXML] = await Promise.all([

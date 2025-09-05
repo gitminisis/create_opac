@@ -26,10 +26,8 @@ const SummaryPageAction = () => {
 	useEffect(() => {
 		const getData = async () => {
 			const data = await fetchSearchHistory()
-			console.log(data)
 			setSearchHistoryData(data)
 		}
-		console.log(searchHistoryData)
 		getData()
 	}, [])
 	const SORT_OPTIONS: { label: string; value: SORT_TYPE }[] = [
@@ -161,6 +159,7 @@ const SummaryPageAction = () => {
 						{filterArr.map((item, index) => (
 							<CollapseList title={item._title} expand={index === 0} key={item._name}>
 								<div className="space-y-3 border-t p-4 max-h-[500px] overflow-y-auto">
+									{console.log('item',item)}
 									{item.item_group.map(
 										(option: {
 											item_link: string | { item_selected: string; __text: string }
@@ -172,8 +171,8 @@ const SummaryPageAction = () => {
 												callback={() => {
 													window.location.href =
 														typeof option.item_link === 'string'
-															? option.item_link
-															: option.item_link?.__text ?? option.item_link
+															? `${option.item_link}&SHOWSINGLE=Y`
+															: option.item_link?.__text ?? `${option.item_link}&SHOWSINGLE=Y`
 												}}
 												label={`${option.item_value} (${option.item_frequency})`}
 												checked={

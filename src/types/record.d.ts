@@ -68,6 +68,17 @@ export interface ReproductionData {
 	req_charge_amt: string
 }
 export interface RequestData {
+	currentcollectiontime: string
+	remainingorders: string
+	liveorders: string
+	maxitems: string
+	itemspercollection: string
+	orderablecount: string
+	nextcollectiontime: string
+	req_pickup_loc: string | number | readonly string[] | undefined
+	req_next_collect: string | number | readonly string[] | undefined
+	library_req: string | number | readonly string[] | undefined
+	req_wait_time: string | number | readonly string[] | undefined
 	req_db_link3: string | number | readonly string[] | undefined
 	req_db_link1: string | number | readonly string[] | undefined
     action_later: string
@@ -96,6 +107,21 @@ export interface RequestData {
 	is_requested_by_client:string
 }
 export interface Record {
+	cur_user_request: any
+	aone_loc(aone_loc: any): unknown
+	sisn: string
+	check_on: any
+    transit_on: any
+    hold_on(hold_on: any): unknown
+	request_on: any
+	overdue_items: any
+	fine_due: any
+	p_blk_message: string
+	circ_count: any
+	hold_count: any
+	transit_count: any
+	wait_count: any
+	patron_name: string
 	biblio_r_count: any
 	action: string
 	biblio_count: string

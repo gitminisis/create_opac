@@ -29,7 +29,7 @@ const RecordView = ({ record }: RecordViewProps) => {
 
 	// Extract and process record data
 	const database = record.database_name || record.link_dbname || ''
-	const recordLink = record.record_link.toString()
+	const recordLink = record?.record_link?.toString() ?? ''
 	const title = getFieldDataByLabel(record, fields, database, 'Title') || record.record.title || 'Untitled'
 
 	// Process thumbnail URL

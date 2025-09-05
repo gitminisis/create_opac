@@ -9,7 +9,6 @@ import useConstants from '@/hooks/useConstants'
 export default function ShareButton({ url }: { url: string }) {
 	const [isOpen, setIsOpen] = useState(false)
 	const { message } = useConstants()
-
 	const shareUrl = url
 	const shareTitle = 'Check out this page!'
 

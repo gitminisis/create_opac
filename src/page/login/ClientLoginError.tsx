@@ -50,7 +50,7 @@ const ClientLoginError = () => {
 							action={
 								password && accountNumber
 									? getHomeSessionID() +
-										'/scripts/mwimain.dll?patronlogin&application=UNION_VIEW&language=144&file=[OPAC]loginSuccessful.html'
+										'/scripts/mwimain.dll?patronlogin&application=UNION_VIEW&language=144&file=[OPAC]home.html'
 									: '/scripts/mwimain.dll?get&file=[OPAC]login.html'
 							}
 							className="mt-2 grid grid-cols-6 gap-6">
@@ -89,7 +89,7 @@ const ClientLoginError = () => {
 						</form>
 						<div className={'flex mt-1'}>
 							<div>{message.noLogin}</div>
-							<a href={`/scripts/mwimain.dll/144/CLIENT_VIEW?DIRECTSEARCH`} className={'border-b-2 border-b-black ml-[10px] h-[22px]'}>
+							<a href={`/scripts/mwimain.dll/144/CLIENT?DIRECTSEARCH`} className={'border-b-2 border-b-black ml-[10px] h-[22px]'}>
 								{message.createAccount}
 							</a>
 						</div>

@@ -2,7 +2,6 @@ import useConstants from '@/hooks/useConstants'
 import Layout from '@/components/layouts'
 import useJSONData from '@/hooks/useJSONData'
 import { Button } from '../../components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Archive, CircleEllipsis, Landmark, LibraryBig } from 'lucide-react'
 import { convertToString, removeQuote } from '@/lib/utils'
 import { REQUEST_BIBLIO_DB, REQUEST_DESC_DB } from './RequestConfirmed'
@@ -30,15 +29,27 @@ const Request = () => {
 							</h1>
 							<div className="text-right">
 								<form method="post" className="m-0" action={removeQuote(reqData.action)}>
-									{reqData.req_db_link1 && <Input type="hidden" name="REQ_DB_LINK1" value={reqData.req_db_link1} />}
-									{reqData.req_db_link3 && <Input type="hidden" name="REQ_DB_LINK3" value={reqData.req_db_link3} />}
-									<Input type="hidden" name="req_db_name" value={reqData.req_db_name} />
-									<Input type="hidden" name="REQ_DB_RECID" value={reqData.req_db_recid} />
-									<Input type="hidden" name="TIME_NEEDED" value={reqData.time_needed} />
-									<Input type="hidden" name="DATE_NEEDED" value={reqData.date_needed} />
-									<Input type="hidden" name="req_item_id" value={reqData.req_item_id} />
-									<Input type="hidden" name="REQ_NEXT_COLLECT" value={'X'} />
-									<Input type="hidden" name="REQ_ITEM_TITLE" value={convertToString(reqData, 'req_item_title')} />
+									{/* <input type="hidden" name="REQ_PICKUP_LOC" value="Service" /> */}
+									<input type="hidden" name="AUTO_APPROVE" value="Y" />
+									<input type="hidden" name="REQ_PROCESS_DATE" value="++1" />
+									<input type="hidden" name="REQ_STATUS" value="Retrieve" />
+									<input type="hidden" name="REC_STATUS" value="Active" />
+									<input type="hidden" name="REQ_DB_NAME" value={reqData.req_db_name} />
+									<input type="hidden" name="REQ_DB_RECID" value={reqData.req_db_recid} />
+									<input type="hidden" name="DATE_NEEDED" value={reqData.date_needed} />
+									<input type="hidden" name="TIME_NEEDED" value={reqData.time_needed} />
+									{reqData.req_next_collect && <input type="hidden" name="REQ_NEXT_COLLECT" value={reqData.req_next_collect} />}
+									{reqData.req_db_link1 && <input type="hidden" name="REQ_DB_LINK1" value={reqData.req_db_link1} />}
+									{reqData.req_db_link3 && <input type="hidden" name="REQ_DB_LINK3" value={reqData.req_db_link3} />}
+									{reqData.req_db_link3 && <input type="hidden" name="LIBRARY_REQ" value="Yes" />}
+									<input type="hidden" name="METHOD_REQUEST" value="Web" />
+									<input type="hidden" name="REQ_TOPIC" value="Retrieval Services" />
+									<input type="hidden" name="REQ_LOC_CODE" value={reqData.req_loc_code} />
+									<input type="hidden" name="REQ_APPL_NAME" value="M2A" />
+									<input type="hidden" name="REQ_TITLE" value={reqData.req_title} />
+									<input type="hidden" name="REQ_ITEM_ID" value={reqData.req_item_id} />
+									<input type="hidden" name="REQ_QUEUE" value="X" />
+									<input type="hidden" name="REQ_ITEM_TITLE" value={convertToString(reqData, 'req_item_title')} />
 									<Button className="bg-primary rounded mx-1 hover:bg-primary" type="submit" name="Submit" variant="default">
 										{message.request}
 									</Button>
@@ -74,11 +85,13 @@ const Request = () => {
 											<h1 className="text-xl font-bold">{message.archives}</h1>
 										</div>
 										<p className="text-lg font-bold mt-2">{convertToString(reqData, 'req_item_title')}</p>
-										<div>
-											<p className="text-sm text-gray-600">
-												{message.barcode} : {reqData.req_item_id}
-											</p>
-										</div>
+										{reqData.req_item_id && (
+											<div>
+												<p className="text-sm text-gray-600">
+													{message.barcode} : {reqData.req_item_id}
+												</p>
+											</div>
+										)}
 									</div>
 								</>
 							) : reqData?.req_db_name === REQUEST_BIBLIO_DB ? (
@@ -94,10 +107,13 @@ const Request = () => {
 											<h1 className="text-xl font-bold">{message.library}</h1>
 										</div>
 										<p className="text-lg font-bold mt-2">{convertToString(reqData, 'req_item_title')}</p>
-										<p className="text-sm text-gray-600">
-											{message.barcode}: {reqData.req_item_id}
-										</p>
-										{reqData.req_acc_number ? <p className="text-sm text-gray-600">{message.accessionNumber}: </p> : ''}
+										{reqData.req_item_id && (
+											<div>
+												<p className="text-sm text-gray-600">
+													{message.barcode} : {reqData.req_item_id}
+												</p>
+											</div>
+										)}
 									</div>
 								</>
 							) : (

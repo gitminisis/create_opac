@@ -114,7 +114,7 @@ export default function PatronProfile() {
 				</>
 			}
 			isLibrary={false}>
-			{/* <div className="mb-4 rounded-md bg-white p-6 shadow">
+			<div className="mb-4 rounded-md bg-white p-6 shadow">
 				<h1 className="text-3xl font-semibold text-gray-800">
 					{message.welcome} {records[0]?.full_name || 'User'}!
 				</h1>
@@ -173,7 +173,6 @@ export default function PatronProfile() {
 											{item === archives && <Archive className="w-5 h-5" />}
 											{item === museum && <Landmark className="w-5 h-5" />}
 											{item === library && <Library className="w-5 h-5" />}
-
 											{item === home
 												? Number(records[0].description_count) +
 													Number(records[0].collection_count) +

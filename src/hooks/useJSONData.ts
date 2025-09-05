@@ -112,10 +112,10 @@ const useJSONData = ({ selector, defaultData }: useJSONDataProps) => {
 		return object
 	}
 
-	const getPaginations = (): Pagination | null => {
+	const getPaginations = () => {
 		if (!data) return null
 
-		const pagination: Pagination = deepSearchKey(data, 'pagination')[0]
+		const pagination = deepSearchKey(data, 'pagination')[0]
 		if (!pagination) {
 			return null
 		}
@@ -123,10 +123,10 @@ const useJSONData = ({ selector, defaultData }: useJSONDataProps) => {
 		return pagination
 	}
 
-	const getFilter = (): FilterItem[] => {
+	const getFilter = () => {
 		if (!data) return []
 
-		const filterList: FilterItem[] = deepSearchKey(data, 'filter')[0]
+		const filterList = deepSearchKey(data, 'filter')[0]
 		if (!filterList) {
 			return []
 		}

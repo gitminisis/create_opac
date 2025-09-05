@@ -6,7 +6,7 @@ import { BookMarked, CalendarDays, Copy, Copyright, FileX, Home, Lightbulb, Mess
 
 const Sidebar = () => {
 	const m2l_patron_id = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-	const home_url = '?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
+	const home_url = '?SEARCH&DATABASE=CLIENT&REPORT=WEB_PATRON_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
 	return (
 		<aside className="fixed inset-y-0 left-0 z-10 hidden w-14 shadow-md flex-col border-r bg-background sm:flex">
 			<nav className="flex flex-col items-center gap-4 px-2 sm:py-5">

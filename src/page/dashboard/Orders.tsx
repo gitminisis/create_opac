@@ -11,14 +11,15 @@ import { ColumnDef } from '@tanstack/react-table'
 import axios from 'axios'
 import { Home } from 'lucide-react'
 
+const REQ_STATUS_TYPES = ['Retrieve', 'Prepare', 'Requested', 'Conservation']
+
 const Orders = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
 	const { message, config } = useConstants()
 	const { navigations } = config
 	const cancelRequest = (reqNumber: string) => {
-		var cancelReq_url = getCookieValue('HOME_SESSID') + '?MANIPXMLRECORD&KEY=REQ_ORDER_NUM&VALUE=' + reqNumber + '&DATABASE=REQUEST_INFO'
-		var xmlForm = '<?xml version="1.0" encoding="UTF-8"?>\n<RECORD>\n'
-		xmlForm = xmlForm.concat('<REC_STATUS>Deleted</REC_STATUS>\n')
+		var cancelReq_url = getCookieValue('HOME_SESSID') + '?MANIPXMLRECORD&KEY=REQ_ORDER_NUM&VALUE=' + reqNumber + '&DATABASE=REQUEST_VIEW'
+		var xmlForm = '<?xml version="1.0" encoding="UTF-8"?><RECORD><REC_STATUS>Deleted</REC_STATUS></RECORD>'
 		axios({
 			method: 'post',
 			url: cancelReq_url,
@@ -112,7 +113,7 @@ const Orders = () => {
 			},
 			cell: ({ row }) => (
 				<div className="underline">
-					{row.getValue('req_db_name') === navigations[1].search_database ? (
+					{row.original.req_db_name === navigations[1].database ? (
 						<a
 							href={
 								getHomeSessionID() +
@@ -178,22 +179,25 @@ const Orders = () => {
 					</Button>
 				)
 			},
-			cell: ({ row }) => (
-				<div className="">
-					{/* {row.getValue('rec_status') === 'Deleted' ? (
-						<Button disabled>{message.cancelled}</Button>
-					) : row.getValue('req_status') === 'Retrieve' ||
-					  row.getValue('req_status') === 'Prepared' ||
-					  row.getValue('req_status') === 'Requested' ||
-					  row.getValue('req_status') === 'Conservation' ? (
-						<Button onClick={() => cancelRequest(row.getValue('req_order_num'))}>{message.cancel}</Button>
-					) : ( */}
-						<Button disabled>{message.noAction}</Button>
-					{/* )} */}
-				</div>
-			),
+			cell: ({ row }) => {
+				if (row.original.rec_status === 'Deleted') {
+					return <Button disabled>{message.cancelled}</Button>
+				} else if (REQ_STATUS_TYPES.includes(row.original.req_status)) {
+					return <Button onClick={() => cancelRequest(row.original.req_order_num)}>{message.cancel}</Button>
+				} else {
+					return <Button disabled>{message.noAction}</Button>
+				}
+			},
 		},
 	]
+
+	const moveDeletedToBottom = (records: ProfileData[]) => {
+		return records.sort((a, b) => {
+			if (a.rec_status === 'Deleted' && b.rec_status !== 'Deleted') return 1
+			if (a.rec_status !== 'Deleted' && b.rec_status === 'Deleted') return -1
+			return 0
+		})
+	}
 
 	return (
 		<PatronLayout
@@ -204,7 +208,13 @@ const Orders = () => {
 				</>
 			}
 			heading="Orders">
-			<ProfileTable data={records} columns={columns} filterType={'req_item_title'} filterTypeShow="" filterDateType={'date_needed'} />
+			<ProfileTable
+				data={moveDeletedToBottom(records)}
+				columns={columns}
+				filterType={'req_item_title'}
+				filterTypeShow=""
+				filterDateType={'date_needed'}
+			/>
 		</PatronLayout>
 	)
 }

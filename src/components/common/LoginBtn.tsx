@@ -38,7 +38,7 @@ const LoginBtn = ({ className }: { className?: string }) => {
 							<Link
 								href={
 									getCookieValue('HOME_SESSID') +
-									'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
+									'?SEARCH&DATABASE=CLIENT&REPORT=WEB_PATRON_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
 								}
 								className="no-underline ml-[0.5rem]">
 								{message.dashboardHome}
@@ -48,7 +48,7 @@ const LoginBtn = ({ className }: { className?: string }) => {
 							<Link
 								href={
 									getCookieValue('HOME_SESSID') +
-									'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)'
+									'?SEARCH&DATABASE=PATRON_BIBLIO&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)'
 								}
 								className="no-underline ml-[0.5rem]">
 								{message.patronDashboard}
@@ -58,7 +58,7 @@ const LoginBtn = ({ className }: { className?: string }) => {
 							<Link
 								href={
 									getCookieValue('HOME_SESSID') +
-									'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_ACC_SETTINGS&EXP=patron_id+~3D+global(m2l_patron_id)'
+									'?SEARCH&DATABASE=CLIENT&REPORT=WEB_CLIENT_ACC_SETTINGS&EXP=patron_id+~3D+global(m2l_patron_id)'
 								}
 								className="no-underline ml-[0.5rem]">
 								{message.accountSettings}
