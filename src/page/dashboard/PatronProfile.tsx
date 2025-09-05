@@ -119,11 +119,11 @@ export default function PatronProfile() {
 					{message.welcome} {records[0]?.full_name || 'User'}!
 				</h1>
 				<p className="mt-2">{message.welcomeMessage}</p>
-			</div> */}
+			</div>
 
 			{/* Stats Grid */}
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				{/* {clientDashboardCards.map((card, index) => {
+				{clientDashboardCards.map((card, index) => {
 					const isSpecialLabel = card.label === 'Bookmarks' || card.label === 'Library Portal'
 					const href = getCookieValue('HOME_SESSID') + card.link + (isSpecialLabel ? '' : m2l_patron_id)
 
@@ -132,9 +132,9 @@ export default function PatronProfile() {
 							<StatCard icon={card.icon} label={card.label} color={card.color} value={card.value} />
 						</a>
 					)
-				})} */}
+				})}
 				{/* Calednar statCard's Anchor tag should be different, it uses commandsearch so never need seesion id, I made seperate StatCard for Calendar. Don Ryu 20250402 */}
-				{/* <a
+				<a
 					href={`/scripts/mwimain.dll/144/WEB_CALENDAR/WEB_CALENDAR_PROFILE?commandsearch&exp=%2B%2B%40&EXP=TAG_FUNC_P_ID%20${m2l_patron_id}&M_GVAR1=USER_ID:${m2l_patron_id}`}
 					className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
 					<StatCard
@@ -144,11 +144,11 @@ export default function PatronProfile() {
 						color={'pink'}
 						value={records[0].calendar_count}
 					/>
-				</a> */}
+				</a>
 			</div>
 
 			{/* Recent Media Section */}
-			{/* <div className="space-y-4 min-h-[550px]">
+			<div className="space-y-4 min-h-[550px]">
 				<div className="flex items-center justify-between">
 					<h2 className="text-xl font-medium">
 						<span>{message.searchDatabase}</span>
@@ -192,7 +192,7 @@ export default function PatronProfile() {
 						</div>
 					))}
 				</div>
-			</div> */}
+			</div>
 		</PatronLayout>
 	)
 }
