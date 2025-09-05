@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import useScreenDimensions from '@/hooks/useScreenDimensions'
-import { deleteTDRBookmark, generateBookmarkId, generateTDRIframeURL, getTDRAccessToken, getTDRBookmark, TDRFile } from '@/lib/tdr'
+import { createTDRBookmark, deleteTDRBookmark, generateBookmarkId, generateTDRIframeURL, getTDRAccessToken, getTDRBookmark, TDRFile } from '@/lib/tdr'
 import { useEffect, useState } from 'react'
 
 type TDRLinkingProps = { onAssetsSelect: (files: TDRFile[]) => void }
@@ -13,7 +13,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 	const [id, setId] = useState<string | undefined>()
 
 	useEffect(() => {
-		if (open && !id) {
+		if (accessToken && open && !id) {
 			const bookmarkId = generateBookmarkId()
 			setId(bookmarkId)
 		}
@@ -23,7 +23,7 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 
 			if (id && accessToken) {
 				deleteTDRBookmark(accessToken, id)
-					.then((res) => {})
+					.then((res) => { })
 					.catch((err) => console.error(err))
 			}
 		}

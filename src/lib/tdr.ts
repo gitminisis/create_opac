@@ -17,7 +17,7 @@ export const TDR_CONFIG: TdrParams = {
 	tdr_ui: 'https://titantdr.minisisinc.com',
 	login_endpoint: '/token',
 	search_endpoint: '/#/discover',
-	bookmark_endpoint: '/api/Discover/BookmarkLinks',
+	bookmark_endpoint: '/api/Discover/Bookmarks',
 	delete_bookmark_ep: '/api/Discover/Bookmarks',
 }
 type TdrParams = {
@@ -74,7 +74,7 @@ export const generateBookmarkId = (userName = OPAC_ADMIN_USERNAME) => {
 	const second = today.getSeconds().toString().padStart(2, '0')
 
 	// Generate bookmark ID
-	const bookmarkId = `${userName}_${year}${month}${day}`
+	const bookmarkId = `${userName}_${year}${month}${day}_${hour}${minute}${second}`
 	return bookmarkId
 }
 
@@ -94,6 +94,17 @@ export const getTDRAccessToken = async () => {
 		}
 	)
 
+	return res?.data
+}
+
+export const createTDRBookmark = async (accessToken: string, bookmarkId: string) => {
+	const res = await axios.post(`${TDR_CONFIG.tdr_api}/${TDR_CONFIG.bookmark_endpoint}`, {
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Accept: 'application/json',
+			Authorization: `Bearer ${accessToken}`,
+		},
+	})
 	return res?.data
 }
 
