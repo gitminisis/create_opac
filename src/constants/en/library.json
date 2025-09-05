@@ -91,5 +91,6 @@
 	"enableRecentAddition": false,
 	"enableMap": true,
 	"enableTimeline": true,
-	"linkURL": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html"
+	"linkURL": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html",
+	"filename":"library.html"
 }
