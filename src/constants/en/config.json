@@ -5,34 +5,33 @@
         "login": true,
         "url": "/scripts/mwimain.dll?get&file=[OPAC]login.html"
     },
-    "navigations": [
-        {
-            "url": "/",
-            "title": "Home",
-            "search_database": ""
-        },
-        {
-            "url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]archives.html",
-            "title": "Archives",
-            "search_database": "DESCRIPTION_WEB",
-            "color": "bg-minisis-archives",
-            "text": "text-minisis-archives"
-        },
-        {
-            "url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html",
-            "title": "Library",
-            "search_database": "BIBLIO_WEB",
-            "color": "bg-minisis-museum",
-            "text": "text-minisis-museum"
-        },
-        {
-            "url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]museum.html",
-            "title": "Museum",
-            "search_database": "COLLECTIONS_WEB",
-            "color": "bg-minisis-library",
-            "text": "text-minisis-library"
-        }
-    ],
+	"navigations": [
+		{ "url": "/", "title": "Home", "search_database": "", "database": "" },
+		{
+			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]archives.html",
+			"title": "Archives",
+			"search_database": "DESCRIPTION_WEB",
+			"database": "DESCRIPTION",
+			"color": "bg-minisis-archives",
+			"text": "text-minisis-archives"
+		},
+		{
+			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html",
+			"title": "Library",
+			"search_database": "BIBLIO_WEB",
+			"database": "BIBLIO",
+			"color": "bg-minisis-museum",
+			"text": "text-minisis-museum"
+		},
+		{
+			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]museum.html",
+			"title": "Museum",
+			"search_database": "COLLECTIONS_WEB",
+			"database": "COLLECTIONS",
+			"color": "bg-minisis-library",
+			"text": "text-minisis-library"
+		}
+	],
     "heading": "MINISIS OPAC Template",
 	"requestConfig": {
 		"archiveRequest": true,
