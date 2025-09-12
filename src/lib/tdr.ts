@@ -59,7 +59,8 @@ export type TDRFile = {
 
 export const generateTDRIframeURL = (access_token: string, bookmarkId: string) => {
 	// Generate discovery URL
-	const discoveryUrl = `${TDR_CONFIG.tdr_ui}${TDR_CONFIG.search_endpoint}/${bookmarkId}`
+	const discoveryUrl = `${TDR_CONFIG.tdr_ui}/#/Search?phrase=++@&bookmark=${bookmarkId}&token=${access_token}`
+	
 	return discoveryUrl
 }
 

@@ -59,7 +59,6 @@ const TDRLinking = ({ onAssetsSelect }: TDRLinkingProps) => {
 					<Button
 						onClick={async () => {
 							const authRes = await getTDRAccessToken()
-
 							if (!open && authRes) {
 								setAccessToken(authRes.access_token)
 								setOpen(true)
