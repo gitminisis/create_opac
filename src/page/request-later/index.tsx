@@ -110,7 +110,7 @@ const RequestLater = () => {
 		return { delivery_day: '1' }
 	}
 
-	function isOpen(date: Date) {
+	function isClosed(date: Date) {
 		const today = new Date()
 		today.setHours(0, 0, 0, 0)
 
@@ -126,9 +126,9 @@ const RequestLater = () => {
 		if (inputDate < blockedUntil) return false
 
 		const yyyyMMdd = date.toISOString().split('T')[0]
-		if (specialOpenDates.has(yyyyMMdd)) return true
-		if (closureDates.has(yyyyMMdd)) return false
-		return openWeekdays.includes(date.getDay())
+		if (specialOpenDates.has(yyyyMMdd)) return false
+		if (closureDates.has(yyyyMMdd)) return true
+		return openWeekdays.includes(date.getDay()) ? false : true
 	}
 
 	const handleSelect = (date: Date | undefined) => {
@@ -198,7 +198,7 @@ const RequestLater = () => {
 											mode="single"
 											selected={selectDate?.date}
 											onSelect={handleSelect}
-											disabled={(date: Date) => !isOpen(date)}
+											disabled={(date: Date) => isClosed(date)}
 										/>
 									</div>
 									<div className="md:w-1/2 text-center md:text-left">

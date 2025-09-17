@@ -13,6 +13,7 @@ import Hero from '../components/common/Hero'
 import Layout from '../components/layouts'
 import { MainPageProps, UNION_SEARCH_CL } from './Home'
 import TimeLine from '@/components/common/interactive-timeline'
+import Indexes from '@/components/features/Indexes'
 
 const Archives = ({ previewMode = false, previewData }: MainPageProps) => {
 	const [showAdvSearch, setShowAdvSearch] = useState(false)
@@ -32,6 +33,7 @@ const Archives = ({ previewMode = false, previewData }: MainPageProps) => {
 			</Hero>
 			{showAdvSearch && <AdvancedSearchForm search_database={database_name} url={getSearchURL(searchURL)} />}
 			{enableFeaturedCollection && <FeaturedCollection page={'archives'} previewData={previewData} previewMode={previewMode} />}
+			<Indexes />
 
 			{enableCategoriesItems && <Categories page={'archives'} previewData={previewData} previewMode={previewMode} />}
 

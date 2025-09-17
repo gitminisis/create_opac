@@ -22,7 +22,7 @@ type ItemContent = {
 
 const ITEMS_PER_PAGE = 20
 
-const RequestAccordianDesc = () => {
+const RequestAccordianDesc = ({ isClose }: { isClose: boolean }) => {
 	const { message, config } = useConstants()
 	const { records } = useJSONData({ selector: '#xml_record' })
 	const record = records[0]
@@ -64,6 +64,7 @@ const RequestAccordianDesc = () => {
 	}
 
 	const checkStatus = (value: ItemContent) => {
+		if (isClose) return true
 		if (value.is_requested_by_client === 'Current') return true
 		if (!config.requestConfig.archiveWaitlistEnabled) {
 			if (value.is_requested_by_client === 'No') {
@@ -109,7 +110,7 @@ const RequestAccordianDesc = () => {
 													<div className="flex gap-2">
 														<TooltipButton
 															disabled={checkStatus(value)}
-															tooltipContent={message.requestRecord}
+															tooltipContent={message.request}
 															variant="outline"
 															onClick={() => handleRequest(value.id)}>
 															<SquareCheck />

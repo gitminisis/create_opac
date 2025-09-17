@@ -38,7 +38,6 @@ interface SecurityFormErrors {
 
 export default function AccountSettings(): JSX.Element {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	console.log(records)
 	const [activeTab, setActiveTab] = useState<string>('profile')
 
 	// Profile form state

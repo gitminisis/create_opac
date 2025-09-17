@@ -282,5 +282,11 @@
 	"collectionClosed": "La collecte de {collectionTime} est fermée.",
 	"orderMore": "Vous pouvez commander {count} articles dans la collecte de {nextCollectionTime}.",
 	"limits": "Limite : {perCollection} par collecte, {total} au total.",
-	"currentStatus": "Actuellement : {liveOrders} commandes actives, {available} disponibles."
+	"currentStatus": "Actuellement : {liveOrders} commandes actives, {available} disponibles.",
+	"browseByTitle": "Parcourir par titre pour les archives",
+	"digitalDocumentsOnly": "Documents numériques uniquement",
+	"allOfTheseKeywords": "Tous ces mots-clés",
+	"anyOfTheseKeywords": "N'importe lequel de ces mots-clés",
+	"exactPhrase": "Expression exacte",
+	"closedForToday":"Les archives sont fermées pour aujourd'hui"
 }
