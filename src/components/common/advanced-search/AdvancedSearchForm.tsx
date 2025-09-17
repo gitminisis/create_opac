@@ -116,7 +116,11 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 		}
 		let len = data.length
 		let qry = data.map((exp, index) => `${exp.field} ${exp.keyword} ${exp.boolean && index !== len - 1 ? exp.boolean : ''}`).join(' ')
-		inputRef.current.value = `${qry}`
+		if (digitalDoc) {
+			qry += ` AND MEDIA_PRESENT_UN Ready`
+		}
+
+		inputRef.current.value = qry
 		formRef.current?.submit()
 	}
 
@@ -129,7 +133,6 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 				<div className={'text-center'}>{message.advanceSearchDesc}</div>
 				<form ref={formRef} method="POST" id="advancedSearchForm" action={`${url}`} className={'hidden'}>
 					<input name="QUERY_EXPRESSION" ref={inputRef} hidden id="advancedSearchInput" />
-					{digitalDoc && <input name="QUERY_EXPRESSION" hidden value={'MEDIA_PRESENT_UN READY'} />}
 					{selected && <input type="hidden" name={'FLD_OP1'} value={selected} />}
 				</form>
 				<div className={'w-full md:w-4/6 mt-3 flex flex-col items-center'}>
