@@ -1,1 +1,43 @@
-{"siteName":"CSIS Archive","logo":"https://www.gg.ca/sites/default/files/elementimages/v102_20060102_badge_securityintelligence.jpg","auth":{"login":true,"url":"/scripts/mwimain.dll?get&file=[OPAC]login.html"},"reCaptchaKey":"6LcOFlYqAAAAAHc_oWNTonTkkRdzvQ30B42eQm6r","navigations":[{"url":"/","title":"Home","search_database":""},{"url":"/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]archives.html","title":"Archives","search_database":"DESCRIPTION_WEB","color":"bg-minisis-archives","text":"text-minisis-archives"},{"url":"/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html","title":"Library","search_database":"BIBLIO_WEB","color":"bg-minisis-museum","text":"text-minisis-museum"},{"url":"/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]museum.html","title":"Museum","search_database":"COLLECTIONS_WEB","color":"bg-minisis-library","text":"text-minisis-library"}],"heading":"MINISIS OPAC Template"}
+{
+    "siteName": "Kingdom of Bahrain - Cabinet Affairs ",
+    "logo": "https://titantdrapi.minisisinc.com/api/links/32e87293e02049cabf66f4162b2a0f85/uuid/90014e51ebc4440c80f9012a565bf4a0/t",
+    "auth": {
+        "login": true,
+        "url": "/scripts/mwimain.dll?get&file=[OPAC]login.html"
+    },
+	"navigations": [
+		{ "url": "/", "title": "Home", "search_database": "", "database": "" },
+		{
+			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]archives.html",
+			"title": "Archives",
+			"search_database": "DESCRIPTION_WEB",
+			"database": "DESCRIPTION",
+			"color": "bg-minisis-archives",
+			"text": "text-minisis-archives"
+		},
+		{
+			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]library.html",
+			"title": "Library",
+			"search_database": "BIBLIO_WEB",
+			"database": "BIBLIO",
+			"color": "bg-minisis-museum",
+			"text": "text-minisis-museum"
+		},
+		{
+			"url": "/scripts/mwimain.dll?logon&application=UNION_VIEW&language=144&file=[OPAC]museum.html",
+			"title": "Museum",
+			"search_database": "COLLECTIONS_WEB",
+			"database": "COLLECTIONS",
+			"color": "bg-minisis-library",
+			"text": "text-minisis-library"
+		}
+	],
+    "heading": "MINISIS OPAC Template",
+	"requestConfig": {
+		"archiveRequest": true,
+        "libraryRequest": true,
+        "archiveWaitlistEnabled": true,
+        "libraryWaitlistEnabled": true
+	}
+    
+}

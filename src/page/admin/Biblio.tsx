@@ -124,7 +124,14 @@ const Form = ({ lang }: { lang: 'en' | 'fr' }) => {
 										handleChange(['featuredCollection', `${index}`, 'title'], e)
 									}
 								/>
-
+								<FormField
+									type="text"
+									field={'Description'}
+									value={item.description}
+									onChange={(e) =>
+										handleChange(['featuredCollection', `${index}`, 'description'], e)
+									}
+								/>
 								<FormField
 									type="text"
 									field={'Search expression'}

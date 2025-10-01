@@ -1,0 +1,103 @@
+{
+    "heading": "Bienvenue sur votre nouveau portail!",
+    "heroBanner": "https://images.unsplash.com/photo-1559511260-66a654ae982a",
+    "searchURL": "UNIONSEARCH&SHOWSINGLE=Y&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW",
+    "browseByCategoryTitle": "Parcourir par catégorie",
+    "calendarfilterOption": "",
+    "database_name": "UNION_VIEW",
+    "displayTitle": "Accueil",
+    "categoriesItems": [
+        {
+            "thumbnail": "https://images.unsplash.com/photo-1452587925148-ce544e77e70d",
+            "title": "Images Numériques",
+            "url": "KEYWORD_CLUSTER \"digital image\""
+        },
+        {
+            "thumbnail": "https://images.unsplash.com/photo-1472173148041-00294f0814a2",
+            "title": "Livres",
+            "url": "KEYWORD_CLUSTER \"book\""
+        },
+        {
+            "thumbnail": "https://images.unsplash.com/photo-1479642770516-f2df0a071c6c",
+            "title": "Photographies",
+            "url": "KEYWORD_CLUSTER \"photograph\""
+        },
+        {
+            "thumbnail": "https://images.unsplash.com/photo-1611149916119-c6c16eb89f89",
+            "title": "Peintures",
+            "url": "KEYWORD_CLUSTER \"painting\""
+        }
+    ],
+    "rsvp": {
+        "filterDatabase": "",
+        "filterOption": "TAG_DB_TYPE",
+        "filterTypes": [
+            {
+                "type": "Archives",
+                "color": "bg-minisis-archives border-minisis-archives",
+                "icon": "rounded"
+            },
+            {
+                "type": "Library",
+                "color": "bg-minisis-museum border-minisis-museum",
+                "icon": "rounded"
+            },
+            {
+                "type": "Museum",
+                "color": "bg-minisis-library border-minisis-library",
+                "icon": "rounded"
+            }
+        ]
+    },
+    "featuredCollection": [
+        {
+            "title": "Fonds de la famille Savauge",
+            "description": "Partez à la quête de la compréhension et de l’illumination.",
+            "url": "REFD C 319",
+            "thumbnail": "https://cams1.minisisinc.com/media/I0014102.jpg"
+        },
+        {
+            "title": "Collection d’art documentaire des Archives de l’Ontario",
+            "description": "Vivez l’excitation de donner vie aux idées.",
+            "url": "REFD C 281",
+            "thumbnail": "https://cams1.minisisinc.com/media/I0003077.jpg"
+        },
+        {
+            "title": "Fonds Alexander Thurtell Brown",
+            "description": "Embarquez pour des voyages passionnants et des découvertes palpitantes.",
+            "url": "REFD C 302",
+            "thumbnail": "https://cams1.minisisinc.com/media/I0016400.JPG"
+        }
+    ],
+    "topPicks": [
+        {
+            "title": "Savauge family fonds",
+            "subTitle": " Fonds",
+            "description": "Le fonds est composé de négatifs sur plaques de verre pris par un ou plusieurs membres de la famille Savauge. Les sujets des photographies comprennent des vues de la région de Seaforth, en Ontario, notamment des scènes d’une érablière près de la ville, des vues de l’atelier de l’usine de bicyclettes C.C.M. locale, ainsi que des vues intérieures de la maison familiale des Savauge. Les photographies montrent également le littoral du lac Huron, des vues de Souris, au Manitoba, et des paysages près de Toronto, en Ontario, y compris le Fort York, les falaises de Scarborough et les îles de Toronto. Sont également incluses des images d’un déraillement de train et des portraits de divers membres de la famille Savauge.",
+            "expression": "REFD C 319",
+            "database": "DESCRIPTION_WEB"
+        },
+        {
+            "title": "Archives of Ontario documentary art collection",
+            "subTitle": "Fonds",
+            "description": "La collection se compose de dessins, peintures, estampes et plaques en bronze constituant un regroupement artificiel d’éléments distincts créés par diverses personnes. Les documents de cette collection illustrent différents lieux géographiques en Ontario et au Québec, notamment les chutes Niagara et Toronto, des portraits de personnalités importantes, ainsi que des caricatures politiques et des illustrations de journaux.",
+            "expression": "REFD C 281",
+            "database": "DESCRIPTION_WEB"
+        },
+        {
+            "title": "John Macfie fonds",
+            "subTitle": "Fonds",
+            "description": "e fonds se compose de photographies négatives prises par John Macfie lorsqu’il travaillait pour le ministère des Terres et Forêts dans le nord de l’Ontario. Les photographies représentent diverses tribus et activités des Cris, Iroquois et Ojibwés dans le district de Patricia, une région située directement au nord du lac Supérieur, à la lisière ouest de la baie James et de la baie d’Hudson. Elle comprenait Fort Severn, Fort Albany, Attawapiskat, Landsdowne House, Sioux Lookout, Weenusk, Moose Factory, Gogoma et la réserve Mattagami.\nMacfie a utilisé un appareil Kodak, un Rolleicord et un Zeiss Contax pour les diapositives couleur 35 mm.",
+            "expression": "REFD C 330",
+            "database": "DESCRIPTION_WEB"
+        }
+    ],
+    "enableCategoriesItems": true,
+    "enableFeaturedCollection": true,
+    "enableRSVP": true,
+    "enableRecentAddition": false,
+    "enableTopPicks": true,
+    "enableMap": true,
+    "enableTimeline": true,
+    "linkURL": "/"
+}
