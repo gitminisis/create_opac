@@ -15,7 +15,7 @@ export interface AuthResponse {
   avatar: string | null;
 }
 
-const API_BASE_URL = 'http://titantdrapi.minisisinc.com';
+const API_BASE_URL = 'http://test-titantdrapi.minisisinc.com';
 const TOKEN_ENDPOINT = '/token';
 
 // Create axios instance with base URL
@@ -33,8 +33,8 @@ let failedQueue: Array<{
 
 // Default login credentials for automatic login
 const defaultCredentials = {
-  username: 'Cams.Dev',
-  password: 'Cams.Dev',
+  username: 'camstesttdr',
+  password: 'Demo_Account1',
   grant_type: 'password',
 };
 

@@ -141,7 +141,7 @@
 	"passwordChangeSuccess": "You've successfully changed your password. Please log in with your new password to access your account.",
 	"passwordsDoNotMatch": "Passwords do not match",
 	"passwordValidation": "Must be more than 8 characters, at least one uppercase letter",
-	"patronDashboard": "Library Dashboard",
+	"libraryDashboard": "Library Dashboard",
 	"phone": "Phone",
 	"pleaseCancel": "This will cancel your registration for",
 	"pleaseConfirm": "Please confirm your registration",
@@ -286,5 +286,6 @@
   "allOfTheseKeywords": "All of these keywords",
   "anyOfTheseKeywords": "Any of these keywords",
   "exactPhrase": "Exact phrase",
-  "closedForToday":"Archive is closed for today"
+  "closedForToday":"Archive is closed for today",
+  "youHaveAlreadyRequested": "You have already requested"
 }

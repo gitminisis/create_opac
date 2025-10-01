@@ -33,23 +33,18 @@ const Slide = <T,>({ items, className, renderItem, carouselStyle, auto = false, 
 		})
 	}, [carouselApi])
 
-	const handleIndexClick = (index: number) => {
-		if (carouselApi) {
-			carouselApi.scrollTo(index)
-		}
-	}
 
 	return (
-		<div className="w-full  mx-auto">
+		<div className="w-full mx-auto relative">
 			<Carousel
 				setApi={setCarouselApi}
 				plugins={
 					auto
 						? [
-								Autoplay({
-									delay,
-								}),
-							]
+							Autoplay({
+								delay,
+							}),
+						]
 						: undefined
 				}
 				className={cn('w-full', className)}>
@@ -60,8 +55,8 @@ const Slide = <T,>({ items, className, renderItem, carouselStyle, auto = false, 
 						</CarouselItem>
 					))}
 				</CarouselContent>
-				<CarouselPrevious className="bottom-[-40px] left-[calc(50%-20px)]" />
-				<CarouselNext className="bottom-[-40px] left-[calc(50%+20px)]" />
+				<CarouselPrevious className="hidden sm:flex absolute left-[-25px] top-1/2 transform -translate-y-1/2 h-10 w-10 border-2" />
+				<CarouselNext className="hidden sm:flex absolute right-[-25px] top-1/2 transform -translate-y-1/2 h-10 w-10 border-2" />
 			</Carousel>
 			{/* 
 			<div className="flex justify-center mt-4 space-x-2">

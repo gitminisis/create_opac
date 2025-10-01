@@ -43,6 +43,7 @@ const RequestAccordianBiblio = () => {
 	const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
 	const loadMoreRef = useRef<HTMLDivElement | null>(null)
 	let items = convertToArr(item_info_occurrence)
+	const patronID = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
 
 	useEffect(() => {
 		if (!loadMoreRef.current) return
@@ -61,7 +62,6 @@ const RequestAccordianBiblio = () => {
 	}, [])
 
 	const handleRequest = (barcode: string) => {
-		const patronID = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
 		const form = document.getElementById(`form-${barcode}`) as HTMLFormElement
 		if (patronID) return form?.submit()
 		return toast({ title: `${message.pleaseLoginForRequesting}` })
@@ -70,14 +70,13 @@ const RequestAccordianBiblio = () => {
 	// Check that item is reqeuested by current user
 	// Check that item waitlist is allowed
 	// Check that item is requestable by status
-	const isRequestable = (barcode: string, status: string) => {
+	const isRequestDisabled = (barcode: string, status: string) => {
 		let arr = convertToArr(record.cur_user_request)
-		let res
+		let res = false
 		arr.map((item) => {
-			if (barcode === item) {
+			if (barcode == item) {
 				res = true
-			} else {
-				res = false
+				return
 			}
 		})
 
@@ -85,7 +84,7 @@ const RequestAccordianBiblio = () => {
 			if (config.requestConfig.libraryWaitlistEnabled) {
 				return !IS_REQUESTABLE_ARR.includes(status)
 			} else {
-				return status === 'AVAILABLE' ? false :true
+				return status === 'AVAILABLE' ? false : true
 			}
 		}
 
@@ -133,43 +132,59 @@ const RequestAccordianBiblio = () => {
 												<td className="border px-4 py-2">{value.media_type ?? 'N/A'}</td>
 												<td className="border px-4 py-2">{value.holding_centre ?? 'N/A'}</td>
 												<td className="border px-4 py-2">{value.item_status ?? 'N/A'}</td>
-												<td className="border px-4 py-2">
-													<div className="flex gap-2">
-														<TooltipButton
-															key={value.barcode}
-															disabled={isRequestable(value.barcode, value.item_status)}
-															tooltipContent={message.request}
-															variant="outline"
-															onClick={() => handleRequest(value.barcode)}>
-															<SquareCheck />
-														</TooltipButton>
-														<form
-															id={`form-${value.barcode}`}
-															method="post"
-															action={
-																getHomeSessionID() +
-																'/1/' +
-																record.request.req_db_link3 +
-																'?REQUESTLOGIN&DBNAME=BIBLIO_WEB'
-															}
-															className="hidden">
-															<input type="hidden" name="REQ_ITEM_ID" value={`${value.barcode}`} />
-															<input type="hidden" name="REQ_WAIT_TIME" value={request.req_wait_time} />
-															<input type="hidden" name="ITEM_REQ_TIME" value={request.item_req_time} />
-															<input type="hidden" name="METHOD_REQUEST" value={request.method_request} />
-															<input type="hidden" name="REQ_TOPIC" value={request.req_topic} />
-															<input type="hidden" name="REQ_APPL_NAME" value={request.req_appl_name} />
-															<input type="hidden" name="REQ_DB_NAME" value={REQUEST_BIBLIO_DB} />
-															<input type="hidden" name="REQ_DB_RECID" value={request.req_db_recid} />
-															<input type="hidden" name="REQ_TITLE" value={request.req_title} />
-															<input type="hidden" name="REQ_DB_LINK3" value={request.req_db_link3} />
-															<input type="hidden" name="REQ_ITEM_TITLE" value={request.req_item_title} />
-															<input type="hidden" name="REQ_QUEUE" value={request.req_queue} />
-															<input type="hidden" name="LIBRARY_REQ" value={request.library_req} />
-															<input type="hidden" name="REQ_NEXT_COLLECT" value={request.req_next_collect} />
-															<input type="hidden" name="REQ_PICKUP_LOC" value={request.req_pickup_loc} />
-														</form>
-													</div>
+												<td className="border px-4 py-2 min-w-[80px]">
+													{patronID && (
+														<div className="flex gap-2">
+															{isRequestDisabled(value.barcode, value.item_status) ? (
+																<TooltipButton
+																	key={value.barcode}
+																	tooltipContent={message.youHaveAlreadyRequested}
+																	variant="outline"
+																	onClick={() =>
+																		(window.location.href =
+																			getCookieValue('HOME_SESSID') +
+																			'?SEARCH&DATABASE=PATRON_BIBLIO&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)')
+																	}>
+																	<SquareCheck className="text-gray-500" />
+																</TooltipButton>
+															) : (
+																<TooltipButton
+																	key={value.barcode}
+																	tooltipContent={message.request}
+																	variant="default"
+																	onClick={() => handleRequest(value.barcode)}>
+																	<SquareCheck />
+																</TooltipButton>
+															)}
+
+															<form
+																id={`form-${value.barcode}`}
+																method="post"
+																action={
+																	getHomeSessionID() +
+																	'/1/' +
+																	record.request.req_db_link3 +
+																	'?REQUESTLOGIN&DBNAME=BIBLIO_WEB'
+																}
+																className="hidden">
+																<input type="hidden" name="REQ_ITEM_ID" value={`${value.barcode}`} />
+																<input type="hidden" name="REQ_WAIT_TIME" value={request.req_wait_time} />
+																<input type="hidden" name="ITEM_REQ_TIME" value={request.item_req_time} />
+																<input type="hidden" name="METHOD_REQUEST" value={request.method_request} />
+																<input type="hidden" name="REQ_TOPIC" value={request.req_topic} />
+																<input type="hidden" name="REQ_APPL_NAME" value={request.req_appl_name} />
+																<input type="hidden" name="REQ_DB_NAME" value={REQUEST_BIBLIO_DB} />
+																<input type="hidden" name="REQ_DB_RECID" value={request.req_db_recid} />
+																<input type="hidden" name="REQ_TITLE" value={request.req_title} />
+																<input type="hidden" name="REQ_DB_LINK3" value={request.req_db_link3} />
+																<input type="hidden" name="REQ_ITEM_TITLE" value={request.req_item_title} />
+																<input type="hidden" name="REQ_QUEUE" value={request.req_queue} />
+																<input type="hidden" name="LIBRARY_REQ" value={request.library_req} />
+																<input type="hidden" name="REQ_NEXT_COLLECT" value={request.req_next_collect} />
+																<input type="hidden" name="REQ_PICKUP_LOC" value={request.req_pickup_loc} />
+															</form>
+														</div>
+													)}
 												</td>
 											</tr>
 										))}

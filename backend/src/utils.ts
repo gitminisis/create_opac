@@ -13,61 +13,58 @@ export function setFileContent(fp: string, content: string) {
 	}
 }
 
-export function rebuildOPAC() {
+export function rebuildOPAC(): Promise<{ success: boolean; message: string }> {
 	const base = path.dirname(path.dirname(__dirname))
 
-	const process = exec(`cd ${base} && npx vite build`, (error, stdout, stderr) => {
-		if (error) {
-			console.error(`Build error: ${error.message}`)
-			return
-		}
-
-		if (stderr) {
-			console.error(`Build stderr: ${stderr}`)
-		}
-
-		console.log(`Build stdout:\n${stdout}`)
-
-		// Get the current branch name
-		exec(`cd ${base} && git rev-parse --abbrev-ref HEAD`, (err, branchStdout) => {
-			if (err) {
-				console.error(`Error getting branch name: ${err.message}`)
+	return new Promise((resolve) => {
+		const process = exec(`cd ${base} && npx vite build`, (error, stdout, stderr) => {
+			if (error) {
+				console.error(`Build error: ${error.message}`)
+				resolve({ success: false, message: `Build error: ${error.message}` })
 				return
 			}
 
-			const branch = branchStdout.trim()
+			if (stderr) {
+				console.error(`Build stderr: ${stderr}`)
+			}
 
-			// Run git commands sequentially
-			exec(`cd ${base} && git add . && git commit -m "admin: CMS update" && git push origin ${branch}`, (gitError, gitStdout, gitStderr) => {
-				if (gitError) {
-					console.error(`Git error: ${gitError.message}`)
+			console.log(`Build stdout:\n${stdout}`)
+
+			// Get the current branch name
+			exec(`cd ${base} && git rev-parse --abbrev-ref HEAD`, (err, branchStdout) => {
+				if (err) {
+					console.error(`Error getting branch name: ${err.message}`)
+					resolve({ success: false, message: `Error getting branch name: ${err.message}` })
 					return
 				}
 
-				if (gitStderr) {
-					console.error(`Git stderr: ${gitStderr}`)
-				}
+				const branch = branchStdout.trim()
 
-				console.log(`Git stdout:\n${gitStdout}`)
+				// Run git commands sequentially
+				exec(`cd ${base} && git add . && git commit -m "admin: CMS update" && git push origin ${branch}`, (gitError, gitStdout, gitStderr) => {
+					if (gitError) {
+						console.error(`Git error: ${gitError.message}`)
+						// Still consider it a success if git fails, as the build itself succeeded
+						resolve({ success: true, message: 'Build completed successfully, but git operations failed' })
+						return
+					}
+
+					if (gitStderr) {
+						console.error(`Git stderr: ${gitStderr}`)
+					}
+
+					console.log(`Git stdout:\n${gitStdout}`)
+					resolve({ success: true, message: 'Build and deployment completed successfully' })
+				})
 			})
 		})
-	})
 
-	process.on('spawn', () => {
-		console.log('Build started')
+		process.on('spawn', () => {
+			console.log('Build started')
+		})
+		process.on('error', (err) => {
+			console.error('Build process error:', err)
+			resolve({ success: false, message: `Build process error: ${err.message}` })
+		})
 	})
-	process.on('exit', () => {
-		console.log('Build process exited')
-	})
-	process.on('disconnect', () => {
-		console.log('Build process disconnected')
-	})
-	process.on('close', () => {
-		console.log('Build process closed')
-	})
-	process.on('error', (err) => {
-		console.error('Build process error:', err)
-	})
-
-	return process
 }

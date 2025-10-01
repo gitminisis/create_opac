@@ -6,24 +6,26 @@ import { Button } from '@/components/ui/button'
 import { FolderOpen, RefreshCw, X } from 'lucide-react'
 import axios from 'axios'
 import * as Dialog from '@radix-ui/react-dialog'
+import { SelectedItem } from './type'
+import { Badge } from '@/components/ui/badge'
 
 const HoldOn = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
 	const record = records[0]
 	const { message } = useConstants()
 	const holdRequests = convertToArr(record.hold_on)
-	const [selectedId, setselectedId] = useState<any>([])
+	const [selectedItem, setselectedItem] = useState<SelectedItem[]>([])
 
-	const handleCheck = (item: { id: string; value: string }, checked: boolean) => {
-		const updated = checked ? [...selectedId, item] : selectedId.filter((b: { id: string; value: string }) => b.id !== item.id)
-		setselectedId(updated)
+	const handleCheck = (item: { id: string; barcode: string }, checked: boolean) => {
+		const updated = checked ? [...selectedItem, item] : selectedItem.filter((b: { id: string; barcode: string }) => b.id !== item.id)
+		setselectedItem(updated)
 	}
 
 	const handleCheckAll = () => {
 		const allItems = holdRequests.map((item) => {
-			return { id: item.id, value: item.value }
+			return { id: item.id, barcode: item.barcode }
 		})
-		setselectedId(allItems)
+		setselectedItem(allItems)
 	}
 
 	const getImage = (item: any) => {
@@ -32,16 +34,13 @@ const HoldOn = () => {
 	}
 
 	const onSubmit = async () => {
-		const data = selectedId.reduce(
-			(acc: { [x: string]: any }, item: any) => {
-				acc[item.id] = item.value
-				return acc
-			},
-			{} as Record<string, string>
-		)
-		const params = new URLSearchParams(data).toString()
+		const params = new URLSearchParams()
+		selectedItem.forEach((item) => {
+			params.append(item.id, `CANCEL:${item.barcode}`)
+		})
+
 		return await axios
-			.post(`${getSessionID()}/${record.sisn}?MANIPITEM&REPORT=WEB_LIBRARY_CIRC_DASHBOARD`, params, {
+			.post(`${getSessionID()}/${record.sisn}?MANIPITEM&REPORT=WEB_LIBRARY_CIRC_DASHBOARD`, params.toString(), {
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			})
 			.then(() => {
@@ -58,7 +57,9 @@ const HoldOn = () => {
 					<div className="w-full flex my-2">
 						<Dialog.Root>
 							<Dialog.Trigger>
-								<Button disabled={selectedId.length > 0 ? false : true}>{message.cancel} {message.selected}</Button>
+								<Button disabled={selectedItem.length > 0 ? false : true}>
+									{message.cancel} {message.selected}
+								</Button>
 							</Dialog.Trigger>
 							<Dialog.Portal>
 								<Dialog.Overlay className="fixed inset-0 bg-black/40" />
@@ -82,23 +83,21 @@ const HoldOn = () => {
 								</Dialog.Content>
 							</Dialog.Portal>
 						</Dialog.Root>
-
 						<Button onClick={handleCheckAll} className={'mx-1'}>
 							{message.selectAll}
 						</Button>
-						<Button onClick={() => setselectedId([])} className={'mx-1'}>
+						<Button onClick={() => setselectedItem([])} className={'mx-1'}>
 							<RefreshCw />
 						</Button>
 					</div>
-
 					<div className="grid grid-cols-1 md:grid-cols-4 gap-4 max-h-[415px] overflow-y-auto">
 						{holdRequests.map((item, key) => {
-							const checked = selectedId.some((selected: any) => selected.id === item.id)
+							const checked = selectedItem.some((selected: any) => selected.barcode === item.barcode)
 
 							return (
 								<div key={key} className="rounded-md bg-white p-6 shadow">
 									<div className="flex flex-col gap-2">
-										<div className="flex justify-between items-start">
+										<div className="flex justify-between items-start relative">
 											<a href={`${getHomeSessionID()}/BIBLIO_WEB/BARCODE/${item.barcode}/WEB_UNION_DETAIL?JUMP`}>
 												<img
 													alt={message.noMediaFound}
@@ -110,8 +109,11 @@ const HoldOn = () => {
 												type="checkbox"
 												className="w-5 h-5 accent-primary border-gray-300 rounded  transition-all duration-150"
 												checked={checked}
-												onChange={(e) => handleCheck({ id: item.id, value: item.value }, e.target.checked)}
+												onChange={(e) => handleCheck({ id: item.id, barcode: item.barcode }, e.target.checked)}
 											/>
+											<Badge className="absolute bg-gray-300 right-[-6] bottom-1" variant={'tag'}>
+												{item.media_type ?? 'N/A'}
+											</Badge>
 										</div>
 
 										<div className="text-left font-bold h-[70px] overflow-hidden text-ellipsis">{item.title}</div>
@@ -120,6 +122,10 @@ const HoldOn = () => {
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.barcode}</span>
 												<span className="text-gray-900 font-medium">{item.barcode}</span>
+											</div>
+											<div className="flex justify-between">
+												<span className="text-gray-500">{message.volumeNumber}</span>
+												<span className="text-gray-900 font-medium">{item.volume_id ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.pickUpBefore}</span>

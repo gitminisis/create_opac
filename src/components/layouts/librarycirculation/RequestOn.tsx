@@ -6,6 +6,8 @@ import DropdownSelect from '@/components/common/DropdownSelect'
 import { Button } from '@/components/ui/button'
 import { CheckCheck, FolderOpen, RefreshCw } from 'lucide-react'
 import RequestModal from './RequestModal'
+import { SelectedItem } from './type'
+import { Badge } from '@/components/ui/badge'
 
 const RequestOn = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
@@ -13,23 +15,22 @@ const RequestOn = () => {
 	const { message } = useConstants()
 	const requests = convertToArr(record.request_on)
 	const [selectOption, setSelectOption] = useState<string>('')
-	const [selectedId, setselectedId] = useState<string[]>([])
-
+	const [selectedItem, setselectedItem] = useState<SelectedItem[]>([])
 	const getImage = (item: any) => {
 		let imgArr = convertToArr(item.media)
 		return imgArr[0]?.im_access_link ?? 'https://placehold.co/250x250'
 	}
 
-	const handleCheck = (id: string, checked: boolean) => {
-		const updated = checked ? [...selectedId, id] : selectedId.filter((b) => b !== id)
-		setselectedId(updated)
-		console.log(updated)
+	const handleCheck = (barcode: string, id: string, checked: boolean) => {
+		const updated = checked ? [...selectedItem, { barcode, id }] : selectedItem.filter((b) => b.barcode !== barcode)
+		setselectedItem(updated)
 	}
 
 	const handleCheckAll = () => {
-		const allID = requests.map((item) => item.id)
-		setselectedId(allID)
-		console.log(allID)
+		const allID = requests.map((item) => {
+			return { barcode: item.barcode, id: item.id }
+		})
+		setselectedItem(allID)
 	}
 
 	return (
@@ -56,22 +57,22 @@ const RequestOn = () => {
 							]}
 						/>
 						<div className={'flex my-2 md:my-0'}>
-							<RequestModal selectedId={selectedId} selectOption={selectOption} sisn={record.sisn} />
+							<RequestModal selectedItem={selectedItem} selectOption={selectOption} sisn={record.sisn} />
 							<Button onClick={handleCheckAll} className={'mx-1'}>
 								{message.selectAll}
 							</Button>
-							<Button onClick={() => setselectedId([])} className={'mx-1'}>
+							<Button onClick={() => setselectedItem([])} className={'mx-1'}>
 								<RefreshCw />
 							</Button>
 						</div>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-4 gap-4 max-h-[830px] overflow-y-auto">
 						{requests.map((item, key) => {
-							const checked = selectedId.includes(item.id)
+							const checked = selectedItem.some((obj) => obj.barcode === item.barcode)
 							return (
 								<div key={key} className="rounded-md bg-white p-6 shadow">
 									<div className="flex flex-col gap-2">
-										<div className="flex justify-between items-start">
+										<div className="flex justify-between items-start relative">
 											<a href={`${getHomeSessionID()}/BIBLIO_WEB/BARCODE/${item.barcode}/WEB_UNION_DETAIL?JUMP`}>
 												<img
 													alt={message.noMediaFound}
@@ -83,14 +84,21 @@ const RequestOn = () => {
 												type="checkbox"
 												className="w-5 h-5 accent-primary border-gray-300 rounded  transition-all duration-150"
 												checked={checked}
-												onChange={(e) => handleCheck(item.id, e.target.checked)}
+												onChange={(e) => handleCheck(item.barcode, item.id, e.target.checked)}
 											/>
+											<Badge className="absolute bg-gray-300 right-[-6] bottom-1" variant={'tag'}>
+												{item.media_type ?? 'N/A'}
+											</Badge>
 										</div>
 										<div className="text-left font-bold h-[70px] overflow-hidden text-ellipsis">{item.title}</div>
 										<div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.barcode}</span>
 												<span className="text-gray-900 font-medium">{item.barcode}</span>
+											</div>
+											<div className="flex justify-between">
+												<span className="text-gray-500">{message.volumeNumber}</span>
+												<span className="text-gray-900 font-medium">{item.volume_id ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.waitPosition}</span>
@@ -100,7 +108,7 @@ const RequestOn = () => {
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.onRequest}</span>
-												<span className="text-gray-900 font-medium">{item.wait_date}</span>
+												<span className="text-gray-900 font-medium">{item.wait_date ?? 'N/A'}</span>
 											</div>
 											{item.wait_susp_start && (
 												<div className={'text-center text-gray-900 font-medium mt-3 rounded-md bg-grey p-2 shadow'}>

@@ -39,6 +39,7 @@ const TopPick = ({ page, previewData, previewMode }: PageSectionProps) => {
 	const { message } = useConstants()
 	return (
 		<Section heading={message.topPick}>
+
 			<div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border  ">
 				<Marquee reverse pauseOnHover className="[--duration:25s]">
 					{data.topPicks.map((item) => (

@@ -86,10 +86,15 @@ export default function LibraryDashboard() {
 		<PatronLayout
 			isLibrary={true}
 			mainHeading={
-				<>
-					<BookOpen className="mr-1 h-5 w-5" />
-					<h2 className="text-lg font-semibold text-gray-900">{message.libraryPortal}</h2>
-				</>
+				<div className={'w-full flex justify-between'}>
+					<div className={'h-full flex align-center'}>
+						<BookOpen className="mr-1 w-5 pt-1" />
+						<h2 className="text-lg font-semibold text-gray-900">{message.libraryPortal}</h2>
+					</div>
+					<Button>
+						<Home className="h-5 w-5" />
+					</Button>
+				</div>
 			}>
 			<div className="flex flex-wrap gap-2 sm:gap-4 ">
 				{statCards.map((card, index) => {
@@ -103,7 +108,6 @@ export default function LibraryDashboard() {
 					)
 				})}
 			</div>
-
 			{notifications.length > 0 && (
 				<div className="mb-2">
 					<div className="flex items-center gap-2 mb-4">

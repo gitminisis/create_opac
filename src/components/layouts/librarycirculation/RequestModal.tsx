@@ -5,41 +5,40 @@ import { Button } from '@/components/ui/button'
 import useConstants from '@/hooks/useConstants'
 import { getSessionID } from '@/lib/utils'
 import axios from 'axios'
+import { SelectedItem } from './type'
 
-const RequestModal = ({ selectedId, selectOption, sisn }: { selectedId: string[]; selectOption: string; sisn: string }) => {
+
+const RequestModal = ({ selectedItem, selectOption, sisn }: { selectedItem: SelectedItem[]; selectOption: string; sisn: string }) => {
 	const { message } = useConstants()
 	const [startSuspDate, setStartSuspDate] = useState('')
 	const [stopSuspDate, setStopSuspDate] = useState('')
 	const today = new Date().toISOString().split('T')[0]
 
 	const onSubmit = async () => {
-		const data = {
+		const params = new URLSearchParams({
 			start_susp_date: startSuspDate,
 			stop_susp_date: stopSuspDate,
 			PICKUP_LOCATION: '',
 			CLEAR_SUSPENSION: selectOption === 'CLEAR' ? 'X' : '',
-			...selectedId.reduce(
-				(acc, id) => {
-					acc[id] = 'CHANGE'
-					return acc
-				},
-				{} as Record<string, string>
-			),
-		}
+		})
 
-		const params = new URLSearchParams(data).toString()
+		selectedItem.forEach((item) => {
+			params.append(item.id, `CHANGE:${item.barcode}`)
+		})
+
 		return await axios
-			.post(`${getSessionID()}/${sisn}?MANIPITEM&REPORT=WEB_LIBRARY_CIRC_DASHBOARD`, params, {
+			.post(`${getSessionID()}/${sisn}?MANIPITEM&REPORT=WEB_LIBRARY_CIRC_DASHBOARD`, params.toString(), {
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			})
 			.then(() => {
 				window.location.reload()
 			})
 	}
+
 	return (
 		<Dialog.Root>
 			<Dialog.Trigger>
-				<Button disabled={selectedId.length > 0 && selectOption ? false : true}>{message.submit}</Button>
+				<Button disabled={selectedItem.length > 0 && selectOption ? false : true}>{message.submit}</Button>
 			</Dialog.Trigger>
 			<Dialog.Portal>
 				<Dialog.Overlay className="fixed inset-0 bg-black/40" />

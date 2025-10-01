@@ -147,7 +147,7 @@
 	"passwordChangeSuccess": "Vous avez réussi à changer votre mot de passe. Veuillez vous connecter avec votre nouveau mot de passe pour accéder à votre compte.",
 	"passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
 	"passwordValidation": "Doit contenir plus de 8 caractères, au moins une lettre majuscule",
-	"patronDashboard": "Library Dashboard",
+	"libraryDashboard": "Library Dashboard",
 	"phone": "Téléphone",
 	"pleaseCancel": "Cela annulera votre inscription à",
 	"pleaseConfirm": "Veuillez confirmer votre inscription",
@@ -288,5 +288,6 @@
 	"allOfTheseKeywords": "Tous ces mots-clés",
 	"anyOfTheseKeywords": "N'importe lequel de ces mots-clés",
 	"exactPhrase": "Expression exacte",
-	"closedForToday":"Les archives sont fermées pour aujourd'hui"
+	"closedForToday":"Les archives sont fermées pour aujourd'hui",
+	"youHaveAlreadyRequested": "Vous avez déjà fait une demande"
 }

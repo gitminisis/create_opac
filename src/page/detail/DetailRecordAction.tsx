@@ -7,8 +7,7 @@ import { Button } from '../../components/ui/button'
 import { useToast } from '../../components/ui/use-toast'
 import DialogLogin from '../../components/common/DialogLogin'
 import TooltipButton from '@/components/common/TooltipButton'
-import { cn, getCookieValue, getHomeSessionID, isDescriptionDatabase } from '@/lib/utils'
-import { Input } from '@/components/ui/input'
+import { cn, convertToArr, getCookieValue, getHomeSessionID, isDescriptionDatabase } from '@/lib/utils'
 import { bookmarkSelect, validateBookmarkResponse } from '@/lib/bookmark'
 import { useAtom } from 'jotai'
 import { bookmarkCount } from '@/store'
@@ -24,6 +23,7 @@ const DetailRecordAction = () => {
 	const { toast } = useToast()
 	const { nextRecord, previousRecord, records } = useJSONData({ selector: '#xml_record' })
 	const record = records[0]
+	const { item_info_occurrence } = record.record.item_info ?? []
 	const { is_bookmarked } = record
 	const [like, setLike] = useState(is_bookmarked ? Boolean(JSON.parse(is_bookmarked)) : true)
 	const requestData = record?.request
@@ -104,28 +104,6 @@ const DetailRecordAction = () => {
 		if (url) window.location.href = url
 	}
 
-	// const checkRecordHasMandatoryDataToRequest = () => {
-	// 	const checkRecord = record.record
-	// 	const recordRequestBool = 'Yes'
-	// 	const requestable =
-	// 		checkRecord?.a_avail === recordRequestBool || checkRecord?.m_avail === recordRequestBool || checkRecord?.l_avail === recordRequestBool
-
-	// 	return requestable
-	// }
-
-	// No : Item is not booked
-	// Current : Item is booked by the same client.
-	// Another : Item is booked by a different client.
-	// This function is for LMA style request, not allowing waitlist (Request queue)
-	// const checkIfCurrentClientRequestedThisRecord = () => {
-	// 	const recordRequested = record.request?.is_requested_by_client
-	// 	let currentClientRequested = false
-	// 	if (recordRequested === 'No' || recordRequested === 'Current') {
-	// 		currentClientRequested = true
-	// 	}
-	// 	return true
-	// }
-
 	const checkLoggedInToRequest = (action: string | null) => {
 		let isLoggedIn = false
 		const patronID = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
@@ -135,6 +113,19 @@ const DetailRecordAction = () => {
 			isLoggedIn = true
 		}
 		return isLoggedIn
+	}
+
+	const isRequestDisabled = () => {
+		let res = false
+		convertToArr(record.cur_user_request).map((barcode) => {
+			convertToArr(item_info_occurrence).map((item) => {
+				if (barcode == item.barcode) {
+					res = true
+					return
+				}
+			})
+		})
+		return res
 	}
 
 	return (
@@ -152,6 +143,7 @@ const DetailRecordAction = () => {
 					{canRequest && (
 						<TooltipButton
 							tooltipContent={message.requestRecord}
+							disabled={isRequestDisabled()}
 							variant="outline"
 							className={'w-[22%] md:w-[23.5%] flex '}
 							onClick={() => handleSubmit('Request')}>
@@ -234,7 +226,6 @@ const DetailRecordAction = () => {
 						<span className="hidden md:block">{message.bookmark}</span>
 					</TooltipButton>
 				</div>
-
 				<TooltipButton
 					tooltipContent={message.nextRecord}
 					className={'align-center md:w-[130px]'}

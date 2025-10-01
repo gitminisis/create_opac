@@ -73,9 +73,11 @@
 		"tailwindcss-animate": "^1.0.7",
 		"tsx": "^4.7.2",
 		"uuid": "^9.0.1",
+		"universalviewer": "4.0.18",
 		"vite-plugin-css-injected-by-js": "^3.4.0",
 		"x2js": "^3.4.4",
 		"yet-another-react-lightbox": "^3.17.0"
+
 	},
 	"eslintConfig": {
 		"extends": "react-app"

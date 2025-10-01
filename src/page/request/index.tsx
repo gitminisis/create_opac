@@ -98,7 +98,7 @@ const Request = () => {
 								<>
 									<div className="py-4 [&_p]:my-4 [&_b]:text-lg [&_b]:underline">
 										<p>
-											Please confirm your request for <b>{reqData.req_item_id}</b>
+											Please confirm your request
 										</p>
 									</div>
 									<div className="border p-4 rounded">

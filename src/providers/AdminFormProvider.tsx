@@ -5,6 +5,7 @@ import { SchemaType, SchemaValueType } from '@/types/schema'
 import React, { createContext, useCallback, useState } from 'react'
 import { useLoadingOverlay } from './LoadingOverlayProvider'
 import { useToast } from '@/components/ui/use-toast'
+import { Loader2 } from 'lucide-react'
 
 type AdminFormContextType = {
 	formData: SchemaValueType
@@ -14,6 +15,8 @@ type AdminFormContextType = {
 	handleFormSave: () => void
 	schema: SchemaType
 	duplicateItem: (path: string[], index: number) => void
+	isSubmitting: boolean
+	progress: string | null
 }
 
 const AdminFormContext = createContext<AdminFormContextType | undefined>(undefined)
@@ -27,10 +30,88 @@ type AdminFormProviderProps = {
 
 export const AdminFormProvider: React.FC<AdminFormProviderProps> = ({ children, schema: defaultSchema, data, filepath }) => {
 	const [formData, setFormData] = useState<SchemaValueType>(data)
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [progress, setProgress] = useState<string | null>(null)
 
 	const [schema] = useState<SchemaType>(defaultSchema)
 
 	const { showLoading, hideLoading } = useLoadingOverlay()
+
+	const { toast } = useToast()
+
+	const updateData = useCallback(
+		(data: SchemaValueType) => {
+			setIsSubmitting(true)
+			showLoading()
+			
+			// Show a loading toast
+			toast({
+				title: 'Saving changes',
+				description: (
+					<div className="flex items-center gap-2">
+						<Loader2 className="h-4 w-4 animate-spin" />
+						<span>Processing changes...</span>
+					</div>
+				),
+				duration: 60000, // Long duration as we'll dismiss it manually
+			})
+			
+			setProgress('Processing changes...')
+			
+			axios
+				.post('/update', {
+					path: filepath,
+					content: JSON.stringify(data),
+				})
+				.then((res) => {
+					const { status, message, buildMessage } = res.data
+					
+					if (status === 'success') {
+						toast({
+							title: 'Success',
+							description: buildMessage || message,
+							variant: 'default',
+							duration: 5000,
+						})
+					} else if (status === 'partial') {
+						toast({
+							title: 'Partial Success',
+							description: buildMessage || message,
+							variant: 'default',
+							duration: 5000,
+						})
+					} else {
+						toast({
+							title: 'Error',
+							description: buildMessage || message || 'An unknown error occurred',
+							variant: 'destructive',
+							duration: 5000,
+						})
+					}
+					
+					setProgress(null)
+					setIsSubmitting(false)
+					hideLoading()
+				})
+				.catch((error) => {
+					toast({
+						title: 'Error',
+						description: 'Failed to update data',
+						variant: 'destructive',
+						duration: 5000,
+					})
+					console.error('Update error:', error)
+					setProgress(null)
+					setIsSubmitting(false)
+					hideLoading()
+				})
+		},
+		[filepath, hideLoading, showLoading, toast]
+	)
+
+	const handleFormSave = useCallback(() => {
+		updateData(formData)
+	}, [formData, updateData])
 
 	const handleChange = useCallback((path: string[], newValue: SchemaValueType) => {
 		setFormData((prevData) => updateJsonValue(prevData, path, newValue))
@@ -42,43 +123,7 @@ export const AdminFormProvider: React.FC<AdminFormProviderProps> = ({ children, 
 			updateData(newData)
 			return newData
 		})
-	}, [])
-
-	const { toast } = useToast()
-
-	const updateData = useCallback(
-		(data: SchemaValueType) => {
-			showLoading()
-			axios
-				.post('/update', {
-					path: filepath,
-					content: JSON.stringify(data),
-				})
-				.then((res) => {
-					toast({
-						title: 'Success',
-						description: 'Data updated successfully',
-						variant: 'default',
-					})
-				})
-				.catch((error) => {
-					toast({
-						title: 'Error',
-						description: 'Failed to update data',
-						variant: 'destructive',
-					})
-					console.error('Update error:', error)
-				})
-				.finally(() => {
-					hideLoading()
-				})
-		},
-		[filepath, hideLoading, showLoading, toast]
-	)
-
-	const handleFormSave = useCallback(() => {
-		updateData(formData)
-	}, [formData, updateData])
+	}, [updateData])
 
 	const handleItemDuplicate = useCallback((path: string[], index: number) => {
 		setFormData((prevData) => {
@@ -102,7 +147,7 @@ export const AdminFormProvider: React.FC<AdminFormProviderProps> = ({ children, 
 		})
 
 		handleFormSave()
-	}, [])
+	}, [handleFormSave, updateData])
 
 	const handleRemove = useCallback((path: string[], index: number) => {
 		setFormData((prevData) => {
@@ -130,7 +175,7 @@ export const AdminFormProvider: React.FC<AdminFormProviderProps> = ({ children, 
 			// Return previous data if the removal operation is invalid
 			return prevData
 		})
-	}, [])
+	}, [updateData])
 
 	const contextValue = {
 		formData,
@@ -140,6 +185,8 @@ export const AdminFormProvider: React.FC<AdminFormProviderProps> = ({ children, 
 		duplicateItem: handleItemDuplicate,
 		handleAdd,
 		handleRemove,
+		isSubmitting,
+		progress
 	}
 
 	return <AdminFormContext.Provider value={contextValue}>{children}</AdminFormContext.Provider>

@@ -25,9 +25,23 @@ app.post('/update', async (c) => {
 	try {
 		const { path, content } = body
 		setFileContent(resolve(base, path), content)
-		rebuildOPAC()
+		
+		// Wait for the rebuild to complete before sending response
+		const result = await rebuildOPAC()
 
-		return c.json({ status: 'success', message: 'Your file has been updated successfully' })
+		if (result.success) {
+			return c.json({ 
+				status: 'success', 
+				message: 'Your file has been updated successfully',
+				buildMessage: result.message
+			})
+		} else {
+			return c.json({ 
+				status: 'partial', 
+				message: 'File updated but build process had issues',
+				buildMessage: result.message
+			})
+		}
 	} catch (error) {
 		console.error('Error updating file:', error)
 		return c.json({ status: 'failed', message: 'Error updating file' })

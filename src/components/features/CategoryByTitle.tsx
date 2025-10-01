@@ -1,8 +1,7 @@
-import Section from '../common/Section'
-import { useState } from 'react'
-import { Button } from '../ui/button'
 import useConstants from '@/hooks/useConstants'
 import { getSessionID } from '@/lib/utils'
+import { useState } from 'react'
+import { Button } from '../ui/button'
 
 const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i))
 

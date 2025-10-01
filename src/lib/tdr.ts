@@ -17,7 +17,7 @@ export const TDR_CONFIG: TdrParams = {
 	tdr_ui: 'https://test-titantdr.minisisinc.com',
 	login_endpoint: '/token',
 	search_endpoint: '/#/discover',
-	bookmark_endpoint: '/api/Discover/Bookmarks',
+	bookmark_endpoint: '/api/Discover/BookmarkLinks',
 	delete_bookmark_ep: '/api/Discover/Bookmarks',
 }
 type TdrParams = {

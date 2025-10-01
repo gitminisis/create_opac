@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { convertToArr, getHomeSessionID } from '@/lib/utils'
@@ -23,7 +24,7 @@ const TransitOn = () => {
 							return (
 								<div key={key} className="rounded-md bg-white p-6 shadow">
 									<div className="flex flex-col gap-2">
-										<div className="flex justify-between items-start">
+										<div className="flex justify-between items-start relative">
 											<a href={`${getHomeSessionID()}/BIBLIO_WEB/BARCODE/${item.barcode}/WEB_UNION_DETAIL?JUMP`}>
 												<img
 													alt={message.noMediaFound}
@@ -31,12 +32,19 @@ const TransitOn = () => {
 													className="h-36 mx-auto cursor-pointer object-cover border-4 hover:border-primary w-[96px]"
 												/>
 											</a>
+											<Badge className="absolute bg-gray-300 right-[-6] bottom-1" variant={'tag'}>
+												{item.media_type ?? 'N/A'}
+											</Badge>
 										</div>
 										<div className="text-left font-bold h-[70px] overflow-hidden text-ellipsis">{item.title}</div>
 										<div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.barcode}</span>
 												<span className="text-gray-900 font-medium">{item.barcode}</span>
+											</div>
+											<div className="flex justify-between">
+												<span className="text-gray-500">{message.volumeNumber}</span>
+												<span className="text-gray-900 font-medium">{item.volume_id ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.onRequest}</span>

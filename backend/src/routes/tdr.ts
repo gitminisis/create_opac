@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 const tdr = new Hono()
-const originServer = 'https://titantdrapi.minisisinc.com'
+const originServer = 'https://test-titantdrapi.minisisinc.com'
 tdr.all('*', async (c) => {
 	const url = new URL(c.req.url)
 
