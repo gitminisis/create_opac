@@ -516,7 +516,7 @@ const InteractiveMap = ({ page }: { page: string }) => {
 											<div className="w-[300px] ">
 												<h3 className="text-lg font-bold text-black  pb-2">
 													{typeof marker.ALL_TITLE_WORD_OCCURRENCE !==
-													'object'
+														'object'
 														? marker?.ALL_TITLE_WORD_OCCURRENCE
 														: 'n/a'}
 												</h3>
@@ -553,7 +553,8 @@ const InteractiveMap = ({ page }: { page: string }) => {
 																{message.location}
 															</td>
 															<td>
-																{marker.ORIGIN_CITY},
+																{marker.ORIGIN_CITY}
+																{marker.ORIGIN_CITY && marker.ORIGIN_PRV_STATE ? ' , ' : ''}
 																{marker.ORIGIN_PRV_STATE}
 															</td>
 														</tr>
@@ -635,7 +636,8 @@ const InteractiveMap = ({ page }: { page: string }) => {
 																{message.location}
 															</td>
 															<td>
-																{marker.ORIGIN_CITY},
+																{marker.ORIGIN_CITY}
+																{marker.ORIGIN_CITY && marker.ORIGIN_PRV_STATE ? ' , ' : ''}
 																{marker.ORIGIN_PRV_STATE}
 															</td>
 														</tr>
@@ -720,7 +722,8 @@ const InteractiveMap = ({ page }: { page: string }) => {
 																{message.location}
 															</td>
 															<td className="overflow-x-auto">
-																{marker.ORIGIN_CITY},
+																{marker.ORIGIN_CITY}
+																{marker.ORIGIN_CITY && marker.ORIGIN_PRV_STATE ? ' , ' : ''}
 																{marker.ORIGIN_PRV_STATE}
 															</td>
 														</tr>

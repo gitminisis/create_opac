@@ -10,6 +10,7 @@ import archives from './archives.json'
 import museum from './museum.json'
 import library from './library.json'
 import clientProfile from './client-profile.json'
+import patronLibraryCirculation from './patron-library-circulation.json'
 const constants = {
 	config,
 	faq,
@@ -23,5 +24,6 @@ const constants = {
 	museum,
 	library,
 	clientProfile,
+	patronLibraryCirculation
 }
 export default constants

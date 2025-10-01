@@ -17,7 +17,6 @@ export const CONSTANTS = {
 		museum: en.museum,
 		library: en.library,
 		clientProfile: en.clientProfile,
-		patronLibraryCirculation:en.patronLibraryCirculation
 	},
 	FR: {
 		config: fr.config,
@@ -33,6 +32,5 @@ export const CONSTANTS = {
 		museum: fr.museum,
 		library: fr.library,
 		clientProfile: fr.clientProfile,
-		patronLibraryCirculation:fr.patronLibraryCirculation
 	},
 }

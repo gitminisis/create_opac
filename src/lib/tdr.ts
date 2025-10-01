@@ -3,14 +3,22 @@ import { decodeString, encodeString } from './encoder'
 
 export const OPAC_ADMIN_USERNAME = 'OPAC_ADMIN'
 export const TDR_CONFIG: TdrParams = {
-	username: 'Karl',
-	userpassword: 'F1re_water',
-	tdr_api: 'https://tdrmultiapi.minisisinc.com',
-	tdr_ui: 'https://tdrmultiui.minisisinc.com',
-	login_endpoint: '/token',
-	search_endpoint: '/#/search',
-	bookmark_endpoint: '/api/Discover/BookmarkLinks',
-	delete_bookmark_ep: '/api/Discover/Bookmarks',
+	// username: 'Karl',
+	// userpassword: 'F1re_water',
+	// tdr_api: 'https://tdrmultiapi.minisisinc.com',
+	// tdr_ui: 'https://tdrmultiui.minisisinc.com',
+	// login_endpoint: '/token',
+	// search_endpoint: '/#/search',
+	// bookmark_endpoint: '/api/Discover/BookmarkLinks',
+	// delete_bookmark_ep: '/api/Discover/Bookmarks',
+	"username":           "Cams.Dev",
+    "userpassword":       "Cams.Dev_12!",
+    "tdr_api":            "https://titantdrapi.minisisinc.com",
+    "tdr_ui":             "https://titantdr.minisisinc.com",
+    "login_endpoint":     "/token",
+    "search_endpoint":    "/#/discover",
+    "bookmark_endpoint":  "/api/Discover/BookmarkLinks",
+    "delete_bookmark_ep": "/api/Discover/Bookmarks",
 }
 type TdrParams = {
 	tdr_api: string
