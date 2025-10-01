@@ -20,21 +20,13 @@ import {
 	TAG_FUNC_P_ID,
 	TAG_FUNC_P_LAST,
 	TAG_FUNC_START_T,
-	TAG_NAME
+	TAG_NAME,
 } from '@/components/common/event-calendar/Constants'
 import { calNumOfPatron } from '@/components/common/event-calendar/EC-Util'
 import Spinner from '@/components/common/event-calendar/Spinner'
 import Layout from '@/components/layouts'
 import useConstants from '@/hooks/useConstants'
-import {
-	convertToArr,
-	convertXMLToJson,
-	decodeObj,
-	encodeObj,
-	getCookieValue,
-	getHomeSessionID,
-	isDatePast,
-} from '@/lib/utils'
+import { convertToArr, convertXMLToJson, decodeObj, encodeObj, getCookieValue, getHomeSessionID, isDatePast } from '@/lib/utils'
 import { PatronInfo, STATUS_TYPE, initialPatronInfo } from '@/types/patroninfo'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
@@ -99,24 +91,18 @@ const RSVPConfirm = () => {
 	const isRecordValidate = async (patrons: PatronInfo) => {
 		setLoading(true)
 		return await axios
-			.get(
-				`/scripts/mwimain.dll/144/${MAIN_MWI_APPLICATION}/${MONTH_REPORT}?commandsearch&exp=${SISN} ${patrons[SISN]}`,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-				}
-			)
+			.get(`/scripts/mwimain.dll/144/${MAIN_MWI_APPLICATION}/${MONTH_REPORT}?commandsearch&exp=${SISN} ${patrons[SISN]}`, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+			})
 			.then((res) => {
 				let result = convertXMLToJson(res.data)
 				let records = result.div.xml.event
 				let recordArr = convertToArr(records) ?? []
 				let event = recordArr?.filter((item) => {
-					return (
-						item[TAG_FUNC_DATE] === patrons[TAG_FUNC_DATE] &&
-						item[TAG_FUNC_START_T] === patrons[TAG_FUNC_START_T]
-					)
+					return item[TAG_FUNC_DATE] === patrons[TAG_FUNC_DATE] && item[TAG_FUNC_START_T] === patrons[TAG_FUNC_START_T]
 				})
 
 				// there were no exsisted patron then go true
@@ -176,10 +162,7 @@ const RSVPConfirm = () => {
 			})
 	}
 
-	const storeRecord = async (
-		HOME_SESSID: string | boolean,
-		PatronInfo: PatronInfo | undefined
-	) => {
+	const storeRecord = async (HOME_SESSID: string | boolean, PatronInfo: PatronInfo | undefined) => {
 		const ID = `${NON_LOGIN_USER_TYPE}${uuidv4()?.substring(15)}`
 
 		let xmlFormAdd = `<?xml version="1.0" encoding="UTF-8"?>
@@ -198,17 +181,13 @@ const RSVPConfirm = () => {
 		</RECORD>`
 
 		return await axios
-			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${PatronInfo?.SISN}`,
-				xmlFormAdd,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-					timeout: 5000,
-				}
-			)
+			.post(`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${PatronInfo?.SISN}`, xmlFormAdd, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+				timeout: 5000,
+			})
 			.then((res) => {
 				return { HOME_SESSID, ID }
 			})
@@ -334,12 +313,7 @@ const RSVPConfirm = () => {
 			/>
 			{loading ? (
 				<div className="flex h-full items-center justify-center">
-					<Spinner
-						height={'h-full'}
-						spinHeight={'h-20'}
-						spinWidth={'w-20'}
-						background={'bg-white'}
-					/>
+					<Spinner height={'h-full'} spinHeight={'h-20'} spinWidth={'w-20'} background={'bg-white'} />
 				</div>
 			) : (
 				<div>{showRegStatus()}</div>

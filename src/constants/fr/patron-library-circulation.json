@@ -1,0 +1,39 @@
+{
+	"database": [
+		{
+			"id": 1,
+			"label": "Emprunté",
+			"db": "DOC_REQUEST",
+			"icon": "ShoppingBag",
+			"url": "?SEARCH&AUX_SESSID=client&DATABASE=DOC_REQUEST&REPORT=WEB_ORDERS_PROFILE&ERRMSG=[MESSAGES]no-record.html&EXP=REQ_PATRON_ID%20"
+		},
+		{
+			"id": 2,
+			"label": "En attente",
+			"db": "DOC_REQUEST",
+			"icon": "Copyright",
+			"url": "?SEARCH&AUX_SESSID=client&DATABASE=REQUEST_VIEW&REPORT=WEB_COPY_PROFILE&ERRMSG=[MESSAGES]no-record.html&EXP=REQ_TOPIC%20Copyright%20Services%20AND%20REQ_PATRON_ID%20"
+		},
+		{
+			"id": 3,
+			"label": "En transit",
+			"db": "DOC_REQUEST",
+			"icon": "Copy",
+			"url": "?SEARCH&AUX_SESSID=client&DATABASE=REQUEST_VIEW&REPORT=WEB_REPRODUCTION_PROFILE&ERRMSG=[MESSAGES]no-record.html&EXP=REQ_TOPIC%20Obtaining%20Reproductions%20AND%20REQ_PATRON_ID%20"
+		},
+		{
+			"id": 4,
+			"label": "Sur demande",
+			"db": "SHOWORDERLIST",
+			"icon": "BookMarked",
+			"url": "?SHOWORDERLIST&COOKIE=BOOKMARK&NOMSG=[MESSAGES]no-bookmark.html"
+		},
+		{
+			"id": 5,
+			"label": "Frais",
+			"db": "SHOWORDERLIST",
+			"icon": "DollarSign",
+			"url": "?SHOWORDERLIST&COOKIE=BOOKMARK&NOMSG=[MESSAGES]no-bookmark.html"
+		}
+	]
+}

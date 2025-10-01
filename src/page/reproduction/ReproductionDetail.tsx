@@ -20,41 +20,24 @@ const ReproductionDetail = () => {
 					<div className="max-w-4xl mx-auto bg-white shadow-md rounded-md p-6">
 						{/* Header */}
 						<div className="flex justify-between items-center border-b pb-4">
-							<h1 className="flex items-center text-xl font-bold">
-								Reproduction Information
-							</h1>
+							<h1 className="flex items-center text-xl font-bold">Reproduction Information</h1>
 						</div>
 						<div>
 							<div className="border p-4 rounded">
 								<div className="flex flex-row items-center">
 									<Copy className="mr-2" />
-									<h1 className="text-xl font-bold">
-										Request Order Number: {reprodData.req_order_num}
-									</h1>
+									<h1 className="text-xl font-bold">Request Order Number: {reprodData.req_order_num}</h1>
 								</div>
 
 								<p className="text-lg font-bold mt-4">{reprodData.req_title}</p>
 								<p className="text-sm text-gray-600">{reprodData.req_topic}</p>
 								<p className="text-md my-2">{reprodData.req_topic_gl}</p>
+								<p className="text-md">Charge Amount: {reprodData.req_charge_amt ? reprodData.req_charge_amt : ZERO_AMOUNT}</p>
 								<p className="text-md">
-									Charge Amount:{' '}
-									{reprodData.req_charge_amt
-										? reprodData.req_charge_amt
-										: ZERO_AMOUNT}
+									Tax {reprodData.req_tax_percent ? '(' + reprodData.req_tax_percent + ')' : '(0%)'}:{' '}
+									{reprodData.req_tax ? reprodData.req_tax : ZERO_AMOUNT}
 								</p>
-								<p className="text-md">
-									Tax{' '}
-									{reprodData.req_tax_percent
-										? '(' + reprodData.req_tax_percent + ')'
-										: '(0%)'}
-									: {reprodData.req_tax ? reprodData.req_tax : ZERO_AMOUNT}
-								</p>
-								<p className="text-md">
-									Handling:{' '}
-									{reprodData.req_handling
-										? reprodData.req_handling
-										: ZERO_AMOUNT}
-								</p>
+								<p className="text-md">Handling: {reprodData.req_handling ? reprodData.req_handling : ZERO_AMOUNT}</p>
 								<p className="text-md">Total Amount: {reprodData.req_paid_amt}</p>
 							</div>
 						</div>

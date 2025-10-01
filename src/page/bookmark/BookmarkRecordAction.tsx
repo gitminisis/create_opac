@@ -31,7 +31,6 @@ export const BookmarkRecordAction = ({ record }: { record: Record }) => {
 	}
 
 	const handleCopy = () => {
-		
 		handleCopyRecordURL(record)
 		toast({
 			title: message.recordIsCopied,
@@ -40,24 +39,11 @@ export const BookmarkRecordAction = ({ record }: { record: Record }) => {
 
 	return (
 		<>
-			<TooltipButton
-				variant="ghost"
-				size="icon"
-				disabled={loading}
-				onClick={removeBookmark}
-				tooltipContent={`${message.bookmarkRemove}`}>
-				<Trash2
-					className={cn('h-4 w-4 text-primary')}
-					fill={'hsl(var(--opac-blue))'}
-					stroke={'hsl(var(--opac-blue))'}
-				/>
+			<TooltipButton variant="ghost" size="icon" disabled={loading} onClick={removeBookmark} tooltipContent={`${message.bookmarkRemove}`}>
+				<Trash2 className={cn('h-4 w-4 text-primary')} fill={'hsl(var(--opac-blue))'} stroke={'hsl(var(--opac-blue))'} />
 			</TooltipButton>
 			<Separator orientation="vertical" />
-			<TooltipButton
-				variant="ghost"
-				size="icon"
-				onClick={handleCopy}
-				tooltipContent={message.copyRecordUrl}>
+			<TooltipButton variant="ghost" size="icon" onClick={handleCopy} tooltipContent={message.copyRecordUrl}>
 				<Copy className="h-4 w-4 text-primary" />
 			</TooltipButton>
 		</>

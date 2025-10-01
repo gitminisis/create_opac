@@ -43,9 +43,7 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 					<div className="pt-3 px-12 h-full overflow-y-auto absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100  items-center justify-evenly transition-opacity duration-300 ">
 						<div className={'text-white overflow-hidden text-2xl'}>{elm[TAG_NAME]}</div>
 						<div className={'sm:flex text-lg'}>
-							<div className="text-white ml-[10px] sm:ml-0 text-md  text-gray-600 font-bold">
-								&#x2022;{elm[TAG_FUNC_DATE]}
-							</div>
+							<div className="text-white ml-[10px] sm:ml-0 text-md  text-gray-600 font-bold">&#x2022;{elm[TAG_FUNC_DATE]}</div>
 							<div className="text-white ml-[10px] text-md text-gray-600 font-bold">
 								<span>&#x2022;{elm[TAG_FUNC_START_T]?.toUpperCase()}</span>
 								<span className={'mx-2'}>-</span>
@@ -73,12 +71,8 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 							) => {
 								return (
 									<div className={'sm:flex text-white'} key={key}>
-										<div className={'mr-2 w-[65px]'}>
-											{item[BD_DIS_ACC_TYPE]}:
-										</div>
-										<div className={'max-w-[450px]'}>
-											{item[BD_DIS_ACC_DETAI]}
-										</div>
+										<div className={'mr-2 w-[65px]'}>{item[BD_DIS_ACC_TYPE]}:</div>
+										<div className={'max-w-[450px]'}>{item[BD_DIS_ACC_DETAI]}</div>
 									</div>
 								)
 							}
@@ -108,9 +102,7 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 	return (
 		<div className="flex flex-col space-y-4 h-1/2 min-h-[370px] justify-center bg-primary">
 			<div className="max-h-[370px] flex w-full h-full  group cursor-pointer relative">
-				<div className="w-full h-full flex justify-center items-center bg-zinc-400">
-					{currentMedia && renderPage()}
-				</div>
+				<div className="w-full h-full flex justify-center items-center bg-zinc-400">{currentMedia && renderPage()}</div>
 			</div>
 			<ChevronLeft
 				strokeWidth={'3px'}
@@ -120,9 +112,7 @@ const RSVPCarousel = ({ items, elm, contactInfo }: ImageCarouselProps) => {
 			<ChevronRight
 				strokeWidth={'3px'}
 				className="cursor-pointer absolute bg-gray-400 bg-opacity-30 w-8 h-8 text-white hover:text-primary right-2 top-1/2 transform -translate-y-1/2 transition-all ease-in duration-400"
-				onClick={() =>
-					setCurrent(current + 1 === items.length ? items.length - 1 : current + 1)
-				}
+				onClick={() => setCurrent(current + 1 === items.length ? items.length - 1 : current + 1)}
 			/>
 		</div>
 	)

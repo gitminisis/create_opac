@@ -116,10 +116,7 @@ const Timeline = ({ page }: { page: string }) => {
 					const century = Math.floor(offset / 1000) * 1000
 					centuryLabel = century ? `BC ${century + 1000}` : 'BC 0'
 				}
-				if (
-					centuryLabel !== currentCenturyLabel &&
-					!(centuryLabel === 'BC 0' && currentCenturyLabel?.startsWith('BC'))
-				) {
+				if (centuryLabel !== currentCenturyLabel && !(centuryLabel === 'BC 0' && currentCenturyLabel?.startsWith('BC'))) {
 					centuries.push({ century: centuryLabel })
 					currentCenturyLabel = centuryLabel
 				}
@@ -208,33 +205,20 @@ const Timeline = ({ page }: { page: string }) => {
 					if (item.century) {
 						count++
 						return (
-							<div
-								key={idx}
-								className="z-10 pr-1 mb-[15px] w-[20px] h-[110px] mb-1 mx-1">
+							<div key={idx} className="z-10 pr-1 mb-[15px] w-[20px] h-[110px] mb-1 mx-1">
 								<div className="text-left text-[10px] w-[25px] h-[20px] font-bold bottom-[10px]">
 									{count % 2 === 1 && item.century}
 								</div>
 								<div className="w-[5px] h-[70px] transition-transform bg-gray-500" />
-								<div className="text-left text-[10px] w-[25px] h-[20px] top-[5px] font-bold">
-									{count % 2 === 0 && item.century}
-								</div>
+								<div className="text-left text-[10px] w-[25px] h-[20px] top-[5px] font-bold">{count % 2 === 0 && item.century}</div>
 							</div>
 						)
 					} else {
-						const {
-							borderColor,
-							bgColor,
-							title_key,
-							key,
-							keyName,
-							database,
-							description_keyname,
-							description_key,
-						}: any = getIconForType(item?.DATABASE_TYPE)
+						const { borderColor, bgColor, title_key, key, keyName, database, description_keyname, description_key }: any = getIconForType(
+							item?.DATABASE_TYPE
+						)
 						return (
-							<div
-								key={idx}
-								className="relative flex flex-col items-center w-full min-w-[10px]">
+							<div key={idx} className="relative flex flex-col items-center w-full min-w-[10px]">
 								<Popover.Root open={openPopoverId === idx}>
 									<Popover.Trigger
 										className={`z-10 w-[5px] h-[50px] cursor-pointer hover:scale-150 bg-gray-400 focus:outline-none ${bgColor} box-border`}
@@ -247,16 +231,12 @@ const Timeline = ({ page }: { page: string }) => {
 										align="center"
 										className={`p-4 bg-white shadow-lg rounded-[14px] z-30 focus:outline-none border-2 ${borderColor}`}
 										sideOffset={20}>
-										<Popover.Arrow
-											className={`fill-white w-[18px] h-[15px] transform -translate-x-1 `}
-										/>
+										<Popover.Arrow className={`fill-white w-[18px] h-[15px] transform -translate-x-1 `} />
 										<div className="w-[300px]" ref={popoverRef}>
 											<a
 												href={`/SCRIPTS/MWIMAIN.DLL?UNIONSEARCH&SIMPLE_EXP=Y&KEEP=Y&ERRMSG=[MESSAGES]no-record.html&APPLICATION=UNION_VIEW&DATABASE=${database}&language=144&REPORT=WEB_UNION_DETAIL&EXP=${key}%20${item.ID}`}
 												target="_blank">
-												<h3 className="text-lg font-bold text-black pb-2">
-													{item[title_key] ?? 'n/a'}
-												</h3>
+												<h3 className="text-lg font-bold text-black pb-2">{item[title_key] ?? 'n/a'}</h3>
 
 												{item?.IMAG_URL && (
 													<div className="bg-slate-100 h-48 mb-4 rounded-[14px]">
@@ -282,17 +262,13 @@ const Timeline = ({ page }: { page: string }) => {
 													</tr>
 													{item.DATE && (
 														<tr className="border-b">
-															<td className="font-semibold py-1 pr-2">
-																Date
-															</td>
+															<td className="font-semibold py-1 pr-2">Date</td>
 															<td>{item.DATE}</td>
 														</tr>
 													)}
 													{item[description_key] && (
 														<tr className="border-b">
-															<td className="font-semibold py-1 pr-2">
-																{description_keyname}
-															</td>
+															<td className="font-semibold py-1 pr-2">{description_keyname}</td>
 															<td>
 																<div className="max-h-[150px] overflow-y-auto custom-scrollbar">
 																	{item[description_key]}
@@ -303,13 +279,8 @@ const Timeline = ({ page }: { page: string }) => {
 
 													{item?.DATABASE_TYPE === 'Library' && (
 														<tr className="border-b">
-															<td className="font-semibold py-1 pr-2">
-																Author
-															</td>
-															<td>
-																{item.PAUTHOR_OCCURRENCE ||
-																	item.CA_NAME_OCCURRENCE}
-															</td>
+															<td className="font-semibold py-1 pr-2">Author</td>
+															<td>{item.PAUTHOR_OCCURRENCE || item.CA_NAME_OCCURRENCE}</td>
 														</tr>
 													)}
 												</tbody>

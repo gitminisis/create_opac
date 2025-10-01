@@ -26,11 +26,7 @@ const SearchForm = ({ className, inputName, inputStyle, action, ...props }: Sear
 					type="search"
 				/>
 			</div>
-			<Button
-				style={{ borderRadius: '0px 5px 5px 0' }}
-				variant={'default'}
-				className="right-0 top-0 h-full bg-primary"
-				type="submit">
+			<Button style={{ borderRadius: '0px 5px 5px 0' }} variant={'default'} className="right-0 top-0 h-full bg-primary" type="submit">
 				<span className="block">
 					<Search className="w-4 h-4" />
 				</span>

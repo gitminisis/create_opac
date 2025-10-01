@@ -13,21 +13,13 @@ import Hero from '../components/common/Hero'
 import Layout from '../components/layouts'
 import { MainPageProps, UNION_SEARCH_CL } from './Home'
 import TimeLine from '@/components/common/interactive-timeline'
+import Indexes from '@/components/features/Indexes'
 
 const Archives = ({ previewMode = false, previewData }: MainPageProps) => {
 	const [showAdvSearch, setShowAdvSearch] = useState(false)
 	const { message } = useConstants()
-	const {
-		heroBanner,
-		searchURL,
-		heading,
-		database_name,
-		enableFeaturedCollection,
-		enableCategoriesItems,
-		enableRSVP,
-		enableMap,
-		enableTimeline,
-	} = useConstants().archives
+	const { heroBanner, searchURL, heading, database_name, enableFeaturedCollection, enableCategoriesItems, enableRSVP, enableMap, enableTimeline } =
+		useConstants().archives
 	return (
 		<Layout>
 			<Hero className={''} title={heading} backgroundImage={heroBanner} description="">
@@ -39,28 +31,13 @@ const Archives = ({ previewMode = false, previewData }: MainPageProps) => {
 					/>
 				</div>
 			</Hero>
-			{showAdvSearch && (
-				<AdvancedSearchForm search_database={database_name} url={getSearchURL(searchURL)} />
-			)}
-			{enableFeaturedCollection && (
-				<FeaturedCollection
-					page={'archives'}
-					previewData={previewData}
-					previewMode={previewMode}
-				/>
-			)}
+			{showAdvSearch && <AdvancedSearchForm search_database={database_name} url={getSearchURL(searchURL)} />}
+			{enableFeaturedCollection && <FeaturedCollection page={'archives'} previewData={previewData} previewMode={previewMode} />}
+			<Indexes />
 
-			{enableCategoriesItems && (
-				<Categories page={'archives'} previewData={previewData} previewMode={previewMode} />
-			)}
+			{enableCategoriesItems && <Categories page={'archives'} previewData={previewData} previewMode={previewMode} />}
 
-			{enableRSVP && (
-				<RSVPCalendar
-					page={'archives'}
-					previewData={previewData}
-					previewMode={previewMode}
-				/>
-			)}
+			{enableRSVP && <RSVPCalendar page={'archives'} previewData={previewData} previewMode={previewMode} />}
 			{enableMap && (
 				<Section heading={`${message.map}`}>
 					<InterativeMap page={'archives'} />

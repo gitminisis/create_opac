@@ -9,7 +9,7 @@ import axios from 'axios'
 import Spinner from '@/components/common/event-calendar/Spinner'
 
 type ResetFormData = {
-	C_CLIENT_NUMBER: string
+	PATRON_ID: string
 }
 
 const EMAIL_CONFIRM_CODE = '267'
@@ -22,7 +22,7 @@ const ResetPin = () => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			C_CLIENT_NUMBER: '',
+			PATRON_ID: '',
 		},
 	})
 	const [status, setStatus] = useState<string>('')
@@ -32,7 +32,7 @@ const ResetPin = () => {
 	const onSubmit = async (data: ResetFormData) => {
 		setLoading(true)
 		const formData = new FormData()
-		formData.append('C_CLIENT_NUMBER', data.C_CLIENT_NUMBER)
+		formData.append('PATRON_ID', data.PATRON_ID)
 		// Application name is not the matter, it need to use m2l extention at the site profile and follow the m2l extention's default databsae
 		// m2l extention's config is at the parameter database.
 		axios
@@ -43,9 +43,7 @@ const ResetPin = () => {
 			.then((res) => {
 				const parser = new DOMParser()
 				const doc = parser.parseFromString(res.data, 'text/html')
-				const element =
-					(doc.getElementById('MWI-error') as HTMLInputElement) ||
-					(doc.getElementById('root') as HTMLInputElement)
+				const element = (doc.getElementById('MWI-error') as HTMLInputElement) || (doc.getElementById('root') as HTMLInputElement)
 				const value = element?.value ?? element?.getAttribute('data-id')
 				setStatus(value)
 				setLoading(false)
@@ -61,12 +59,7 @@ const ResetPin = () => {
 			/>
 			{loading && (
 				<div className="flex h-full items-center justify-center">
-					<Spinner
-						height={'h-full'}
-						spinHeight={'h-20'}
-						spinWidth={'w-20'}
-						background={'bg-white'}
-					/>
+					<Spinner height={'h-full'} spinHeight={'h-20'} spinWidth={'w-20'} background={'bg-white'} />
 				</div>
 			)}
 			{status === EMAIL_CONFIRM_CODE ? (
@@ -79,13 +72,9 @@ const ResetPin = () => {
 				</div>
 			) : (
 				<div className={'min-h-[460px] flex  justify-center items-center mb-4'}>
-					<form
-						onSubmit={handleSubmit(onSubmit)}
-						className="bg-gray-200 p-5 rounded-md w-5/6 flex flex-col justify-center items-center">
+					<form onSubmit={handleSubmit(onSubmit)} className="bg-gray-200 p-5 rounded-md w-5/6 flex flex-col justify-center items-center">
 						<div className="landing-page-title"> {message.forgotPassword}</div>
-						<div className={'text-xl m-4 max-w-[560px]'}>
-							{message.forgottenPasswordInstructions}
-						</div>
+						<div className={'text-xl m-4 max-w-[560px]'}>{message.forgottenPasswordInstructions}</div>
 
 						<div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4">
 							<div className="flex-1">
@@ -94,18 +83,16 @@ const ResetPin = () => {
 								</label>
 								<input
 									disabled={loading}
-									{...register('C_CLIENT_NUMBER', {
+									{...register('PATRON_ID', {
 										required: `${message.cardNumberRequired}`,
 										minLength: {
 											value: PASSWORD_MIN_LENGTH,
 											message: `${message.cardNumberRequired}`,
 										},
 									})}
-									className={`p-2 w-full mt-1 border ${errors.C_CLIENT_NUMBER ? 'border-red-500' : 'border-gray-300'}`}
+									className={`p-2 w-full mt-1 border ${errors.PATRON_ID ? 'border-red-500' : 'border-gray-300'}`}
 								/>
-								{(status === '200' || status === CLIENT_LOGIN_ERROR) && (
-									<p className="text-red-500">{message.unknownPatronName}</p>
-								)}
+								{(status === '200' || status === CLIENT_LOGIN_ERROR) && <p className="text-red-500">{message.unknownPatronName}</p>}
 							</div>
 						</div>
 						<div className={'w-[272px] flex justify-evenly'}>

@@ -8,14 +8,9 @@ const AdminLogin = () => {
 	return (
 		<AdminLayout>
 			<div className="w-full max-w-3xl space-y-6 text-center mx-auto">
-				<h1 className="text-4xl font-bold text-slate-700 md:text-5xl">
-					MINISIS Template Toolkit
-				</h1>
+				<h1 className="text-4xl font-bold text-slate-700 md:text-5xl">MINISIS Template Toolkit</h1>
 
-				<p className="text-lg text-slate-600">
-					Welcome to MTT. Please login with your provided credential to access your
-					account.
-				</p>
+				<p className="text-lg text-slate-600">Welcome to MTT. Please login with your provided credential to access your account.</p>
 
 				<AdminLoginForm />
 			</div>
@@ -51,9 +46,7 @@ const AdminLoginForm = () => {
 				onChange={(e) => setPassword(e.currentTarget.value)}
 			/>
 
-			<Button
-				type="submit"
-				className="h-12 px-8 text-lg text-white bg-[#0B2C4D] hover:bg-[#0B2C4D]/90">
+			<Button type="submit" className="h-12 px-8 text-lg text-white bg-[#0B2C4D] hover:bg-[#0B2C4D]/90">
 				Login
 			</Button>
 		</form>

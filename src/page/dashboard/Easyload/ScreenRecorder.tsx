@@ -57,9 +57,7 @@ const ScreenRecorder: React.FC = () => {
 			setRecording(true)
 			setError(null)
 		} catch (err) {
-			setError(
-				'Failed to start recording. Please ensure you have granted the necessary permissions.'
-			)
+			setError('Failed to start recording. Please ensure you have granted the necessary permissions.')
 			console.error('Error starting screen recording:', err)
 		}
 	}, [])
@@ -118,12 +116,7 @@ const ScreenRecorder: React.FC = () => {
 				{recording && (
 					<div className="space-y-2">
 						<p className="text-sm font-medium text-red-500">Recording in progress...</p>
-						<video
-							ref={liveVideoRef}
-							autoPlay
-							muted
-							className="w-full rounded-md border border-red-500"
-						/>
+						<video ref={liveVideoRef} autoPlay muted className="w-full rounded-md border border-red-500" />
 					</div>
 				)}
 
@@ -131,15 +124,8 @@ const ScreenRecorder: React.FC = () => {
 				{recordingData?.url && !recording && (
 					<div className="space-y-4">
 						<p className="text-sm font-medium">Recording completed:</p>
-						<video
-							src={recordingData.url}
-							controls
-							className="w-full rounded-md border"
-						/>
-						<Button
-							onClick={downloadRecording}
-							className="w-full gap-2"
-							variant="secondary">
+						<video src={recordingData.url} controls className="w-full rounded-md border" />
+						<Button onClick={downloadRecording} className="w-full gap-2" variant="secondary">
 							<Video className="w-4 h-4" />
 							Download Recording
 						</Button>

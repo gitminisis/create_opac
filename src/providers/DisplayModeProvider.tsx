@@ -27,9 +27,5 @@ export const DisplayModeProvider: React.FC<DisplayModeProviderProps> = ({ childr
 		setDisplayMode((prevMode) => (prevMode === 'list' ? 'grid' : 'list'))
 	}
 
-	return (
-		<DisplayModeContext.Provider value={{ displayMode, toggleDisplayMode }}>
-			{children}
-		</DisplayModeContext.Provider>
-	)
+	return <DisplayModeContext.Provider value={{ displayMode, toggleDisplayMode }}>{children}</DisplayModeContext.Provider>
 }

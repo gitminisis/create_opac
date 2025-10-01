@@ -12,13 +12,7 @@ type Props = {
 	defaultCollapseMode?: boolean
 }
 
-const SectionWrapper = ({
-	title,
-	children,
-	className,
-	onRemove,
-	defaultCollapseMode = false,
-}: Props) => {
+const SectionWrapper = ({ title, children, className, onRemove, defaultCollapseMode = false }: Props) => {
 	return (
 		<Collapsible defaultOpen={!defaultCollapseMode}>
 			<div className={cn('rounded border-blue-950 border-2  p-4', className)}>

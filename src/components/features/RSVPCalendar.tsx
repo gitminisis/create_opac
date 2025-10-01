@@ -10,11 +10,7 @@ const RSVPCalendar = ({ page, previewData, previewMode }: PageSectionProps) => {
 	const { rsvp } = data
 	return (
 		<Section heading={`${message.calendar}`}>
-			<EventCalendar
-				databaseType={rsvp.filterDatabase}
-				filterTypes={rsvp.filterTypes}
-				filterOption={rsvp.filterOption}
-			/>
+			<EventCalendar databaseType={rsvp.filterDatabase} filterTypes={rsvp.filterTypes} filterOption={rsvp.filterOption} />
 		</Section>
 	)
 }

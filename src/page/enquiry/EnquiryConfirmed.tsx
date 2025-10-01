@@ -26,18 +26,13 @@ const EnquiryConfirmed = () => {
 						<div className="py-4 [&_p]:my-4 [&_b]:text-lg [&_b]:underline">
 							<h1 className="text-lg font-bold">Thank you for your Inquiry!</h1>
 							<p>Please give us 24 hours to reply back to your inquiry.</p>
-							<p>
-								Check your profile to stay updated with replies and/or comment from
-								the staff.
-							</p>
+							<p>Check your profile to stay updated with replies and/or comment from the staff.</p>
 						</div>
 						<div>
 							<div className="border p-4 rounded">
 								<div className="flex flex-row items-center">
 									<Lightbulb className="mr-2" />
-									<h1 className="text-xl font-bold">
-										Inquiry Reference Number: {enqData.enq_id}
-									</h1>
+									<h1 className="text-xl font-bold">Inquiry Reference Number: {enqData.enq_id}</h1>
 								</div>
 
 								<p className="text-lg font-bold mt-4">{enqData.enq_title}</p>

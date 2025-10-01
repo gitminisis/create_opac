@@ -8,28 +8,13 @@ import { ReactNode } from 'react'
 import { RecordAction } from './RecordAction'
 import { ViewProps } from './SummaryRecord'
 
-const GridView = ({
-	title,
-	recordLink,
-	searchTerms,
-	record,
-	fields,
-	database,
-	thumbnailUrl,
-}: ViewProps) => {
+const GridView = ({ title, recordLink, searchTerms, record, fields, database, thumbnailUrl }: ViewProps) => {
 	// Get grid fields
 	const gridFields = getFieldsFromRecord(
 		record,
 		fields,
 		(item) => item.grid === true,
-		(data, item) => (
-			<DataWithLabel
-				key={item.name}
-				label={item.label || ''}
-				items={data}
-				searchTerms={searchTerms}
-			/>
-		)
+		(data, item) => <DataWithLabel key={item.name} label={item.label || ''} items={data} searchTerms={searchTerms} />
 	) as ReactNode
 
 	return (

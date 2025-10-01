@@ -33,12 +33,7 @@ export const getXMLTreeRecord = (xml: string) => {
 /**
  * Returns the search URL to the record with the corresponding REFD
  */
-export const getChildrenSearchLink = (
-	session: string,
-	database: string,
-	refd: string,
-	report = 'EXTRACT_TREE_PAGE'
-): string => {
+export const getChildrenSearchLink = (session: string, database: string, refd: string, report = 'EXTRACT_TREE_PAGE'): string => {
 	return `${session}/${database}/REFD/${report}?JUMP&DATABASE=${database}&SHOWSINGLE=Y&SHARE_SESSID=LMA_SHARE_SESSID&M_GVAR1=TREE_FORMAT:XML&M_GVAR2=STARTENTRY:1&KEY=${refd}`
 }
 
@@ -99,13 +94,13 @@ export const mapLowerLevelXMLToNode = (xml: any[], parentId: string): any[] => {
 				isChildrenLoaded: !hasChildren,
 				onClick: () =>
 					window.open(
-						getRecordPermalink(
-							'DESCRIPTION_WEB',
-							deepSearchKey(e, 'refd')[0],
-							DEFAULT_DETAIL_REPORT,
-							144,
-							'REFD'
-						)
+						getRecordPermalink({
+							database: 'DESCRIPTION_WEB',
+							value: deepSearchKey(e, 'refd')[0],
+							report: DEFAULT_DETAIL_REPORT,
+							lang: 144,
+							key: 'REFD',
+						})
 					),
 			}
 		})
@@ -117,9 +112,7 @@ export const mapLowerLevelXMLToNode = (xml: any[], parentId: string): any[] => {
 export const mapXMLToNode = (xml: any, id: string): any => {
 	let lower_level_occurrence: any = deepSearchKey(xml, 'link')[0]
 	if (lower_level_occurrence !== undefined) {
-		lower_level_occurrence = Array.isArray(lower_level_occurrence)
-			? lower_level_occurrence
-			: [lower_level_occurrence]
+		lower_level_occurrence = Array.isArray(lower_level_occurrence) ? lower_level_occurrence : [lower_level_occurrence]
 	}
 
 	const hasChildren = typeof lower_level_occurrence !== 'undefined'
@@ -136,7 +129,13 @@ export const mapXMLToNode = (xml: any, id: string): any => {
 		children: hasChildren ? mapLowerLevelXMLToNode(lower_level_occurrence, id) : null,
 		onClick: () =>
 			window.open(
-				getRecordPermalink('DESCRIPTION_WEB', id, DEFAULT_DETAIL_REPORT, 144, 'REFD')
+				getRecordPermalink({
+					database: 'DESCRIPTION_WEB',
+					value: id,
+					report: DEFAULT_DETAIL_REPORT,
+					lang: 144,
+					key: 'REFD',
+				})
 			),
 	}
 }
@@ -148,11 +147,7 @@ let noTree = false
 /**
  * Build the tree from the current record using bottom-up approach
  */
-export const getJSONTree = async (
-	session: string,
-	database: string,
-	id: string
-): Promise<TreeResponse | undefined> => {
+export const getJSONTree = async (session: string, database: string, id: string): Promise<TreeResponse | undefined> => {
 	openKeyPath.push(id)
 
 	while (!tree.isRoot) {
@@ -166,8 +161,7 @@ export const getJSONTree = async (
 		}
 
 		const { xml, curNode, lower_level_occurrence } = curNodeJSON
-		const hasChildren =
-			lower_level_occurrence !== undefined && lower_level_occurrence.length > 0
+		const hasChildren = lower_level_occurrence !== undefined && lower_level_occurrence.length > 0
 
 		if (hasChildren) {
 			curNode.children = mapLowerLevelXMLToNode(lower_level_occurrence, curNode.id)

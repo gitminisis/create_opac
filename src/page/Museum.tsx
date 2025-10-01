@@ -16,17 +16,8 @@ import TimeLine from '@/components/common/interactive-timeline'
 const Museum = ({ previewMode = false, previewData }: MainPageProps) => {
 	const [showAdvSearch, setShowAdvSearch] = useState(false)
 	const { message } = useConstants()
-	const {
-		heroBanner,
-		searchURL,
-		heading,
-		database_name,
-		enableCategoriesItems,
-		enableFeaturedCollection,
-		enableRSVP,
-		enableMap,
-		enableTimeline,
-	} = useConstants().museum
+	const { heroBanner, searchURL, heading, database_name, enableCategoriesItems, enableFeaturedCollection, enableRSVP, enableMap, enableTimeline } =
+		useConstants().museum
 	return (
 		<Layout>
 			<Hero className={''} title={heading} backgroundImage={heroBanner} description="">
@@ -38,24 +29,12 @@ const Museum = ({ previewMode = false, previewData }: MainPageProps) => {
 					/>
 				</div>
 			</Hero>
-			{showAdvSearch && (
-				<AdvancedSearchForm search_database={database_name} url={getSearchURL(searchURL)} />
-			)}
+			{showAdvSearch && <AdvancedSearchForm search_database={database_name} url={getSearchURL(searchURL)} />}
 
-			{enableFeaturedCollection && (
-				<FeaturedCollection
-					page={'museum'}
-					previewData={previewData}
-					previewMode={previewMode}
-				/>
-			)}
+			{enableFeaturedCollection && <FeaturedCollection page={'museum'} previewData={previewData} previewMode={previewMode} />}
 
-			{enableCategoriesItems && (
-				<Categories page={'museum'} previewData={previewData} previewMode={previewMode} />
-			)}
-			{enableRSVP && (
-				<RSVPCalendar page={'museum'} previewData={previewData} previewMode={previewMode} />
-			)}
+			{enableCategoriesItems && <Categories page={'museum'} previewData={previewData} previewMode={previewMode} />}
+			{enableRSVP && <RSVPCalendar page={'museum'} previewData={previewData} previewMode={previewMode} />}
 			{enableMap && (
 				<Section heading={`${message.map}`}>
 					<InterativeMap page={'museum'} />

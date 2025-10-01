@@ -4,6 +4,8 @@ import useConstants from '@/hooks/useConstants'
 import { CircleHelp, CircleMinus, CirclePlus, CircleX, TextSearch } from 'lucide-react'
 import { useRef, useState } from 'react'
 import AdvancedSearchInput from './AdvancedSearchInput'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
 export type FieldObject = {
 	field: string
 	keyword: string
@@ -33,6 +35,8 @@ export const ADVANCED_SEARCH_BOOLEAN = {
 	NOT: 'NOT',
 }
 
+type KeywordType = 'AND_WORD' | 'OR_WORD' | 'ADJ_WORD'
+
 const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => {
 	const { message, advancedSearch, home, archives, museum, library } = useConstants()
 	const [searchExp, setSearchExp] = useState<FieldObject[]>([
@@ -46,8 +50,9 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 	])
 	const formRef = useRef<HTMLFormElement>(null)
 	const inputRef = useRef<any>(null)
-
 	const navigations = [home, archives, museum, library]
+	const [digitalDoc, setDigitalDoc] = useState(false)
+	const [selected, setSelected] = useState<KeywordType | null>(null)
 
 	const getDBTitle = (search_database: string) => {
 		let db = navigations.filter((item) => item.database_name === search_database)
@@ -83,6 +88,10 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 		setSearchExp(newSearchExp)
 	}
 
+	const handleChange = (name: KeywordType, checked: boolean | 'indeterminate') => {
+		setSelected(checked === true ? name : null)
+	}
+
 	const resetFields = () => {
 		setSearchExp([
 			{
@@ -93,6 +102,8 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 			{ field: '', keyword: '', boolean: ADVANCED_SEARCH_BOOLEAN.AND },
 			{ field: '', keyword: '' },
 		])
+		setDigitalDoc(false)
+		setSelected(null)
 	}
 
 	const submitSearch = () => {
@@ -104,34 +115,25 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 			return
 		}
 		let len = data.length
-		let qry = data
-			.map(
-				(exp, index) =>
-					`${exp.field} ${exp.keyword} ${exp.boolean && index !== len - 1 ? exp.boolean : ''}`
-			)
-			.join(' ')
+		let qry = data.map((exp, index) => `${exp.field} ${exp.keyword} ${exp.boolean && index !== len - 1 ? exp.boolean : ''}`).join(' ')
+		if (digitalDoc) {
+			qry += ` AND MEDIA_PRESENT_UN Ready`
+		}
+
 		inputRef.current.value = qry
 		formRef.current?.submit()
 	}
 
 	return (
-		<div
-			className={'w-full h-full min-h-[45vh] my-8 flex flex-col justify-center items-center'}>
-			<div
-				className={
-					'w-full md:w-5/6 flex flex-col justify-center items-center bg-slate-200 py-11 rounded-xl'
-				}>
+		<div className={'w-full h-full min-h-[45vh] my-8 flex flex-col justify-center items-center'}>
+			<div className={'w-full md:w-5/6 flex flex-col justify-center items-center bg-slate-200 py-11 rounded-xl'}>
 				<h2 className={'text-4xl text-center'}>
 					{getDBTitle(search_database)} {message.advanceSearch}
 				</h2>
 				<div className={'text-center'}>{message.advanceSearchDesc}</div>
-				<form
-					ref={formRef}
-					method="POST"
-					id="advancedSearchForm"
-					action={`${url}`}
-					className={'hidden'}>
+				<form ref={formRef} method="POST" id="advancedSearchForm" action={`${url}`} className={'hidden'}>
 					<input name="QUERY_EXPRESSION" ref={inputRef} hidden id="advancedSearchInput" />
+					{selected && <input type="hidden" name={'FLD_OP1'} value={selected} />}
 				</form>
 				<div className={'w-full md:w-4/6 mt-3 flex flex-col items-center'}>
 					{searchExp.map((exp, index) => (
@@ -158,11 +160,7 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 						</div>
 					))}
 					<div className={'flex items-center text-primary my-3 cursor-pointer'}>
-						<div
-							onClick={addField}
-							className={
-								'w-40 border-dashed border-2 border-primary p-2 flex justify-evenly items-center'
-							}>
+						<div onClick={addField} className={'w-40 border-dashed border-2 border-primary p-2 flex justify-evenly items-center'}>
 							<CirclePlus />
 							<div className={'text-center font-bold'}>{message.addField}</div>
 						</div>
@@ -175,18 +173,41 @@ const AdvancedSearchForm = ({ search_database, url }: Advanced_Search_Props) => 
 							</div>
 						</div>
 					</div>
-					<div className="w-full mt-10 flex justify-between m-2">
-						<Button
-							variant={'default'}
-							className={'h-[50px] w-[45%] ml-[7px] font-bold text-lg'}
-							onClick={submitSearch}>
+					<div className={'flex items-center my-3'}>
+						<Checkbox onClick={() => setDigitalDoc(!digitalDoc)} checked={digitalDoc} />
+						<Label className="ml-1 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+							{message.digitalDocumentsOnly}
+						</Label>
+					</div>
+					<div className={'w-full flex justify-center'}>
+						<div className={'w-full max-w-[173px] md:max-w-[500px] md:flex justify-evenly '}>
+							<div className={'flex items-center my-1'}>
+								<Checkbox checked={selected === 'AND_WORD'} onCheckedChange={(v) => handleChange('AND_WORD', v)} id="AND_WORD" />
+								<Label className="ml-1 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+									{message.allOfTheseKeywords}
+								</Label>
+							</div>
+							<div className={'flex items-center my-1'}>
+								<Checkbox checked={selected === 'OR_WORD'} onCheckedChange={(v) => handleChange('OR_WORD', v)} id="OR_WORD" />
+								<Label className="ml-1 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+									{message.anyOfTheseKeywords}
+								</Label>
+							</div>
+							<div className={'flex items-center my-1'}>
+								<Checkbox checked={selected === 'ADJ_WORD'} onCheckedChange={(v) => handleChange('ADJ_WORD', v)} id="ADJ_WORD" />
+								<Label className="ml-1 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+									{message.exactPhrase}
+								</Label>
+							</div>
+						</div>
+					</div>
+
+					<div className="w-full mt-8 flex justify-between m-2">
+						<Button variant={'default'} className={'h-[50px] w-[45%] ml-[7px] font-bold text-lg'} onClick={submitSearch}>
 							<TextSearch className={'mb-1'} />
 							<span className="mx-2 block text-l">{message.searchButton}</span>
 						</Button>
-						<Button
-							variant={'default'}
-							className={'h-[50px] w-[45%] mr-[25px] font-bold text-lg'}
-							onClick={resetFields}>
+						<Button variant={'default'} className={'h-[50px] w-[45%] mr-[25px] font-bold text-lg'} onClick={resetFields}>
 							<CircleX className={'mb-1'} />
 							<span className="mx-2 block text-l">{message.clear}</span>
 						</Button>

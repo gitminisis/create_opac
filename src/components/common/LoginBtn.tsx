@@ -24,9 +24,7 @@ const LoginBtn = ({ className }: { className?: string }) => {
 						<button className={'text-opac-white text-lg font-bold flex items-center'}>
 							<div>
 								<div className="block sm:hidden">{message.welcome}!</div>
-								<div className={'break-words whitespace-normal'}>
-									{decodeURIComponent(m2l_patron_name)}
-								</div>
+								<div className={'break-words whitespace-normal'}>{decodeURIComponent(m2l_patron_name)}</div>
 							</div>
 							<div>
 								<ChevronDown className={'h-4'} />
@@ -40,24 +38,43 @@ const LoginBtn = ({ className }: { className?: string }) => {
 							<Link
 								href={
 									getCookieValue('HOME_SESSID') +
-									'?SEARCH&DATABASE=CLIENT_VIEW&REPORT=WEB_CLIENT_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
-								}>
+									'?SEARCH&DATABASE=CLIENT&REPORT=WEB_PATRON_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)'
+								}
+								className="no-underline ml-[0.5rem]">
 								{message.dashboardHome}
 							</Link>
 						</DropdownMenuItem>
-						{/* <DropdownMenuItem>{message.accountSettings}</DropdownMenuItem> */}
+						<DropdownMenuItem>
+							<Link
+								href={
+									getCookieValue('HOME_SESSID') +
+									'?SEARCH&DATABASE=PATRON_BIBLIO&REPORT=WEB_LIBRARY_CIRC_DASHBOARD&EXP=patron_id+~3D+global(m2l_patron_id)'
+								}
+								className="no-underline ml-[0.5rem]">
+								{message.libraryDashboard}
+							</Link>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<Link
+								href={
+									getCookieValue('HOME_SESSID') +
+									'?SEARCH&DATABASE=CLIENT&REPORT=WEB_CLIENT_ACC_SETTINGS&EXP=patron_id+~3D+global(m2l_patron_id)'
+								}
+								className="no-underline ml-[0.5rem]">
+								{message.accountSettings}
+							</Link>
+						</DropdownMenuItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem>
-							<Link onClick={clearCookies}>{message.logout}</Link>
+							<Link onClick={clearCookies} className="no-underline ml-[0.5rem]">
+								{message.logout}
+							</Link>
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			) : (
 				<Link
-					className={cn(
-						'transition no-underline text-lg text-opac-white hover:text-opac-secondary',
-						className
-					)}
+					className={cn('transition no-underline text-lg text-opac-white hover:text-opac-secondary', className)}
 					href={`${config.auth.url}`}>
 					{message.logIn}
 				</Link>

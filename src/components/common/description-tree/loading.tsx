@@ -30,10 +30,7 @@ export default function TreeSkeleton() {
 			<div className="ml-10 mt-2 space-y-2">
 				{[...Array(4)].map((_, i) => (
 					<div key={i} className="flex items-center gap-1">
-						<div
-							className="h-4 bg-gray-200 rounded"
-							style={{ width: `${Math.max(40, 72 - i * 8)}%` }}
-						/>
+						<div className="h-4 bg-gray-200 rounded" style={{ width: `${Math.max(40, 72 - i * 8)}%` }} />
 					</div>
 				))}
 			</div>

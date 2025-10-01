@@ -49,14 +49,8 @@ const PagePagination = ({ items, maxItem = 10 }: PagePaginationProps) => {
 			}
 		}
 
-		const startSibling = Math.max(
-			boundaryCount,
-			showLeftEllipsis ? activeIndex - siblingsCount : boundaryCount
-		)
-		const endSibling = Math.min(
-			totalPages - boundaryCount,
-			showRightEllipsis ? activeIndex + siblingsCount + 1 : totalPages - boundaryCount
-		)
+		const startSibling = Math.max(boundaryCount, showLeftEllipsis ? activeIndex - siblingsCount : boundaryCount)
+		const endSibling = Math.min(totalPages - boundaryCount, showRightEllipsis ? activeIndex + siblingsCount + 1 : totalPages - boundaryCount)
 
 		for (let i = startSibling; i < endSibling; i++) {
 			visibleItems.push(items[i])
@@ -90,10 +84,7 @@ const PagePagination = ({ items, maxItem = 10 }: PagePaginationProps) => {
 
 				{activeIndex > 0 && (
 					<PaginationItem className="sm:hidden inline">
-						<PaginationPrevious
-							href={items[activeIndex - 1].url}
-							className="p-2 h-8 w-8 flex items-center justify-center"
-						/>
+						<PaginationPrevious href={items[activeIndex - 1].url} className="p-2 h-8 w-8 flex items-center justify-center" />
 					</PaginationItem>
 				)}
 
@@ -105,10 +96,7 @@ const PagePagination = ({ items, maxItem = 10 }: PagePaginationProps) => {
 							<PaginationLink
 								isActive={item.active}
 								href={item.url}
-								className={cn(
-									window.innerWidth < 640 ? 'h-8 w-8 p-0' : '',
-									item.active ? 'font-bold' : ''
-								)}>
+								className={cn(window.innerWidth < 640 ? 'h-8 w-8 p-0' : '', item.active ? 'font-bold' : '')}>
 								<span>{items.indexOf(item as PageLink) + 1}</span>
 							</PaginationLink>
 						)}
@@ -123,10 +111,7 @@ const PagePagination = ({ items, maxItem = 10 }: PagePaginationProps) => {
 
 				{activeIndex < items.length - 1 && (
 					<PaginationItem className="sm:hidden inline">
-						<PaginationNext
-							href={items[activeIndex + 1].url}
-							className="p-2 h-8 w-8 flex items-center justify-center"
-						/>
+						<PaginationNext href={items[activeIndex + 1].url} className="p-2 h-8 w-8 flex items-center justify-center" />
 					</PaginationItem>
 				)}
 			</PaginationContent>

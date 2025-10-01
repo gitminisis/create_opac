@@ -1,6 +1,5 @@
+import { Pagination } from '@/components/ui/pagination'
 import { GenericObject, deepSearchKey } from '@/lib/record'
-import { FilterItem } from '@/types/filter'
-import { Pagination } from '@/types/pagination'
 import { Record } from '@/types/record'
 import { useState } from 'react'
 import X2JS from 'x2js'
@@ -99,9 +98,7 @@ export const getDataFromXML = (id: string, doc = document) => {
 }
 
 const useJSONData = ({ selector, defaultData }: useJSONDataProps) => {
-	const [data] = useState<GenericObject | null>(
-		defaultData && !selector ? defaultData : selector ? getDataFromXML(selector) : null
-	)
+	const [data] = useState<GenericObject | null>(defaultData && !selector ? defaultData : selector ? getDataFromXML(selector) : null)
 
 	const getCommonFields = () => {
 		const object: COMMON_FIELDS_OBJECT = {}
@@ -115,10 +112,10 @@ const useJSONData = ({ selector, defaultData }: useJSONDataProps) => {
 		return object
 	}
 
-	const getPaginations = (): Pagination | null => {
+	const getPaginations = () => {
 		if (!data) return null
 
-		const pagination: Pagination = deepSearchKey(data, 'pagination')[0]
+		const pagination = deepSearchKey(data, 'pagination')[0]
 		if (!pagination) {
 			return null
 		}
@@ -126,10 +123,10 @@ const useJSONData = ({ selector, defaultData }: useJSONDataProps) => {
 		return pagination
 	}
 
-	const getFilter = (): FilterItem[] => {
+	const getFilter = () => {
 		if (!data) return []
 
-		const filterList: FilterItem[] = deepSearchKey(data, 'filter')[0]
+		const filterList = deepSearchKey(data, 'filter')[0]
 		if (!filterList) {
 			return []
 		}
@@ -170,10 +167,7 @@ const useJSONData = ({ selector, defaultData }: useJSONDataProps) => {
 		return url.a._href
 	}
 
-	const getMedia = (
-		record: Record,
-		type: 'im_access_link' | 'vd_access_link' | 'ad_access_link' | 'tx_access_link'
-	) => {
+	const getMedia = (record: Record, type: 'im_access_link' | 'vd_access_link' | 'ad_access_link' | 'tx_access_link') => {
 		if (!record.media || !record.media[type] || !Array.isArray(record.media[type])) return []
 		return record.media[type]
 	}

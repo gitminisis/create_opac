@@ -31,9 +31,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 				duration: 2000,
 				action: (
 					<a
-						className={
-							'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'
-						}
+						className={'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'}
 						href={`${bookmark_url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`}>
 						{message.viewBookmark}
 					</a>
@@ -46,9 +44,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 			setLoading(false)
 			const isValid = validateBookmarkResponse(
 				res,
-				typeof bookmark_count === 'number'
-					? bookmark_count
-					: Number.parseInt(bookmark_count || '0')
+				typeof bookmark_count === 'number' ? bookmark_count : Number.parseInt(bookmark_count || '0')
 			)
 			if (isValid && isValid.isSuccess) {
 				setLike(true)
@@ -58,9 +54,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 					duration: 2000,
 					action: (
 						<a
-							className={
-								'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'
-							}
+							className={'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'}
 							href={`${bookmark_url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`}>
 							{message.viewBookmark}
 						</a>
@@ -80,12 +74,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 
 	return (
 		<>
-			<TooltipButton
-				variant="ghost"
-				size="icon"
-				disabled={loading}
-				onClick={handleBookmark}
-				tooltipContent={`${message.bookmark}`}>
+			<TooltipButton variant="ghost" size="icon" disabled={loading} onClick={handleBookmark} tooltipContent={`${message.bookmark}`}>
 				<Star
 					className={cn('h-4 w-4 text-primary')}
 					fill={like ? 'hsl(var(--opac-blue))' : 'rgb(0,0,0,0)'}
@@ -93,11 +82,7 @@ export const RecordAction = ({ record }: { record: Record }) => {
 				/>
 			</TooltipButton>
 			<Separator orientation="vertical" />
-			<TooltipButton
-				variant="ghost"
-				size="icon"
-				onClick={handleCopy}
-				tooltipContent={message.copyRecordUrl}>
+			<TooltipButton variant="ghost" size="icon" onClick={handleCopy} tooltipContent={message.copyRecordUrl}>
 				<Copy className="h-4 w-4 text-primary" />
 			</TooltipButton>
 			{/* {record.avail ? <><Separator orientation="vertical" />

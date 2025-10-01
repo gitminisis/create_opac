@@ -75,9 +75,7 @@ const MainContent = () => {
 						<div className="text-center p-8 border-2 border-dashed rounded-lg">
 							<Webcam className="h-8 w-8 mx-auto mb-4 text-muted-foreground" />
 							<h3 className="font-medium mb-2">Screen Capture</h3>
-							<p className="text-sm text-muted-foreground mb-4">
-								Take a screenshot of your screen
-							</p>
+							<p className="text-sm text-muted-foreground mb-4">Take a screenshot of your screen</p>
 							<Button>Capture Screenshot</Button>
 						</div>
 					</TabsContent>
