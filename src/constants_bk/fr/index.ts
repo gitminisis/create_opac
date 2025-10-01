@@ -1,8 +1,8 @@
-import config from './config.json'
+import config from '../fr/config.json'
 import faq from './faq.json'
 import fields from './fields.json'
 import home from './home.json'
-import styles from './styles.json'
+import styles from '../en/styles.json'
 import message from './message.json'
 import rsvp from './rsvp.json'
 import advancedSearch from './advanced-search.json'
@@ -10,7 +10,6 @@ import archives from './archives.json'
 import museum from './museum.json'
 import library from './library.json'
 import clientProfile from './client-profile.json'
-import patronLibraryCirculation from './patron-library-circulation.json'
 const constants = {
 	config,
 	faq,
@@ -24,6 +23,5 @@ const constants = {
 	museum,
 	library,
 	clientProfile,
-	patronLibraryCirculation
 }
 export default constants
