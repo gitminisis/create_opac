@@ -2,20 +2,13 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Twitter, Facebook, Linkedin, Mail, Share2 } from 'lucide-react'
 import useConstants from '@/hooks/useConstants'
 
 export default function ShareButton({ url }: { url: string }) {
 	const [isOpen, setIsOpen] = useState(false)
 	const { message } = useConstants()
-
 	const shareUrl = url
 	const shareTitle = 'Check out this page!'
 

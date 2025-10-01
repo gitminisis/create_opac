@@ -40,9 +40,7 @@ const ImageCarousel = ({ items, renderItems }: ImageCarouselProps) => {
 					/>
 				) : (
 					<video className="mx-auto w-full lg:max-w-[400px]" controls>
-						<source
-							src={(currentImage as VideoProps).sources[0].src}
-							type="video/mp4"></source>
+						<source src={(currentImage as VideoProps).sources[0].src} type="video/mp4"></source>
 					</video>
 				)}
 				<Scan
@@ -58,9 +56,7 @@ const ImageCarousel = ({ items, renderItems }: ImageCarouselProps) => {
 				<ChevronRight
 					strokeWidth={'3px'}
 					className="cursor-pointer absolute bg-gray-400 bg-opacity-30  w-8 h-8 text-white hover:text-primary right-2 top-1/2 transition-all ease-in duration-400 "
-					onClick={() =>
-						setCurrent(current + 1 === items.length ? items.length - 1 : current + 1)
-					}
+					onClick={() => setCurrent(current + 1 === items.length ? items.length - 1 : current + 1)}
 				/>
 				<LightboxImage onOpen={setOpenLightbox} open={openLightbox} items={items} />
 			</div>

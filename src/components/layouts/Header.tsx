@@ -4,6 +4,7 @@ import Link from '../common/Link'
 import LoginBtn from '../common/LoginBtn'
 import MobileMenu from './MobileMenu'
 import { useEffect } from 'react'
+import { convertLink, getCookieValue } from '@/lib/utils'
 
 const Header = () => {
 	const { config, home, archives, museum, library } = useConstants()
@@ -35,7 +36,6 @@ const Header = () => {
 					</div>
 					<div className=" items-center space-x-4 hidden md:flex">
 						{config.auth.login && <LoginBtn />}
-
 						<LanguageSelect />
 					</div>
 					<div className="flex md:hidden">
@@ -44,15 +44,18 @@ const Header = () => {
 				</div>
 				<nav className="hidden md:block py-2 pb-4">
 					<ul className="flex space-x-6 text-sm justify-end">
-						{navigations.map((item) => (
-							<li key={item.displayTitle}>
-								<Link
-									href={item.linkURL}
-									className="text-lg hover:underline text-opac-white hover:text-opac-secondary">
+						{navigations.map((item: any, key) => (
+							<li key={key}>
+								<Link href={convertLink(item)} className="text-lg hover:underline text-opac-white hover:text-opac-secondary">
 									{item.displayTitle}
 								</Link>
 							</li>
 						))}
+						<li key={'minista'}>
+							<Link href={'/minista.html'} className="text-lg hover:underline text-opac-white hover:text-opac-secondary">
+								MINIS'TA{' '}
+							</Link>
+						</li>
 					</ul>
 				</nav>
 			</div>

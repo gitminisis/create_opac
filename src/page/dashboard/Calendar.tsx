@@ -19,16 +19,11 @@ import PatronLayout from '@/components/layouts/patron'
 import { Button } from '@/components/ui/button'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
-import {
-	convertToArr,
-	convertXMLToJson,
-	getCookieValue,
-	getHomeSessionID,
-	isDatePast,
-} from '@/lib/utils'
+import { convertToArr, convertXMLToJson, getCookieValue, getHomeSessionID, isDatePast } from '@/lib/utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import axios from 'axios'
+import { Home } from 'lucide-react'
 
 interface TagFunction {
 	[key: string]: any
@@ -48,7 +43,7 @@ interface PatronInfo {
 
 const Calendar = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const message = useConstants().message
+	const { message, clientProfile } = useConstants()
 	let HOME_SESSID = getHomeSessionID()
 	const { logo } = useConstants().config
 	const rsvp = useConstants().rsvp
@@ -57,25 +52,19 @@ const Calendar = () => {
 		{
 			accessorKey: TAG_NAME.toLocaleLowerCase(),
 			header: message.event,
-			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue(TAG_NAME.toLocaleLowerCase())}</div>
-			),
+			cell: ({ row }) => <div className="capitalize">{row.getValue(TAG_NAME.toLocaleLowerCase())}</div>,
 		},
 		{
 			accessorKey: TAG_FUNC_DATE.toLocaleLowerCase(),
 			header: ({ column }) => {
 				return (
-					<Button
-						variant="ghost"
-						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+					<Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 						{message.date}
 						<CaretSortIcon className="h-4 w-4" />
 					</Button>
 				)
 			},
-			cell: ({ row }) => (
-				<div className="lowercase">{row.getValue(TAG_FUNC_DATE.toLocaleLowerCase())}</div>
-			),
+			cell: ({ row }) => <div className="lowercase">{row.getValue(TAG_FUNC_DATE.toLocaleLowerCase())}</div>,
 		},
 		{
 			accessorKey: TAG_FUNC_START_T.toLocaleLowerCase(),
@@ -90,18 +79,12 @@ const Calendar = () => {
 		{
 			accessorKey: TAG_FUNC_LOC_BLD.toLocaleLowerCase(),
 			header: message.location,
-			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue(TAG_FUNC_LOC_BLD.toLocaleLowerCase())}</div>
-			),
+			cell: ({ row }) => <div className="capitalize">{row.getValue(TAG_FUNC_LOC_BLD.toLocaleLowerCase())}</div>,
 		},
 		{
 			accessorKey: TAG_FUNC_P_ATTND.toLocaleLowerCase(),
 			header: message.attendee,
-			cell: ({ row }) => (
-				<div className="capitalize">
-					{row.getValue(TAG_FUNC_P_ATTND.toLocaleLowerCase())}
-				</div>
-			),
+			cell: ({ row }) => <div className="capitalize">{row.getValue(TAG_FUNC_P_ATTND.toLocaleLowerCase())}</div>,
 		},
 		{
 			accessorKey: ' ',
@@ -112,16 +95,12 @@ const Calendar = () => {
 						DeleteButton={
 							<button
 								className="inline-flex h-[35px] items-center justify-center rounded bg-red4 px-[15px] font-medium leading-none text-red11 outline-none hover:bg-red5 focus:shadow-[0_0_0_2px] focus:shadow-red7"
-								onClick={() =>
-									cancelEvent(cell.row.original, cell.row.original.sisn)
-								}>
+								onClick={() => cancelEvent(cell.row.original, cell.row.original.sisn)}>
 								{message.yes} {message.cancel}
 							</button>
 						}
 						InitialButton={
-							<Button
-								variant={'danger'}
-								disabled={isDatePast(cell.row.original.tag_func_date)}>
+							<Button variant={'danger'} disabled={isDatePast(cell.row.original.tag_func_date)}>
 								{message.cancel}
 							</Button>
 						}
@@ -139,16 +118,13 @@ const Calendar = () => {
 
 	const getOCCNumber = async (patronInfo: PatronInfo, sisnValue: number) => {
 		return await axios
-			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=Y&KEY=${SISN}&VALUE=${sisnValue}`,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-					timeout: 5000,
-				}
-			)
+			.post(`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=Y&KEY=${SISN}&VALUE=${sisnValue}`, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+				timeout: 5000,
+			})
 			.then(async (res) => {
 				const conToJson: any = await convertXMLToJson(res.data)
 				const jsonObj = conToJson[MWI_RESFUL_RES].record
@@ -166,10 +142,7 @@ const Calendar = () => {
 				dte_group?.forEach((elm) => {
 					const funcDate = elm?.TAG_FUNC_DATE
 					const funcTimeStart = elm?.TAG_FUNC_START_T
-					if (
-						funcDate === patronInfo['tag_func_date'] &&
-						funcTimeStart === patronInfo['tag_func_start_t']
-					) {
+					if (funcDate === patronInfo['tag_func_date'] && funcTimeStart === patronInfo['tag_func_start_t']) {
 						TAG_FUNC_DTE_OCC = elm._occ
 					}
 				})
@@ -195,17 +168,13 @@ const Calendar = () => {
     </RECORD>`
 
 		return await axios
-			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${sisn}`,
-				xmlFormDelete,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-					timeout: 5000,
-				}
-			)
+			.post(`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${sisn}`, xmlFormDelete, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+				timeout: 5000,
+			})
 			.then((res) => {
 				return eventInfo.patronInfo
 			})
@@ -236,7 +205,7 @@ const Calendar = () => {
 	}
 
 	return (
-		<PatronLayout heading={message.calendar}>
+		<PatronLayout  mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading={message.calendar}>
 			<ProfileTable
 				data={records}
 				columns={columns}

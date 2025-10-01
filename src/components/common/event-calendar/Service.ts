@@ -62,10 +62,7 @@ export const fetch_get = async (currentDate: Date, isWeekType?: boolean) => {
 			}
 		)
 		const x2js = new X2JS({
-			arrayAccessFormPaths: [
-				'div.xml.event.FLOC_IM_REF_GRP',
-				'div.xml.event.FLOC_VD_REF_GRP',
-			],
+			arrayAccessFormPaths: ['div.xml.event.FLOC_IM_REF_GRP', 'div.xml.event.FLOC_VD_REF_GRP'],
 		})
 		const jsonData: any = x2js.xml2js(response.data)
 		const events = jsonData?.div?.xml?.event

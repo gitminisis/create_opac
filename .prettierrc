@@ -4,8 +4,10 @@
 	"singleQuote": true,
 	"trailingComma": "es5",
 	"bracketSameLine": true,
-	"printWidth": 100,
+	"printWidth": 150,
 	"tabWidth": 4,
 	"useTabs": true,
-	"semi": false
+	"semi": false,
+	"jsxSingleQuote": false,
+	"jsxBracketSameLine": true
 }

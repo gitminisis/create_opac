@@ -10,6 +10,7 @@ import {
 	Copy,
 	Copyright,
 	File,
+	House,
 	Landmark,
 	Library,
 	Lightbulb,
@@ -17,30 +18,27 @@ import {
 	Search,
 	ShoppingBag,
 	Upload,
+	BookOpen,
+	Home,
 } from 'lucide-react'
-import { useState } from 'react'
+import { colorClasses } from './constants'
 
-interface StatCardProps {
-	key: number
-	icon: React.ReactNode
-	label: string
-	color: string
-	value: any
+export interface StatCardProps {
+	icon?: React.ReactNode
+	label?: string
+	color?: string
+	value?: any
+	ref?: any
 }
 
 export default function PatronProfile() {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const [activeButton, setActiveButton] = useState(null)
 	const { home, archives, museum, library, message, clientProfile } = useConstants()
 	const profileList = clientProfile.database
 	const m2l_patron_id = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-	const handleClick = (id: any) => {
-		setActiveButton(id)
-	}
 
-	const statCards = [
+	const clientDashboardCards = [
 		{
-			key: 1,
 			icon: <ShoppingBag className="h-4 w-4" />,
 			label: profileList[0].label,
 			color: 'blue',
@@ -48,7 +46,6 @@ export default function PatronProfile() {
 			link: profileList[0].url,
 		},
 		{
-			key: 2,
 			icon: <Copyright className="h-4 w-4" />,
 			label: profileList[1].label,
 			color: 'green',
@@ -56,7 +53,6 @@ export default function PatronProfile() {
 			link: profileList[1].url,
 		},
 		{
-			key: 3,
 			icon: <Copy className="h-4 w-4" />,
 			label: profileList[2].label,
 			color: 'red',
@@ -64,7 +60,6 @@ export default function PatronProfile() {
 			link: profileList[2].url,
 		},
 		{
-			key: 4,
 			icon: <BookMarked className="h-4 w-4" />,
 			label: profileList[3].label,
 			color: 'purple',
@@ -72,7 +67,6 @@ export default function PatronProfile() {
 			link: profileList[3].url,
 		},
 		{
-			key: 5,
 			icon: <Lightbulb className="h-4 w-4" />,
 			label: profileList[4].label,
 			color: 'amber',
@@ -80,34 +74,27 @@ export default function PatronProfile() {
 			link: profileList[4].url,
 		},
 		{
-			key: 6,
 			icon: <MessageCircleMore className="h-4 w-4" />,
 			label: profileList[5].label,
 			color: 'orange',
 			value: records[0].crowdsource_count,
 			link: profileList[5].url,
 		},
+		{
+			icon: <BookOpen className="h-4 w-4" />,
+			label: profileList[7].label,
+			color: 'yellow',
+			value: records[0].biblio_r_count,
+			link: profileList[7].url,
+		},
 	]
-	function StatCard({ icon, label, value, color }: StatCardProps) {
-		const colorClasses = {
-			blue: 'bg-blue-100 text-blue-500',
-			green: 'bg-green-100 text-green-500',
-			red: 'bg-red-100 text-red-500',
-			purple: 'bg-purple-100 text-purple-500',
-			amber: 'bg-amber-100 text-amber-500',
-			orange: 'bg-orange-100 text-orange-500',
-			pink: 'bg-pink-100 text-pink-500',
-			violet: 'bg-violet-100 text-violet-500',
-		} as const
 
+	function StatCard({ icon, label, value, color }: StatCardProps) {
 		return (
 			<div className="rounded-md bg-white p-6 shadow">
 				<div className="flex flex-col gap-2">
 					<div className="flex items-center justify-center gap-2">
-						<div
-							className={`rounded-full p-2 ${colorClasses[color as keyof typeof colorClasses]}`}>
-							{icon}
-						</div>
+						<div className={`rounded-full p-2 ${colorClasses[color as keyof typeof colorClasses]}`}>{icon}</div>
 						<span className="text-sm text-gray-500">{label}</span>
 					</div>
 					<div className="flex items-baseline justify-center">
@@ -119,7 +106,14 @@ export default function PatronProfile() {
 	}
 
 	return (
-		<PatronLayout heading="">
+		<PatronLayout
+			mainHeading={
+				<>
+					<Home className="mr-1 h-5 w-5" />
+					<h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2>
+				</>
+			}
+			isLibrary={false}>
 			<div className="mb-4 rounded-md bg-white p-6 shadow">
 				<h1 className="text-3xl font-semibold text-gray-800">
 					{message.welcome} {records[0]?.full_name || 'User'}!
@@ -129,29 +123,22 @@ export default function PatronProfile() {
 
 			{/* Stats Grid */}
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				{statCards.map((card, index) => (
-					<a
-						href={
-							getCookieValue('HOME_SESSID') +
-							card.link +
-							(card.label == 'Bookmarks' ? '' : m2l_patron_id)
-						}
-						className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
-						<StatCard
-							key={card.key}
-							icon={card.icon}
-							label={card.label}
-							color={card.color}
-							value={card.value}
-						/>
-					</a>
-				))}
+				{clientDashboardCards.map((card, index) => {
+					const isSpecialLabel = card.label === 'Bookmarks' || card.label === 'Library Portal'
+					const href = getCookieValue('HOME_SESSID') + card.link + (isSpecialLabel ? '' : m2l_patron_id)
+
+					return (
+						<a key={index} href={href} className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
+							<StatCard icon={card.icon} label={card.label} color={card.color} value={card.value} />
+						</a>
+					)
+				})}
 				{/* Calednar statCard's Anchor tag should be different, it uses commandsearch so never need seesion id, I made seperate StatCard for Calendar. Don Ryu 20250402 */}
 				<a
 					href={`/scripts/mwimain.dll/144/WEB_CALENDAR/WEB_CALENDAR_PROFILE?commandsearch&exp=%2B%2B%40&EXP=TAG_FUNC_P_ID%20${m2l_patron_id}&M_GVAR1=USER_ID:${m2l_patron_id}`}
 					className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50">
 					<StatCard
-						key={7}
+						key={8}
 						icon={<CalendarDays className="h-4 w-4" />}
 						label={message.calendar}
 						color={'pink'}
@@ -169,9 +156,7 @@ export default function PatronProfile() {
 				</div>
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 					{[home, archives, museum, library].map((item, index) => (
-						<div
-							key={index}
-							className="overflow-hidden rounded-md bg-white shadow hover:brightness-95">
+						<div key={index} className="overflow-hidden rounded-md bg-white shadow hover:brightness-95">
 							<Link href={item.linkURL} className="group no-underline">
 								<div className="aspect-square relative overflow-hidden">
 									<img
@@ -184,11 +169,10 @@ export default function PatronProfile() {
 								<div className="p-4">
 									<div className="flex items-center justify-between text-sm text-gray-500">
 										<div className="flex items-center gap-2">
-											{item === home && <File className="w-5 h-5" />}
+											{item === home && <House className="w-5 h-5" />}
 											{item === archives && <Archive className="w-5 h-5" />}
 											{item === museum && <Landmark className="w-5 h-5" />}
 											{item === library && <Library className="w-5 h-5" />}
-
 											{item === home
 												? Number(records[0].description_count) +
 													Number(records[0].collection_count) +

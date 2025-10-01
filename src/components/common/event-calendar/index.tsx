@@ -116,20 +116,12 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 	}
 
 	const nextWeek = () => {
-		const newDate = new Date(
-			currentDate.getFullYear(),
-			currentDate.getMonth(),
-			currentDate.getDate() + 7
-		)
+		const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 7)
 		setCurrentDate(newDate)
 	}
 
 	const prevWeek = () => {
-		const newDate = new Date(
-			currentDate.getFullYear(),
-			currentDate.getMonth(),
-			currentDate.getDate() - 7
-		)
+		const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 7)
 		setCurrentDate(newDate)
 	}
 
@@ -146,11 +138,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 	const showWeek = () => {
 		let firstDayOfWeek = new Date(currentDate)
 		firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay())
-		let nextDay = new Date(
-			firstDayOfWeek.getFullYear(),
-			firstDayOfWeek.getMonth(),
-			firstDayOfWeek.getDate() + 6
-		)
+		let nextDay = new Date(firstDayOfWeek.getFullYear(), firstDayOfWeek.getMonth(), firstDayOfWeek.getDate() + 6)
 
 		return `${firstDayOfWeek.toLocaleString(message.dateType, { month: 'short' })} ${firstDayOfWeek.getDate()} -  
 		${firstDayOfWeek.getMonth() !== nextDay.getMonth() ? nextDay.toLocaleString(message.dateType, { month: 'short' }) : ''} ${nextDay.getDate()}, ${currentDate.getFullYear()}`
@@ -158,10 +146,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 
 	return (
 		<div className={'w-full custom-scrollbar'}>
-			<div
-				className={
-					'relative flex justify-center items-center bg-primary h-[80px] rounded '
-				}>
+			<div className={'relative flex justify-center items-center bg-primary h-[80px] rounded '}>
 				<Button
 					variant="secondary"
 					onClick={weekType ? prevWeek : prevMonth}
@@ -184,48 +169,28 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 					disabled={isClickableNext}>
 					<div>&gt;</div>
 				</Button>
-				<div
-					className={
-						'hidden sm:absolute sm:right-5 w-[160px] sm:flex justify-evenly items-center'
-					}>
-					<Button
-						variant="secondary"
-						className={'w-[67px] bg-primary text-primary-foreground rounded '}
-						onClick={convertToMonth}>
+				<div className={'hidden sm:absolute sm:right-5 w-[160px] sm:flex justify-evenly items-center'}>
+					<Button variant="secondary" className={'w-[67px] bg-primary text-primary-foreground rounded '} onClick={convertToMonth}>
 						{message.month}
 					</Button>
-					<Button
-						variant="secondary"
-						className={'w-[67px] bg-primary text-primary-foreground rounded '}
-						onClick={convertToWeek}>
+					<Button variant="secondary" className={'w-[67px] bg-primary text-primary-foreground rounded '} onClick={convertToWeek}>
 						{message.week}
 					</Button>
 				</div>
 			</div>
 			{/* Mobile Week Month View */}
 			<div className={'sm:hidden mt-1 flex'}>
-				<Button
-					className={
-						'w-1/2 bg-primary text-primary-foreground rounded hover:bg-black mr-1'
-					}
-					onClick={convertToMonth}>
+				<Button className={'w-1/2 bg-primary text-primary-foreground rounded hover:bg-black mr-1'} onClick={convertToMonth}>
 					{message.month}
 				</Button>
-				<Button
-					className={
-						'w-1/2 bg-primary text-primary-foreground rounded hover:bg-black ml-1'
-					}
-					onClick={convertToWeek}>
+				<Button className={'w-1/2 bg-primary text-primary-foreground rounded hover:bg-black ml-1'} onClick={convertToWeek}>
 					{message.week}
 				</Button>
 			</div>
 			{filterOption && (
 				<>
 					<div className={'pl-[14px] mt-1 font-bold'}>{message.filterBy}</div>
-					<EventCalendarFilter
-						setCurrentFilter={setCurrentFilter}
-						filterTypes={filterTypes}
-					/>
+					<EventCalendarFilter setCurrentFilter={setCurrentFilter} filterTypes={filterTypes} />
 				</>
 			)}
 			<div className={'w-full flex justify-start px-4 py-1'}>
@@ -249,11 +214,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 			</div>
 			<div className={'w-full mt-1'}>
 				<div className={'grid grid-cols-7 gap-0.5'}>
-					<div
-						className={cn(
-							'col-span-7 grid grid-cols-7 gap-1',
-							weekType && 'col-span-1 md:col-span-7'
-						)}>
+					<div className={cn('col-span-7 grid grid-cols-7 gap-1', weekType && 'col-span-1 md:col-span-7')}>
 						{message.daysOfWeek.map((item, key) => {
 							return (
 								<div
@@ -270,9 +231,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 					{monthType &&
 						generateMonth().map((item: Day_obj, key: number) => {
 							return (
-								<div
-									key={key}
-									className="rounded border border-black cursor-pointer h-32 w-full">
+								<div key={key} className="rounded border border-black cursor-pointer h-32 w-full">
 									<EventCalendarEventList
 										dayObj={item}
 										currentFilter={currentFilter}
@@ -287,11 +246,7 @@ const EventCalendar = ({ databaseType, filterTypes, filterOption }: calendarFilt
 							)
 						})}
 					{weekType && (
-						<div
-							className={cn(
-								'col-span-7 grid grid-cols-7 gap-1',
-								weekType && 'col-span-6 md:col-span-7'
-							)}>
+						<div className={cn('col-span-7 grid grid-cols-7 gap-1', weekType && 'col-span-6 md:col-span-7')}>
 							{generateWeek().map((item: Day_obj, key: number) => {
 								return (
 									<div

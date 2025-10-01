@@ -11,9 +11,7 @@ const Section = ({ className, children, heading, subHeading, ...props }: Section
 		<section className={cn('container', className)} {...props}>
 			<div className="py-8  sm:py-12  lg:py-16">
 				<div className=" text-left">
-					<h2 className="text-3xl font-bold sm:text-4xl text-primary-background">
-						{heading}{' '}
-					</h2>
+					<h2 className="text-3xl font-bold sm:text-4xl text-primary-background">{heading} </h2>
 					{subHeading && <p className="mt-4 text-secondary-foreground">{subHeading}</p>}
 				</div>
 				<div className="mt-8 flex flex-row">{children}</div>

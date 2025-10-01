@@ -1,13 +1,5 @@
 import React, { useState } from 'react'
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '../../ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../../ui/dialog'
 import { Button } from '@/components/ui/button'
 import { convertLowerTrim, convertToArr } from '@/lib/utils'
 import { cn } from '@/lib/utils'
@@ -77,15 +69,10 @@ const EventAccordianViewButton = ({
 				</Button>
 			</DialogTrigger>
 			<DialogContent
-				className={
-					'max-w-lg h-[500px] overflow-auto p-1 flex flex-col items-center max-w-l md:max-w-3xl rounded'
-				}
+				className={'max-w-lg h-[500px] overflow-auto p-1 flex flex-col items-center max-w-l md:max-w-3xl rounded'}
 				hideClose={'invisible'}>
 				<DialogHeader className={'w-full sticky top-0 bg-white z-10 '}>
-					<DialogTitle
-						className={
-							' bg-primary text-primary-foreground h-10 flex items-center justify-between rounded p-2'
-						}>
+					<DialogTitle className={' bg-primary text-primary-foreground h-10 flex items-center justify-between rounded p-2'}>
 						<div className="h-8">
 							<img className="h-full" src={logo} alt="logo" />
 						</div>
@@ -102,17 +89,10 @@ const EventAccordianViewButton = ({
 						<Accordion.Item className="AccordionItem" value={`${idx}`} key={idx}>
 							<AccordionTrigger className={'w-full'}>
 								<div key={idx} className={'w-full'}>
-									<DialogTitle
-										className={
-											'bg-primary text-primary-foreground h-10 flex justify-center items-center rounded m-1'
-										}>
+									<DialogTitle className={'bg-primary text-primary-foreground h-10 flex justify-center items-center rounded m-1'}>
 										<div className={'flex justify-between w-[400px]'}>
 											<div className={'flex'}>
-												<div
-													className={cn(
-														'h-4 w-[16px] border rounded mr-1',
-														getColor(item[filterOption])
-													)}></div>
+												<div className={cn('h-4 w-[16px] border rounded mr-1', getColor(item[filterOption]))}></div>
 												{item[TAG_NAME]}
 											</div>
 											<div className={'mx-2'}>
@@ -136,19 +116,12 @@ const EventAccordianViewButton = ({
 									</div>
 								)}
 								<div className={'flex'}>
-									<div
-										className={
-											'w-full text-lg w-full flex flex-col justify-center items-left font-bold px-2 '
-										}>
+									<div className={'w-full text-lg w-full flex flex-col justify-center items-left font-bold px-2 '}>
 										<div className={'text-lg font-bold'}>{item[TAG_NAME]}</div>
 										<div className={'sm:flex'}>
-											<div className="ml-[10px] sm:ml-0 text-md text-gray-600 font-bold">
-												&#x2022;{item[TAG_FUNC_DATE]}
-											</div>
+											<div className="ml-[10px] sm:ml-0 text-md text-gray-600 font-bold">&#x2022;{item[TAG_FUNC_DATE]}</div>
 											<div className="ml-[10px] text-md text-gray-600 font-bold">
-												<span>
-													&#x2022;{item[TAG_FUNC_START_T]?.toUpperCase()}
-												</span>
+												<span>&#x2022;{item[TAG_FUNC_START_T]?.toUpperCase()}</span>
 												<span className={'mx-2'}>-</span>
 												<span>{item[TAG_FUNC_END_T]?.toUpperCase()}</span>
 											</div>
@@ -164,8 +137,7 @@ const EventAccordianViewButton = ({
 										</div>
 										<div className={'sm:flex'}>
 											<div className="sm:ml-0 ml-[10px] text-md text-gray-600 font-bold">
-												&#x2022;{message.suitableFor}{' '}
-												{item[TAG_FUNC_LOC_AUD]}
+												&#x2022;{message.suitableFor} {item[TAG_FUNC_LOC_AUD]}
 											</div>
 											<div className="ml-[10px] text-md text-gray-600 font-bold">
 												&#x2022;{message.max}: {item[TAG_FUNC_LOC_MAX]}
@@ -174,22 +146,20 @@ const EventAccordianViewButton = ({
 									</div>
 								</div>
 								{/* 'More' button to toggle description of the event */}
-								<DialogDescription
-									className={`min-h-[100px] p-2 break-all overflow-x-hidden overflow-y-auto`}>
+								<DialogDescription className={`min-h-[100px] p-2 break-all overflow-x-hidden overflow-y-auto`}>
 									{item[TAG_FUNC_LOC_DEC]}
 								</DialogDescription>
-								{item[TAG_FUNC_RSVP] !== RSVP_MAP.NO &&
-									item[TAG_FUNC_CANCEL] !== RSVP_MAP.YES && (
-										<div className={'h-[380px] font-bold m-2 p-2'}>
-											<EventRSVPForm
-												capacity={item[TAG_FUNC_LOC_MAX]}
-												patrons={convertToArr(item[PATRON])}
-												sisnNumber={item[SISN]}
-												event={item}
-												contactInfo={contactInfo}
-											/>
-										</div>
-									)}
+								{item[TAG_FUNC_RSVP] !== RSVP_MAP.NO && item[TAG_FUNC_CANCEL] !== RSVP_MAP.YES && (
+									<div className={'h-[380px] font-bold m-2 p-2'}>
+										<EventRSVPForm
+											capacity={item[TAG_FUNC_LOC_MAX]}
+											patrons={convertToArr(item[PATRON])}
+											sisnNumber={item[SISN]}
+											event={item}
+											contactInfo={contactInfo}
+										/>
+									</div>
+								)}
 							</AccordionContent>
 						</Accordion.Item>
 					))}

@@ -8,10 +8,7 @@ import { SchemaType } from '@/types/schema'
 const AdminMessage = () => {
 	return (
 		<AdminLayout>
-			<AdminFormProvider
-				data={fieldsValue}
-				schema={fields as SchemaType}
-				filepath="constants/en/message.json">
+			<AdminFormProvider data={fieldsValue} schema={fields as SchemaType} filepath="constants/en/message.json">
 				<AdminForm />
 			</AdminFormProvider>
 		</AdminLayout>

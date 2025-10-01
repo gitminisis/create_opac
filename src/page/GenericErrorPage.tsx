@@ -9,11 +9,7 @@ const GenericErrorPage = () => {
 	const { heroBanner, searchURL } = home
 	return (
 		<Layout>
-			<Hero
-				className=""
-				title={message.genericError}
-				backgroundImage={heroBanner}
-				description="">
+			<Hero className="" title={message.genericError} backgroundImage={heroBanner} description="">
 				<SearchForm className="w-full mt-6 max-w-2xl" action={getSearchURL(searchURL)} />
 			</Hero>
 		</Layout>

@@ -98,11 +98,7 @@ function AssetGrid({ assets }: { assets: Asset[] }) {
 			{assets.map((asset) => (
 				<Card key={asset.id} className="overflow-hidden">
 					<div className="aspect-video relative">
-						<a
-							href={asset.link}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="block aspect-video relative">
+						<a href={asset.link} target="_blank" rel="noopener noreferrer" className="block aspect-video relative">
 							<img
 								src={asset.thumbnail || '/placeholder.svg'}
 								alt={asset.name}

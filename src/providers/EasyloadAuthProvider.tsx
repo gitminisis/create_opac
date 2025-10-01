@@ -6,10 +6,8 @@ const authTokenAtom = atom(localStorage.getItem('easyloadToken'))
 const easyloadUserAtom = atom(localStorage.getItem('easyloadUser'))
 const loadingAtom = atom(false)
 const errorAtom = atom(null)
-const TENANT =
-	process.env.REACT_APP_EASYLOAD_TENANT || import.meta.env.VITE_REACT_APP_EASYLOAD_TENANT
-const PASSWORD =
-	process.env.REACT_APP_EASYLOAD_PASSWORD || import.meta.env.VITE_REACT_APP_EASYLOAD_PASSWORD
+const TENANT = process.env.REACT_APP_EASYLOAD_TENANT || import.meta.env.VITE_REACT_APP_EASYLOAD_TENANT
+const PASSWORD = process.env.REACT_APP_EASYLOAD_PASSWORD || import.meta.env.VITE_REACT_APP_EASYLOAD_PASSWORD
 
 type AuthContextType = {
 	authenticate: () => Promise<void>

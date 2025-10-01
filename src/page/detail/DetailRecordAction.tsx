@@ -2,41 +2,37 @@ import { useState, useRef } from 'react'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
 import { copyRecordURL, deepSearchKey, handleCopyRecordURL } from '@/lib/record'
-import { ChevronLeft, ChevronRight, Files, Copy, ShoppingBag, Star } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Files, Copy, ShoppingBag, Star, SquareCheck, Copyright, Lightbulb, Link } from 'lucide-react'
 import { Button } from '../../components/ui/button'
 import { useToast } from '../../components/ui/use-toast'
 import DialogLogin from '../../components/common/DialogLogin'
 import TooltipButton from '@/components/common/TooltipButton'
-import { cn, getCookieValue, getHomeSessionID } from '@/lib/utils'
-import { Input } from '@/components/ui/input'
+import { cn, convertToArr, getCookieValue, getHomeSessionID, isDescriptionDatabase } from '@/lib/utils'
 import { bookmarkSelect, validateBookmarkResponse } from '@/lib/bookmark'
 import { useAtom } from 'jotai'
 import { bookmarkCount } from '@/store'
+import { REQUEST_BIBLIO_DB } from '../request/RequestConfirmed'
 
 const DetailRecordAction = () => {
 	const { common } = useJSONData({ selector: '#xml_record' })
 	const { bookmark_url, bookmark_count } = common
-	const { message } = useConstants()
+	const { message, config } = useConstants()
 	const [count, setCount] = useAtom(bookmarkCount)
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 	const formRef = useRef<HTMLFormElement | null>(null)
 	const { toast } = useToast()
 	const { nextRecord, previousRecord, records } = useJSONData({ selector: '#xml_record' })
 	const record = records[0]
+	const { item_info_occurrence } = record.record.item_info ?? []
 	const { is_bookmarked } = record
 	const [like, setLike] = useState(is_bookmarked ? Boolean(JSON.parse(is_bookmarked)) : true)
 	const requestData = record?.request
-	const sisn = deepSearchKey(record, 'sisn')[0] as string
 	const database = record.database_name
 	const [loading, setLoading] = useState(false)
+	const canRequest = database === 'BIBLIO_WEB' && config.requestConfig.libraryRequest
 	const handleSubmit = (action: string | null) => {
 		if (checkLoggedInToRequest(action)) {
-			const {
-				refd,
-				accession_number,
-				title: recordTitle,
-				legal_title: recordLegalTitle,
-			} = record.record
+			const { refd, accession_number, title: recordTitle, legal_title: recordLegalTitle } = record.record
 			const itemid = refd || accession_number || ''
 			const title = recordLegalTitle || recordTitle || ''
 			switch (action) {
@@ -83,9 +79,7 @@ const DetailRecordAction = () => {
 			setLoading(false)
 			const isValid = validateBookmarkResponse(
 				res,
-				typeof bookmark_count === 'number'
-					? bookmark_count
-					: Number.parseInt(bookmark_count || '0')
+				typeof bookmark_count === 'number' ? bookmark_count : Number.parseInt(bookmark_count || '0')
 			)
 			if (isValid && isValid.isSuccess) {
 				setLike(true)
@@ -95,9 +89,7 @@ const DetailRecordAction = () => {
 					duration: 2000,
 					action: (
 						<a
-							className={
-								'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'
-							}
+							className={'p-1 text-center border-solid border-2 rounded-md text-sm font-bold'}
 							href={`${bookmark_url}?SHOWORDERLIST&COOKIE=BOOKMARK&NEW=Y&NOMSG=[MESSAGES]no-bookmark.html`}>
 							{message.viewBookmark}
 						</a>
@@ -112,39 +104,28 @@ const DetailRecordAction = () => {
 		if (url) window.location.href = url
 	}
 
-	const checkRecordHasMandatoryDataToRequest = () => {
-		const checkRecord = record.record
-		const recordRequestBool = 'Yes' as string
-		let requestable = false as boolean
-		checkRecord?.a_avail === recordRequestBool ||
-		checkRecord?.m_avail === recordRequestBool ||
-		checkRecord?.l_avail === recordRequestBool
-			? (requestable = true)
-			: (requestable = false)
-		return requestable
-	}
-
-	const checkIfCurrentClientRequestedThisRecord = () => {
-		const recordRequested = record.record?.is_requested_by_client
-		let currentClientRequested = false
-		if (recordRequested === 'Current') {
-			currentClientRequested = true
-		}
-		return currentClientRequested
-	}
-
 	const checkLoggedInToRequest = (action: string | null) => {
 		let isLoggedIn = false
 		const patronID = getCookieValue('M2L_PATRON_ID')?.split(']')[1]
-		if (
-			(patronID === null || patronID === undefined || patronID === '') &&
-			action !== 'Enquire'
-		) {
+		if ((patronID === null || patronID === undefined || patronID === '') && action !== 'Enquire') {
 			setIsModalOpen(true)
 		} else {
 			isLoggedIn = true
 		}
 		return isLoggedIn
+	}
+
+	const isRequestDisabled = () => {
+		let res = false
+		convertToArr(record.cur_user_request).map((barcode) => {
+			convertToArr(item_info_occurrence).map((item) => {
+				if (barcode == item.barcode) {
+					res = true
+					return
+				}
+			})
+		})
+		return res
 	}
 
 	return (
@@ -158,101 +139,39 @@ const DetailRecordAction = () => {
 					<ChevronLeft />
 					<span className="hidden md:block">{message.previous}</span>
 				</TooltipButton>
-
 				<div className="flex flex-wrap justify-start gap-2">
-					{checkRecordHasMandatoryDataToRequest() &&
-					checkIfCurrentClientRequestedThisRecord() ? (
+					{canRequest && (
 						<TooltipButton
 							tooltipContent={message.requestRecord}
+							disabled={isRequestDisabled()}
 							variant="outline"
 							className={'w-[22%] md:w-[23.5%] flex '}
 							onClick={() => handleSubmit('Request')}>
-							<ShoppingBag className="w-4 h-4 md:mr-2 " />{' '}
-							<span className="hidden md:block">{message.request}</span>
+							<SquareCheck className="w-4 h-4 md:mr-2 " /> <span className="hidden md:block">{message.request}</span>
 							<form
 								method="post"
 								ref={formRef}
-								action={
-									getHomeSessionID() +
-									'/1/' +
-									record.request.req_db_link2 +
-									'?REQUESTLOGIN&DBNAME=' +
-									record.request.req_db_name
-								}
+								action={getHomeSessionID() + '/1/' + record.request.req_db_link3 + '?REQUESTLOGIN&DBNAME=BIBLIO_WEB'}
 								className="hidden">
-								<Input
-									type="hidden"
-									name="ITEM_REQ_TIME"
-									value={requestData.item_req_time}
-								/>
-								<Input
-									type="hidden"
-									name="METHOD_REQUEST"
-									value={requestData.method_request}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_TOPIC"
-									value={requestData.req_topic}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_APPL_NAME"
-									value={requestData.req_appl_name}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_DB_NAME"
-									value={requestData.req_db_name}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_DB_LINK2"
-									value={requestData.req_db_link2}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_QUEUE"
-									value={requestData.req_queue}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_DB_RECID"
-									value={requestData.req_db_recid}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_TITLE"
-									value={requestData.req_title}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_ITEM_ID"
-									value={requestData.req_item_id}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_ACC_NUMBER"
-									value={requestData.req_acc_number}
-								/>
-								<Input
-									type="hidden"
-									name="REQ_ITEM_TITLE"
-									value={requestData.req_item_title}
-								/>
+								<input type="hidden" name="REQ_ITEM_ID" value={``} />
+								<input type="hidden" name="REQ_WAIT_TIME" value={requestData.req_wait_time} />
+								<input type="hidden" name="ITEM_REQ_TIME" value={requestData.item_req_time} />
+								<input type="hidden" name="METHOD_REQUEST" value={requestData.method_request} />
+								<input type="hidden" name="REQ_TOPIC" value={requestData.req_topic} />
+								<input type="hidden" name="REQ_APPL_NAME" value={requestData.req_appl_name} />
+								<input type="hidden" name="REQ_DB_NAME" value={REQUEST_BIBLIO_DB} />
+								<input type="hidden" name="REQ_DB_RECID" value={'ACCESSION_NUMBER'} />
+								<input type="hidden" name="REQ_TITLE" value={requestData.req_title} />
+								<input type="hidden" name="REQ_DB_LINK3" value={requestData.req_db_link3} />
+								<input type="hidden" name="REQ_ITEM_TITLE" value={requestData.req_item_title} />
+								<input type="hidden" name="REQ_QUEUE" value={requestData.req_queue} />
+								<input type="hidden" name="LIBRARY_REQ" value={requestData.library_req} />
+								<input type="hidden" name="REQ_NEXT_COLLECT" value={requestData.req_next_collect} />
+								<input type="hidden" name="REQ_PICKUP_LOC" value={requestData.req_pickup_loc} />
 								<Button className="bg-primary" type="submit" variant="default">
-									Submit
+									{message.submit}
 								</Button>
 							</form>
-						</TooltipButton>
-					) : (
-						<TooltipButton
-							tooltipContent={message.requestRecord}
-							variant="outline"
-							disabled
-							className={'w-[22%] md:w-[23.5%] flex '}>
-							<ShoppingBag className="w-4 h-4 md:mr-2" />{' '}
-							<span className="hidden md:block">{message.request}</span>
 						</TooltipButton>
 					)}
 
@@ -261,7 +180,7 @@ const DetailRecordAction = () => {
 						variant="outline"
 						className={' w-[22%] md:w-[23.5%] flex  p-1'}
 						onClick={() => handleSubmit('Enquire')}>
-						<ShoppingBag className="w-4 h-4 md:mr-2 " />
+						<Lightbulb className="w-4 h-4 md:mr-2 " />
 						<span className="hidden md:block">{message.enquire}</span>
 					</TooltipButton>
 					<TooltipButton
@@ -277,8 +196,7 @@ const DetailRecordAction = () => {
 						variant="outline"
 						className={'w-[22%] md:w-[23.5%] flex '}
 						onClick={() => handleSubmit('Copyright')}>
-						<Files className="w-4 h-4 md:mr-2" />{' '}
-						<span className="hidden md:block">{message.copyright}</span>
+						<Copyright className="w-4 h-4 md:mr-2" /> <span className="hidden md:block">{message.copyright}</span>
 					</TooltipButton>
 					<TooltipButton
 						tooltipContent={message.copyRecordUrl}
@@ -290,7 +208,7 @@ const DetailRecordAction = () => {
 								title: message.recordIsCopied,
 							})
 						}}>
-						<Copy className="w-4 h-4 md:mr-2" />
+						<Link className="w-4 h-4 md:mr-2" />
 						<span className="hidden md:block">{message.copy}</span>
 					</TooltipButton>
 					<TooltipButton
@@ -308,7 +226,6 @@ const DetailRecordAction = () => {
 						<span className="hidden md:block">{message.bookmark}</span>
 					</TooltipButton>
 				</div>
-
 				<TooltipButton
 					tooltipContent={message.nextRecord}
 					className={'align-center md:w-[130px]'}

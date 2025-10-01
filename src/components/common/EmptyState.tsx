@@ -18,15 +18,11 @@ export function EmptyState({ query, onReset }: EmptyStateProps) {
 				/>
 
 				<div className="space-y-2">
-					<h3 className="text-xl font-semibold tracking-tight">
-						{query ? 'No matches found' : 'No results'}
-					</h3>
+					<h3 className="text-xl font-semibold tracking-tight">{query ? 'No matches found' : 'No results'}</h3>
 					<p className="text-sm text-muted-foreground">
 						{query ? (
 							<>
-								No matches found for "
-								<span className="font-medium text-foreground">{query}</span>". Try
-								adjusting your search term.
+								No matches found for "<span className="font-medium text-foreground">{query}</span>". Try adjusting your search term.
 							</>
 						) : (
 							'Try searching for something else.'

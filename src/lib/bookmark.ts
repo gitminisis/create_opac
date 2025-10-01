@@ -23,10 +23,7 @@ export const removeBookmarkFromKey = (session: string, recd: Record) => {
 	})
 }
 
-export const validateBookmarkResponse = (
-	res: AxiosResponse<any, any>,
-	prevCount: number
-): BookmarkResponse => {
+export const validateBookmarkResponse = (res: AxiosResponse<any, any>, prevCount: number): BookmarkResponse => {
 	if (res.status !== 200 && res.statusText !== 'OK')
 		return {
 			isSuccess: false,

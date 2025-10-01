@@ -5,15 +5,7 @@ import { convertLowerTrim } from '@/lib/utils'
 import { calendarMonthType } from '@/store'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
-import {
-	Cal_event,
-	ContactInfoRSVP,
-	Day_obj,
-	FilterType,
-	TAG_FUNC_DATE,
-	TAG_FUNC_DTE_LIST,
-	TAG_FUNC_START_T,
-} from './Constants'
+import { Cal_event, ContactInfoRSVP, Day_obj, FilterType, TAG_FUNC_DATE, TAG_FUNC_DTE_LIST, TAG_FUNC_START_T } from './Constants'
 import EventAllButton from './EventAllButton'
 import EventButton from './EventButton'
 import EventSumButton from './EventSumButton'
@@ -26,33 +18,18 @@ export interface Event_list {
 	contactInfo: ContactInfoRSVP[]
 	filterTypes: FilterType[]
 	filterOption: string
-	databaseType:any
+	databaseType: any
 }
 
-const EventCalendarEventList = ({
-	dayObj,
-	currentFilter = [],
-	currentEvent,
-	contactInfo,
-	filterTypes,
-	filterOption,
-	databaseType
-}: Event_list) => {
+const EventCalendarEventList = ({ dayObj, currentFilter = [], currentEvent, contactInfo, filterTypes, filterOption, databaseType }: Event_list) => {
 	const [filteredEvents, setFilteredEvents] = useState<Cal_event[]>([])
 	const [monthType, __] = useAtom(calendarMonthType)
 	useEffect(() => {
 		const updatedFilteredEvents = currentEvent?.filter((item: any) => {
 			const { day, month, year } = changeStrToDate(item?.TAG_FUNC_DATE)
-			const isMatchingDayMonth =
-				day === dayObj.day && month === dayObj.month && year === dayObj.year
+			const isMatchingDayMonth = day === dayObj.day && month === dayObj.month && year === dayObj.year
 			if (currentFilter.length > 0) {
-				return (
-					isMatchingDayMonth &&
-					currentFilter.some(
-						(type: string) =>
-							convertLowerTrim(type) === convertLowerTrim(item[filterOption])
-					)
-				)
+				return isMatchingDayMonth && currentFilter.some((type: string) => convertLowerTrim(type) === convertLowerTrim(item[filterOption]))
 			}
 			return isMatchingDayMonth
 		})
@@ -70,8 +47,7 @@ const EventCalendarEventList = ({
 
 	const changeStrToDate = (dateString: string) => {
 		if (dateString) {
-			let date =
-				dateString?.split('-').map((part) => parseInt(part.replace(/^0+/, ''), 10)) ?? []
+			let date = dateString?.split('-').map((part) => parseInt(part.replace(/^0+/, ''), 10)) ?? []
 			let day = date[2] ?? 0
 			let month = date[1] ?? 0
 			let year = date[0] ?? 0

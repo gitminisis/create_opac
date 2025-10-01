@@ -5,9 +5,7 @@ const env = DotEnv.config({ path: `./.env.local` }).parsed || {}
 const TerserPlugin = require('terser-webpack-plugin')
 
 const envKeys = Object.keys(env).reduce((prev, next) => {
-	prev[`process.env.${next.trim()}`] = env[next]
-		? JSON.stringify(env[next].trim())
-		: JSON.stringify(env[next].trim())
+	prev[`process.env.${next.trim()}`] = env[next] ? JSON.stringify(env[next].trim()) : JSON.stringify(env[next].trim())
 	return prev
 }, {})
 
@@ -20,30 +18,26 @@ const overrideWebpackConfig = ({ webpackConfig }) => {
 		},
 		name: 'development-cache',
 	}
-	
+
 	webpackConfig.output.path = path.resolve('dist')
 	webpackConfig.output.filename = 'main.js'
 	webpackConfig.output.clean = true
 	webpackConfig.resolve.alias = {
 		'@': path.resolve(__dirname, 'src'),
 	}
-	
+
 	// Faster source maps for development
 	webpackConfig.devtool = 'eval-cheap-module-source-map'
-	
+
 	// Optimize module resolution
 	webpackConfig.resolve.symlinks = false
-	
+
 	// Add thread-loader for parallel processing
-	const jsRule = webpackConfig.module.rules.find(
-		rule => rule.test && rule.test.toString().includes('jsx')
-	)
-	
+	const jsRule = webpackConfig.module.rules.find((rule) => rule.test && rule.test.toString().includes('jsx'))
+
 	if (jsRule && jsRule.use) {
-		const babelLoaderIndex = jsRule.use.findIndex(
-			loader => loader.loader && loader.loader.includes('babel-loader')
-		)
-		
+		const babelLoaderIndex = jsRule.use.findIndex((loader) => loader.loader && loader.loader.includes('babel-loader'))
+
 		if (babelLoaderIndex !== -1) {
 			jsRule.use.unshift({
 				loader: 'thread-loader',
@@ -53,20 +47,20 @@ const overrideWebpackConfig = ({ webpackConfig }) => {
 			})
 		}
 	}
-	
+
 	// Limit transpilation scope
-	webpackConfig.module.rules.forEach(rule => {
+	webpackConfig.module.rules.forEach((rule) => {
 		if (rule.oneOf) {
-			rule.oneOf.forEach(oneOfRule => {
+			rule.oneOf.forEach((oneOfRule) => {
 				if (oneOfRule.include) {
 					if (!oneOfRule.exclude) {
-						oneOfRule.exclude = /node_modules/;
+						oneOfRule.exclude = /node_modules/
 					}
 				}
 			})
 		}
 	})
-	
+
 	return webpackConfig
 }
 

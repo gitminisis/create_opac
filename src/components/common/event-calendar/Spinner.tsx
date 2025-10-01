@@ -1,23 +1,9 @@
 import React from 'react'
 
-const Spinner = ({
-	height,
-	spinHeight,
-	spinWidth,
-	background,
-}: {
-	height: string
-	spinHeight: string
-	spinWidth: string
-	background?: string
-}) => {
+const Spinner = ({ height, spinHeight, spinWidth, background }: { height: string; spinHeight: string; spinWidth: string; background?: string }) => {
 	return (
-		<div
-			className={`absolute w-full ${height} z-40 flex justify-center items-center ${background} `}>
-			<div
-				className={
-					'text-center rounded-[15px] p-5 flex justify-center items-center flex-col bg-primary'
-				}>
+		<div className={`absolute w-full ${height} z-40 flex justify-center items-center ${background} `}>
+			<div className={'text-center rounded-[15px] p-5 flex justify-center items-center flex-col bg-primary'}>
 				<div role="status" className={'text-lg '}>
 					<svg
 						aria-hidden="true"

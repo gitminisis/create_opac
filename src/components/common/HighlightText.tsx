@@ -2,7 +2,12 @@ export const HighlightText = ({ text, highlights }: { text: string; highlights: 
 	if (!highlights.length) return <p className="text-foreground">{text}</p>
 
 	// Create a regex pattern from the highlight words with word boundaries
-	const regex = new RegExp(`\\b(${highlights.join('|')})\\b`, 'gi')
+	function escapeRegex(str: string) {
+		return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+	}
+	
+	const pattern = highlights.map(escapeRegex).join('|')
+	const regex = new RegExp(`\\b(${pattern})\\b`, 'gi')
 
 	// Split the text by the regex matches and include the matches
 	let lastIndex = 0

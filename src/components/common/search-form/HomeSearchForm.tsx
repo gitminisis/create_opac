@@ -13,15 +13,7 @@ export interface HomeSearchFormProps extends React.HTMLAttributes<HTMLFormElemen
 	title?: string
 }
 
-export default function HomeSearchForm({
-	className,
-	inputName,
-	inputStyle,
-	action,
-	append,
-	title = '',
-	...props
-}: HomeSearchFormProps) {
+export default function HomeSearchForm({ className, inputName, inputStyle, action, append, title = '', ...props }: HomeSearchFormProps) {
 	const { message } = useConstants()
 
 	return (

@@ -5,12 +5,12 @@ import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from './button'
 
-interface AccordionItem {
+export interface AccordionItem {
 	title: string
 	content: JSX.Element
 }
 
-interface AccordionProps {
+export interface AccordionProps {
 	items: AccordionItem[]
 }
 
@@ -31,12 +31,7 @@ export default function Accordion({ items }: AccordionProps) {
 						aria-expanded={openIndex === index}
 						aria-controls={`accordion-content-${index}`}>
 						<span className="font-medium">{item.title}</span>
-						<ChevronDown
-							className={cn(
-								'w-5 h-5 transition-transform duration-200',
-								openIndex === index && 'transform rotate-180'
-							)}
-						/>
+						<ChevronDown className={cn('w-5 h-5 transition-transform duration-200', openIndex === index && 'transform rotate-180')} />
 					</Button>
 					{openIndex === index && (
 						<div id={`accordion-content-${index}`} className="p-4 pt-0">
