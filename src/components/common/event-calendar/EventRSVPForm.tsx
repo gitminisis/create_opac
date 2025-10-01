@@ -2,16 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import useConstants from '@/hooks/useConstants'
-import {
-	convertToArr,
-	convertXMLToJson,
-	encodeObj,
-	getCookieValue,
-	getCurrentDate,
-	getSessionID,
-	isLogin,
-	setCookie,
-} from '@/lib/utils'
+import { convertToArr, convertXMLToJson, encodeObj, getCookieValue, getCurrentDate, getSessionID, isLogin, setCookie } from '@/lib/utils'
 import { calendarCurrDate, calendarEvents, calendarWeekType } from '@/store'
 import { Label } from '@radix-ui/react-label'
 import axios from 'axios'
@@ -106,23 +97,12 @@ const EventInput = ({ label, keyname, register, required, isLoginValid }: EventI
 	return (
 		<div className={'flex w-full flex-col my-1'}>
 			<Label>{label}</Label>
-			<Input
-				disabled={isLoginValid}
-				className={'border-2 border-grey-500'}
-				{...register(keyname, { required: required })}
-			/>
+			<Input disabled={isLoginValid} className={'border-2 border-grey-500'} {...register(keyname, { required: required })} />
 		</div>
 	)
 }
 
-const EventEmailInput = ({
-	label,
-	keyname,
-	register,
-	required,
-	errors,
-	isLoginValid,
-}: EventInput) => {
+const EventEmailInput = ({ label, keyname, register, required, errors, isLoginValid }: EventInput) => {
 	return (
 		<div className={'flex w-full flex-col my-1'}>
 			<Label>{label}</Label>
@@ -209,20 +189,8 @@ const ShowForm = ({
 			<form
 				onSubmit={handleSubmit(handleFormSubmit)} // Use handleFormSubmit here
 				className={'h-full w-full flex flex-col justify-start items-center'}>
-				<EventInput
-					label={message.firstName}
-					keyname={TAG_FUNC_P_FIRST}
-					register={register}
-					required={true}
-					isLoginValid={isLoginValid}
-				/>
-				<EventInput
-					label={message.lastName}
-					keyname={TAG_FUNC_P_LAST}
-					register={register}
-					required={true}
-					isLoginValid={isLoginValid}
-				/>
+				<EventInput label={message.firstName} keyname={TAG_FUNC_P_FIRST} register={register} required={true} isLoginValid={isLoginValid} />
+				<EventInput label={message.lastName} keyname={TAG_FUNC_P_LAST} register={register} required={true} isLoginValid={isLoginValid} />
 				<EventEmailInput
 					label={message.email}
 					keyname={TAG_FUNC_P_EMAIL}
@@ -233,10 +201,7 @@ const ShowForm = ({
 				/>
 				<div className={'flex w-full flex-col my-1'}>
 					<Label>{message.attendee}</Label>
-					<select
-						defaultValue={TAG_FUNC_P_ATTND_DEFAULT}
-						{...register(TAG_FUNC_P_ATTND)}
-						className={'border-2 border-grey-500 w-1/4'}>
+					<select defaultValue={TAG_FUNC_P_ATTND_DEFAULT} {...register(TAG_FUNC_P_ATTND)} className={'border-2 border-grey-500 w-1/4'}>
 						{Array(TAG_FUNC_P_ATTND_MAX)
 							.fill(0)
 							.map((_, index) => (
@@ -250,10 +215,7 @@ const ShowForm = ({
 				<div className={'my-2'}>
 					{!isLoginValid && (
 						<ReCAPTCHA
-							sitekey={
-								process.env.REACT_APP_RSVP_RECAPTCHA ||
-								import.meta.env.VITE_REACT_APP_RECAPTCHA
-							}
+							sitekey={process.env.REACT_APP_RSVP_RECAPTCHA || import.meta.env.VITE_REACT_APP_RECAPTCHA}
 							onChange={handleCaptchaChange}
 						/>
 					)}
@@ -313,35 +275,20 @@ const ShowButton = ({
 	return (
 		<div className={'h-full w-full text-lg'}>
 			{event[TAG_FUNC_RSVP] !== RSVP_MAP.NO && (
-				<div
-					className={
-						'h-1/2 w-full flex flex-col items-center justify-evenly p-1 border-2 rounded'
-					}>
-					<div className={'flex justify-center items-center'}>
-						{message.registrationRequired}
-					</div>
+				<div className={'h-1/2 w-full flex flex-col items-center justify-evenly p-1 border-2 rounded'}>
+					<div className={'flex justify-center items-center'}>{message.registrationRequired}</div>
 					<Button
-						disabled={
-							capacity - calNumOfPatron(patrons) <= 0 ||
-							isDateInThePast(event[TAG_FUNC_DATE])
-								? true
-								: false
-						}
+						disabled={capacity - calNumOfPatron(patrons) <= 0 || isDateInThePast(event[TAG_FUNC_DATE]) ? true : false}
 						className={'w-full font-bold'}
 						onClick={() => setStatus(STATUS_TYPE.SHOW_FORM)}>
-						{isDateInThePast(event[TAG_FUNC_DATE])
-							? message.eventEndedMessage
-							: message.register}
+						{isDateInThePast(event[TAG_FUNC_DATE]) ? message.eventEndedMessage : message.register}
 					</Button>
 					<div className={'flex justify-center items-center'}>
 						{capacity - calNumOfPatron(patrons) <= 0 ? (
-							<div className={'flex text-red-600 justify-center items-center'}>
-								{message.noSeatsRemaining}
-							</div>
+							<div className={'flex text-red-600 justify-center items-center'}>{message.noSeatsRemaining}</div>
 						) : (
 							<div className={'flex text-lime-800 justify-center items-center'}>
-								<BadgeCheck />{' '}
-								{`${capacity - calNumOfPatron(patrons)} ${message.seatsRemaining}`}
+								<BadgeCheck /> {`${capacity - calNumOfPatron(patrons)} ${message.seatsRemaining}`}
 							</div>
 						)}
 					</div>
@@ -373,40 +320,24 @@ const ShowButton = ({
 									<MonitorPlay size={25} className={'mr-2'} />
 									<div>{message.online}</div>
 								</div>
-								<div className={'text-sm my-2 text-center'}>
-									"{message.onlineTip}"
-								</div>
+								<div className={'text-sm my-2 text-center'}>"{message.onlineTip}"</div>
 							</>
 						) : (
 							<>
 								<div className={'flex'}>
 									<SquareUserRound size={25} className={'mr-2'} />
 									<div>
+										<div className={'font-normal text-base'}>{getContactInfo(BD_BUILDING_NAME, contactInfo, event)}</div>
 										<div className={'font-normal text-base'}>
-											{getContactInfo(BD_BUILDING_NAME, contactInfo, event)}
-										</div>
-										<div className={'font-normal text-base'}>
+											<div>{getContactInfo(BD_ADDRESS, contactInfo, event)}</div>
 											<div>
-												{getContactInfo(BD_ADDRESS, contactInfo, event)}
-											</div>
-											<div>
-												<span className={'mr-1'}>
-													{getContactInfo(BD_CITY, contactInfo, event)}
-												</span>
-												<span>
-													{getContactInfo(
-														BD_POSTAL_CODE,
-														contactInfo,
-														event
-													)}
-												</span>
+												<span className={'mr-1'}>{getContactInfo(BD_CITY, contactInfo, event)}</span>
+												<span>{getContactInfo(BD_POSTAL_CODE, contactInfo, event)}</span>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div className={'text-sm my-2 text-center'}>
-									"{message.inPersonTip}"
-								</div>
+								<div className={'text-sm my-2 text-center'}>"{message.inPersonTip}"</div>
 							</>
 						)}
 					</div>
@@ -447,15 +378,9 @@ const ShowRSVPSuccess = ({
 }) => {
 	const message = useConstants().message
 	return (
-		<div
-			className={
-				'min-h-[388px] h-full w-full p-2 border-2 rounded flex flex-col justify-evenly'
-			}>
+		<div className={'min-h-[388px] h-full w-full p-2 border-2 rounded flex flex-col justify-evenly'}>
 			<div>
-				<div
-					className={
-						'min-h-[194px] text-center w-full h-3/6 flex flex-col items-center justify-evenly'
-					}>
+				<div className={'min-h-[194px] text-center w-full h-3/6 flex flex-col items-center justify-evenly'}>
 					<SquareUserRound className="w-12 h-12" />
 					{isLoginValid ? (
 						<div className={'text-2xl'}>{message.registered}!</div>
@@ -471,9 +396,7 @@ const ShowRSVPSuccess = ({
 				</div>
 			</div>
 			<div>
-				<div className={'w-full flex justify-center text-lg mb-3'}>
-					{message.contactInfo}
-				</div>
+				<div className={'w-full flex justify-center text-lg mb-3'}>{message.contactInfo}</div>
 				{event[TAG_FUNC_O] === RSVP_MAP.YES ? (
 					<>
 						<div className={'flex font-normal items-center'}>
@@ -487,18 +410,12 @@ const ShowRSVPSuccess = ({
 						<div className={'flex items-center'}>
 							<SquareUserRound size={25} className={'mr-2'} />
 							<div>
-								<div className={'font-normal text-base'}>
-									{getContactInfo(BD_BUILDING_NAME, contactInfo, event)}
-								</div>
+								<div className={'font-normal text-base'}>{getContactInfo(BD_BUILDING_NAME, contactInfo, event)}</div>
 								<div className={'font-normal text-base'}>
 									<div>{getContactInfo(BD_ADDRESS, contactInfo, event)}</div>
 									<div>
-										<span className={'mr-1'}>
-											{getContactInfo(BD_CITY, contactInfo, event)}
-										</span>
-										<span>
-											{getContactInfo(BD_POSTAL_CODE, contactInfo, event)}
-										</span>
+										<span className={'mr-1'}>{getContactInfo(BD_CITY, contactInfo, event)}</span>
+										<span>{getContactInfo(BD_POSTAL_CODE, contactInfo, event)}</span>
 									</div>
 								</div>
 							</div>
@@ -541,16 +458,13 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 		let HOME_SESSID = getSessionID()
 		let ID = getCookieValue('M2L_PATRON_ID') ?? ''
 		return axios
-			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=CLIENT&READ=Y&KEY=C_CLIENT_NUMBER&VALUE=${ID.replace(/\[.*?\]/g, '')}`,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-					timeout: 5000,
-				}
-			)
+			.post(`${HOME_SESSID}?manipxmlrecord&database=CLIENT&READ=Y&KEY=C_CLIENT_NUMBER&VALUE=${ID.replace(/\[.*?\]/g, '')}`, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+				timeout: 5000,
+			})
 			.then((res) => {
 				const conToJson: any = convertXMLToJson(res.data)
 				const jsonObj = conToJson[MWI_RESFUL_RES].record
@@ -581,16 +495,13 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 		let HOME_SESSID = getSessionID()
 
 		return await axios
-			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=Y&KEY=${SISN}&VALUE=${sisnNumber}`,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-					timeout: 5000,
-				}
-			)
+			.post(`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=Y&KEY=${SISN}&VALUE=${sisnNumber}`, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+				timeout: 5000,
+			})
 			.then((res) => {
 				const conToJson: any = convertXMLToJson(res.data)
 				const jsonObj = conToJson[MWI_RESFUL_RES].record
@@ -609,10 +520,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 				dte_group?.forEach((elm) => {
 					const funcDate = elm?.TAG_FUNC_DATE
 					const funcTimeStart = elm?.TAG_FUNC_START_T
-					if (
-						funcDate === event[TAG_FUNC_DATE] &&
-						funcTimeStart === event[TAG_FUNC_START_T]
-					) {
+					if (funcDate === event[TAG_FUNC_DATE] && funcTimeStart === event[TAG_FUNC_START_T]) {
 						TAG_FUNC_DTE_OCC = elm._occ
 					}
 				})
@@ -695,17 +603,13 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 		</RECORD>`
 
 		return await axios
-			.post(
-				`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${event?.SISN}`,
-				xmlFormAdd,
-				{
-					headers: {
-						'Content-Type': 'text/xml',
-					},
-					withCredentials: true,
-					timeout: 5000,
-				}
-			)
+			.post(`${HOME_SESSID}?manipxmlrecord&database=${MAIN_EVENT_CAL_DB}&READ=N&KEY=${SISN}&VALUE=${event?.SISN}`, xmlFormAdd, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+				timeout: 5000,
+			})
 			.then((res) => {
 				sendRegConfirmEmail(occ_info, patronInfo, event)
 				setLoading(false)
@@ -817,15 +721,7 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 	const showRSVPStatus = () => {
 		switch (status) {
 			case STATUS_TYPE.SHOW_BTN:
-				return (
-					<ShowButton
-						event={event}
-						capacity={capacity}
-						patrons={patrons}
-						setStatus={setStatus}
-						contactInfo={contactInfo}
-					/>
-				)
+				return <ShowButton event={event} capacity={capacity} patrons={patrons} setStatus={setStatus} contactInfo={contactInfo} />
 			case STATUS_TYPE.SHOW_FORM:
 				return (
 					<ShowForm
@@ -842,24 +738,9 @@ const EventRSVPForm = ({ capacity, patrons, sisnNumber, event, contactInfo }: Ev
 					/>
 				)
 			case STATUS_TYPE.SHOW_SUCCESS:
-				return (
-					<ShowRSVPSuccess
-						onReset={onReset}
-						event={event}
-						contactInfo={contactInfo}
-						isLoginValid={isLogin}
-					/>
-				)
+				return <ShowRSVPSuccess onReset={onReset} event={event} contactInfo={contactInfo} isLoginValid={isLogin} />
 			default:
-				return (
-					<ShowButton
-						event={event}
-						capacity={capacity}
-						patrons={patrons}
-						setStatus={setStatus}
-						contactInfo={contactInfo}
-					/>
-				)
+				return <ShowButton event={event} capacity={capacity} patrons={patrons} setStatus={setStatus} contactInfo={contactInfo} />
 		}
 	}
 

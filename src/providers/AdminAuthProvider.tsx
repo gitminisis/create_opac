@@ -40,7 +40,7 @@ async function hashPayload(payload: object) {
 	let hash = 0
 	for (let i = 0; i < jsonString.length; i++) {
 		const char = jsonString.charCodeAt(i)
-		hash = ((hash << 5) - hash) + char
+		hash = (hash << 5) - hash + char
 		hash = hash & hash // Convert to 32bit integer
 	}
 
@@ -149,11 +149,7 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
 		}
 	}, [isAdminLoginPath, isAuthenticated])
 
-	return (
-		<AdminAuthContext.Provider value={{ adminUser, signIn, signOut, isAuthenticated, error }}>
-			{children}
-		</AdminAuthContext.Provider>
-	)
+	return <AdminAuthContext.Provider value={{ adminUser, signIn, signOut, isAuthenticated, error }}>{children}</AdminAuthContext.Provider>
 }
 
 export const useAdminAuth = (): AdminAuthContextType => {

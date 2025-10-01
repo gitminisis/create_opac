@@ -17,17 +17,8 @@ import TimeLine from '@/components/common/interactive-timeline'
 const Library = ({ previewMode = false, previewData }: MainPageProps) => {
 	const [showAdvSearch, setShowAdvSearch] = useState(false)
 	const { message } = useConstants()
-	const {
-		heroBanner,
-		enableFeaturedCollection,
-		searchURL,
-		heading,
-		database_name,
-		enableRSVP,
-		enableMap,
-		enableCategoriesItems,
-		enableTimeline,
-	} = useConstants().library
+	const { heroBanner, enableFeaturedCollection, searchURL, heading, database_name, enableRSVP, enableMap, enableCategoriesItems, enableTimeline } =
+		useConstants().library
 	return (
 		<Layout>
 			<Hero className={''} title={heading} backgroundImage={heroBanner} description="">
@@ -39,26 +30,10 @@ const Library = ({ previewMode = false, previewData }: MainPageProps) => {
 					/>
 				</div>
 			</Hero>
-			{showAdvSearch && (
-				<AdvancedSearchForm search_database={database_name} url={getSearchURL(searchURL)} />
-			)}
-			{enableFeaturedCollection && (
-				<FeaturedCollection
-					page={'library'}
-					previewData={previewData}
-					previewMode={previewMode}
-				/>
-			)}
-			{enableCategoriesItems && (
-				<Categories page={'library'} previewData={previewData} previewMode={previewMode} />
-			)}
-			{enableRSVP && (
-				<RSVPCalendar
-					page={'library'}
-					previewData={previewData}
-					previewMode={previewMode}
-				/>
-			)}
+			{showAdvSearch && <AdvancedSearchForm search_database={database_name} url={getSearchURL(searchURL)} />}
+			{enableFeaturedCollection && <FeaturedCollection page={'library'} previewData={previewData} previewMode={previewMode} />}
+			{enableCategoriesItems && <Categories page={'library'} previewData={previewData} previewMode={previewMode} />}
+			{enableRSVP && <RSVPCalendar page={'library'} previewData={previewData} previewMode={previewMode} />}
 			{enableMap && (
 				<Section heading={`${message.map}`}>
 					<InterativeMap page={'library'} />

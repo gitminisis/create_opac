@@ -11,15 +11,9 @@ export interface HoverCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const HoverCard = ({ title, url, thumbnail, description, className, children }: HoverCardProps) => {
 	return (
-		<Card
-			className={cn('group relative block cursor-pointer border-none ', className)}
-			onClick={() => (window.location.href = url)}>
+		<Card className={cn('group relative block cursor-pointer border-none ', className)} onClick={() => (window.location.href = url)}>
 			<div className="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
-				<img
-					className="w-full brightness-[65%] group-hover:opacity-90"
-					alt={title}
-					src={thumbnail}
-				/>
+				<img className="w-full brightness-[65%] group-hover:opacity-90" alt={title} src={thumbnail} />
 				<div className="absolute inset-0 p-8 text-white flex flex-col">
 					<div className="relative">
 						<a className=" absolute inset-0" target="_blank" href="/"></a>

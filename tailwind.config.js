@@ -4,12 +4,7 @@ const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenCo
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	darkMode: ['class'],
-	content: [
-		'./pages/**/*.{ts,tsx}',
-		'./components/**/*.{ts,tsx}',
-		'./app/**/*.{ts,tsx}',
-		'./src/**/*.{ts,tsx}',
-	],
+	content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
 	prefix: '',
 	theme: {
 		container: {
@@ -37,7 +32,7 @@ module.exports = {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					soft: 'hsl(var(--primary) / 0.1)'
+					soft: 'hsl(var(--primary) / 0.1)',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -63,6 +58,16 @@ module.exports = {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))',
 				},
+				sidebar: {
+					DEFAULT: 'hsl(var(--sidebar-background))',
+					foreground: 'hsl(var(--sidebar-foreground))',
+					primary: 'hsl(var(--sidebar-primary))',
+					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+					accent: 'hsl(var(--sidebar-accent))',
+					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+					border: 'hsl(var(--sidebar-border))',
+					ring: 'hsl(var(--sidebar-ring))',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -86,12 +91,20 @@ module.exports = {
 					},
 				},
 				marquee: {
-					from: { transform: 'translateX(0)' },
-					to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+					from: {
+						transform: 'translateX(0)',
+					},
+					to: {
+						transform: 'translateX(calc(-100% - var(--gap)))',
+					},
 				},
 				'marquee-vertical': {
-					from: { transform: 'translateY(0)' },
-					to: { transform: 'translateY(calc(-100% - var(--gap)))' },
+					from: {
+						transform: 'translateY(0)',
+					},
+					to: {
+						transform: 'translateY(calc(-100% - var(--gap)))',
+					},
 				},
 			},
 			animation: {
@@ -122,9 +135,7 @@ module.exports = {
 
 function addVariablesForColors({ addBase, theme }) {
 	let allColors = flattenColorPalette(theme('colors'))
-	let newVars = Object.fromEntries(
-		Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-	)
+	let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]))
 
 	addBase({
 		':root': newVars,

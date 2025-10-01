@@ -13,15 +13,7 @@ type AdminFormLayoutProps = {
 	FormComponent: (props: { lang: 'en' | 'fr' }) => JSX.Element // FormComponent expects a lang prop
 	enablePreview?: boolean
 }
-const AdminFormLayout = ({
-	enData,
-	frData,
-	schema,
-	enFilepath,
-	frFilepath,
-	FormComponent,
-	enablePreview = false,
-}: AdminFormLayoutProps) => {
+const AdminFormLayout = ({ enData, frData, schema, enFilepath, frFilepath, FormComponent, enablePreview = false }: AdminFormLayoutProps) => {
 	return (
 		<AdminLayout>
 			<TabsWrapper>

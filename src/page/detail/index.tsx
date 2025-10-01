@@ -4,9 +4,8 @@ import SearchForm from '@/components/common/search-form/SearchForm'
 import Layout from '@/components/layouts'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
-import { getSessionID, isDescriptionDatabase } from '@/lib/utils'
+import { convertToArr, convertXMLToJson, getSessionID, isBiblioDatabase, isDescriptionDatabase } from '@/lib/utils'
 import DetailRecord from './DetailRecord'
-
 import DescriptionTree from '@/components/common/description-tree'
 import Accordion from '@/components/ui/simple-accordion'
 import { deepSearchKey } from '@/lib/record'
@@ -14,10 +13,22 @@ import { getJSONTree, TreeNode } from '@/lib/tree'
 import { useEffect, useState } from 'react'
 import NavigationSideBar from './NavigationSideBar'
 import NoRecord from '../NoRecord'
+import RequestAccordianDesc from './RequestAccordianDesc'
+import RequestAccordianBiblio from './RequestAccordianBiblio'
+import { AlertCircle } from 'lucide-react'
+import axios from 'axios'
+import { ScheduleData } from '../request-later'
 
 const Detail = () => {
 	const { backToSummary, records, getMedia, common } = useJSONData({ selector: '#xml_record' })
+	const { config } = useConstants()
 	const record = records[0]
+	const [calData, setCalData] = useState<ScheduleData>({
+		operation_day_entry: [],
+		closure_date_entry: [],
+		sp_open_date_entry: [],
+		delivery_time_entry: [],
+	})
 	const images =
 		getMedia(records[0], 'im_access_link')?.map((e) => ({
 			src: e.includes('[MEDIA]') ? e.replace('[MEDIA]', '/media/') : e,
@@ -34,25 +45,35 @@ const Detail = () => {
 				},
 			],
 		})) || []
+	const weekdayToIndex: any = {
+		su: 0,
+		mo: 1,
+		tu: 2,
+		we: 3,
+		th: 4,
+		fr: 5,
+		sa: 6,
+	}
 	const [openKeyPath, setOpenKeyPath] = useState<string[]>([])
 	const { message } = useConstants()
 	const refd = deepSearchKey(record, 'refd')[0]
 	const database = record.database_name
 	const [loading, setLoading] = useState(true)
 	const [tree, setTree] = useState<TreeNode | undefined>()
+	const canLibraryRequest = config.requestConfig.libraryRequest && isBiblioDatabase(database, record.request.req_db_name)
+	const canArchiveRequest =
+		isDescriptionDatabase(database, record.request.req_db_name) && !record.record.refd_lowerexist && config.requestConfig.archiveRequest
+
 	useEffect(() => {
 		const sessionID = getSessionID()
-		if (sessionID && isDescriptionDatabase(database)) {
+		if (sessionID && isDescriptionDatabase(database, record.request.req_db_name)) {
 			getJSONTree(sessionID, database, refd)
 				.then((res) => {
 					if (!res || res.noTree) {
 						return
 					}
 					const { tree, openKeyPath } = res
-
 					setTree(tree)
-					console.log({ openKeyPath })
-
 					setOpenKeyPath(openKeyPath)
 				})
 				.finally(() => {
@@ -61,6 +82,43 @@ const Detail = () => {
 		}
 	}, [database, refd])
 
+	useEffect(() => {
+		getData()
+	}, [])
+
+	const getData = async () => {
+		return await axios
+			.get(`/preprocessing/REQUEST CALENDAR.TXT`, {
+				headers: {
+					'Content-Type': 'text/xml',
+				},
+				withCredentials: true,
+				timeout: 5000,
+			})
+			.then((res) => {
+				const conToJson = convertXMLToJson(res.data)
+				const calDataJson = conToJson.calendar_info
+				setCalData({
+					operation_day_entry: convertToArr(calDataJson.operation_day_entry),
+					closure_date_entry: convertToArr(calDataJson.closure_date_entry),
+					sp_open_date_entry: convertToArr(calDataJson.sp_open_date_entry),
+					delivery_time_entry: convertToArr(calDataJson.delivery_time_entry),
+				})
+			})
+	}
+
+	const openWeekdays = calData.operation_day_entry.filter((d) => d.date_closed !== 'X').map((d) => weekdayToIndex[d.weekday])
+	const closureDates = new Set(calData.closure_date_entry.map((d) => d.closure_date))
+	const specialOpenDates = new Set(calData.sp_open_date_entry.map((d) => d.open_date))
+
+	function isClose() {
+		const today = new Date()
+		today.setHours(0, 0, 0, 0)
+		const yyyyMMdd = today.toISOString().split('T')[0]
+		if (specialOpenDates.has(yyyyMMdd)) return false
+		if (closureDates.has(yyyyMMdd)) return true
+		return openWeekdays.includes(today.getDay()) ? false : true
+	}
 	//If the XML_TREE is not working at the repo spec.
 	if (!record.record) return <NoRecord />
 
@@ -134,15 +192,59 @@ const Detail = () => {
 										)}
 									</div>
 									<NavigationSideBar />
+									{record.request.currentcollectiontime && (
+										<div
+											className="border p-4 bg-blue-50 border-blue-200 text-blue-800 space-y-3"
+											style={{ borderRadius: '5px' }}>
+											{isClose() ? (
+												<div className="flex items-center gap-2 font-medium">
+													<AlertCircle className="h-5 w-5 flex-shrink-0" />
+													<span>
+														{message.closedForToday}
+													</span>
+												</div>
+											) : (
+												<>
+													<div className="flex items-center gap-2 font-medium">
+														<AlertCircle className="h-5 w-5 flex-shrink-0" />
+														<span>
+															{message.archives} {message.requestInfo}
+														</span>
+													</div>
+													<div className="space-y-1 text-sm text-gray-700">
+														<p className="font-semibold text-red-600">
+															{message.collectionClosed.replace(
+																'{collectionTime}',
+																record.request.currentcollectiontime
+															)}
+														</p>
+														<p>
+															{message.orderMore
+																.replace('{count}', record.request.orderablecount || 'N/A')
+																.replace('{nextCollectionTime}', record.request.nextcollectiontime || 'N/A')}
+														</p>
+														<p>
+															{message.limits
+																.replace('{perCollection}', record.request.itemspercollection || 'N/A')
+																.replace('{total}', record.request.maxitems || 'N/A')}
+														</p>
+														<p>
+															{message.currentStatus
+																.replace('{liveOrders}', record.request.liveorders || 'N/A')
+																.replace('{available}', record.request.remainingorders || 'N/A')}
+														</p>
+													</div>
+												</>
+											)}
+										</div>
+									)}
 								</div>
-
 								<div className="w-full lg:w-2/3">
 									<div className="w-full flex flex-col gap-6 items-start ">
 										<div className="w-full ">
 											<DetailRecord />
 										</div>
-
-										{isDescriptionDatabase(database) && (
+										{isDescriptionDatabase(database, record.request.req_db_name) && (
 											<div className="w-full ">
 												<Accordion
 													items={[
@@ -150,11 +252,7 @@ const Detail = () => {
 															title: message.descriptionTree,
 															content: (
 																<div className="max-h-[600px] overflow-auto">
-																	<DescriptionTree
-																		loading={loading}
-																		tree={tree}
-																		selectedId={openKeyPath[0]}
-																	/>
+																	<DescriptionTree loading={loading} tree={tree} selectedId={openKeyPath[0]} />
 																</div>
 															),
 														},
@@ -162,6 +260,8 @@ const Detail = () => {
 												/>
 											</div>
 										)}
+										{canArchiveRequest && <RequestAccordianDesc isClose={isClose()}/>}
+										{canLibraryRequest && <RequestAccordianBiblio />}
 									</div>
 								</div>
 							</div>

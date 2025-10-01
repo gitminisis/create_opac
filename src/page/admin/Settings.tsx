@@ -10,10 +10,7 @@ import { SchemaType } from '@/types/schema'
 const AdminSettings = () => {
 	return (
 		<AdminLayout>
-			<AdminFormProvider
-				data={enValues}
-				schema={fields as SchemaType}
-				filepath="constants/en/config.json">
+			<AdminFormProvider data={enValues} schema={fields as SchemaType} filepath="constants/en/config.json">
 				<AdminForm>
 					<Form />
 				</AdminForm>
@@ -28,12 +25,7 @@ const Form = () => {
 
 	return (
 		<div className="flex gap-4 flex-col">
-			<FormField
-				type="text"
-				field={'Site name'}
-				value={fieldsValue.siteName}
-				onChange={(e) => handleChange(['siteName'], e)}
-			/>
+			<FormField type="text" field={'Site name'} value={fieldsValue.siteName} onChange={(e) => handleChange(['siteName'], e)} />
 
 			<div className="flex flex-col">
 				<FormField
@@ -44,12 +36,7 @@ const Form = () => {
 					onTDRAssetsSelect={(files) => {
 						if (files.length > 0) {
 							const file = files[0]
-							handleChange(
-								['logo'],
-								isSupportedImageExtension(file.Extension)
-									? file.Access
-									: file.Thumbnail
-							)
+							handleChange(['logo'], isSupportedImageExtension(file.Extension) ? file.Access : file.Thumbnail)
 						}
 					}}
 				/>

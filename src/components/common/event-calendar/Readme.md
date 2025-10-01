@@ -17,13 +17,11 @@ Event Calendar for showing events and make the user register the events
 ## RSVP process scenario
 
 -   ✅ Non user received unique unit number called ID
--   ✅ User can't register exact date of event ex) Chinese cooking class start 9:00 AM 21st May.
-    User can't register the event at 21st May
+-   ✅ User can't register exact date of event ex) Chinese cooking class start 9:00 AM 21st May. User can't register the event at 21st May
 -   ✅ Confirm landing page has expiration time (default 24 hrs)
 
--To Register: Non login user Do register => get confirmation email => go to confirm landing page =>
-click confirm => store record and log data => registration is done
+-To Register: Non login user Do register => get confirmation email => go to confirm landing page => click confirm => store record and log data =>
+registration is done
 
--To Cancel: Non login user After confirm user, get the registration confirm email => go to cancel
-landing page =>click cancel => delete the record and adding cancel log data => user get cancel
-confirm email
+-To Cancel: Non login user After confirm user, get the registration confirm email => go to cancel landing page =>click cancel => delete the record and
+adding cancel log data => user get cancel confirm email

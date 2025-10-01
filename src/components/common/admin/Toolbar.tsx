@@ -49,29 +49,13 @@ function PlusIcon(props: HTMLAttributes<SVGElement>) {
 	)
 }
 
-export default function Toolbar({
-	className,
-	onRemove,
-	onDuplicate,
-}: {
-	className?: string
-	onRemove: () => void
-	onDuplicate: () => void
-}) {
+export default function Toolbar({ className, onRemove, onDuplicate }: { className?: string; onRemove: () => void; onDuplicate: () => void }) {
 	return (
 		<TooltipProvider>
-			<div
-				className={cn(
-					'flex items-center space-x-2 opacity-0 transition-opacity',
-					className
-				)}>
+			<div className={cn('flex items-center space-x-2 opacity-0 transition-opacity', className)}>
 				<Tooltip>
 					<TooltipTrigger>
-						<Button
-							variant="ghost"
-							size="icon"
-							className="rounded-full"
-							onClick={onDuplicate}>
+						<Button variant="ghost" size="icon" className="rounded-full" onClick={onDuplicate}>
 							<PlusIcon className="w-6 h-6 text-muted-foreground" />
 						</Button>
 					</TooltipTrigger>

@@ -1,23 +1,11 @@
 import { Hono } from 'hono'
 import axios from 'axios'
-import { StatusCode } from 'hono/utils/http-status'
+import { ContentfulStatusCode, StatusCode } from 'hono/utils/http-status'
 
 // Types
 interface AuthRequest {
 	tenant: string
 	password: string
-}
-
-interface ApiResponse {
-	status: 'success' | 'failed'
-	message: string
-	data?: any
-	error?: any
-}
-
-interface SearchParams {
-	query: string
-	token: string
 }
 
 // Create a new router instance for easyload
@@ -81,16 +69,13 @@ easyload.post('/search', async (c) => {
 			)
 		}
 
-		const response = await axios.get(
-			`${API_BASE_URL}/Assets/TenantSearch?${query === '*' ? '' : `phrase=${encodeURIComponent(query)}`}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-					'Content-Type': 'application/json',
-					Tenant: tenant,
-				},
-			}
-		)
+		const response = await axios.get(`${API_BASE_URL}/Assets/TenantSearch?${query === '*' ? '' : `phrase=${encodeURIComponent(query)}`}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				'Content-Type': 'application/json',
+				Tenant: tenant,
+			},
+		})
 
 		return c.json({
 			status: 'success',
@@ -109,7 +94,7 @@ easyload.post('/search', async (c) => {
 					message: 'Search failed',
 					error: error.message || 'An unexpected error occurred',
 				},
-				statusCode as StatusCode
+				statusCode as ContentfulStatusCode
 			)
 		}
 
@@ -173,7 +158,7 @@ easyload.post('/upload', async (c) => {
 			},
 		})
 
-		return c.json(response.data, response.status as StatusCode)
+		return c.json(response.data, response.status as ContentfulStatusCode)
 	} catch (error) {
 		return c.json(
 			{
@@ -205,8 +190,7 @@ easyload.post('/commit', async (c) => {
 	if (!blobId || !user || !tenant || !type || !blobName) {
 		return c.json(
 			{
-				message:
-					'Missing required headers: BlobId, BlobName, User, Type, and Tenant are required',
+				message: 'Missing required headers: BlobId, BlobName, User, Type, and Tenant are required',
 			},
 			400
 		)
@@ -225,7 +209,7 @@ easyload.post('/commit', async (c) => {
 			},
 		})
 
-		return c.json(response.data, response.status as StatusCode)
+		return c.json(response.data, response.status as ContentfulStatusCode)
 	} catch (error) {
 		return c.json(
 			{

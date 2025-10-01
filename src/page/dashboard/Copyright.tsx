@@ -6,29 +6,23 @@ import useJSONData from '@/hooks/useJSONData'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
+import { Home } from 'lucide-react'
 
 const Copyright = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const message = useConstants().message
+	const { message, clientProfile } = useConstants()
 	const columns: ColumnDef<ProfileData>[] = [
 		{
 			id: 'select',
 			header: ({ table }) => (
 				<Checkbox
-					checked={
-						table.getIsAllPageRowsSelected() ||
-						(table.getIsSomePageRowsSelected() && 'indeterminate')
-					}
+					checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
 					onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
 					aria-label="Select all"
 				/>
 			),
 			cell: ({ row }) => (
-				<Checkbox
-					checked={row.getIsSelected()}
-					onCheckedChange={(value) => row.toggleSelected(!!value)}
-					aria-label="Select row"
-				/>
+				<Checkbox checked={row.getIsSelected()} onCheckedChange={(value) => row.toggleSelected(!!value)} aria-label="Select row" />
 			),
 			enableSorting: false,
 			enableHiding: false,
@@ -42,9 +36,7 @@ const Copyright = () => {
 			accessorKey: 'req_topic',
 			header: ({ column }) => {
 				return (
-					<Button
-						variant="ghost"
-						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+					<Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 						{message.topic}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
@@ -56,9 +48,7 @@ const Copyright = () => {
 			accessorKey: 'req_title',
 			header: ({ column }) => {
 				return (
-					<Button
-						variant="ghost"
-						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+					<Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 						{message.title}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
@@ -70,9 +60,7 @@ const Copyright = () => {
 			accessorKey: 'req_status',
 			header: ({ column }) => {
 				return (
-					<Button
-						variant="ghost"
-						onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+					<Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 						{message.status}
 						<CaretSortIcon className="ml-2 h-4 w-4" />
 					</Button>
@@ -82,13 +70,8 @@ const Copyright = () => {
 		},
 	]
 	return (
-		<PatronLayout heading="Copyright">
-			<ProfileTable
-				data={records}
-				columns={columns}
-				filterType={'req_item_id'}
-				filterTypeShow=""
-			/>
+		<PatronLayout  mainHeading={<><Home className="mr-1 h-5 w-5" /><h2 className="text-lg font-semibold text-gray-900">{message.clientDashboard}</h2></>} heading="Copyright">
+			<ProfileTable data={records} columns={columns} filterType={'req_item_id'} filterTypeShow="" />
 		</PatronLayout>
 	)
 }

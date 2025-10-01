@@ -1,8 +1,7 @@
 import { axios } from '@/lib/axios'
 import { getPatronID } from './utils'
 
-export const EASYLOAD_BASE_API =
-	process.env.EASYLOAD_BASE_API || 'https://easyload-dev.azurewebsites.net'
+export const EASYLOAD_BASE_API = process.env.EASYLOAD_BASE_API || 'https://easyload-dev.azurewebsites.net'
 export const urls = {
 	TOKEN: '/api/auth/token',
 	VERSION: '/api/app/version',
@@ -25,10 +24,7 @@ interface RequestResult {
 	data: string
 	cancelled: boolean
 }
-export const sliceChunks = (
-	file: Blob & { readonly lastModified: number; readonly name: string },
-	chunkSize: number
-) => {
+export const sliceChunks = (file: Blob & { readonly lastModified: number; readonly name: string }, chunkSize: number) => {
 	let startPointer = 0
 	const endPointer = file.size
 	const chunks = new Array<Blob>()
@@ -73,12 +69,7 @@ export const UploadAssetChunk = async (
 	}
 }
 
-export const CommitAssetUpload = async (
-	fileId: string,
-	fileName: string,
-	fileType: string,
-	chunksIds: string[]
-): Promise<RequestResult> => {
+export const CommitAssetUpload = async (fileId: string, fileName: string, fileType: string, chunksIds: string[]): Promise<RequestResult> => {
 	try {
 		const response = await axios.post('/easyload/commit', chunksIds, {
 			headers: {

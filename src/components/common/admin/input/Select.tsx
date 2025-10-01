@@ -1,23 +1,9 @@
-import {
-	Select as DefaultSelect,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select'
+import { Select as DefaultSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 import { SelectProps } from './types'
 import { InputWrapper } from './InputWrapper'
 
-const Select = ({
-	label,
-	placeholder,
-	triggerStyle,
-	itemStyle,
-	options,
-	renderOption,
-	defaultValue,
-}: SelectProps) => {
+const Select = ({ label, placeholder, triggerStyle, itemStyle, options, renderOption, defaultValue }: SelectProps) => {
 	return (
 		<InputWrapper label={label}>
 			<DefaultSelect defaultValue={defaultValue}>

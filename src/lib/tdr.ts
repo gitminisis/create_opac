@@ -57,14 +57,10 @@ export type TDRFile = {
 	LastModifiedOn: string // ISO 8601 date string
 }
 
-export const generateTDRIframeURL = (accessToken: string, bookmarkId: string) => {
+export const generateTDRIframeURL = (access_token: string, bookmarkId: string) => {
 	// Generate discovery URL
-	const discoveryUrl =
-		TDR_CONFIG.tdr_ui +
-		TDR_CONFIG.search_endpoint +
-		"?&phrase=%2b%2b%40&token=" + accessToken +
-		"&bookmark=" + bookmarkId;
-
+	const discoveryUrl = `${TDR_CONFIG.tdr_ui}/#/Search?phrase=++@&bookmark=${bookmarkId}&token=${access_token}`
+	
 	return discoveryUrl
 }
 
@@ -102,32 +98,37 @@ export const getTDRAccessToken = async () => {
 	return res?.data
 }
 
+export const createTDRBookmark = async (accessToken: string, bookmarkId: string) => {
+	const res = await axios.post(`${TDR_CONFIG.tdr_api}/${TDR_CONFIG.bookmark_endpoint}`, {
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Accept: 'application/json',
+			Authorization: `Bearer ${accessToken}`,
+		},
+	})
+	return res?.data
+}
+
 export const getTDRBookmark = async (accessToken: string, bookmarkId: string) => {
-	const res = await axios.get<TDRFile[]>(
-		`${TDR_CONFIG.tdr_api}/${TDR_CONFIG.bookmark_endpoint}/${bookmarkId}`,
-		{
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-				Accept: 'application/json',
-				Authorization: `Bearer ${accessToken}`,
-			},
-		}
-	)
+	const res = await axios.get<TDRFile[]>(`${TDR_CONFIG.tdr_api}/${TDR_CONFIG.bookmark_endpoint}/${bookmarkId}`, {
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Accept: 'application/json',
+			Authorization: `Bearer ${accessToken}`,
+		},
+	})
 
 	return res?.data
 }
 
 export const deleteTDRBookmark = async (accessToken: string, bookmarkId: string) => {
-	const res = await axios.delete(
-		`${TDR_CONFIG.tdr_api}/${TDR_CONFIG.delete_bookmark_ep}/${bookmarkId}`,
-		{
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-				Accept: 'application/json',
-				Authorization: `Bearer ${accessToken}`,
-			},
-		}
-	)
+	const res = await axios.delete(`${TDR_CONFIG.tdr_api}/${TDR_CONFIG.delete_bookmark_ep}/${bookmarkId}`, {
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Accept: 'application/json',
+			Authorization: `Bearer ${accessToken}`,
+		},
+	})
 
 	return res?.data
 }
@@ -140,20 +141,18 @@ export const isSupportedImageExtension = (extension: string): boolean => {
 	return supportedImageExtensions.includes(extension?.toLowerCase())
 }
 
-
 export type AuthResponse = {
-	access_token: string;
-	token_type: string;
-	expires_in: number;
-	userName: string;
-	roleId: string;
-	roleName: string;
-	organizationUuid: string;
-	multiTenant: string; // Consider changing to boolean if you normalize the value
-	master: string;      // Same here
-	".issued": string;
-	".expires": string;
-	logo: string;
-	avatar: string | null;
-  };
-  
+	access_token: string
+	token_type: string
+	expires_in: number
+	userName: string
+	roleId: string
+	roleName: string
+	organizationUuid: string
+	multiTenant: string // Consider changing to boolean if you normalize the value
+	master: string // Same here
+	'.issued': string
+	'.expires': string
+	logo: string
+	avatar: string | null
+}

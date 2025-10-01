@@ -9,15 +9,7 @@ import { ReactNode } from 'react'
 import { RecordAction } from './RecordAction'
 import { ViewProps } from './SummaryRecord'
 
-const ListView = ({
-	title,
-	recordLink,
-	searchTerms,
-	record,
-	fields,
-	database,
-	thumbnailUrl,
-}: ViewProps) => {
+const ListView = ({ title, recordLink, searchTerms, record, fields, database, thumbnailUrl }: ViewProps) => {
 	// Get list fields
 	const listFields = getFieldsFromRecord(
 		record,
@@ -25,9 +17,7 @@ const ListView = ({
 		(item) => item.summary === true,
 		(data, item) => (
 			<DataWithLabel
-				className={`flex-col items-start justify-start my-1 space-x-0 ${
-					item.name === 'obj_description' ? 'w-full' : 'w-[50%]'
-				}`}
+				className={`flex-col items-start justify-start my-1 space-x-0 ${item.name === 'obj_description' ? 'w-full' : 'w-[50%]'}`}
 				key={item.name}
 				label={item.label || ''}
 				items={data}

@@ -9,12 +9,7 @@ const FAQ = () => {
 	const { heading, subHeading, heroBanner } = useConstants().faq
 	return (
 		<Layout>
-			<Hero
-				className=""
-				title={heading}
-				description={subHeading}
-				backgroundImage={heroBanner}
-			/>
+			<Hero className="" title={heading} description={subHeading} backgroundImage={heroBanner} />
 			<Section heading="FAQ">
 				<AccordionList />
 			</Section>

@@ -7,13 +7,7 @@ import React, { ReactNode } from 'react'
 const AccordionContext = React.createContext({})
 const useAccordion = () => React.useContext(AccordionContext)
 
-export function AccordionContainer({
-	children,
-	className,
-}: {
-	children: ReactNode
-	className?: string
-}) {
+export function AccordionContainer({ children, className }: { children: ReactNode; className?: string }) {
 	return <div className={cn('grid grid-cols-2 gap-1', className)}>{children}</div>
 }
 export function AccordionWrapper({ children }) {
@@ -29,9 +23,7 @@ export function Accordion({
 	multiple?: boolean
 	defaultValue?: string | undefined | string[]
 }) {
-	const [activeIndex, setActiveIndex] = React.useState(
-		multiple ? (defaultValue ? [defaultValue] : []) : [defaultValue]
-	)
+	const [activeIndex, setActiveIndex] = React.useState(multiple ? (defaultValue ? [defaultValue] : []) : [defaultValue])
 
 	function onChangeIndex(value) {
 		setActiveIndex((currentActiveIndex) => {
@@ -92,14 +84,10 @@ export function AccordionHeader({ children, icon }: { children: ReactNode; icon?
 			onClick={() => onChangeIndex(value)}>
 			{children}
 			{icon ? (
-				<div className={`${isActive ? 'rotate-45 ' : 'rotate-0 '} transition-transform`}>
-					{icon}
-				</div>
+				<div className={`${isActive ? 'rotate-45 ' : 'rotate-0 '} transition-transform`}>{icon}</div>
 			) : (
 				<>
-					<ChevronDown
-						className={`${isActive ? 'rotate-180 ' : 'rotate-0 '} transition-transform`}
-					/>
+					<ChevronDown className={`${isActive ? 'rotate-180 ' : 'rotate-0 '} transition-transform`} />
 				</>
 			)}
 		</motion.div>

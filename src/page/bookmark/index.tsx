@@ -43,9 +43,7 @@ const Bookmark = () => {
 					<div className="mx-auto py-4 sm:py-12 container flex flex-col">
 						<div className={'w-full flex justify-between'}>
 							<PageHeader heading={`${common.total_record} bookmarked item(s)`} />
-							<Button onClick={() => removeAllBookmarks(`${bookmark_url}`, records)}>
-								{message.removeALL}
-							</Button>
+							<Button onClick={() => removeAllBookmarks(`${bookmark_url}`, records)}>{message.removeALL}</Button>
 						</div>
 						<div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8 ">
 							<div className="col-span-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -54,12 +52,10 @@ const Bookmark = () => {
 							{pagination?.a && pagination.a.length > 0 && (
 								<div className="col-span-4 mt-4">
 									<PagePagination
-										items={pagination.a.map(
-											(item: { _href: any; b: undefined }) => ({
-												url: item._href,
-												active: item.b !== undefined,
-											})
-										)}
+										items={pagination.a.map((item: { _href: any; b: undefined }) => ({
+											url: item._href,
+											active: item.b !== undefined,
+										}))}
 									/>
 								</div>
 							)}

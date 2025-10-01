@@ -46,10 +46,7 @@ const ResetPin = () => {
 
 		// save_n_stop_record need a return url but react doesn't need it so I add dummy &RETURN_URL=[OPAC]register-confirm.html
 		return await axios
-			.post(
-				`/SCRIPTS/MWIMAIN.DLL?RESETPASSWORD&application=reset_pin&language=144&file=[OPAC]reset_password_confirmation.html`,
-				formData
-			)
+			.post(`/SCRIPTS/MWIMAIN.DLL?RESETPASSWORD&application=reset_pin&language=144&file=[OPAC]reset_password_confirmation.html`, formData)
 			.then((res) => {
 				const parser = new DOMParser()
 				const doc = parser.parseFromString(res.data, 'text/html')
@@ -72,12 +69,7 @@ const ResetPin = () => {
 			/>
 			{loading && (
 				<div className="flex h-full items-center justify-center">
-					<Spinner
-						height={'h-full'}
-						spinHeight={'h-20'}
-						spinWidth={'w-20'}
-						background={'bg-white'}
-					/>
+					<Spinner height={'h-full'} spinHeight={'h-20'} spinWidth={'w-20'} background={'bg-white'} />
 				</div>
 			)}
 			{status === '200' ? (
@@ -93,9 +85,7 @@ const ResetPin = () => {
 				</div>
 			) : (
 				<div className={'min-h-[460px] flex  justify-center items-center mb-4'}>
-					<form
-						onSubmit={handleSubmit(onSubmit)}
-						className="bg-gray-200 p-5 rounded-md w-5/6 flex flex-col justify-center items-center">
+					<form onSubmit={handleSubmit(onSubmit)} className="bg-gray-200 p-5 rounded-md w-5/6 flex flex-col justify-center items-center">
 						<div className="landing-page-title"> {message.password}</div>
 						<div className={'text-xl m-4 text-center'}>{message.enterNewPassword}</div>
 						<div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4">
@@ -120,34 +110,25 @@ const ResetPin = () => {
 									className={`p-2 w-full mt-1 border ${errors.PATRON_PID ? 'border-red-500' : 'border-gray-300'}`}
 								/>
 								<p>({message.passwordValidation})</p>
-								{errors.PATRON_PID && (
-									<p className="text-red-500">{errors.PATRON_PID.message}</p>
-								)}
+								{errors.PATRON_PID && <p className="text-red-500">{errors.PATRON_PID.message}</p>}
 							</div>
 
 							<div className="flex-1">
 								<label className="font-semibold">
-									{message.confirmPasswordLabel}{' '}
-									<span className="text-red-500">*</span>
+									{message.confirmPasswordLabel} <span className="text-red-500">*</span>
 								</label>
 								<input
 									type="password"
 									{...register('PATRON_PID_RE', {
 										required: `${message.passwordsDoNotMatch}`,
-										validate: (value) =>
-											value === watch('PATRON_PID') ||
-											`${message.passwordsDoNotMatch}`,
+										validate: (value) => value === watch('PATRON_PID') || `${message.passwordsDoNotMatch}`,
 									})}
 									className={`p-2 w-full mt-1 border ${errors.PATRON_PID_RE ? 'border-red-500' : 'border-gray-300'}`}
 								/>
-								{errors.PATRON_PID_RE && (
-									<p className="text-red-500">{errors.PATRON_PID_RE.message}</p>
-								)}
+								{errors.PATRON_PID_RE && <p className="text-red-500">{errors.PATRON_PID_RE.message}</p>}
 							</div>
 						</div>
-						{status === '208' && (
-							<p className="text-red-500 my-2">{message.newPasswordSameAsOld}</p>
-						)}
+						{status === '208' && <p className="text-red-500 my-2">{message.newPasswordSameAsOld}</p>}
 						<Button className={'mt-5'}>{message.submit}</Button>
 					</form>
 				</div>
