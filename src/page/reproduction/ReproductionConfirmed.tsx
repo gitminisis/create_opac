@@ -1,9 +1,10 @@
 import { Button } from '../../components/ui/button'
-import { CircleCheck, Copy } from 'lucide-react'
+import { ChevronRight, CircleCheck, Copy } from 'lucide-react'
 import Layout from '@/components/layouts'
 import Link from '@/components/common/Link'
 import useConstants from '@/hooks/useConstants'
 import useJSONData from '@/hooks/useJSONData'
+import { getCookieValue } from '@/lib/utils'
 
 const ReproductionConfirmed = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
@@ -11,6 +12,12 @@ const ReproductionConfirmed = () => {
 	const { navigations } = config
 	let reprodData = records[0].reproduction
 	const message = useConstants().message
+
+	const goToDashboard = () => {
+		const homeSessId = getCookieValue('HOME_SESSID')
+		const url = `${homeSessId}?SEARCH&DATABASE=CLIENT&REPORT=WEB_PATRON_PROFILE&EXP=patron_id+~3D+global(m2l_patron_id)`
+		window.location.href = url
+	}
 
 	return (
 		<Layout>
@@ -53,6 +60,10 @@ const ReproductionConfirmed = () => {
 										<Button>{item.title}</Button>
 									</Link>
 								))}
+								<Button className={'align-center absolute right-0'} onClick={goToDashboard}>
+									<span className="hidden md:block">Dashboard</span>
+									<ChevronRight />
+								</Button>
 							</div>
 						</div>
 					</div>
