@@ -70,9 +70,9 @@ const RecordMedia: React.FC<RecordMediaProps> = ({ images, videos, documents = [
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate">
-                    Document {index + 1}
+                    {doc.caption ?? `Document ${index + 1}`}
                   </p>
-                  <p className="text-xs text-gray-500 truncate">{doc.caption || doc.src}</p>
+                  <p className="text-xs text-gray-500 truncate">{doc.src}</p>
                 </div>
                 <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors flex-shrink-0" />
               </button>
