@@ -1,4 +1,4 @@
-import ImageCarousel, { ImageProps, VideoProps } from '@/components/common/ImageCarousel'
+import { DocumentProps, ImageProps, VideoProps } from '@/components/common/ImageCarousel'
 import PageAction from '@/components/common/PageAction'
 import SearchForm from '@/components/common/search-form/SearchForm'
 import Layout from '@/components/layouts'
@@ -18,6 +18,7 @@ import RequestAccordianBiblio from './RequestAccordianBiblio'
 import { AlertCircle } from 'lucide-react'
 import axios from 'axios'
 import { ScheduleData } from '../request-later'
+import RecordMedia from '@/components/common/RecordMedia'
 
 const Detail = () => {
 	const { backToSummary, records, getMedia, common } = useJSONData({ selector: '#xml_record' })
@@ -29,7 +30,7 @@ const Detail = () => {
 		sp_open_date_entry: [],
 		delivery_time_entry: [],
 	})
-	const images =
+	const images: ImageProps[] =
 		getMedia(records[0], 'im_access_link')?.map((e) => ({
 			src: e.includes('[MEDIA]') ? e.replace('[MEDIA]', '/media/') : e,
 		})) || []
@@ -45,6 +46,11 @@ const Detail = () => {
 				},
 			],
 		})) || []
+
+	const documents: DocumentProps[] = getMedia(records[0], 'tx_access_link')?.map((e) => ({
+		src: e.includes('[MEDIA]') ? e.replace('[MEDIA]', '/media/') : e,
+		caption: e.includes('[MEDIA]') ? e.replace('[MEDIA]', '/media/') : e,
+	})) || []
 	const weekdayToIndex: any = {
 		su: 0,
 		mo: 1,
@@ -60,9 +66,9 @@ const Detail = () => {
 	const database = record.database_name
 	const [loading, setLoading] = useState(true)
 	const [tree, setTree] = useState<TreeNode | undefined>()
-	const canLibraryRequest = config.requestConfig.libraryRequest && isBiblioDatabase(database, record.request.req_db_name)
+	const canLibraryRequest = config?.requestConfig?.libraryRequest && isBiblioDatabase(database, record.request.req_db_name)
 	const canArchiveRequest =
-		isDescriptionDatabase(database, record.request.req_db_name) && !record.record.refd_lowerexist && config.requestConfig.archiveRequest
+		isDescriptionDatabase(database, record.request.req_db_name) && !record.record.refd_lowerexist && config?.requestConfig?.archiveRequest
 
 	useEffect(() => {
 		const sessionID = getSessionID()
@@ -152,45 +158,7 @@ const Detail = () => {
 						<div className="flex flex-col items-start p-4 mx-auto ">
 							<div className="w-full flex gap-12  flex-col lg:flex-row">
 								<div className="w-full lg:w-1/3 flex flex-col gap-10">
-									<div className="min-w-[300px] w-full max-w-[500px] text-center mx-auto ">
-										{images && images.length > 0 ? (
-											<ImageCarousel
-												items={[...images, ...videos]}
-												renderItems={(item) => {
-													if (!(item as ImageProps).src) {
-														const video = item as VideoProps
-														return (
-															<img
-																alt={'video thumbnail'}
-																src={
-																	'https://d2uolguxr56s4e.cloudfront.net/img/kartrapages/video_player_placeholder.gif'
-																}
-																className="h-36 mx-auto cursor-pointer object-cover border-4 hover:border-primary"
-															/>
-														)
-													}
-
-													const image = item as ImageProps
-													return (
-														<img
-															alt={image.src}
-															src={image.src}
-															className="rounded h-36 mx-auto cursor-pointer object-cover border-4 hover:border-primary bg-gray-300"
-														/>
-													)
-												}}
-											/>
-										) : (
-											<>
-												<img
-													alt={message.noMediaFound}
-													src={'https://placehold.co/250x250'}
-													className="h-36 mx-auto cursor-pointer object-cover border-4 hover:border-primary"
-												/>
-												<span>{message.noMediaFound}</span>
-											</>
-										)}
-									</div>
+									<RecordMedia images={images} videos={videos} documents={documents} noMediaText={message.noMediaFound} />
 									<NavigationSideBar />
 									{record.request.currentcollectiontime && (
 										<div
@@ -260,7 +228,7 @@ const Detail = () => {
 												/>
 											</div>
 										)}
-										{canArchiveRequest && <RequestAccordianDesc isClose={isClose()}/>}
+										{canArchiveRequest && <RequestAccordianDesc isClose={isClose()} />}
 										{canLibraryRequest && <RequestAccordianBiblio />}
 									</div>
 								</div>
