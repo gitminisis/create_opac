@@ -16,9 +16,6 @@ export default defineConfig({
 			'@': resolve(__dirname, './src'),
 		},
 	},
-	optimizeDeps: {
-		include: ['pdfjs-dist'],
-	},
 	build: {
 		chunkSizeWarningLimit: 1000, // Increase the warning limit
 		rollupOptions: {
