@@ -47,9 +47,11 @@ const Detail = () => {
 			],
 		})) || []
 
-	const documents: DocumentProps[] = getMedia(records[0], 'tx_access_link')?.map((e) => ({
+
+
+	const documents: DocumentProps[] = getMedia(records[0], 'tx_access_link')?.map((e,index) => ({
 		src: e.includes('[MEDIA]') ? e.replace('[MEDIA]', '/media/') : e,
-		caption: e.includes('[MEDIA]') ? e.replace('[MEDIA]', '/media/') : e,
+		caption: deepSearchKey(record, 'tx_name')[index] ?? e,
 	})) || []
 	const weekdayToIndex: any = {
 		su: 0,
