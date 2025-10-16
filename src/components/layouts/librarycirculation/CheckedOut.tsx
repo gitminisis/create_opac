@@ -121,7 +121,7 @@ const CheckedOut = () => {
 										<div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.barcode}</span>
-												<span className="text-gray-900 font-medium">{item.barcode}</span>
+												<span className="text-gray-900 font-medium">{item.barcode ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.volumeNumber}</span>
@@ -129,11 +129,11 @@ const CheckedOut = () => {
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.due}</span>
-												<span className="text-gray-900 font-medium">{item.last_due_date}</span>
+												<span className="text-gray-900 font-medium">{item.last_due_date ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.location}</span>
-												<span className="text-gray-900 font-medium">{item.holding_centre}</span>
+												<span className="text-gray-900 font-medium">{item.holding_centre ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.renewals}</span>

@@ -32,7 +32,6 @@ export const PASSWORD_MIN_LENGTH = 8
 const Register = () => {
 	const [loading, setLoading] = useState(false)
 	const { records } = useJSONData({ selector: '#xml_record' })
-	const conf = useConstants().config
 	const [recaptchaToken, setRecaptchaToken] = useState<string>('')
 	const { message } = useConstants()
 	const [status, setStatus] = useState(0)

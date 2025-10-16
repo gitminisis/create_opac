@@ -121,7 +121,7 @@ const HoldOn = () => {
 										<div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.barcode}</span>
-												<span className="text-gray-900 font-medium">{item.barcode}</span>
+												<span className="text-gray-900 font-medium">{item.barcode ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.volumeNumber}</span>
@@ -129,7 +129,7 @@ const HoldOn = () => {
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.pickUpBefore}</span>
-												<span className="text-gray-900 font-medium">{item.hold_expiry_date}</span>
+												<span className="text-gray-900 font-medium">{item.hold_expiry_date ?? 'N/A'}</span>
 											</div>
 										</div>
 									</div>
