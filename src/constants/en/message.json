@@ -287,5 +287,7 @@
   "anyOfTheseKeywords": "Any of these keywords",
   "exactPhrase": "Exact phrase",
   "closedForToday":"Archive is closed for today",
-  "youHaveAlreadyRequested": "You have already requested"
+  "youHaveAlreadyRequested": "You have already requested",
+  "pleaseClickConfirm": "Please click the Confirm button to finalize your change."
+  
 }

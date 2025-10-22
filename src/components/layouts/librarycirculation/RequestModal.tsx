@@ -23,7 +23,7 @@ const RequestModal = ({ selectedItem, selectOption, sisn }: { selectedItem: Sele
 		})
 
 		selectedItem.forEach((item) => {
-			params.append(item.id, `CHANGE:${item.barcode}`)
+			params.append(`${item.id}$${item.barcode}`, `CHANGE:${item.barcode}`)
 		})
 
 		return await axios
