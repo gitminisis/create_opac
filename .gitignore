@@ -50,5 +50,6 @@ backend/logs.txt
 !src/constants/**/message.json
 !src/constants/**/patron-library-circulation.json
 !src/constants/**/client-profile.json
+!src/constants/**/rsvp.json
 
 aspnet_client

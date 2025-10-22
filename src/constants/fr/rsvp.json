@@ -55,5 +55,19 @@
 		"verificationEmailT": "Veuillez confirmer votre evenement: ",
 		"regConfirmationEmailT": "Vous etes confirme pour: ",
 		"cancelConfirmationEmailT": "Votre inscription a ete annulee pour: "
+	},
+	"emailInList":{
+		"title": "Cet e-mail est déjà utilisé.",
+		"subtitle": "Veuillez utiliser une autre adresse e-mail.",
+		"showButton": true,
+		"buttonText": "Aller au site web",
+		"buttonLink": "/"
+	},
+	"emailSuccess":{
+		"title": "Votre e-mail a été modifié avec succès.",
+		"subtitle": "Votre e-mail a été mis à jour dans notre système.",
+		"showButton": true,
+		"buttonText": "Go to website",
+		"buttonLink": "/"
 	}
 }

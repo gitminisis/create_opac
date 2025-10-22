@@ -55,5 +55,19 @@
 		"verificationEmailT": "Please confirm your event: ",
 		"regConfirmationEmailT": "You're confirmed for: ",
 		"cancelConfirmationEmailT": "Your registration has been cancelled for: "
+	},
+	"emailInList":{
+		"title": "This email is already in use.",
+		"subtitle": "Please use a different email address.",
+		"showButton": true,
+		"buttonText": "Go to website",
+		"buttonLink": "/"
+	},
+	"emailSuccess":{
+		"title": "Your email has been successfully changed.",
+		"subtitle": "Your email has been updated in our system.",
+		"showButton": true,
+		"buttonText": "Go to website",
+		"buttonLink": "/"
 	}
 }

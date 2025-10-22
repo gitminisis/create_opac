@@ -40,7 +40,7 @@ const TransitOn = () => {
 										<div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.barcode}</span>
-												<span className="text-gray-900 font-medium">{item.barcode}</span>
+												<span className="text-gray-900 font-medium">{item.barcode ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.volumeNumber}</span>
@@ -48,11 +48,11 @@ const TransitOn = () => {
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.onRequest}</span>
-												<span className="text-gray-900 font-medium">{item.wait_date}</span>
+												<span className="text-gray-900 font-medium">{item.wait_date ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.location}</span>
-												<span className="text-gray-900 font-medium">{item.wait_pickup_loc}</span>
+												<span className="text-gray-900 font-medium">{item.wait_pickup_loc ?? 'N/A'}</span>
 											</div>
 										</div>
 									</div>
