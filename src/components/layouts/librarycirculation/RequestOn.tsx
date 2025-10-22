@@ -94,14 +94,14 @@ const RequestOn = () => {
 										<div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.barcode}</span>
-												<span className="text-gray-900 font-medium">{item.barcode}</span>
+												<span className="text-gray-900 font-medium">{item.barcode ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-gray-500">{message.volumeNumber}</span>
 												<span className="text-gray-900 font-medium">{item.volume_id ?? 'N/A'}</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-gray-500">{message.waitPosition}</span>
+												<span className="text-gray-500">{message.waitPosition ?? 'N/A'}</span>
 												<span className="text-gray-900 font-medium">
 													{item.occnum} - {item.occurence}
 												</span>

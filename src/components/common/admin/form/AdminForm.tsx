@@ -14,26 +14,30 @@ const AdminForm = ({ children, enablePreview = false }: { children?: ReactNode; 
 
 			<div className="w-44 h-full sticky top-0 items-end p-4 space-y-2">
 				<Button 
-					className="w-28" 
+					className="w-full" 
 					onClick={handleFormSave} 
 					disabled={isSubmitting}
 				>
 					{isSubmitting ? (
 						<div className="flex items-center gap-2">
 							<Loader2 className="h-4 w-4 animate-spin" />
-							<span>Saving</span>
+							<span>Processing</span>
 						</div>
 					) : (
 						"Save changes"
 					)}
 				</Button>
-				{progress && (
-					<div className="text-xs text-muted-foreground mt-1">{progress}</div>
+				{isSubmitting && (
+					<div className="text-xs text-center bg-muted p-2 rounded-md">
+						<div className="font-semibold mb-1">Please wait</div>
+						<div className="text-muted-foreground">{progress || 'Processing your changes...'}</div>
+						<div className="text-muted-foreground mt-1">This may take a minute</div>
+					</div>
 				)}
 				{enablePreview && (
 					<Button
 						variant="outline"
-						className="w-28"
+						className="w-full"
 						onClick={() => {
 							setPreviewMode(true)
 						}}

@@ -53,5 +53,6 @@ src/constants/**/*.json
 !src/constants/**/message.json
 !src/constants/**/patron-library-circulation.json
 !src/constants/**/client-profile.json
+!src/constants/**/rsvp.json
 
 aspnet_client

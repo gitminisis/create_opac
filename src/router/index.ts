@@ -53,6 +53,7 @@ import LibraryCirculation from '@/page/dashboard/LibraryCirculation'
 import RequestLater from '@/page/request-later'
 import AccountSettings from '@/page/dashboard/AccountSettings'
 import Minista from '@/page/minista'
+import ResetEmail from '@/page/dashboard/AccountSettings/ResetEmail'
 export type TRoute = Record<string, (props?: any) => JSX.Element>
 
 const ADMIN_ROUTES: TRoute = {
@@ -94,6 +95,7 @@ export const ROUTES: TRoute = {
 	easyload: EasyLoad,
 	'easyload-login': Relogin,
 	requestconfirmed: RequestConfirmed,
+	'reset-email': ResetEmail,
 	'forgot-pin': ForgotPin,
 	'reset-pin': ResetPin,
 	'rsvp-cancel': RSVPCancel,
