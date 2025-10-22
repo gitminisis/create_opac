@@ -78,12 +78,12 @@ const Security = () => {
 		}
 
 		if (securityForm.newPassword.length < 8 && regex.test(securityForm.currentPassword)) {
-			newErrors.newPassword = `${message.passwordValidation} ${PASSWORD_MIN_LENGTH} characters`
+			newErrors.newPassword = `${message.passwordValidation}`
 			isValid = false
 		}
 
 		if (securityForm.confirmPassword.length < 8 && regex.test(securityForm.currentPassword)) {
-			newErrors.confirmPassword = `${message.passwordValidation} ${PASSWORD_MIN_LENGTH} characters`
+			newErrors.confirmPassword = `${message.passwordValidation}`
 			isValid = false
 		} else if (securityForm.newPassword !== securityForm.confirmPassword) {
 			newErrors.confirmPassword = message.passwordsDoNotMatch
@@ -165,17 +165,17 @@ const Security = () => {
 							<span className="mr-3">
 								<CheckCircle className="mr-3 h-6 w-6 text-black" />
 							</span>
-							Password Changed Successfully
+							{message.passwordChangeSuccess}
 						</h1>
 						<p className="mt-6 text-lg text-black">
-							Your password has been updated. Please{' '}
+							{message.pleaseLoginForRequesting}
 							<a className="font-semibold" href="/">
-								log in again
+								{message.logIn}
 							</a>
 							.
 						</p>
 						<p className="mt-4 text-black">
-							Redirecting in {countdown} second{countdown !== 1 ? 's' : ''}...
+						{message.redirecting} {countdown} {message.second}{countdown !== 1 ? 's' : ''}...
 						</p>
 					</div>
 				</section>
@@ -183,7 +183,7 @@ const Security = () => {
 				<form onSubmit={handleSecuritySubmit} className="space-y-6">
 					<div className="space-y-2">
 						<label htmlFor="currentPassword" className="text-sm font-medium">
-							Current Password
+							{message.currentPassword}
 						</label>
 						<div className="flex items-center">
 							<Input
@@ -199,7 +199,7 @@ const Security = () => {
 					</div>
 					<div className="space-y-2">
 						<label htmlFor="newPassword" className="text-sm font-medium">
-							New Password
+							{message.newPassword}
 						</label>
 						<div className="flex items-center">
 							<Input
@@ -215,7 +215,7 @@ const Security = () => {
 					</div>
 					<div className="space-y-2">
 						<label htmlFor="confirmPassword" className="text-sm font-medium">
-							Confirm Password
+							{message.confirm} {message.password}
 						</label>
 						<div className="flex items-center">
 							<Input
@@ -232,7 +232,7 @@ const Security = () => {
 
 					<Button type="submit" className="bg-black hover:bg-gray-800">
 						<Save className="mr-2 h-4 w-4" />
-						Update Password
+						{message.save}
 					</Button>
 				</form>
 			)}
