@@ -173,129 +173,130 @@ const Profile = () => {
 							<span className="mr-3">
 								<CheckCircle className="mr-3 h-6 w-6 text-black" />
 							</span>
-							We sent a confirmation email
+							{message.confirmationSent}
 						</h1>
 						<p className="mt-6 text-lg text-black">
-							Please check your email to finish changing your email address.
+							{message.checkEmail}
 							<a className="font-semibold" href="/">
-								log in again
+								{message.logIn}
 							</a>
 							.
 						</p>
 						<p className="mt-4 text-black">
-							Redirecting in {countdown} second{countdown !== 1 ? 's' : ''}...
+						{message.redirecting} {countdown} {message.second}{countdown !== 1 ? 's' : ''}...
 						</p>
 					</div>
 				</section>
 			) : (
 				<>
-					<form onSubmit={handleProfileSubmit} className="space-y-6">
-						<div className="space-y-2">
-							<label htmlFor="name" className="text-sm font-medium">
-								{message.fullName}
-							</label>
-							<div className="flex items-center w-full justify-between">
-								<Input
-									className="mr-1"
-									id="firstName"
-									name="firstName"
-									placeholder="Enter your first name"
-									value={profileForm.firstName}
-									onChange={handleProfileChange}
-								/>
-								<Input
-									className="ml-1"
-									id="lastName"
-									name="lastName"
-									placeholder="Enter your last name"
-									value={profileForm.lastName}
-									onChange={handleProfileChange}
-								/>
+					<form onSubmit={handleProfileSubmit}>
+						<div className="space-y-6">
+							<div>
+								<label htmlFor="name" className="block text-sm font-medium mb-2 min-h-[40px]">
+									{message.fullName}
+								</label>
+								<div className="flex gap-2">
+									<Input
+										id="firstName"
+										name="firstName"
+										placeholder="Enter your first name"
+										value={profileForm.firstName}
+										onChange={handleProfileChange}
+										className="w-1/2"
+									/>
+									<Input
+										id="lastName"
+										name="lastName"
+										placeholder="Enter your last name"
+										value={profileForm.lastName}
+										onChange={handleProfileChange}
+										className="w-1/2"
+									/>
+								</div>
+								{profileErrors.name && <p className="text-sm text-red-500 mt-1">{profileErrors.name}</p>}
 							</div>
-							{profileErrors.name && <p className="text-sm text-red-500">{profileErrors.name}</p>}
-						</div>
-						<div className="space-y-2">
-							<label htmlFor="email" className="text-sm font-medium">
-								{message.address}
-							</label>
-							<div className="flex items-center">
+
+							<div>
+								<label htmlFor="address" className="block text-sm font-medium mb-2 min-h-[40px]">
+									{message.address}
+								</label>
 								<Input
 									id="address"
 									name="address"
 									placeholder="Enter your address"
 									value={profileForm.address}
 									onChange={handleProfileChange}
+									className="w-full"
 								/>
 							</div>
-						</div>
-						<div className="space-y-2">
-							<div className="flex items-center w-full justify-between w-full">
+
+							<div className="flex gap-2">
 								<div className="w-1/2">
-									<label htmlFor="name" className="text-sm font-medium ">
+									<label htmlFor="city" className="block text-sm font-medium mb-2 min-h-[40px]">
 										{message.city}
 									</label>
 									<Input
-										className={'mr-1 mt-3'}
 										id="city"
 										name="city"
 										placeholder="Enter your city"
 										value={profileForm.city}
 										onChange={handleProfileChange}
+										className="w-full"
 									/>
 								</div>
-								<div className="ml-1 w-1/2">
-									<label htmlFor="name" className="text-sm font-medium">
+								<div className="w-1/2">
+									<label htmlFor="state" className="block text-sm font-medium mb-2 min-h-[40px]">
 										{message.provinceState}
 									</label>
 									<Input
-										className={'mt-3'}
 										id="state"
 										name="state"
 										placeholder="Enter your state"
 										value={profileForm.state}
 										onChange={handleProfileChange}
+										className="w-full"
 									/>
 								</div>
 							</div>
-							<div className="flex items-center w-full justify-between w-full">
-								<div className="mr-1 w-1/2">
-									<label htmlFor="name" className="text-sm font-medium">
+
+							<div className="flex gap-2">
+								<div className="w-1/2">
+									<label htmlFor="postal_code" className="block text-sm font-medium mb-2 min-h-[40px]">
 										{message.postalCodeLabel}
 									</label>
 									<Input
-										className={'mt-3'}
 										id="postal_code"
 										name="postal_code"
 										placeholder="Enter your postal code"
 										value={profileForm.postal_code}
 										onChange={handleProfileChange}
+										className="w-full"
 									/>
 								</div>
-								<div className="ml-1 w-1/2">
-									<label htmlFor="name" className="text-sm font-medium">
+								<div className="w-1/2">
+									<label htmlFor="country" className="block text-sm font-medium mb-2 min-h-[40px]">
 										{message.country}
 									</label>
 									<Input
-										className={'mt-3'}
 										id="country"
 										name="country"
 										placeholder="Enter your country"
 										value={profileForm.country}
 										onChange={handleProfileChange}
+										className="w-full"
 									/>
 								</div>
 							</div>
 						</div>
-
-						<Button type="submit" className="bg-black hover:bg-gray-800">
+						<Button type="submit" className="bg-black hover:bg-gray-800 mt-4">
 							{loading ? (
 								<>
 									<LoaderCircle />
 								</>
 							) : (
 								<>
-									<Save className="mr-2 h-4 w-4" />
-									Save Profile
+									<Save className="mr-2 h-4 w-4 " />
+									{message.save}
 								</>
 							)}
 						</Button>
@@ -303,7 +304,7 @@ const Profile = () => {
 					<div className="space-y-6">
 						<div className="space-y-2">
 							<label htmlFor="email" className="text-sm font-medium">
-								Email Address
+								{message.email}
 							</label>
 							<div className="flex items-center">
 								<Input
@@ -314,13 +315,13 @@ const Profile = () => {
 									onChange={handleProfileChange}
 								/>
 							</div>
-							<p className="text-sm text-gray-500">This email will be used for account notifications.</p>
+							<p className="text-sm text-gray-500">{message.notificationNote}</p>
 							{profileErrors.email && <p className="text-sm text-red-500">{profileErrors.email}</p>}
 						</div>
 
 						<Button className="bg-black hover:bg-gray-800" onClick={submitEmailChange}>
 							<Save className="mr-2 h-4 w-4" />
-							Change Email
+							{message.save}
 						</Button>
 					</div>
 				</>

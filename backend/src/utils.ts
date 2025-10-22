@@ -17,47 +17,49 @@ export function rebuildOPAC(): Promise<{ success: boolean; message: string }> {
 	const base = path.dirname(path.dirname(__dirname))
 
 	return new Promise((resolve) => {
-		const process = exec(`cd ${base} && npx vite build`, (error, stdout, stderr) => {
-			if (error) {
-				console.error(`Build error: ${error.message}`)
-				resolve({ success: false, message: `Build error: ${error.message}` })
-				return
-			}
 
-			if (stderr) {
-				console.error(`Build stderr: ${stderr}`)
-			}
+		// Due to git duvious ownership error shown, hide this error 20251022 Don Ryu
+		// const process = exec(`cd ${base} && npx vite build`, (error, stdout, stderr) => {
+		// 	if (error) {
+		// 		console.error(`Build error: ${error.message}`)
+		// 		resolve({ success: false, message: `Build error: ${error.message}` })
+		// 		return
+		// 	}
 
-			console.log(`Build stdout:\n${stdout}`)
+		// 	if (stderr) {
+		// 		console.error(`Build stderr: ${stderr}`)
+		// 	}
 
-			// Get the current branch name
-			exec(`cd ${base} && git rev-parse --abbrev-ref HEAD`, (err, branchStdout) => {
-				if (err) {
-					console.error(`Error getting branch name: ${err.message}`)
-					resolve({ success: false, message: `Error getting branch name: ${err.message}` })
-					return
-				}
+		// 	console.log(`Build stdout:\n${stdout}`)
 
-				const branch = branchStdout.trim()
+		// 	// Get the current branch name
+		// 	exec(`cd ${base} && git rev-parse --abbrev-ref HEAD`, (err, branchStdout) => {
+		// 		if (err) {
+		// 			console.error(`Error getting branch name: ${err.message}`)
+		// 			resolve({ success: false, message: `Error getting branch name: ${err.message}` })
+		// 			return
+		// 		}
 
-				// Run git commands sequentially
-				exec(`cd ${base} && git add . && git commit -m "admin: CMS update" && git push origin ${branch}`, (gitError, gitStdout, gitStderr) => {
-					if (gitError) {
-						console.error(`Git error: ${gitError.message}`)
-						// Still consider it a success if git fails, as the build itself succeeded
-						resolve({ success: true, message: 'Build completed successfully, but git operations failed' })
-						return
-					}
+		// 		const branch = branchStdout.trim()
 
-					if (gitStderr) {
-						console.error(`Git stderr: ${gitStderr}`)
-					}
+		// 		// Run git commands sequentially
+		// 		exec(`cd ${base} && git add . && git commit -m "admin: CMS update" && git push origin ${branch}`, (gitError, gitStdout, gitStderr) => {
+		// 			if (gitError) {
+		// 				console.error(`Git error: ${gitError.message}`)
+		// 				// Still consider it a success if git fails, as the build itself succeeded
+		// 				resolve({ success: true, message: 'Build completed successfully, but git operations failed' })
+		// 				return
+		// 			}
 
-					console.log(`Git stdout:\n${gitStdout}`)
-					resolve({ success: true, message: 'Build and deployment completed successfully' })
-				})
-			})
-		})
+		// 			if (gitStderr) {
+		// 				console.error(`Git stderr: ${gitStderr}`)
+		// 			}
+
+		// 			console.log(`Git stdout:\n${gitStdout}`)
+		// 			resolve({ success: true, message: 'Build and deployment completed successfully' })
+		// 		})
+		// 	})
+		// })
 
 		process.on('spawn', () => {
 			console.log('Build started')
