@@ -36,7 +36,7 @@ const HoldOn = () => {
 	const onSubmit = async () => {
 		const params = new URLSearchParams()
 		selectedItem.forEach((item) => {
-			params.append(item.id, `CANCEL:${item.barcode}`)
+			params.append(`${item.id}$${item.barcode}`, `CANCEL:${item.barcode}`)
 		})
 
 		return await axios

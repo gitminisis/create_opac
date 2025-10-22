@@ -1,17 +1,23 @@
 import { useState, type ChangeEvent, type FormEvent, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Bell, Key, LoaderCircle, Lock, Mail, Save, Shield, User, UserCog } from 'lucide-react'
+import { Bell, CheckCircle, Key, LoaderCircle, Lock, Mail, Save, Shield, User, UserCog } from 'lucide-react'
 import useJSONData from '@/hooks/useJSONData'
 import axios from 'axios'
-import { getCookieValue } from '@/lib/utils'
+import { deleteCookie, encodeObj, getCookieValue, getSessionID } from '@/lib/utils'
 import { toast } from '@/components/ui/use-toast'
+import useConstants from '@/hooks/useConstants'
 
 // Define interfaces for form data and errors
 interface ProfileFormData {
 	firstName: string
 	lastName: string
 	email: string
+	city: string
+	address: string
+	state: string
+	postal_code: string
+	country: string
 }
 
 interface ProfileFormErrors {
@@ -21,7 +27,41 @@ interface ProfileFormErrors {
 
 const Profile = () => {
 	const { records } = useJSONData({ selector: '#xml_record' })
+	const { message } = useConstants()
+	const [countdown, setCountdown] = useState(10)
 	const [loading, setLoadting] = useState(false)
+	const [profileForm, setProfileForm] = useState<ProfileFormData>({
+		firstName: records[0].first_name,
+		lastName: records[0].last_name,
+		email: records[0].email,
+		city: records[0].city,
+		address: records[0].street,
+		state: records[0].prov_state,
+		postal_code: records[0].postal_zip,
+		country: records[0].country,
+	})
+	const [profileErrors, setProfileErrors] = useState<ProfileFormErrors>({
+		name: '',
+		email: '',
+	})
+	const [changedEmail, setChangedEmail] = useState(false)
+
+	useEffect(() => {
+		if (!changedEmail) return
+		const timer = setInterval(() => {
+			setCountdown((prev) => prev - 1)
+		}, 1000)
+
+		const redirect = setTimeout(() => {
+			window.location.href = '/'
+		}, 10000)
+
+		return () => {
+			clearInterval(timer)
+			clearTimeout(redirect)
+		}
+	}, [changedEmail])
+
 	const handleProfileChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		const { name, value } = e.target
 		setProfileForm({
@@ -36,16 +76,6 @@ const Profile = () => {
 			})
 		}
 	}
-	// Profile form state
-	const [profileForm, setProfileForm] = useState<ProfileFormData>({
-		firstName: records[0].first_name,
-		lastName: records[0].last_name,
-		email: records[0].email,
-	})
-	const [profileErrors, setProfileErrors] = useState<ProfileFormErrors>({
-		name: '',
-		email: '',
-	})
 
 	// Validate profile form
 	const validateProfileForm = (): boolean => {
@@ -77,7 +107,11 @@ const Profile = () => {
 			headers: { 'Content-Type': 'text/xml' },
 			data: `<?xml version="1.0" encoding="UTF-8"?><RECORD><P_FIRST_NAME>${profileForm.firstName}</P_FIRST_NAME>
 			<P_LAST_NAME>${profileForm.lastName}</P_LAST_NAME>
-			<C_EMAIL>${profileForm.email}</C_EMAIL>
+			<P_ADDRESS occ="1" op="add">${profileForm.address}</P_ADDRESS>
+			<P_CITY>${profileForm.city}</P_CITY>
+			<P_PROV_STATE>${profileForm.state}</P_PROV_STATE>
+			<P_COUNTRY>${profileForm.country}</P_COUNTRY>
+			<P_POST_ZIP_CODE>${profileForm.postal_code}</P_POST_ZIP_CODE>
 			</RECORD>`,
 		})
 			.then(() => {
@@ -92,59 +126,206 @@ const Profile = () => {
 				})
 			})
 	}
+
+	const submitEmailChange = async () => {
+		const currentDate = new Date()
+		let HOME_SESSID = getSessionID()
+		let is_french = getCookieValue('my_lang') === '145' ? true : false
+		const encoded = encodeObj(
+			JSON.stringify({
+				date: currentDate,
+				client_number: records[0].client_number,
+				email: profileForm.email,
+			})
+		)
+		if (!validateProfileForm()) return
+		setChangedEmail(true)
+		return await axios
+			.post(
+				`${HOME_SESSID}?SAVE_MAIL_FORM&TEMPLATE=[OPAC_EMAIL_TMP]${is_french ? 'EmailChgConfrim_fr.txt' : 'EmailChgConfirm.txt'}&FROM_DEFAULT=noreply@minisisinc.com&TO_DEFAULT=${profileForm.email}&SUBJECT_DEFAULT=${'Email Change Confirmation'}`,
+				{
+					client_number: records[0].client_number,
+					EMAIL_CHG_LANDING_PAGE_URL: `${window.location.protocol}//${window.location.hostname}/reset-email.html`,
+					email: profileForm.email,
+					encoded,
+				},
+				{
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+				}
+			)
+			.then(() => {
+				const cookies = document.cookie.split(';')
+				cookies.forEach((cookie) => {
+					const name = cookie.split('=')[0].trim()
+					deleteCookie(name)
+				})
+			})
+	}
+
 	return (
-		<form onSubmit={handleProfileSubmit} className="space-y-6">
-			<div className="space-y-2">
-				<label htmlFor="name" className="text-sm font-medium">
-					Full Name
-				</label>
-				<div className="flex items-center w-full">
-					<User className="mr-2 h-4 w-4 text-gray-500" />
-					<Input
-						className="w-[40%] mr-10"
-						id="firstName"
-						name="firstName"
-						placeholder="Enter your first name"
-						value={profileForm.firstName}
-						onChange={handleProfileChange}
-					/>
-					<Input
-						className="w-[50%]"
-						id="lastName"
-						name="lastName"
-						placeholder="Enter your last name"
-						value={profileForm.lastName}
-						onChange={handleProfileChange}
-					/>
-				</div>
-				{profileErrors.name && <p className="text-sm text-red-500">{profileErrors.name}</p>}
-			</div>
+		<>
+			{changedEmail ? (
+				<section className="flex items-center justify-center space-y-6 min-h-[364px]">
+					<div className="text-center space-y-4">
+						<h1 className="flex justify-center items-center text-2xl font-bold text-black">
+							<span className="mr-3">
+								<CheckCircle className="mr-3 h-6 w-6 text-black" />
+							</span>
+							We sent a confirmation email
+						</h1>
+						<p className="mt-6 text-lg text-black">
+							Please check your email to finish changing your email address.
+							<a className="font-semibold" href="/">
+								log in again
+							</a>
+							.
+						</p>
+						<p className="mt-4 text-black">
+							Redirecting in {countdown} second{countdown !== 1 ? 's' : ''}...
+						</p>
+					</div>
+				</section>
+			) : (
+				<>
+					<form onSubmit={handleProfileSubmit} className="space-y-6">
+						<div className="space-y-2">
+							<label htmlFor="name" className="text-sm font-medium">
+								{message.fullName}
+							</label>
+							<div className="flex items-center w-full justify-between">
+								<Input
+									className="mr-1"
+									id="firstName"
+									name="firstName"
+									placeholder="Enter your first name"
+									value={profileForm.firstName}
+									onChange={handleProfileChange}
+								/>
+								<Input
+									className="ml-1"
+									id="lastName"
+									name="lastName"
+									placeholder="Enter your last name"
+									value={profileForm.lastName}
+									onChange={handleProfileChange}
+								/>
+							</div>
+							{profileErrors.name && <p className="text-sm text-red-500">{profileErrors.name}</p>}
+						</div>
+						<div className="space-y-2">
+							<label htmlFor="email" className="text-sm font-medium">
+								{message.address}
+							</label>
+							<div className="flex items-center">
+								<Input
+									id="address"
+									name="address"
+									placeholder="Enter your address"
+									value={profileForm.address}
+									onChange={handleProfileChange}
+								/>
+							</div>
+						</div>
+						<div className="space-y-2">
+							<div className="flex items-center w-full justify-between w-full">
+								<div className="w-1/2">
+									<label htmlFor="name" className="text-sm font-medium ">
+										{message.city}
+									</label>
+									<Input
+										className={'mr-1 mt-3'}
+										id="city"
+										name="city"
+										placeholder="Enter your city"
+										value={profileForm.city}
+										onChange={handleProfileChange}
+									/>
+								</div>
+								<div className="ml-1 w-1/2">
+									<label htmlFor="name" className="text-sm font-medium">
+										{message.provinceState}
+									</label>
+									<Input
+										className={'mt-3'}
+										id="state"
+										name="state"
+										placeholder="Enter your state"
+										value={profileForm.state}
+										onChange={handleProfileChange}
+									/>
+								</div>
+							</div>
+							<div className="flex items-center w-full justify-between w-full">
+								<div className="mr-1 w-1/2">
+									<label htmlFor="name" className="text-sm font-medium">
+										{message.postalCodeLabel}
+									</label>
+									<Input
+										className={'mt-3'}
+										id="postal_code"
+										name="postal_code"
+										placeholder="Enter your postal code"
+										value={profileForm.postal_code}
+										onChange={handleProfileChange}
+									/>
+								</div>
+								<div className="ml-1 w-1/2">
+									<label htmlFor="name" className="text-sm font-medium">
+										{message.country}
+									</label>
+									<Input
+										className={'mt-3'}
+										id="country"
+										name="country"
+										placeholder="Enter your country"
+										value={profileForm.country}
+										onChange={handleProfileChange}
+									/>
+								</div>
+							</div>
+						</div>
 
-			<div className="space-y-2">
-				<label htmlFor="email" className="text-sm font-medium">
-					Email Address
-				</label>
-				<div className="flex items-center">
-					<Mail className="mr-2 h-4 w-4 text-gray-500" />
-					<Input id="email" name="email" placeholder="Enter your email" value={profileForm.email} onChange={handleProfileChange} />
-				</div>
-				<p className="text-sm text-gray-500">This email will be used for account notifications.</p>
-				{profileErrors.email && <p className="text-sm text-red-500">{profileErrors.email}</p>}
-			</div>
+						<Button type="submit" className="bg-black hover:bg-gray-800">
+							{loading ? (
+								<>
+									<LoaderCircle />
+								</>
+							) : (
+								<>
+									<Save className="mr-2 h-4 w-4" />
+									Save Profile
+								</>
+							)}
+						</Button>
+					</form>
+					<div className="space-y-6">
+						<div className="space-y-2">
+							<label htmlFor="email" className="text-sm font-medium">
+								Email Address
+							</label>
+							<div className="flex items-center">
+								<Input
+									id="email"
+									name="email"
+									placeholder="Enter your email"
+									value={profileForm.email}
+									onChange={handleProfileChange}
+								/>
+							</div>
+							<p className="text-sm text-gray-500">This email will be used for account notifications.</p>
+							{profileErrors.email && <p className="text-sm text-red-500">{profileErrors.email}</p>}
+						</div>
 
-			<Button type="submit" className="bg-black hover:bg-gray-800">
-				{loading ? (
-					<>
-						<LoaderCircle />
-					</>
-				) : (
-					<>
-						<Save className="mr-2 h-4 w-4" />
-						Save Profile
-					</>
-				)}
-			</Button>
-		</form>
+						<Button className="bg-black hover:bg-gray-800" onClick={submitEmailChange}>
+							<Save className="mr-2 h-4 w-4" />
+							Change Email
+						</Button>
+					</div>
+				</>
+			)}
+		</>
 	)
 }
 

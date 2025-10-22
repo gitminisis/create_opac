@@ -107,6 +107,13 @@ export interface RequestData {
 	is_requested_by_client:string
 }
 export interface Record {
+	prov_state: string
+	postal_zip: string
+	country: string
+	zip_code: string
+	state: string
+	street: string
+	city: string
 	client_number: any
 	cur_user_request: any
 	aone_loc(aone_loc: any): unknown

@@ -289,5 +289,6 @@
 	"anyOfTheseKeywords": "N'importe lequel de ces mots-clés",
 	"exactPhrase": "Expression exacte",
 	"closedForToday":"Les archives sont fermées pour aujourd'hui",
-	"youHaveAlreadyRequested": "Vous avez déjà fait une demande"
+	"youHaveAlreadyRequested": "Vous avez déjà fait une demande",
+	"pleaseClickConfirm": "Veuillez cliquer sur le bouton Confirmer pour finaliser votre modification."
 }

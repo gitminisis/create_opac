@@ -36,7 +36,7 @@ const CheckedOut = () => {
 	const onSubmit = async () => {
 		const params = new URLSearchParams()
 		selectedId.forEach((item) => {
-			params.append(item.id, `RENEW:${item.barcode}`)
+			params.append(`${item.id}$${item.barcode}`, `RENEW:${item.barcode}`)
 		})
 
 		return await axios

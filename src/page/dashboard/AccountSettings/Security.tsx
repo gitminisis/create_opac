@@ -69,14 +69,13 @@ const Security = () => {
 	}
 
 	const validateSecurityForm = (): boolean => {
-		const regex = /^(?=.*[A-Z]).*$/;
+		const regex = /^(?=.*[A-Z]).*$/
 		let isValid = true
 		const newErrors: SecurityFormErrors = {
 			currentPassword: '',
 			newPassword: '',
 			confirmPassword: '',
 		}
-
 
 		if (securityForm.newPassword.length < 8 && regex.test(securityForm.currentPassword)) {
 			newErrors.newPassword = `${message.passwordValidation} ${PASSWORD_MIN_LENGTH} characters`
@@ -187,7 +186,6 @@ const Security = () => {
 							Current Password
 						</label>
 						<div className="flex items-center">
-							<Key className="mr-2 h-4 w-4 text-gray-500" />
 							<Input
 								id="currentPassword"
 								name="currentPassword"
@@ -204,7 +202,6 @@ const Security = () => {
 							New Password
 						</label>
 						<div className="flex items-center">
-							<Lock className="mr-2 h-4 w-4 text-gray-500" />
 							<Input
 								id="newPassword"
 								name="newPassword"
@@ -221,7 +218,6 @@ const Security = () => {
 							Confirm Password
 						</label>
 						<div className="flex items-center">
-							<Lock className="mr-2 h-4 w-4 text-gray-500" />
 							<Input
 								id="confirmPassword"
 								name="confirmPassword"
