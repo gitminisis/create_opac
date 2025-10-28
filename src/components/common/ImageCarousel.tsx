@@ -10,12 +10,10 @@ export type ImageProps = {
 	caption?: string
 }
 
-
 export interface DocumentProps {
 	src: string
 	caption?: string
 }
-
 
 export type VideoProps = {
 	type: 'video'

@@ -47,12 +47,12 @@ const Detail = () => {
 			],
 		})) || []
 
-
-	const documentsTitle = deepSearchKey(record, 'tx_name')[0]
-	const documents: DocumentProps[] = getMedia(records[0], 'tx_access_link')?.map((e,index) => ({
-		src: e.includes('[MEDIA]') ? e.replace('[MEDIA]', '/media/') : e,
-		caption: documentsTitle[index] ?? e,
-	})) || []
+	const documentsTitle = deepSearchKey(record, 'tx_name') || []
+	const documents: DocumentProps[] =
+		getMedia(records[0], 'tx_access_link')?.map((e, index) => ({
+			src: e.includes('[MEDIA]') ? e.replace('[MEDIA]', '/media/') : e,
+			caption: documentsTitle[index] || e,
+		})) || []
 	const weekdayToIndex: any = {
 		su: 0,
 		mo: 1,
@@ -169,9 +169,7 @@ const Detail = () => {
 											{isClose() ? (
 												<div className="flex items-center gap-2 font-medium">
 													<AlertCircle className="h-5 w-5 flex-shrink-0" />
-													<span>
-														{message.closedForToday}
-													</span>
+													<span>{message.closedForToday}</span>
 												</div>
 											) : (
 												<>
