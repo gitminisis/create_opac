@@ -245,7 +245,7 @@
 	"requestFor": "Your request for",
 	"hasBeenAccepted": "has been accepted!",
 	"barcode": "Barcode Id",
-	"pleaseLoginForRequesting": "Please log in to make a request",
+	"pleaseLoginForRequesting": "Please log in",
 	"mediaType": "Media Type",
 	"holdingCentre": "Holding Centre",
 	"copyNumber": "Copy No.",
@@ -288,6 +288,11 @@
   "exactPhrase": "Exact phrase",
   "closedForToday":"Archive is closed for today",
   "youHaveAlreadyRequested": "You have already requested",
-  "pleaseClickConfirm": "Please click the Confirm button to finalize your change."
-  
+  "pleaseClickConfirm": "Please click the Confirm button to finalize your change.",
+  "confirmationSent": "We sent a confirmation email.",
+  "redirecting": "Redirecting in",
+  "second": "second",
+  "notificationNote": "This email will be used for account notifications.",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password"
 }

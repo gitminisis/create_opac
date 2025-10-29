@@ -245,7 +245,7 @@
 	"yes": "Oui",
 	"yourDetailLabel": "Vos Détails",
 	"barcode": "Identifiant du code-barres",
-	"pleaseLoginForRequesting": "Veuillez vous connecter pour faire une demand",
+	"pleaseLoginForRequesting": "Veuillez vous connecter ",
 	"mediaType": "Type de média",
 	"holdingCentre": "Centre de conservation",
 	"copyNumber": "N° d'exemplaire",
@@ -290,5 +290,11 @@
 	"exactPhrase": "Expression exacte",
 	"closedForToday":"Les archives sont fermées pour aujourd'hui",
 	"youHaveAlreadyRequested": "Vous avez déjà fait une demande",
-	"pleaseClickConfirm": "Veuillez cliquer sur le bouton Confirmer pour finaliser votre modification."
+	"pleaseClickConfirm": "Veuillez cliquer sur le bouton Confirmer pour finaliser votre modification.",
+	"confirmationSent": "Nous avons envoyé un e-mail de confirmation.",
+	"redirecting": "Redirection dans",
+	"second": "seconde",
+	"notificationNote": "Cet e-mail sera utilisé pour les notifications de compte.",
+	"currentPassword": "Mot de passe actuel",
+	"newPassword": "Nouveau mot de passe"
 }
