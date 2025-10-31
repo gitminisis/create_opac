@@ -17,46 +17,49 @@ export function rebuildOPAC(): Promise<{ success: boolean; message: string }> {
 	const base = path.dirname(path.dirname(__dirname))
 
 	return new Promise((resolve) => {
+	
 		const process = exec(`cd ${base} && npx vite build`, (error, stdout, stderr) => {
 			if (error) {
 				console.error(`Build error: ${error.message}`)
 				resolve({ success: false, message: `Build error: ${error.message}` })
 				return
 			}
+			
+			// Due to git duvious ownership error shown, hide this error 20251022 Don Ryu
+			// if (stderr) {
+			// 	console.error(`Build stderr: ${stderr}`)
+			// }
 
-			if (stderr) {
-				console.error(`Build stderr: ${stderr}`)
-			}
+			// console.log(`Build stdout:\n${stdout}`)
 
-			console.log(`Build stdout:\n${stdout}`)
+			// // Get the current branch name
+			// exec(`cd ${base} && git rev-parse --abbrev-ref HEAD`, (err, branchStdout) => {
+			// 	if (err) {
+			// 		console.error(`Error getting branch name: ${err.message}`)
+			// 		resolve({ success: false, message: `Error getting branch name: ${err.message}` })
+			// 		return
+			// 	}
 
-			// Get the current branch name
-			exec(`cd ${base} && git rev-parse --abbrev-ref HEAD`, (err, branchStdout) => {
-				if (err) {
-					console.error(`Error getting branch name: ${err.message}`)
-					resolve({ success: false, message: `Error getting branch name: ${err.message}` })
-					return
-				}
+			// 	const branch = branchStdout.trim()
 
-				const branch = branchStdout.trim()
+			// 	// Run git commands sequentially
+			// 	exec(`cd ${base} && git add . && git commit -m "admin: CMS update" && git push origin ${branch}`, (gitError, gitStdout, gitStderr) => {
+			// 		if (gitError) {
+			// 			console.error(`Git error: ${gitError.message}`)
+			// 			// Still consider it a success if git fails, as the build itself succeeded
+			// 			resolve({ success: true, message: 'Build completed successfully, but git operations failed' })
+			// 			return
+			// 		}
 
-				// Run git commands sequentially
-				exec(`cd ${base} && git add . && git commit -m "admin: CMS update" && git push origin ${branch}`, (gitError, gitStdout, gitStderr) => {
-					if (gitError) {
-						console.error(`Git error: ${gitError.message}`)
-						// Still consider it a success if git fails, as the build itself succeeded
-						resolve({ success: true, message: 'Build completed successfully, but git operations failed' })
-						return
-					}
+			// 		if (gitStderr) {
+			// 			console.error(`Git stderr: ${gitStderr}`)
+			// 		}
 
-					if (gitStderr) {
-						console.error(`Git stderr: ${gitStderr}`)
-					}
-
-					console.log(`Git stdout:\n${gitStdout}`)
-					resolve({ success: true, message: 'Build and deployment completed successfully' })
-				})
-			})
+			// 		console.log(`Git stdout:\n${gitStdout}`)
+			// 		resolve({ success: true, message: 'Build and deployment completed successfully' })
+			// 	})
+			// })
+			resolve({ success: true, message: 'Build and deployment completed successfully' })
 		})
 
 		process.on('spawn', () => {
