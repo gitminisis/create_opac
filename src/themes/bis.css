@@ -1,0 +1,82 @@
+.theme-opac.light {
+	--background: 0 0% 97%;
+	--foreground: 0 0% 20%;
+
+	--primary: 354 60% 35%;
+	--primary-foreground: 0 0% 100%;
+
+	--card: 0 0% 100%;
+	--card-foreground: 0 0% 20%;
+
+	--popover: 0 0% 100%;
+	--popover-foreground: 0 0% 20%;
+
+	--secondary: 0 0% 35%;
+	--secondary-foreground: 0 0% 100%;
+
+	--muted: 0 0% 88%;
+	--muted-foreground: 0 0% 50%;
+
+	--accent: 354 60% 35%;
+	--accent-foreground: 0 0% 100%;
+
+	--destructive: 354 60% 35%;
+	--destructive-foreground: 0 0% 100%;
+
+	--border: 0 0% 88%;
+	--input: 0 0% 95%;
+	--ring: 354 60% 35%;
+
+	--radius: 0;
+
+	--opac-white: 0 0% 100%;
+
+	--opac-grey: 0 0% 75%;
+
+	--opac-darkblue: 210 30% 25%;
+
+	--opac-secondary: 0 0% 35%;
+
+	--opac-blue: 210 60% 50%;
+}
+.theme-opac.dark {
+	--background: 0 0% 15%;
+	--foreground: 0 0% 95%;
+
+	--primary: 354 60% 35%;
+	--primary-foreground: 0 0% 100%;
+
+	--card: 0 0% 22%;
+	--card-foreground: 0 0% 95%;
+
+	--popover: 0 0% 22%;
+	--popover-foreground: 0 0% 95%;
+
+	--secondary: 354 60% 35%;
+	--secondary-foreground: 0 0% 100%;
+
+	--muted: 0 0% 35%;
+	--muted-foreground: 0 0% 70%;
+
+	--accent: 354 60% 35%;
+	--accent-foreground: 0 0% 100%;
+
+	--destructive: 354 60% 35%;
+	--destructive-foreground: 0 0% 100%;
+
+	--border: 0 0% 30%;
+	--input: 0 0% 25%;
+	--ring: 354 60% 35%;
+
+	--radius: 0;
+
+	--opac-white: 0 0% 95%;
+
+	--opac-grey: 0 0% 50%;
+
+	--opac-darkblue: 210 30% 25%;
+
+	--opac-secondary: 354 60% 35%;
+
+	--opac-blue: 210 60% 50%;
+}
