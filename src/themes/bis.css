@@ -1,15 +1,15 @@
 .theme-opac.light {
 	--background: 240 17.65% 96.67%;
-	--foreground: 233.33 100% 1.76%;
+	--foreground: 0 0% 0.38%;
 
-	--primary: 0 0% 38%;
+	--primary: 0 0% 7%;
 	--primary-foreground: 0 0% 100%;
 
 	--card: 240 17.65% 96.67%;
-	--card-foreground: 233.33 100% 1.76%;
+	--card-foreground: 0 0% 0.38%;
 
 	--popover: 0 0% 100%;
-	--popover-foreground: 233.33 100% 1.76%;
+	--popover-foreground: 0 0% 0.38%;
 
 	--secondary: 240 17.65% 96.67%;
 	--secondary-foreground: 240 100% 0.78%;
@@ -18,14 +18,14 @@
 	--muted-foreground: 0 0% 40%;
 
 	--accent: 240 21.95% 91.96%;
-	--accent-foreground: 0 0% 38%;
+	--accent-foreground: 0 0% 7%;
 
 	--destructive: 0 84.2% 60.2%;
 	--destructive-foreground: 210 40% 98%;
 
 	--border: 0 0% 61.2%;
 	--input: 0 0% 61.2%;
-	--ring: 0 0% 38%;
+	--ring: 0 0% 7%;
 
 	--radius: 0;
 
@@ -41,16 +41,16 @@
 }
 .theme-opac.dark {
 	--background: 240 17.65% 96.67%;
-	--foreground: 233.33 100% 1.76%;
+	--foreground: 0 0% 0.38%;
 
-	--primary: 0 0% 38%;
+	--primary: 0 0% 7%;
 	--primary-foreground: 0 0% 100%;
 
 	--card: 240 17.65% 96.67%;
-	--card-foreground: 233.33 100% 1.76%;
+	--card-foreground: 0 0% 0.38%;
 
 	--popover: 0 0% 100%;
-	--popover-foreground: 233.33 100% 1.76%;
+	--popover-foreground: 0 0% 0.38%;
 
 	--secondary: 240 17.65% 96.67%;
 	--secondary-foreground: 240 100% 0.78%;
@@ -59,14 +59,14 @@
 	--muted-foreground: 0 0% 40%;
 
 	--accent: 240 21.95% 91.96%;
-	--accent-foreground: 0 0% 38%;
+	--accent-foreground: 0 0% 7%;
 
 	--destructive: 0 84.2% 60.2%;
 	--destructive-foreground: 210 40% 98%;
 
 	--border: 0 0% 61.2%;
 	--input: 0 0% 61.2%;
-	--ring: 0 0% 38%;
+	--ring: 0 0% 7%;
 
 	--radius: 0;
 

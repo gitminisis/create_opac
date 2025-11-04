@@ -20,7 +20,7 @@ const LoginBtn = ({ className }: { className?: string }) => {
 			{isAuthenticated ? (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild className={'focus:outline-none focus:border-none'}>
-						<button className={'text-opac-white text-lg font-bold flex items-center'}>
+						<button className={'text-black text-lg font-bold flex items-center'}>
 							<div>
 								<div className="block sm:hidden">{message.welcome}!</div>
 								<div className={'break-words whitespace-normal'}>{decodeURIComponent(m2l_patron_name)}</div>
@@ -73,7 +73,7 @@ const LoginBtn = ({ className }: { className?: string }) => {
 				</DropdownMenu>
 			) : (
 				<Link
-					className={cn('transition no-underline text-lg text-opac-white hover:text-opac-secondary', className)}
+					className={cn('transition no-underline text-lg text-black hover:text-primary', className)}
 					href={`${config.auth.url}`}>
 					{message.logIn}
 				</Link>

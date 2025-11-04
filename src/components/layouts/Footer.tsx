@@ -154,33 +154,7 @@ const Footer = () => {
 
 							<hr className="my-4" style={{ borderColor: '#616161' }} />
 
-							{/* Contact Buttons */}
-							<div className="flex flex-col gap-2">
-								<a
-									href="https://www.bis.org/emailalerts.htm"
-									target="_blank"
-									rel="noreferrer"
-									className="inline-flex items-center gap-2 px-3 py-2 text-white text-sm rounded transition-colors"
-									style={{ backgroundColor: '#616161' }}
-									onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#b91c1c')}
-									onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#616161')}
-								>
-									<Mail size={16} />
-									<span>Sign up for email alerts</span>
-								</a>
-								<a
-									href="mailto:statistics@bis.org"
-									target="_blank"
-									rel="noreferrer"
-									className="inline-flex items-center gap-2 px-3 py-2 text-white text-sm rounded transition-colors"
-									style={{ backgroundColor: '#616161' }}
-									onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#b91c1c')}
-									onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#616161')}
-								>
-									<Mail size={16} />
-									<span>Contact us</span>
-								</a>
-							</div>
+							
 						</div>
 					</div>
 
