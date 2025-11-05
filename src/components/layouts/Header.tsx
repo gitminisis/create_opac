@@ -38,29 +38,30 @@ const Header = () => {
 					<div className="flex md:hidden">
 						<MobileMenu />
 					</div>
-				</div>
-				<nav className="hidden md:block py-2 pb-4">
-					<ul className="flex space-x-6 text-sm justify-end items-center">
-						{navigations.map((item: any, key) => (
-							<li key={key}>
-								<Link href={convertLink(item)} className="text-lg hover:underline text-black hover:text-primary">
-									{item.displayTitle}
+					<nav className="hidden md:block py-2 pb-4">
+						<ul className="flex space-x-6 text-sm justify-end items-center">
+							{navigations.map((item: any, key) => (
+								<li key={key}>
+									<Link href={convertLink(item)} className="text-lg hover:underline text-black hover:text-primary">
+										{item.displayTitle}
+									</Link>
+								</li>
+							))}
+							<li key={'minista'}>
+								<Link href={'/minista.html'} className="text-lg hover:underline text-black hover:text-opac-secondary">
+									MINIS'TA{' '}
 								</Link>
 							</li>
-						))}
-						<li key={'minista'}>
-							<Link href={'/minista.html'} className="text-lg hover:underline text-black hover:text-opac-secondary">
-								MINIS'TA{' '}
-							</Link>
-						</li>
-						<li>
-							<div className=" items-center space-x-4 hidden md:flex">
-								{config.auth.login && <LoginBtn />}
-								<LanguageSelect />
-							</div>
-						</li>
-					</ul>
-				</nav>
+							<li>
+								<div className=" items-center space-x-4 hidden md:flex">
+									{config.auth.login && <LoginBtn />}
+									<LanguageSelect />
+								</div>
+							</li>
+						</ul>
+					</nav>
+				</div>
+
 			</div>
 		</header>
 	)
