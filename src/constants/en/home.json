@@ -51,16 +51,16 @@
     },
     "featuredCollection": [
         {
-            "title": "CHURCH SLIDES",
-            "description": "Church related photographs from Pennsylvania",
-            "url": "REFD_HIGHER HSLC.1",
-            "thumbnail": "https://cams1.minisisinc.com/media/I0014102.jpg"
+            "title": "AGM Photos",
+            "description": "Photos from BIS meetings from 1947 through to present",
+            "url": "REFD A.BISA.8.MEE.01",
+            "thumbnail": "https://images.unsplash.com/photo-1610374792793-f016b77ca51a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1374"
         },
         {
-            "title": "DIARIES",
-            "description": "Embark on exciting journeys and thrilling discoveries.",
-            "url": "REFD C 302",
-            "thumbnail": "https://cams1.minisisinc.com/media/I0016400.JPG"
+            "title": "Conference Proceedings",
+            "description": "Conference proceedings, speeches, and other corporate history",
+            "url": "KEYWORD_CLUSTER \"Conference\"",
+            "thumbnail": "https://images.unsplash.com/photo-1542387740-67856d836e59?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1374"
         }
     ],
     "topPicks": [
@@ -75,7 +75,7 @@
             "title": "AGM Group Photos",
             "subTitle": "Sub-series",
             "description": "",
-            "expression": " A.BISA.8.MEE.01",
+            "expression": "REFD A.BISA.8.MEE.01",
             "database": "DESCRIPTION_WEB"
         },
         {
@@ -86,11 +86,25 @@
             "database": "DESCRIPTION_WEB"
         },
         {
-            "title": "Allan is on Vacation",
-            "subTitle": "Allan in Paris",
-            "description": "Photos and scan of old french documents related to Glengarry",
-            "expression": "",
-            "database": ""
+            "title": "Reports, publications and speeches",
+            "subTitle": "Series",
+            "description": "A mixture of publications, reports, speeches found in Mr Auboin's papers",
+            "expression": "CH-000583-8 A.BISA.7.18.6.AUB.6",
+            "database": "DESCRIPTION_WEB"
+        },
+        {
+            "title": "First agreement for multilateral monetary compensation and beginning of discussions: 1947",
+            "subTitle": "Series",
+            "description": "First agreement for multilateral monetary compensation (Paris, 18th November 1947) and beginning of discussions regarding new agreement for payments and compensations.",
+            "expression": "CH-000583-8 A.BISA.7.33.EPU1",
+            "database": "DESCRIPTION_WEB"
+        },
+        {
+            "title": "Articles and contributions to edited volumes",
+            "subTitle": "Series",
+            "description": "This collection includes works by BIS staff members that were not published by the BIS but by an external party.",
+            "expression": "CH-000583-8 A.BISA.9.3.002",
+            "database": "DESCRIPTION_WEB"
         }
     ],
     "enableCategoriesItems": true,
