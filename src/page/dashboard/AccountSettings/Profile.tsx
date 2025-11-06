@@ -176,11 +176,7 @@ const Profile = () => {
 							{message.confirmationSent}
 						</h1>
 						<p className="mt-6 text-lg text-black">
-							{message.checkEmail}
-							<a className="font-semibold" href="/">
-								{message.logIn}
-							</a>
-							.
+							{message.checkEmail}...
 						</p>
 						<p className="mt-4 text-black">
 						{message.redirecting} {countdown} {message.second}{countdown !== 1 ? 's' : ''}...
