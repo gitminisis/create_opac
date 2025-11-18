@@ -17,7 +17,7 @@ export default function HomeSearchForm({ className, inputName, inputStyle, actio
 	const { message } = useConstants()
 
 	return (
-		<Card className="w-full max-w-3xl mx-auto rounded-[2rem] shadow-lg">
+		<Card className="w-full max-w-3xl mx-auto rounded-[2rem] shadow-lg bg-primary/85">
 			<CardHeader>
 				<CardTitle className="text-2xl font-bold text-left">{title}</CardTitle>
 			</CardHeader>
