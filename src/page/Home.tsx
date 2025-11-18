@@ -34,6 +34,7 @@ const Home = ({ previewMode = false, previewData }: MainPageProps) => {
 		heroBanner,
 		searchURL,
 		enableFeaturedCollection,
+		enableTopPicks,
 		enableRSVP,
 		enableCategoriesItems,
 		enableRecentAddition,
@@ -58,7 +59,7 @@ const Home = ({ previewMode = false, previewData }: MainPageProps) => {
 				</div>
 			</Hero>
 
-			<TopPick page={'home'} previewData={previewData} previewMode={previewMode} />
+			{enableTopPicks && <TopPick page={'home'} previewData={previewData} previewMode={previewMode} />}
 
 			{enableFeaturedCollection && <FeaturedCollection page={'home'} previewData={previewData} previewMode={previewMode} />}
 			{enableCategoriesItems && <Categories page={'home'} previewData={previewData} previewMode={previewMode} />}
