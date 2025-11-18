@@ -1,5 +1,5 @@
-export const HighlightText = ({ text, highlights }: { text: string; highlights: string[] }) => {
-	if (!highlights.length) return <p className="text-foreground">{text}</p>
+export const HighlightText = ({ text, highlights ,className}: { text: string; highlights: string[]; className?:string;}) => {
+	if (!highlights.length) return <p className={`text-foreground text-ellipsis ${className}`}>{text}</p>
 
 	// Create a regex pattern from the highlight words with word boundaries
 	function escapeRegex(str: string) {
@@ -44,7 +44,7 @@ export const HighlightText = ({ text, highlights }: { text: string; highlights: 
 	}
 
 	return (
-		<p className="text-foreground">
+		<p className={`text-foreground text-ellipsis ${className}`}>
 			{textArray.map((part, index) =>
 				part.isHighlight ? (
 					<span key={index} className="bg-foreground text-background px-1 rounded">

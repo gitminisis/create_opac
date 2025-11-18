@@ -23,7 +23,7 @@ const GridView = ({ title, recordLink, searchTerms, record, fields, database, th
 			className={cn(getClassName(database, 'border'), 'border-2')}
 			title={
 				<Link href={recordLink}>
-					<HighlightText text={truncateString(title)} highlights={searchTerms} />
+					<HighlightText text={truncateString(title)} highlights={searchTerms} className={'max-h-[90px] overflow-hidden whitespace-pre-wrap'}/>
 				</Link>
 			}
 			description={gridFields}

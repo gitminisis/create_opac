@@ -1,5 +1,5 @@
 import Layout from '@/components/layouts'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
@@ -30,6 +30,8 @@ type ClientFormData = {
 export const PASSWORD_MIN_LENGTH = 8
 
 const Register = () => {
+	const recaptchaRef = useRef<ReCAPTCHA | null>(null)
+	const [isLoading, setIsLoading] = useState(true)
 	const [loading, setLoading] = useState(false)
 	const { records } = useJSONData({ selector: '#xml_record' })
 	const [recaptchaToken, setRecaptchaToken] = useState<string>('')
@@ -413,10 +415,13 @@ const Register = () => {
 										<strong>{message.purpose}:</strong> {watch('C_RES_PURPOSE')}
 									</li>
 								</ul>
-								<div className="flex justify-center scale-75 sm:scale-90 mr-[210px] sm:mr-[0px]">
+								<div className="flex justify-center scale-75 sm:scale-90 mr-[210px] sm:mr-[0px] mt-[20px]">
+									{isLoading && <p>🔄 Loading...</p>}
 									<ReCAPTCHA
+										ref={recaptchaRef}
 										sitekey={process.env.REACT_APP_RSVP_RECAPTCHA || import.meta.env.VITE_REACT_APP_RECAPTCHA}
 										onChange={onCaptchaChange}
+										asyncScriptOnLoad={() => setIsLoading(false)}
 									/>
 								</div>
 								{status === 300 && <p className="text-red-500 text-center mt-2">{message.emailAlreadyRegistered}</p>}

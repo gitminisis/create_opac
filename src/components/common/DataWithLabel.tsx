@@ -15,7 +15,7 @@ const DataWithLabel = ({ className, label, items, searchTerms = [] }: DataWithLa
 	return (
 		<div className={cn('flex flex-row text-black space-x-1', className)}>
 			<Label className="text-sm font-bold ">{label}: </Label>
-			<div className="text-sm font-normal">
+			<div className="text-sm font-normal overflow-hidden whitespace-nowrap max-w-[170px]">
 				{items.map((item: any) => {
 					if (typeof item === 'string') {
 						return <HighlightText text={truncateString(item, 250)} highlights={searchTerms} />
