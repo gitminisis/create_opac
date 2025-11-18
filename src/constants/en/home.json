@@ -1,1 +1,75 @@
-{"heading":"","heroBanner":"https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_crop_1920_750/public/images/main/Vols_close_3_2.jpg.webp?itok=w7D74zeI","searchURL":"UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW","browseByCategoryTitle":"Browse by Category","calendarfilterOption":"","database_name":"UNION_VIEW","displayTitle":"Home","categoriesItems":[{"thumbnail":"https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/GEO_MAIN_52954_001.jpg.webp?itok=okOSHhro","title":"Correspondance","url":"KEYWORD_CLUSTER \"letters\""},{"thumbnail":"https://images.unsplash.com/photo-1472173148041-00294f0814a2","title":"Books","url":"KEYWORD_CLUSTER \"book\""},{"thumbnail":"https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/GEO_ADD_17_82_012.jpg.webp?itok=iXL1dJWK","title":"Financial Records & Inventories","url":"KEYWORD_CLUSTER \"financial\""},{"thumbnail":"https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/images/main/RS407889_RA%20CP_MAIN_14_52-54%20side%20L_lpr.jpg.webp?itok=PC3CHN9E","title":"Military History","url":"KEYWORD_CLUSTER \"military\""}],"rsvp":{"filterDatabase":"","filterOption":"TAG_DB_TYPE","filterTypes":[{"type":"Archives","color":"bg-minisis-archives border-minisis-archives","icon":"rounded"},{"type":"Museum","color":"bg-minisis-museum border-minisis-museum","icon":"rounded"},{"type":"Library","color":"bg-minisis-library border-minisis-library","icon":"rounded"}]},"featuredCollection":[{"title":"Privy Purse Papers to 1910","description":"Records of the Privy Purse relating to expenditure by Queen Victoria, Prince Albert and Edward VII (PPTO - Privy Purse and Treasurer's Department papers)","url":"REFD A.BISA.8.MEE.01","thumbnail":"https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/images/main/Picture2.jpg.webp?itok=d-FZ_GBm"},{"title":"Victorian Papers","description":"Victorian Papers, Main Series","url":"KEYWORD_CLUSTER \"Conference\"","thumbnail":"https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/images/main/VIC_MAIN_QVJ_HIND_1_005_0.jpg.webp?itok=No5wYA6d"}],"topPicks":[],"enableCategoriesItems":true,"enableFeaturedCollection":true,"enableRSVP":true,"enableTopPicks":false,"enableMap":true,"enableTimeline":true,"linkURL":"/","filename":"home.html"}
+{
+    "heading": "",
+    "heroBanner": "https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_crop_1920_750/public/images/main/Vols_close_3_2.jpg.webp?itok=w7D74zeI",
+    "searchURL": "UNIONSEARCH&SIMPLE_EXP=Y&ERRMSG=[MESSAGES]no-record.html&REPORT=WEB_UNION_SUM&APPLICATION=UNION_VIEW",
+    "browseByCategoryTitle": "Browse by Category",
+    "calendarfilterOption": "",
+    "database_name": "UNION_VIEW",
+    "displayTitle": "Home",
+    "categoriesItems": [
+        {
+            "thumbnail": "https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/GEO_MAIN_52954_001.jpg.webp?itok=okOSHhro",
+            "title": "Correspondance",
+            "url": "KEYWORD_CLUSTER \"letters\""
+        },
+        {
+            "thumbnail": "https://images.unsplash.com/photo-1472173148041-00294f0814a2",
+            "title": "Books",
+            "url": "KEYWORD_CLUSTER \"book\""
+        },
+        {
+            "thumbnail": "https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/GEO_ADD_17_82_012.jpg.webp?itok=iXL1dJWK",
+            "title": "Financial Records & Inventories",
+            "url": "KEYWORD_CLUSTER \"financial\""
+        },
+        {
+            "thumbnail": "https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/images/main/RS407889_RA%20CP_MAIN_14_52-54%20side%20L_lpr.jpg.webp?itok=PC3CHN9E",
+            "title": "Military History",
+            "url": "KEYWORD_CLUSTER \"military\""
+        }
+    ],
+    "rsvp": {
+        "filterDatabase": "",
+        "filterOption": "TAG_DB_TYPE",
+        "filterTypes": [
+            {
+                "type": "Archives",
+                "color": "bg-minisis-archives border-minisis-archives",
+                "icon": "rounded"
+            },
+            {
+                "type": "Museum",
+                "color": "bg-minisis-museum border-minisis-museum",
+                "icon": "rounded"
+            },
+            {
+                "type": "Library",
+                "color": "bg-minisis-library border-minisis-library",
+                "icon": "rounded"
+            }
+        ]
+    },
+    "featuredCollection": [
+        {
+            "title": "Privy Purse Papers to 1910",
+            "description": "Records of the Privy Purse relating to expenditure by Queen Victoria, Prince Albert and Edward VII (PPTO - Privy Purse and Treasurer's Department papers)",
+            "url": "REFD A.BISA.8.MEE.01",
+            "thumbnail": "https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/images/main/Picture2.jpg.webp?itok=d-FZ_GBm"
+        },
+        {
+            "title": "Victorian Papers",
+            "description": "Victorian Papers, Main Series",
+            "url": "KEYWORD_CLUSTER \"Conference\"",
+            "thumbnail": "https://cmsadmin.rct.uk/sites/default/files/styles/rctr_scale_1010w/public/images/main/VIC_MAIN_QVJ_HIND_1_005_0.jpg.webp?itok=No5wYA6d"
+        }
+    ],
+    "topPicks": [],
+    "enableCategoriesItems": true,
+    "enableFeaturedCollection": true,
+    "enableRSVP": true,
+    "enableTopPicks": false,
+    "enableMap": true,
+    "enableTimeline": true,
+    "linkURL": "/",
+    "filename": "home.html"
+}
